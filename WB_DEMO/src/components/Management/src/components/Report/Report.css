@@ -1,0 +1,177 @@
+.report-header {
+  position: fixed;
+  width: 100%;
+  background-color: rgb(51, 65, 85);
+  color: white;
+  z-index: 1000;
+  top: 0;
+}
+
+.report-header-title {
+  background-color: rgb(51, 65, 85);
+  font-weight: 400;
+}
+
+.report-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.report-container {
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.report-container .text-center {
+  margin-bottom: 20px;
+}
+
+.report-container {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Add shadow for a better visual effect */
+}
+
+.report-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.report-item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #333;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s ease;
+}
+
+.report-item-icon svg {
+  color: #333;
+}
+
+.report-item:hover .report-item-icon {
+  transform: translateY(-5px);
+}
+
+.report-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.report-button:hover {
+  transform: scale(1.1);
+}
+
+.fixed-bottom {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+
+/* .fa-search,
+.fa-bell,
+.fa-user-circle,
+.report-icon,
+.camera-icon,
+.transaction-icon,
+.location-icon,
+.entry-icon,
+.fixed-bottom .fa-home,
+.fixed-bottom .fa-backward,
+.fixed-bottom .fa-power-off {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fa-search:hover,
+.fa-bell:hover,
+.fa-user-circle:hover,
+.report-icon:hover,
+.camera-icon:hover,
+.transaction-icon:hover,
+.location-icon:hover,
+.entry-icon:hover,
+.fixed-bottom .fa-home:hover,
+.fixed-bottom .fa-backward:hover,
+.fixed-bottom .fa-power-off:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+} */
+
+.notification-popup {
+  position: absolute;
+  top: calc(10% + 10px);
+  right: 0;
+  z-index: 1000;
+  background-color: rgb(253, 253, 253);
+  color: #333;
+  padding: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.notification-popup ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.notification-popup ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.notification-popup ul li:last-child {
+  border-bottom: none;
+}
+
+.report-icon,
+.camera-icon,
+.transaction-icon,
+.entry-icon,
+.location-icon {
+  border: 2px solid #333;
+  border-radius: 50%;
+  padding: 20px;
+  background-color: #f0f0f0;
+  transition: transform 0.3s ease;
+}
+
+.report-icon:hover,
+.camera-icon:hover,
+.transaction-icon:hover,
+.entry-icon:hover,
+.location-icon:hover {
+  transform: translateY(-5px);
+}
+
+.button-bottom {
+  padding: 10px;
+  /* border-top: 1px solid #ccc; */
+  width: 100%;
+}
+
+.icon-button {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+.button-bottom {
+  margin-top: 10rem;
+}

@@ -1,0 +1,56 @@
+.trans_main_div{
+    margin-top: 65px;
+    margin-left: 70px;
+} 
+.tr_dash{
+    margin-top: 8px;
+    color: black;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.heading{
+    display: flex;
+    font-weight: 500;
+    
+}
+
+.heading p{
+    padding: 20px;
+    background-color: black;
+    color: white;
+}
+
+.content1{
+    display: flex;
+}
+
+.content1 p{
+    padding: 18px;
+}
+
+table{
+    margin-top: -10px;
+    margin-left: 70px;
+}
+
+.back{
+    background-color: skyblue;
+    color:  black;
+    cursor: pointer;
+    font-weight: 600;
+    width: 90px;
+}
+.abc{
+    width: 110px;
+    text-align: center;
+}
+.abcd{
+    width: 150px;
+    text-align: center;
+}
+
+
+.home-sidebar.expanded + .main-content {
+    margin-left: 220px !important;
+}

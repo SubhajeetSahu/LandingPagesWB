@@ -1,0 +1,50 @@
+/* report.css */
+
+.report-item {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .report-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .report-item-icon {
+    font-size: 2rem;
+  }
+  
+  .report-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .report-container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .report-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Initially, two columns */
+    grid-gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Media query for mobile view */
+  @media (max-width: 767px) {
+    .report-content {
+      grid-template-columns: repeat(1, 1fr); /* One column for mobile view */
+    }
+  }
+  

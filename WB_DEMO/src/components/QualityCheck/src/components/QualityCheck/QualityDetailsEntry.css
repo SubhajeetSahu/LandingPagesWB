@@ -1,0 +1,190 @@
+.right_div{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin: 5px;
+}
+ 
+.right_div button{
+  padding: 5px;
+  margin: 5px;
+}
+ 
+table{
+    width: 75%;
+   
+}
+ 
+td{
+    width: 50%;
+}
+ 
+.close{
+    font-size: 30px;
+    color: red;
+    text-align: right;
+    cursor: pointer;
+}
+.display_weight{
+    height: 40px;
+    width: 250px;
+    background-color: green;
+    color: rgb(248, 232, 13);
+    text-align: center;
+}
+.camview td{
+    border:5px solid;
+   
+    width: auto;
+   
+}
+ /* .row {
+    gap: -100px;
+  }
+    */
+ 
+  h1{
+    margin-left: 3%;
+  }
+ 
+ 
+  .div1 label {
+    text-align: center;
+    width: 30%;
+    height: 30px;
+   
+  }
+  .div1 input[type="text"] {
+   
+    width: 100px;
+    height: 30px;
+   
+  }
+  .div1 input[type="date"] {
+   
+    width: 20%;
+    height: 30px;
+   
+  }
+ 
+  .div2 input[type="text"] {
+   
+    width: 67.5%;
+    height: 30px;
+   
+  }
+  .div2 label {
+    text-align: center;
+    width: 30%;
+    height: 30px;
+   
+  }
+  .div3 label {
+    text-align: center;
+    width: 50%;
+    height: 30px;
+   
+  }
+  .div3 select{
+    text-align: center;
+    width: 45%;
+    height: 30px;
+   
+  }
+  .para1{
+    display: flex;
+  }
+  .col-lg-2 li{
+    /* padding-left: -100px; */
+    width: 100%;
+    margin-left: -30px;
+   
+  }
+
+  /* Print.css */
+
+/* Existing styles... */
+
+.img-transition {
+transition: transform 0.3s ease-in-out;
+}
+
+.img-transition:hover {
+transform: scale(1.1);
+}
+
+.button-transition {
+transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.button-transition:hover {
+transform: scale(1.1);
+background-color: #0069d9; /* Adjust the hover background color as desired */
+}
+
+
+
+
+.home-sidebar {
+  transition: margin-left 0.3s ease; /* Adjust duration and easing as needed */
+}
+
+.home-sidebar.expanded + .qualitydeatilcheckmain-content {
+  margin-left: 180px;
+}
+
+
+/* Improved Typography */
+/* body {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+ }
+ 
+ h1, h2, h3, h4, h5, h6 {
+  color: #222;
+ } */
+ 
+ /* Responsive Design */
+ @media (max-width: 768px) {
+  .qualitydeatilcheckmain-content {
+     padding: 10px;
+  }
+ }
+ 
+ /* Interactive Elements */
+ .button-transition:hover {
+  transform: scale(1.05);
+  background-color: #007bff; /* Updated hover color */
+ }
+ 
+ /* High-Quality Images */
+ .img-transition {
+  transition: transform 0.3s ease-in-out;
+  max-width: 100%; /* Ensure images are responsive */
+ }
+ 
+ /* Accessibility */
+ a:focus {
+  outline: 2px solid #007bff; /* Clear focus outline */
+ }
+ 
+ 
+ /* Base styles for mobile devices */
+.qualitydeatilcheckmain-content {
+  padding: 10px;
+ }
+ 
+ /* Styles for tablets and larger devices */
+ @media screen and (min-width: 768px) {
+  .qualitydeatilcheckmain-content {
+     padding: 20px;
+  }
+ }
+ 
+ /* Styles for laptops and desktops */
+ @media screen and (min-width: 1024px) {
+  .qualitydeatilcheckmain-content {
+     padding: 30px;
+  }
+ }
+ 

@@ -1,0 +1,18 @@
+/* .home-sidebar.expanded + .VehicleEntryDetailsMainContent {
+    margin-left: 220px;
+  } */
+
+
+  /* Initial state */
+.VehicleEntryDetailsMainContent {
+    transition: margin-left 0.3s ease; /* Adjust timing and easing as needed */
+}
+
+/* Expanded state */
+.home-sidebar.expanded + .VehicleEntryDetailsMainContent {
+    margin-left: 220px;
+}
+
+  .VehicleEntryDetailsMainContent{
+    margin-left: 100px;
+  }  

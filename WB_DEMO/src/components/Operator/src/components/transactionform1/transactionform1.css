@@ -1,0 +1,109 @@
+.trans_form_main_div1{
+  margin-top: 20px;
+  margin-left: 40px;
+    
+}
+
+.right_div{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  .right_div button{
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  table{
+      width: 75%;
+      
+  }
+  
+  td{
+      width: 50%;
+  }
+  
+  .close{
+      font-size: 30px;
+      color: red;
+      text-align: right;
+      cursor: pointer;
+  }
+  .display_weight{
+      height: 40px;
+      width: 250px;
+      background-color: green;
+      color: rgb(248, 232, 13);
+      text-align: center;
+  }
+  .camview td{
+      border:5px solid;
+      
+      width: auto;
+      
+  }
+   /* .row {
+      gap: -100px;
+    }
+      */
+  
+    h1{
+      margin-left: 5%;
+    }
+    
+    
+    .div1 label {
+      text-align: center;
+      width: 30%;
+      height: 30px;
+     
+    }
+    .div1 input[type="text"] {
+      
+      width: 100px;
+      height: 30px;
+     
+    }
+    .div1 input[type="date"] {
+      
+      width: 20%;
+      height: 30px;
+     
+    }
+    
+    .div2 input[type="text"] {
+      
+      width: 67.5%;
+      height: 30px;
+     
+    }
+    .div2 label {
+      text-align: center;
+      width: 30%;
+      height: 30px;
+     
+    }
+    .div3 label {
+      text-align: center;
+      width: 50%;
+      height: 30px;
+     
+    }
+    .div3 select{
+      text-align: center;
+      width: 45%;
+      height: 30px;
+     
+    }
+    .para1{
+      display: flex;
+    }
+    .col-lg-2 li{
+      /* padding-left: -100px; */
+      width: 100%;
+      margin-left: -30px;
+      
+    }
+   

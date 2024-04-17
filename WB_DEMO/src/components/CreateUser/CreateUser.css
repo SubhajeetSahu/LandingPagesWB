@@ -1,0 +1,31 @@
+.download-btn {
+  transition: transform 0.3s ease-in-out;
+}
+
+.download-btn:hover {
+  background-color: green;
+  transform: scale(1.1);
+}
+
+.create-main-content {
+  margin-left: 210px;
+  margin-top: 7rem;
+  transition: margin-left 0.2s ease;
+}
+
+.btn-hover:hover {
+  background-color: #d63031 !important;
+  color: #fff !important;
+  transform: scale(1.1) !important;
+}
+
+.btn-hover.btn-success-1:hover {
+  background-color: #2ecc71 !important;
+  color: #fff !important;
+  transform: scale(1.1) !important;
+}
+
+label {
+  font-weight: bold;
+  color: rgb(51, 65, 85);
+}

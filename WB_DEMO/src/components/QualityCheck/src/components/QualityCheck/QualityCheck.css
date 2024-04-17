@@ -1,0 +1,150 @@
+.daily-report-date {
+  font-weight: bold;
+}
+
+.daily-report-main-content {
+  margin-left: 100px;
+  margin-top: 7rem;
+  transition: margin-left 0.2s ease;
+}
+
+.daily_report_icon {
+  border: 2px solid #333;
+  border-radius: 50%;
+  padding: 10px;
+  color: black;
+  background-color: #f0f0f0;
+}
+
+.daily_report_icon:hover {
+  transform: scale(1.1);
+}
+
+.download-btn {
+  transition: transform 0.3s ease-in-out;
+}
+
+.download-btn:hover {
+  background-color: green;
+  transform: scale(1.1);
+}
+
+/* Pagination Buttons */
+.pagination-buttons {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+}
+
+.pagination-buttons li {
+  margin: 0 5px;
+}
+
+.pagination-buttons li a {
+  display: inline-block;
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Add border radius */
+  background-color: #f0f0f0;
+  color: black;
+  text-decoration: none;
+}
+
+.pagination-buttons li a:hover {
+  background-color: #ccc;
+}
+.daily-report-table-container {
+  display: flex;
+  justify-content: flex-end;
+  overflow-x: auto; /* Always show horizontal scrollbar */
+  overflow-y: hidden; /* Hide vertical scrollbar */
+}
+
+
+
+
+.daily-report-table {
+  width: 100%;
+  table-layout: fixed; /* Ensure that the table has a fixed layout */
+  margin: auto;
+}
+
+.daily-report-table th,
+.daily-report-table td {
+  white-space: nowrap; /* Prevent wrapping of table cells */
+}
+
+h2.header{
+  text-align: center;
+  margin-left: 200px;
+  
+}
+
+/* When the sidebar is expanded */
+.home-sidebar.expanded + .daily-report-main-content {
+  margin-left: 220px;
+}
+
+.daily-report-table td {
+  background-color: white; /* or any other contrasting color */
+  padding: 8px; /* Add some padding for better visibility */
+}
+
+
+ 
+/* Base styles for mobile devices */
+.daily-report-main-content {
+  margin-left: 0;
+  margin-top: 7rem;
+ }
+ 
+ h2.header {
+  margin-left: 0;
+ }
+ 
+ /* Styles for larger screens */
+ @media (min-width: 768px) {
+  .daily-report-main-content {
+     margin-left: 100px;
+  }
+ 
+  h2.header {
+     margin-left: 200px;
+  }
+ }
+ 
+
+ /* ---------------------------------- */
+ /* Base styles for mobile devices */
+.daily-report-main-content {
+  margin-left: 0;
+  margin-top: 7rem;
+ }
+ 
+ h2.header {
+  margin-left: 0;
+ }
+ 
+ /* Styles for larger screens */
+ @media (min-width: 768px) {
+  .daily-report-main-content {
+     margin-left: 100px;
+  }
+ 
+  h2.header {
+     margin-left: 200px;
+  }
+ }
+ 
+ /* Additional mobile-specific styles */
+ @media (max-width: 767px) {
+  .daily-report-date {
+     font-size: 1.2rem; /* Adjust font size for better visibility on mobile */
+     margin-bottom: 1rem; /* Add some space below the date heading */
+  }
+ }
+ 
+ 
+ 
+ 

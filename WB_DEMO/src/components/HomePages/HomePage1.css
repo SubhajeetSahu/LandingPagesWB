@@ -1,0 +1,30 @@
+.card-gradient {
+    background: linear-gradient(to right, #3354af, #27303a);
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+  }
+   
+  .card-gradient:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+   
+  .card-body {
+    padding: 1.5rem;
+  }
+   
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+   
+  .card-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .adminHeading{
+    margin-bottom: 10px;
+    margin-left: 400px;
+  }
