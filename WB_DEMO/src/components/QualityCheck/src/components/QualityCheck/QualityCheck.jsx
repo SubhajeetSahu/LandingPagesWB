@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useMediaQuery } from 'react-responsive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileArrowDown, faBackwardStep, faForwardStep, faBackwardFast, faForwardFast } from '@fortawesome/free-solid-svg-icons';
 
 function QualityCheck() {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 3;
   const [selectedDate, setSelectedDate] = useState("");
   const navigate = useNavigate();
+  const [pageNumberInput, setPageNumberInput] = useState(currentPage + 1);
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
@@ -54,7 +57,7 @@ function QualityCheck() {
   const [data, setData] = useState([
     {
       "Ticket No.": 1,
-      Date: "2024-04-17",
+      Date: "2024-04-18",
       "Vehicle No.": "ABC123",
       In: "09:00",
       Out: "11:30",
@@ -67,7 +70,7 @@ function QualityCheck() {
     },
     {
       "Ticket No.": 2,
-      Date: "2024-04-17",
+      Date: "2024-04-18",
       "Vehicle No.": "DEF456",
       In: "12:00",
       Out: "14:30",
@@ -80,7 +83,7 @@ function QualityCheck() {
     },
     {
       "Ticket No.": 3,
-      Date: "2024-04-17",
+      Date: "2024-04-18",
       "Vehicle No.": "GHI789",
       In: "10:00",
       Out: "12:30",
@@ -91,6 +94,146 @@ function QualityCheck() {
       "Supplier Name": "Supplier C",
        "Transaction Status": "Inbound",
     },
+    {
+      "Ticket No.": 4,
+      "Date": "2024-04-18",
+      "Vehicle No.": "JKL012",
+      "In": "08:30",
+      "Out": "10:45",
+      "Transporter Name": "LMN Shipping",
+      "Product Name": "Copper",
+      "TP No.": "TP004",
+      "PO No.": "PO004",
+      "Supplier Name": "Supplier D",
+      "Transaction Status": "Outbound"
+   },
+   
+   {
+      "Ticket No.": 5,
+      "Date": "2024-04-18",
+      "Vehicle No.": "MNO345",
+      "In": "11:15",
+      "Out": "13:45",
+      "Transporter Name": "STU Transport",
+      "Product Name": "Steel",
+      "TP No.": "TP005",
+      "PO No.": "PO005",
+      "Supplier Name": "Supplier E",
+      "Transaction Status": "Outbound"
+   },
+   
+   {
+      "Ticket No.": 6,
+      "Date": "2024-04-18",
+      "Vehicle No.": "PQR678",
+      "In": "09:30",
+      "Out": "11:00",
+      "Transporter Name": "VWX Logistics",
+      "Product Name": "Aluminum",
+      "TP No.": "TP006",
+      "PO No.": "PO006",
+      "Supplier Name": "Supplier F",
+      "Transaction Status": "Inbound"
+   },
+   
+   {
+      "Ticket No.": 7,
+      "Date": "2024-04-18",
+      "Vehicle No.": "STU901",
+      "In": "14:00",
+      "Out": "16:30",
+      "Transporter Name": "YZA Shipping",
+      "Product Name": "Nickel",
+      "TP No.": "TP007",
+      "PO No.": "PO007",
+      "Supplier Name": "Supplier G",
+      "Transaction Status": "Outbound"
+   },
+   
+   {
+      "Ticket No.": 8,
+      "Date": "2024-04-18",
+      "Vehicle No.": "VWX234",
+      "In": "10:45",
+      "Out": "12:15",
+      "Transporter Name": "BCD Transport",
+      "Product Name": "Zinc",
+      "TP No.": "TP008",
+      "PO No.": "PO008",
+      "Supplier Name": "Supplier H",
+      "Transaction Status": "Inbound"
+   },
+   
+   {
+      "Ticket No.": 9,
+      "Date": "2024-04-18",
+      "Vehicle No.": "YZA567",
+      "In": "13:30",
+      "Out": "15:45",
+      "Transporter Name": "EFG Logistics",
+      "Product Name": "Lead",
+      "TP No.": "TP009",
+      "PO No.": "PO009",
+      "Supplier Name": "Supplier I",
+      "Transaction Status": "Outbound"
+   },
+   
+   {
+      "Ticket No.": 10,
+      "Date": "2024-04-18",
+      "Vehicle No.": "BCD890",
+      "In": "08:15",
+      "Out": "10:30",
+      "Transporter Name": "HIJ Shipping",
+      "Product Name": "Gold",
+      "TP No.": "TP010",
+      "PO No.": "PO010",
+      "Supplier Name": "Supplier J",
+      "Transaction Status": "Inbound"
+   },
+   
+   {
+      "Ticket No.": 11,
+      "Date": "2024-04-18",
+      "Vehicle No.": "EFG123",
+      "In": "11:00",
+      "Out": "13:15",
+      "Transporter Name": "KLM Transport",
+      "Product Name": "Silver",
+      "TP No.": "TP011",
+      "PO No.": "PO011",
+      "Supplier Name": "Supplier K",
+      "Transaction Status": "Outbound"
+   },
+   
+   {
+      "Ticket No.": 12,
+      "Date": "2024-04-18",
+      "Vehicle No.": "HIJ456",
+      "In": "09:45",
+      "Out": "11:30",
+      "Transporter Name": "NOP Logistics",
+      "Product Name": "Platinum",
+      "TP No.": "TP012",
+      "PO No.": "PO012",
+      "Supplier Name": "Supplier L",
+      "Transaction Status": "Inbound"
+   },
+   
+   {
+       "Ticket No.": 13,
+       "Date": "2024-04-18",
+       "Vehicle No.": "KLM789",
+       "In": "14:15",
+       "Out": "16:30",
+       "Transporter Name": "QRS Shipping",
+       "Product Name": "Titanium",
+       "TP No.": "TP013",
+       "PO No.": "PO013",
+       "Supplier Name": "Supplier M",
+       "Transaction Status": "Outbound"
+   },
+   
   ]);
 
   const handleDateChange = (event) => {
@@ -121,14 +264,36 @@ function QualityCheck() {
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
+    setPageNumberInput(selected + 1); // Update input value when page changes
   };
 
   const handleDownload = () => {
-    const ws = XLSX.utils.json_to_sheet(filteredData);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "DailyReport");
-    XLSX.writeFile(wb, "daily_report.xlsx");
+    if (file) {
+      const reportFilePath = '../../Report/' + file.name; // Constructing the relative path
+      fetch(reportFilePath)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('File not found');
+          }
+          return response.blob();
+        })
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = file.name;
+          document.body.appendChild(a);
+          a.click();
+          URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        })
+        .catch(error => {
+          console.error('Error downloading file:', error);
+          // Handle error (e.g., display a message to the user)
+        });
+    }
   };
+  
 
   const tableContainerRef = useRef(null);
 
@@ -139,6 +304,25 @@ function QualityCheck() {
     }
   }, [data]); 
 
+  // Handle input change for page number input
+  const handlePageNumberInputChange = (event) => {
+    setPageNumberInput(event.target.value);
+  };
+
+  // Handle input blur (when user clicks outside) for page number input
+  const handlePageNumberInputBlur = () => {
+    // Convert input value to integer
+    let pageNumber = parseInt(pageNumberInput);
+
+    // Check if pageNumber is valid and within range
+    if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pageCount) {
+      setCurrentPage(pageNumber - 1); // Set current page
+    } else {
+      // Reset input value if invalid
+      setPageNumberInput(currentPage + 1);
+    }
+  };
+
   return (
     <div>
       <Header toggleSidebar={toggleSidebar} />
@@ -147,8 +331,8 @@ function QualityCheck() {
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}
       />
-      <div className="daily-report-main-content">
-        <div className="daily-report-date d-flex">
+      <div className="quality-check-main-content">
+        <div className="quality-check-date d-flex">
           <label htmlFor="date" className="mt-1">
             &nbsp;Date:&nbsp;
           </label>
@@ -161,11 +345,11 @@ function QualityCheck() {
             onChange={handleDateChange}
             max={getCurrentDate()}
           /> 
-          <h2 className="header">Quality Dashboard</h2>
+          <h2 className="quality-check-header">Quality Dashboard</h2>
         </div>
         
-        <div className="daily-report-table-container" ref={tableContainerRef}>
-          <div className="daily-report-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
+        <div className="quality-check-table-container" ref={tableContainerRef}>
+          <div className="quality-check-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
             <table className="table table-bordered table-striped">
               <thead>
                 <tr>
@@ -175,11 +359,12 @@ function QualityCheck() {
                   <th scope="col">In</th>
                   <th scope="col">Out</th>
                   <th scope="col">Transporter Name</th>
-                  <th scope="col">Product Name</th>
+                  <th scope="col">Product</th>
                   <th scope="col">TP No.</th>
                   <th scope="col">PO No.</th>
-                  <th scope="col">Supplier Name</th>
-                  <th scope="col">Transaction Status</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">Transaction Type</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -200,25 +385,41 @@ function QualityCheck() {
                     <td>{item["PO No."]}</td>
                     <td>{item["Supplier Name"]}</td>
                     <td>{item["Transaction Status"]}</td>
+                    <td>
+                      <button className="btn btn-success download-btn" onClick={handleDownload}>
+                        <FontAwesomeIcon icon={faFileArrowDown} /> 
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-        <div className="pagination-download-container">
-          <div className="pagination-container mt-3">
-            <ReactPaginate
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={pageCount}
-              onPageChange={handlePageChange}
-              containerClassName={"pagination-buttons"}
-              previousLinkClassName={"previous-button"}
-              nextLinkClassName={"next-button"}
-              disabledClassName={"pagination-disabled"}
-              activeClassName={"pagination-active"}
+        <div className="quality-check-pagination-download-container">
+          <div className="quality-check-pagination-container mt-3">
+          <button className="pagination-buttons fast-backward-button" onClick={() => setCurrentPage(0)} disabled={currentPage === 0}>
+              <FontAwesomeIcon icon={faBackwardFast} />
+            </button>
+            <button className="pagination-buttons previous-button" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 0}>
+              <FontAwesomeIcon icon={faBackwardStep} />
+            </button>
+            <input
+              type="number"
+              className="page-number-input"
+              value={pageNumberInput}
+              onChange={handlePageNumberInputChange}
+              onBlur={handlePageNumberInputBlur}
+              min="1"
+              max={pageCount}
             />
+            <span>/ {pageCount}</span>
+            <button className="pagination-buttons next-button" onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageCount - 1}>
+              <FontAwesomeIcon icon={faForwardStep} />
+            </button>
+            <button className="pagination-buttons fast-forward-button" onClick={() => setCurrentPage(pageCount - 1)} disabled={currentPage === pageCount - 1}>
+              <FontAwesomeIcon icon={faForwardFast} />
+            </button>
           </div>
         </div>
       </div>
@@ -227,3 +428,4 @@ function QualityCheck() {
 }
 
 export default QualityCheck;
+

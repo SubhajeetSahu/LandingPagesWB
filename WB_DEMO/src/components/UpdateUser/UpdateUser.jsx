@@ -7,7 +7,7 @@ import Sidebar from "../SideBar/SideBar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
-
+ 
 function UpdateUser() {
   const location = useLocation();
   const user = location.state;
@@ -25,7 +25,7 @@ function UpdateUser() {
   const [companies, setCompanies] = useState([]);
   const [sites, setSites] = useState([]);
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     // Fetch company list
     fetch("http://localhost:8080/api/v1/company/get/list")
@@ -37,11 +37,11 @@ function UpdateUser() {
       .catch((error) => {
         console.error("Error fetching company list:", error);
       });
-
+ 
     // Fetch initial site list for the user's company
     fetchSiteList(user.company);
   }, [user.company]);
-
+ 
   const fetchSiteList = (selectedCompany) => {
     fetch(`http://localhost:8080/api/v1/sites/company/${selectedCompany}`)
       .then((response) => response.json())
@@ -57,20 +57,20 @@ function UpdateUser() {
         console.error("Error fetching site list:", error);
       });
   };
-
+ 
   const handleCompanyChange = (e) => {
     setcompany(e.target.value);
     fetchSiteList(e.target.value);
   };
-
+ 
   const handleCancel = () => {
     navigate("/manage-user");
   };
-
+ 
   const toggleSidebar = () => {
     setIsSidebarExpanded(!isSidebarExpanded);
   };
-
+ 
   const handleSave = () => {
     const userData = {
       userId,
@@ -83,7 +83,7 @@ function UpdateUser() {
       middleName,
       lastName,
     };
-
+ 
     fetch(`http://localhost:8080/api/v1/users/updateUser/${user.userId}`, {
       method: "PUT",
       headers: {
@@ -109,7 +109,7 @@ function UpdateUser() {
         // Determine the title for the SweetAlert modal
         const title =
           typeof data === "string" ? data : "User Updated Successfully!";
-
+ 
         navigate("/manage-user");
         Swal.fire({
           title: title,
@@ -135,7 +135,7 @@ function UpdateUser() {
         });
       });
   };
-
+ 
   const handleRoleChange = (selectedRole) => {
     if (role.includes(selectedRole)) {
       setRole(role.filter((r) => r !== selectedRole));
@@ -143,7 +143,7 @@ function UpdateUser() {
       setRole([...role, selectedRole]);
     }
   };
-
+ 
   const handleSelectAllRoles = () => {
     if (role.length === 5) {
       setRole([]);
@@ -157,16 +157,16 @@ function UpdateUser() {
       ]);
     }
   };
-
+ 
   return (
     <div className="create-user">
       <Header toggleSidebar={toggleSidebar} />
-
+ 
       <Sidebar
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}
       />
-
+ 
       <div
         className={`create-main-content ${isSidebarExpanded ? "expanded" : ""}`}
       >
@@ -191,9 +191,10 @@ function UpdateUser() {
                       value={userId}
                       onChange={(e) => setuserId(e.target.value)}
                       required
+                      readOnly
                     />
                   </div>
-                  <div className="col-md-6">
+                  {/* <div className="col-md-6">
                     <label htmlFor="status" className="form-label">
                       Status
                     </label>
@@ -205,7 +206,7 @@ function UpdateUser() {
                     >
                       <option value="ACTIVE">ACTIVE</option>
                     </select>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="row mb-3">
                   <div className="col-md-4">
@@ -248,7 +249,7 @@ function UpdateUser() {
                     />
                   </div>
                 </div>
-
+ 
                 <div className="row mb-3">
                   <div className="col-md-6">
                     <label htmlFor="emailId" className="form-label">
@@ -263,7 +264,7 @@ function UpdateUser() {
                       onChange={(e) => setemailId(e.target.value)}
                     />
                   </div>
-
+ 
                   <div className="col-md-6">
                     <label htmlFor="role" className="form-label">
                       Role
@@ -368,7 +369,7 @@ function UpdateUser() {
                     </div>
                   </div>
                 </div>
-
+ 
                 <div className="row mb-3">
                   <div className="col-md-6">
                     <label htmlFor=" contactNo" className="form-label">
@@ -403,7 +404,7 @@ function UpdateUser() {
                     </select>
                   </div>
                 </div>
-
+ 
                 <div className="row mb-3">
                   <div className="col-md-6">
                     <label htmlFor="site" className="form-label">
@@ -461,5 +462,5 @@ function UpdateUser() {
     </div>
   );
 }
-
+ 
 export default UpdateUser;

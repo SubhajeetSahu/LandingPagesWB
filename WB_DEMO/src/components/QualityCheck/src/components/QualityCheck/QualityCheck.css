@@ -1,88 +1,98 @@
-.daily-report-date {
-  font-weight: bold;
-}
-
-.daily-report-main-content {
+.quality-check-main-content {
   margin-left: 100px;
   margin-top: 7rem;
   transition: margin-left 0.2s ease;
 }
 
-.daily_report_icon {
-  border: 2px solid #333;
-  border-radius: 50%;
-  padding: 10px;
-  color: black;
-  background-color: #f0f0f0;
+.quality-check-date {
+  font-weight: bold;
 }
 
-.daily_report_icon:hover {
-  transform: scale(1.1);
-}
-
-.download-btn {
-  transition: transform 0.3s ease-in-out;
-}
-
-.download-btn:hover {
-  background-color: green;
-  transform: scale(1.1);
-}
-
-/* Pagination Buttons */
-.pagination-buttons {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  justify-content: center;
-}
-
-.pagination-buttons li {
-  margin: 0 5px;
-}
-
-.pagination-buttons li a {
-  display: inline-block;
-  padding: 8px 12px; /* Adjust padding as needed */
-  border: 1px solid #ccc;
-  border-radius: 5px; /* Add border radius */
-  background-color: #f0f0f0;
-  color: black;
-  text-decoration: none;
-}
-
-.pagination-buttons li a:hover {
-  background-color: #ccc;
-}
-.daily-report-table-container {
+.quality-check-table-container {
   display: flex;
   justify-content: flex-end;
   overflow-x: auto; /* Always show horizontal scrollbar */
   overflow-y: hidden; /* Hide vertical scrollbar */
 }
 
-
-
-
-.daily-report-table {
+.quality-check-table {
   width: 100%;
   table-layout: fixed; /* Ensure that the table has a fixed layout */
   margin: auto;
 }
 
-.daily-report-table th,
-.daily-report-table td {
+.quality-check-table th,
+.quality-check-table td {
   white-space: nowrap; /* Prevent wrapping of table cells */
+  width: auto;
 }
 
-h2.header{
+.quality-check-header {
   text-align: center;
-  margin-left: 200px;
-  
+  margin-left: 250px;
 }
+
+/* Pagination Buttons */
+.quality-check-pagination-container {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 1rem; /* Add margin to separate from table */
+}
+
+.pagination-buttons {
+  margin: 0 5px;
+}
+
+.pagination-buttons button {
+  display: inline-block;
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: 1px solid #333; /* Darken border color */
+  border-radius: 5px; /* Add border radius */
+  background-color: #222; /* Darken background color */
+  color: white; /* White text color */
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-buttons button:hover {
+  background-color: #444; /* Darken background color on hover */
+}
+
+.pagination-buttons input {
+  width: 50px;
+  padding: 4px 8px;
+  margin: 0 5px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  text-align: center; /* Center text */
+}
+
+.pagination-buttons input:focus {
+  outline: none;
+}
+
+/* Icons */
+.download-btn {
+  border: 2px solid #333;
+  border-radius: 50%;
+  padding: 10px;
+  color: black;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.download-btn:hover {
+  transform: scale(1.1);
+}
+
 
 /* When the sidebar is expanded */
-.home-sidebar.expanded + .daily-report-main-content {
+.home-sidebar.expanded + .quality-check-main-content {
   margin-left: 220px;
 }
 

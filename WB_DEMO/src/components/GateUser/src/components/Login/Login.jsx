@@ -1,21 +1,113 @@
-// Login.jsx
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import truckImage from "../../assets/truck-image.png";
-// import truckImage2 from "../../assets/truck-2.png";
-import "./Login.css";
-
-const Login = () => {
+import "./LoginUser.css";
+import Swal from "sweetalert2";
+ 
+const LoginUser = () => {
   const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
+  const [userPassword, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/home");
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/auths/logIn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: userId, userPassword: userPassword }),
+      });
+ 
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        if (data.message === "please reset your password.") {
+          Swal.fire({
+            title: data.message,
+            text: "Please reset your password.",
+            icon: "info",
+            confirmButtonText: "OK",
+          });
+          navigate("/reset-password", { state: { userId } });
+        } else {
+          sessionStorage.setItem("userName", data.userName);
+          sessionStorage.setItem("roles", JSON.stringify(data.roles));
+          sessionStorage.setItem("userId", data.userId);
+ 
+          if (data.roles.includes("ADMIN")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Admin!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home1", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("QUALITY_USER")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Quality User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home2", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("MANAGEMENT")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Management!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home5", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("GATE_USER")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Gate User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home3", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("WEIGHBRIDGE_OPERATOR")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, weighbridge operator!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home6", { state: { userId: data.userId } });
+            });
+          } else {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+          }
+        }
+      } else {
+        console.error("Login failed:", response.statusText);
+        Swal.fire({
+          title: "Login Failed",
+          text: response.statusText,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
-
+ 
   return (
     <div className="login-page">
       <div className="login-container">
@@ -47,7 +139,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Password"
-                value={password}
+                value={userPassword}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control login-input"
                 required
@@ -56,18 +148,18 @@ const Login = () => {
             <button type="submit" className="btn btn-primary login-btn">
               Sign In
             </button>
-            <a
+            {/* <a
               href="#"
               className="login-forgot-password"
               style={{ backgroundColor: "white" }}
             >
               Forgot Password?
-            </a>
+            </a> */}
           </form>
         </div>
       </div>
     </div>
   );
 };
-
-export default Login;
+ 
+export default LoginUser;

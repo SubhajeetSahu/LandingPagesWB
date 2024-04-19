@@ -1,3 +1,4 @@
+//VehicleEntryDetails.jsx
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +8,8 @@ import SideBar2 from "../../../../SideBar/SideBar2";
 import camView from "../../assets/weighbridgeCam.webp";
 import './VehicleEntryDetails.css';
 import { FaCamera } from "react-icons/fa";
-
+import "./VehicleEntryDetails.css";
+ 
 function VehicleEntryDetails() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
@@ -66,6 +68,7 @@ function VehicleEntryDetails() {
   const departmentOptions = ["Department 1", "Department 2", "Department 3"];
   const materialtOptions = ["Material 1", "Material 2", "Material 3"];
   const supplier = ["Supplier 1", "Supplier 2", "Supplier 3"];
+  const transporterOptions = ["Transporter 1", "Transporter 2", "Transporter 3"];
  
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -164,7 +167,7 @@ function VehicleEntryDetails() {
           {/* Input fields */}
           {/* PO No */}
           <div className="col-md-3 mb-3">
-            <label htmlFor="poNo" className="form-label font-weight-bold">
+            <label htmlFor="poNo" className="form-label ">
               PO No:<span className="text-danger">*</span>
             </label>
             <input
@@ -179,7 +182,7 @@ function VehicleEntryDetails() {
           </div>
           {/* TP No */}
           <div className="col-md-3 mb-3 position-relative">
-            <label htmlFor="tpNo" className="form-label font-weight-bold">
+            <label htmlFor="tpNo" className="form-label ">
               TP No:<span className="text-danger">*</span>
             </label>
             <div className="input-group">
@@ -210,7 +213,7 @@ function VehicleEntryDetails() {
  
           {/* Challan No */}
           <div className="col-md-3 mb-3">
-            <label htmlFor="challanNo" className="form-label font-weight-bold">
+            <label htmlFor="challanNo" className="form-label ">
               Challan No:<span className="text-danger">*</span>
             </label>
             <input
@@ -224,7 +227,7 @@ function VehicleEntryDetails() {
           </div>
           {/* Vehicle No */}
           <div className="col-md-3 mb-3 position-relative">
-            <label htmlFor="vehicleNo" className="form-label font-weight-bold">
+            <label htmlFor="vehicleNo" className="form-label ">
               Vehicle No:<span className="text-danger">*</span>
             </label>
             <div className="input-group">
@@ -258,7 +261,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="vehicleType"
-                  className="form-label font-weight-bold"
+                  className="form-label"
                 >
                   Vehicle Type:
                 </label>
@@ -274,7 +277,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="NoOfWheels"
-                  className="form-label font-weight-bold"
+                  className="form-label"
                 >
                   No of Wheels:
                 </label>
@@ -291,7 +294,7 @@ function VehicleEntryDetails() {
             <div className="row mb-3">
               {/* Supplier dropdown */}
               <div className="col-md-6">
-                <label htmlFor="supplier" className="form-label font-weight-bold">
+                <label htmlFor="supplier" className="form-label ">
                   Supplier:
                 </label>
                 <select
@@ -313,7 +316,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="supplierContactNo"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   Supplier's Address:
                 </label>
@@ -328,27 +331,31 @@ function VehicleEntryDetails() {
               </div>
             </div>
             <div className="row mb-3">
-              <div className="col-md-6">
-                <label
-                  htmlFor="transporter"
-                  className="form-label font-weight-bold"
-                >
+              {/* Transporter */}
+              <div className="col-md-6 mb-3">
+                <label htmlFor="transporter" className="form-label ">
                   Transporter:
                 </label>
-                <input
-                  type="text"
+                <select
                   id="transporter"
                   name="transporter"
                   value={formData.transporter}
                   onChange={handleChange}
-                  className="form-control"
-                />
+                  className="form-select"
+                >
+                  <option value="">Select Transporter</option>
+                  {transporterOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </div>
               {/* Product dropdown */}
               <div className="col-md-6">
                 <label
                   htmlFor="material"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   Material:
                 </label>
@@ -372,7 +379,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="driverDLNo"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   Driver DL No:<span className="text-danger">*</span>
                 </label>
@@ -405,7 +412,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="driverName"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   Driver Name:<span className="text-danger">*</span>
                 </label>
@@ -424,7 +431,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="tpNetWeight"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   TP Net Weight:
                 </label>
@@ -440,7 +447,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="rcFitnessUpto"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   RC Fitness Upto:
                 </label>
@@ -459,7 +466,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="department"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   Department:
                 </label>
@@ -481,7 +488,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label
                   htmlFor="eWayBillNo"
-                  className="form-label font-weight-bold"
+                  className="form-label "
                 >
                   E-way Bill No:
                 </label>
@@ -530,7 +537,7 @@ function VehicleEntryDetails() {
                   <td colSpan="2" rowSpan="2">
                     <img src={camView} alt="CamView" width={150} height={150} />
                     <br />
-                    <button className="btn btn-primary mt-2">Capture</button>
+                    <button className="btn btn-primary mt-2">Captrue</button>
                   </td>
                   {/* <td><img src={camView} alt="CamView" width={100} height={75} /></td> */}
                 </tr>
@@ -573,3 +580,4 @@ function VehicleEntryDetails() {
 };
  
 export default VehicleEntryDetails;
+ 

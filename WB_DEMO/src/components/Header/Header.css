@@ -1,4 +1,4 @@
-.weighbridge-header {
+.report-header {
   position: fixed;
   width: 100%;
   background-color: #5776a2;
@@ -6,26 +6,40 @@
   z-index: 1000;
   top: 0;
 }
-
-.weighbridge-header-title {
+ 
+.report-header-title {
   background-color: #5776a2;
   font-weight: 400;
-  margin-right: 340px;
 }
-
-.weighbridge-sidebar-toggle-btn {
+ 
+.daily_report_icon {
   border-radius: 50%;
   padding: 10px;
   color: black;
   background-color: #f0f0f0;
   cursor: pointer;
-  margin-left: 10px; /* Ensure it's positioned on the left */
 }
-
-.weighbridge-sidebar-toggle-btn:hover {
+ 
+.daily_report_icon:hover {
   transform: scale(1.1);
 }
-
-.weighbridge-home-toggle-btn {
+ 
+.home-toggle-btn {
   margin-right: 10px;
+}
+ 
+.sidebar-toggle-btn {
+  cursor: pointer;
+  margin-left: 10px;
+}
+ 
+.user-dropdown {
+  position: absolute;
+  right: 20px;
+  top: 50px;
+  background-color: #0e0e0e;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1001; /* Ensure it's above other elements */
 }
