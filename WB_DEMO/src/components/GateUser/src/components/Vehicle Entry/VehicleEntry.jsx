@@ -190,7 +190,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                   <th style={{ width: '5%', padding: '10', margin: '10' }}>TP Net weight</th>
                   <th style={{ width: '5%', padding: '10', margin: '10' }}>PO No.</th>
                   <th style={{ width: '5%', padding: '10', margin: '10' }}>Challan No.</th>
-                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Transaction Status</th>
+                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Transaction Type</th>
                   <th style={{ width: '5%', padding: '10', margin: '10' }}>IN</th>
                   <th style={{ width: '5%', padding: '10', margin: '10' }}>OUT</th>
                 </tr>

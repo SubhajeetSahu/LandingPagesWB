@@ -162,7 +162,7 @@ function VehicleEntryDetails() {
         toggleSidebar={toggleSidebar}
       />
       <div className="VehicleEntryDetailsMainContent" style={{ marginTop: "100px", marginRight: "140px" }}>
-        <h2 className="text-center mb-4">Vehicle Entry Details</h2>
+        <h2 className="text-center mb-4">Vehicle Entry Inbound Details</h2>
         <div className="row">
           {/* Input fields */}
           {/* PO No */}
