@@ -149,3 +149,9 @@
     margin-left: 220px;
     
   }
+
+  .disabled {
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  }
+  

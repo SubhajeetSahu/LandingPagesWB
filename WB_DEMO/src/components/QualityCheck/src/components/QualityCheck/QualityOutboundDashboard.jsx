@@ -19,33 +19,31 @@ function QualityOutboundDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isDownloadDisabled, setIsDownloadDisabled] = useState(true);
+
+  const handleDownload = () => {
+    const requiredFields = ['Vehicle No.', 'Transporter Name', 'Product/Material', 'Product/Material Type', 'TP No', 'Po No', 'Challan No', 'Supplier/customer', 'Supplier/customer Address'];
+    const allowedEmptyFields = 2; // Adjust this value based on your requirement
+  
+    const hasDataToDownload = data.some(item => {
+      const emptyFieldCount = requiredFields.filter(field => !item[field]).length;
+      return emptyFieldCount <= allowedEmptyFields;
+    });
+  
+    if (hasDataToDownload) {
+      // Your existing download logic
+    } else {
+      console.log("Not enough data to download. Please fill in more fields.");
+    }
+  
+    setIsDownloadDisabled(!hasDataToDownload); // Set the disabled state of the button
+  };
+  
   const receiveInboundData = (data) => {
     // Update the data state with the received data
     const updatedData = [...data];
     setData(updatedData);
   };
-
-  // Parse query parameters from URL
-  const queryParams = new URLSearchParams(location.search);
-  
-  const [inboundData, setInboundData] = useState({
-    date: queryParams.get("date") || "",
-    inTime: queryParams.get("inTime") || "",
-    customer: queryParams.get("customer") || "",
-    vehicleNumber: queryParams.get("vehicleNumber") || "",
-    transporter: queryParams.get("transporter") || "",
-    department: queryParams.get("department") || "",
-    ticketNo: queryParams.get("ticketNo") || "",
-    tpNoPoNo: queryParams.get("tpNoPoNo") || "",
-    material: queryParams.get("material") || "",
-    moisture: queryParams.get("moisture") || "",
-    vm: queryParams.get("vm") || "",
-    ash: queryParams.get("ash") || "",
-    fc: queryParams.get("fc") || "",
-    size: queryParams.get("size") || "",
-    fe: queryParams.get("fe") || "",
-    loi: queryParams.get("loi") || ""
-  });
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
@@ -91,9 +89,12 @@ function QualityOutboundDashboard() {
       In: " ",
       Out: " ",
       "Transporter Name": " ",
-      "Product/Material": " ",
-      "TP No/Po No": " ",
-      "Supplier/customer": " ",
+      "Product": " ",
+      "Product Type": " ",
+      "Po No": " ",
+      "Challan No": " ",
+      "Customer": " ",
+      "Customer Address": " ",
       "Transaction Type": "Outbound",
     },
     {
@@ -103,9 +104,12 @@ function QualityOutboundDashboard() {
       In: " ",
       Out: " ",
       "Transporter Name": " ",
-      "Product/Material": " ",
-      "TP No/Po No": " ",
-      "Supplier/customer": " ",
+      "Product": " ",
+      "Product Type": " ",
+      "Po No": " ",
+      "Challan No": " ",
+      "Customer": " ",
+      "Customer Address": " ",
       "Transaction Type": "Outbound",
     },
     {
@@ -115,9 +119,12 @@ function QualityOutboundDashboard() {
       In: " ",
       Out: " ",
       "Transporter Name": " ",
-      "Product/Material": " ",
-      "TP No/Po No": " ",
-      "Supplier/customer": " ",
+      "Product": " ",
+      "Product Type": " ",
+      "Po No": " ",
+      "Challan No": " ",
+      "Customer": " ",
+      "Customer Address": " ",
       "Transaction Type": "Outbound",
     },
     {
@@ -127,9 +134,12 @@ function QualityOutboundDashboard() {
       In: " ",
       Out: " ",
       "Transporter Name": " ",
-      "Product/Material": " ",
-      "TP No/Po No": " ",
-      "Supplier/customer": " ",
+      "Product": " ",
+      "Product Type": " ",
+      "Po No": " ",
+      "Challan No": " ",
+      "Customer": " ",
+      "Customer Address": " ",
       "Transaction Type": "Outbound",
     },
     {
@@ -139,9 +149,12 @@ function QualityOutboundDashboard() {
       In: " ",
       Out: " ",
       "Transporter Name": " ",
-      "Product/Material": " ",
-      "TP No/Po No": " ",
-      "Supplier/customer": " ",
+      "Product": " ",
+      "Product Type": " ",
+      "Po No": " ",
+      "Challan No": " ",
+      "Customer": " ",
+      "Customer Address": " ",
       "Transaction Type": "Outbound",
     },
     {
@@ -151,9 +164,12 @@ function QualityOutboundDashboard() {
       In: " ",
       Out: " ",
       "Transporter Name": " ",
-      "Product/Material": " ",
-      "TP No/Po No": " ",
-      "Supplier/customer": " ",
+      "Product": " ",
+      "Product Type": " ",
+      "Po No": " ",
+      "Challan No": " ",
+      "Customer": " ",
+      "Customer Address": " ",
       "Transaction Type": "Outbound",
     },
   ]);
@@ -188,31 +204,6 @@ function QualityOutboundDashboard() {
     setCurrentPage(selected);
   };
 
-  const handleDownload = () => {
-    if (file) {
-      const reportFilePath = '../../Report/' + file.name;
-      fetch(reportFilePath)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('File not found');
-          }
-          return response.blob();
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = file.name;
-          document.body.appendChild(a);
-          a.click();
-          URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-        })
-        .catch(error => {
-          console.error('Error downloading file:', error);
-        });
-    }
-  };
 
   const tableContainerRef = useRef(null);
 
@@ -289,8 +280,11 @@ function QualityOutboundDashboard() {
                   <th scope="col">Out</th>
                   <th scope="col">Transporter Name</th>
                   <th scope="col">Product</th>
+                  <th scope="col">Product Type</th>
                   <th scope="col">PO No</th>
+                  <th scope="col">Challan No</th>
                   <th scope="col">Customer</th>
+                  <th scope="col">Customer Address</th>
                   <th scope="col">Transaction Type</th>
                   <th scope="col"></th>
                 </tr>
@@ -316,13 +310,21 @@ function QualityOutboundDashboard() {
                     </td>
                     <td>{item["Transporter Name"]}</td>
                     <td>{item["Product"]}</td>
+                    <td>{item["Product Type"]}</td>
                     <td>{item["PO No"]}</td>
+                    <td>{item["Challan No"]}</td>
                     <td>{item["Customer"]}</td>
+                    <td>{item["Customer Address"]}</td>
                     <td>{item["Transaction Type"]}</td>
                     <td>
-                      <button className="btn btn-success download-btn" onClick={handleDownload}>
-                        <FontAwesomeIcon icon={faFileArrowDown} />
-                      </button>
+                    <button
+  className={`btn btn-success download-btn ${isDownloadDisabled ? 'disabled' : ''}`}
+  onClick={handleDownload}
+  disabled={isDownloadDisabled}
+>
+  <FontAwesomeIcon icon={faFileArrowDown} />
+</button>
+
                     </td>
                   </tr>
                 ))}

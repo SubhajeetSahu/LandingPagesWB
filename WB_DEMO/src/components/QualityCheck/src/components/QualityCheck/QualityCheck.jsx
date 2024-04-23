@@ -17,35 +17,29 @@ function QualityCheck() {
   const itemsPerPage = 4;
   const [selectedDate, setSelectedDate] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
+ 
+  const [isDownloadDisabled, setIsDownloadDisabled] = useState(true);
 
-  const receiveInboundData = (data) => {
-    // Update the data state with the received data
-    const updatedData = [...data];
-    setData(updatedData);
-  };
-
-  // Parse query parameters from URL
-  const queryParams = new URLSearchParams(location.search);
+  const handleDownload = () => {
+    const requiredFields = ['Vehicle No.', 'Transporter Name', 'Product/Material', 'Product/Material Type', 'TP No', 'Po No', 'Challan No', 'Supplier/customer', 'Supplier/customer Address'];
+    const allowedEmptyFields = 2; // Adjust this value based on your requirement
   
-  const [inboundData, setInboundData] = useState({
-    date: queryParams.get("date") || "",
-    inTime: queryParams.get("inTime") || "",
-    customer: queryParams.get("customer") || "",
-    vehicleNumber: queryParams.get("vehicleNumber") || "",
-    transporter: queryParams.get("transporter") || "",
-    department: queryParams.get("department") || "",
-    ticketNo: queryParams.get("ticketNo") || "",
-    tpNoPoNo: queryParams.get("tpNoPoNo") || "",
-    material: queryParams.get("material") || "",
-    moisture: queryParams.get("moisture") || "",
-    vm: queryParams.get("vm") || "",
-    ash: queryParams.get("ash") || "",
-    fc: queryParams.get("fc") || "",
-    size: queryParams.get("size") || "",
-    fe: queryParams.get("fe") || "",
-    loi: queryParams.get("loi") || ""
-  });
+    const hasDataToDownload = data.some(item => {
+      const emptyFieldCount = requiredFields.filter(field => !item[field]).length;
+      return emptyFieldCount <= allowedEmptyFields;
+    });
+  
+    if (hasDataToDownload) {
+      // Your existing download logic
+    } else {
+      console.log("Not enough data to download. Please fill in more fields.");
+    }
+  
+    setIsDownloadDisabled(!hasDataToDownload); // Set the disabled state of the button
+  };
+  
+  
+
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
@@ -92,8 +86,12 @@ function QualityCheck() {
       Out: " ",
       "Transporter Name": " ",
       "Product/Material": " ",
-      "TP No/Po No": " ",
+      "Product/Material Type": " ",
+      "TP No": " ",
+      "Po No": " ",
+      "Challan No": " ",
       "Supplier/customer": " ",
+      "Supplier/customer Address": " ",
       "Transaction Type": "Inbound",
     },
     {
@@ -104,9 +102,13 @@ function QualityCheck() {
       Out: " ",
       "Transporter Name": " ",
       "Product/Material": " ",
-      "TP No/Po No": " ",
+      "Product/Material Type": " ",
+      "TP No": " ",
+      "Po No": " ",
+      "Challan No": " ",
       "Supplier/customer": " ",
-      "Transaction Type": "Outbound",
+      "Supplier/customer Address": " ",
+      "Transaction Type": "Inbound",
     },
     {
       "Ticket No.": 3,
@@ -116,8 +118,12 @@ function QualityCheck() {
       Out: " ",
       "Transporter Name": " ",
       "Product/Material": " ",
-      "TP No/Po No": " ",
+      "Product/Material Type": " ",
+      "TP No": " ",
+      "Po No": " ",
+      "Challan No": " ",
       "Supplier/customer": " ",
+      "Supplier/customer Address": " ",
       "Transaction Type": "Inbound",
     },
     {
@@ -128,9 +134,13 @@ function QualityCheck() {
       Out: " ",
       "Transporter Name": " ",
       "Product/Material": " ",
-      "TP No/Po No": " ",
+      "Product/Material Type": " ",
+      "TP No": " ",
+      "Po No": " ",
+      "Challan No": " ",
       "Supplier/customer": " ",
-      "Transaction Type": "Outbound",
+      "Supplier/customer Address": " ",
+      "Transaction Type": "Inbound",
     },
     {
       "Ticket No.": 5,
@@ -140,8 +150,12 @@ function QualityCheck() {
       Out: " ",
       "Transporter Name": " ",
       "Product/Material": " ",
-      "TP No/Po No": " ",
+      "Product/Material Type": " ",
+      "TP No": " ",
+      "Po No": " ",
+      "Challan No": " ",
       "Supplier/customer": " ",
+      "Supplier/customer Address": " ",
       "Transaction Type": "Inbound",
     },
     {
@@ -152,9 +166,13 @@ function QualityCheck() {
       Out: " ",
       "Transporter Name": " ",
       "Product/Material": " ",
-      "TP No/Po No": " ",
+      "Product/Material Type": " ",
+      "TP No": " ",
+      "Po No": " ",
+      "Challan No": " ",
       "Supplier/customer": " ",
-      "Transaction Type": "Outbound",
+      "Supplier/customer Address": " ",
+      "Transaction Type": "Inbound",
     },
   ]);
 
@@ -188,31 +206,7 @@ function QualityCheck() {
     setCurrentPage(selected);
   };
 
-  const handleDownload = () => {
-    if (file) {
-      const reportFilePath = '../../Report/' + file.name;
-      fetch(reportFilePath)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('File not found');
-          }
-          return response.blob();
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = file.name;
-          document.body.appendChild(a);
-          a.click();
-          URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-        })
-        .catch(error => {
-          console.error('Error downloading file:', error);
-        });
-    }
-  };
+  
 
   const tableContainerRef = useRef(null);
 
@@ -289,8 +283,12 @@ function QualityCheck() {
                   <th scope="col">Out</th>
                   <th scope="col">Transporter Name</th>
                   <th scope="col">Product/Material</th>
-                  <th scope="col">TP No/PO No</th>
+                  <th scope="col">Product/Material Type</th>
+                  <th scope="col">TP No</th>
+                  <th scope="col">Po No</th>
+                  <th scope="col">Challan No</th>
                   <th scope="col">Supplier/Customer</th>
+                  <th scope="col">Supplier/Customer Address</th>
                   <th scope="col">Transaction Type</th>
                   <th scope="col"></th>
                 </tr>
@@ -316,13 +314,22 @@ function QualityCheck() {
                     </td>
                     <td>{item["Transporter Name"]}</td>
                     <td>{item["Product/Material"]}</td>
-                    <td>{item["TP No/PO No"]}</td>
+                    <td>{item["Product/Material Type"]}</td>
+                    <td>{item["TP No"]}</td>
+                    <td>{item["Po No"]}</td>
+                    <td>{item["Challan No"]}</td>
                     <td>{item["Supplier/Customer"]}</td>
+                    <td>{item["Supplier/Customer Address"]}</td>
                     <td>{item["Transaction Type"]}</td>
                     <td>
-                      <button className="btn btn-success download-btn" onClick={handleDownload}>
-                        <FontAwesomeIcon icon={faFileArrowDown} />
-                      </button>
+                    <button
+  className={`btn btn-success download-btn ${isDownloadDisabled ? 'disabled' : ''}`}
+  onClick={handleDownload}
+  disabled={isDownloadDisabled}
+>
+  <FontAwesomeIcon icon={faFileArrowDown} />
+</button>
+
                     </td>
                   </tr>
                 ))}

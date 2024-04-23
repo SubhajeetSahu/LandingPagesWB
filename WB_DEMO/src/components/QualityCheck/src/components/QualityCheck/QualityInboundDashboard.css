@@ -12,6 +12,12 @@
     font-weight: bold;
   }
   
+  .disabled {
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  }
+
+  
   /* Table container */
   .quality-inbound-dashboard-table-container {
     display: flex;
@@ -149,3 +155,9 @@
     margin-left: 220px;
     
   }
+
+  .disabled {
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  }
+  

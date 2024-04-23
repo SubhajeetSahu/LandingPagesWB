@@ -142,10 +142,27 @@
   outline: 2px solid rgb(116, 189, 241); /* Add blue outline for active page */
 }
 
-
-
-
 .home-sidebar.expanded + .quality-check-main-content {
   margin-left: 220px;
   
+}
+
+/* Download button */
+.download-btn {
+  border: none; /* Remove border */
+  padding: 6px 12px !important; /* Reduce padding to make the button smaller */
+  background-color: transparent; /* Remove background */
+  cursor: pointer;
+  color: green; /* Set text color to green */
+  font-size: 1.0em !important; /* Reduce font size to make the button smaller */
+  transition: transform 0.3s ease-in-out; /* Add transition for transform */
+}
+
+
+
+
+
+.disabled {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.5; /* Reduce opacity to indicate disabled state */
 }

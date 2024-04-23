@@ -36,6 +36,7 @@ const QualityInboundDetails = () => {
     navigate("/QualityCheck");
   };
 
+  
   const handleSave = () => {
     const data = {
       date: formData.date,
