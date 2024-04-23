@@ -1,13 +1,18 @@
+/* Add this CSS to your QualityCheck.css file */
+
+/* Main content container */
 .quality-check-main-content {
   margin-left: 100px;
   margin-top: 7rem;
   transition: margin-left 0.2s ease;
 }
 
+/* Date section */
 .quality-check-date {
   font-weight: bold;
 }
 
+/* Table container */
 .quality-check-table-container {
   display: flex;
   justify-content: flex-end;
@@ -15,6 +20,7 @@
   overflow-y: hidden; /* Hide vertical scrollbar */
 }
 
+/* Table styles */
 .quality-check-table {
   width: 100%;
   table-layout: fixed; /* Ensure that the table has a fixed layout */
@@ -27,12 +33,13 @@
   width: auto;
 }
 
+/* Header */
 .quality-check-header {
   text-align: center;
   margin-left: 250px;
 }
 
-/* Pagination Buttons */
+/* Pagination container */
 .quality-check-pagination-container {
   display: flex;
   align-items: center;
@@ -42,6 +49,7 @@
   margin-top: 1rem; /* Add margin to separate from table */
 }
 
+/* Pagination buttons */
 .pagination-buttons {
   margin: 0 5px;
 }
@@ -75,86 +83,69 @@
   outline: none;
 }
 
-/* Icons */
+/* Download button */
+/* Download button */
 .download-btn {
-  border: 2px solid #333;
-  border-radius: 50%;
-  padding: 10px;
-  color: black;
-  background-color: #f0f0f0;
+  border: none; /* Remove border */
+  padding: 8px 16px; /* Add padding to increase button size */
+  background-color: transparent; /* Remove background */
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  color: green; /* Set text color to green */
+  font-size: 2em; /* Set font size */
+  transition: transform 0.3s ease-in-out; /* Add transition for transform */
 }
 
 .download-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.1); /* Scale up on hover */
+  background-color: lightgreen; /* Change background color on hover */
 }
 
 
-/* When the sidebar is expanded */
+/* Pagination container */
+.quality-check-pagination-container {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  justify-content: space-between; /* Align items to the left and right */
+  margin-top: 1rem; /* Add margin to separate from table */
+}
+
+/* Pagination buttons */
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.pagination-buttons button {
+  margin: 0 5px; /* Add margin between buttons */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: 1px solid #333; /* Darken border color */
+  border-radius: 5px; /* Add border radius */
+  background-color: #fff; /* Change background color to white */
+  color: #333; /* Darken text color */
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-buttons button:hover {
+  background-color: #eee; /* Darken background color on hover */
+}
+
+.pagination-text {
+  color: #333; /* Darken text color */
+}
+
+/* Active page button */
+.pagination-buttons button.active {
+  outline: 2px solid rgb(116, 189, 241); /* Add blue outline for active page */
+}
+
+
+
+
 .home-sidebar.expanded + .quality-check-main-content {
   margin-left: 220px;
+  
 }
-
-.daily-report-table td {
-  background-color: white; /* or any other contrasting color */
-  padding: 8px; /* Add some padding for better visibility */
-}
-
-
- 
-/* Base styles for mobile devices */
-.daily-report-main-content {
-  margin-left: 0;
-  margin-top: 7rem;
- }
- 
- h2.header {
-  margin-left: 0;
- }
- 
- /* Styles for larger screens */
- @media (min-width: 768px) {
-  .daily-report-main-content {
-     margin-left: 100px;
-  }
- 
-  h2.header {
-     margin-left: 200px;
-  }
- }
- 
-
- /* ---------------------------------- */
- /* Base styles for mobile devices */
-.daily-report-main-content {
-  margin-left: 0;
-  margin-top: 7rem;
- }
- 
- h2.header {
-  margin-left: 0;
- }
- 
- /* Styles for larger screens */
- @media (min-width: 768px) {
-  .daily-report-main-content {
-     margin-left: 100px;
-  }
- 
-  h2.header {
-     margin-left: 200px;
-  }
- }
- 
- /* Additional mobile-specific styles */
- @media (max-width: 767px) {
-  .daily-report-date {
-     font-size: 1.2rem; /* Adjust font size for better visibility on mobile */
-     margin-bottom: 1rem; /* Add some space below the date heading */
-  }
- }
- 
- 
- 
- 

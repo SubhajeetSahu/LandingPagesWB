@@ -29,8 +29,11 @@ import Capture from "./components/GateUser/src/components/Camera/Capture.jsx";
 
 import QualityCheck from "./components/QualityCheck/src/components/QualityCheck/QualityCheck.jsx";
 import QualityDetailsEntry from "./components/QualityCheck/src/components/QualityCheck/QualityDetailsEntry.jsx";
+import QualityInboundDashboard from "./components/QualityCheck/src/components/QualityCheck/QualityInboundDashboard.jsx";
+import QualityOutboundDashboard from "./components/QualityCheck/src/components/QualityCheck/QualityOutboundDashboard.jsx"
 import QPrint from "./components/QualityCheck/src/components/Print/Print.jsx";
-import QReport from "./components/QualityCheck/src/components/Report/Report.jsx";
+import QReport from "./components/QualityCheck/src/components/Report/QReport.jsx";
+import QualityInboundDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundDetails.jsx";
 
 import ManagementHome from "./components/Management/src/components/Home/ManagementHome.jsx";
 import ManagementLocation from "./components/Management/src/components/Location/Location.jsx";
@@ -69,6 +72,9 @@ const router = createBrowserRouter(
       <Route path="/QualityDetailsEntry" element={<QualityDetailsEntry />} />
       <Route path="/QPrint" element={<QPrint />} />
       <Route path="/QReport" element={<QReport />} />
+      <Route path="/QualityInboundDetails" element={<QualityInboundDetails/>} />
+      <Route path="/QualityInboundDashboard" element={<QualityInboundDashboard/>} />
+      <Route path="/QualityOutboundDashboard" element={<QualityOutboundDashboard/>} />
 
       <Route path="/ManagementHome" element={<ManagementHome />} />
       <Route path="/ManagementLocation" element={<ManagementLocation />} />

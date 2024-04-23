@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import Header from "../../../../Header/Header";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import "./QualityCheck.css";
+import "./QualityInboundDashboard.css";
 import * as XLSX from "xlsx";
 import { Link } from "react-router-dom";
 import { Chart, ArcElement } from "chart.js/auto";
@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowDown, faBackwardStep, faForwardStep, faBackwardFast, faForwardFast } from '@fortawesome/free-solid-svg-icons';
 import QualityInboundDetails from "./QualityInboundDetails";
 
-function QualityCheck() {
+function QualityInboundDashboard() {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 4;
   const [selectedDate, setSelectedDate] = useState("");
@@ -106,7 +106,7 @@ function QualityCheck() {
       "Product/Material": " ",
       "TP No/Po No": " ",
       "Supplier/customer": " ",
-      "Transaction Type": "Outbound",
+      "Transaction Type": "Inbound",
     },
     {
       "Ticket No.": 3,
@@ -130,7 +130,7 @@ function QualityCheck() {
       "Product/Material": " ",
       "TP No/Po No": " ",
       "Supplier/customer": " ",
-      "Transaction Type": "Outbound",
+      "Transaction Type": "Inbound",
     },
     {
       "Ticket No.": 5,
@@ -154,7 +154,7 @@ function QualityCheck() {
       "Product/Material": " ",
       "TP No/Po No": " ",
       "Supplier/customer": " ",
-      "Transaction Type": "Outbound",
+      "Transaction Type": "Inbound",
     },
   ]);
 
@@ -260,8 +260,8 @@ function QualityCheck() {
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}
       />
-      <div className="quality-check-main-content">
-        <div className="quality-check-date d-flex">
+      <div className="quality-inbound-dashboard-main-content">
+        <div className="quality-inbound-dashboard-date d-flex">
           <label htmlFor="date" className="mt-1">
             &nbsp;Date:&nbsp;
           </label>
@@ -274,11 +274,11 @@ function QualityCheck() {
             onChange={handleDateChange}
             max={getCurrentDate()}
           />
-          <h2 className="quality-check-header">Quality Dashboard</h2>
+          <h3 className="quality-inbound-dashboard-header">Quality Inbound Dashboard</h3>
         </div>
 
-        <div className="quality-check-table-container" ref={tableContainerRef}>
-          <div className="quality-check-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
+        <div className="quality-inbound-dashboard-table-container" ref={tableContainerRef}>
+          <div className="quality-inbound-dashboard-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
             <table className="table table-bordered table-striped">
               <thead>
                 <tr>
@@ -288,9 +288,9 @@ function QualityCheck() {
                   <th scope="col">In</th>
                   <th scope="col">Out</th>
                   <th scope="col">Transporter Name</th>
-                  <th scope="col">Product/Material</th>
+                  <th scope="col">Material</th>
                   <th scope="col">TP No/PO No</th>
-                  <th scope="col">Supplier/Customer</th>
+                  <th scope="col">Supplier</th>
                   <th scope="col">Transaction Type</th>
                   <th scope="col"></th>
                 </tr>
@@ -315,9 +315,9 @@ function QualityCheck() {
                       {item.Out}
                     </td>
                     <td>{item["Transporter Name"]}</td>
-                    <td>{item["Product/Material"]}</td>
+                    <td>{item["Material"]}</td>
                     <td>{item["TP No/PO No"]}</td>
-                    <td>{item["Supplier/Customer"]}</td>
+                    <td>{item["Supplier"]}</td>
                     <td>{item["Transaction Type"]}</td>
                     <td>
                       <button className="btn btn-success download-btn" onClick={handleDownload}>
@@ -330,7 +330,7 @@ function QualityCheck() {
             </table>
           </div>
         </div>
-        <div className="quality-check-pagination-container">
+        <div className="quality-inbound-dashboard-pagination-container">
   <span className="pagination-text">Showing {currentPage * itemsPerPage + 1} to {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries</span>
   <div className="pagination-buttons">
     <button onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
@@ -352,5 +352,5 @@ function QualityCheck() {
   );
 }
 
-export default QualityCheck;
+export default QualityInboundDashboard;
 

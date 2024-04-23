@@ -56,9 +56,9 @@ ul li{
     transition: width 0.2s ease;
     overflow: hidden;
   }
-  .home-sidebar:hover {
+  /* .home-sidebar:hover {
     width: 200px;
-  }
+  } */
   
   .rp-icon {
     margin-left: 0.15rem;
@@ -91,9 +91,9 @@ ul li{
     color: #000;
     
   }
-  .home-sidebar:hover .sidebar-item-text {
+  /* .home-sidebar:hover .sidebar-item-text {
     opacity: 1;
-  }
+  } */
   .sidebar-icon {
     font-size: 1.2rem;
     color: #000;

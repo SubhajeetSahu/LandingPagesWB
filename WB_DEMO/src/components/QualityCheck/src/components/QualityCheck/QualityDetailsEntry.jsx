@@ -72,7 +72,7 @@ const QualityDetailsEntry = () => {
 
             <div className="d-flex justify-content-between align-items-center mb-4">
             <div style={{ textAlign: "center" }}>
-  <h2 className="mb-4" style={{ display: "inline-block", marginLeft: "500px" }}>Transaction Form</h2>
+  <h2 className="mb-4" style={{ display: "inline-block", marginLeft: "500px" }}>Quality Check Inbound Details</h2>
 </div>
 
 
@@ -127,21 +127,9 @@ const QualityDetailsEntry = () => {
                     className="form-control"
                   />
                 </div>
-                <div className="d-flex mb-3">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Supplier:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value="MCL"
-                    required
-                    className="form-control"
-                  />
-                </div>
                 <div className="d-flex mb-1">
                   <label htmlFor="userId" className="form-label text1 me-2">
-                    Truck Number:
+                    Vehicle Number:
                   </label>
                   <input
                     type="text"
@@ -194,7 +182,7 @@ const QualityDetailsEntry = () => {
                 </div>
                 <div className="d-flex mb-3">
                   <label htmlFor="userId" className="form-label text1 me-2">
-                    Po No:
+                    Material:
                   </label>
                   <input
                     type="text"
@@ -205,7 +193,7 @@ const QualityDetailsEntry = () => {
                 </div>
                 <div className="d-flex mb-3">
                 <label htmlFor="userId" className="form-label text1 me-2">
-                  Challan No:
+                  Moisture %:
                 </label>
                 <input
                   type="text"
@@ -216,7 +204,7 @@ const QualityDetailsEntry = () => {
               </div>
               <div className="d-flex mb-3">
                 <label htmlFor="userId" className="form-label text1 me-2">
-                  Status:
+                  Vm %:
                 </label>
                 <input
                   type="text"
@@ -227,7 +215,7 @@ const QualityDetailsEntry = () => {
               </div>
               <div className="d-flex mb-3">
                 <label htmlFor="userId" className="form-label text1 me-2">
-                  Remark:
+                  Ash %:
                 </label>
                 <input
                   type="text"
@@ -238,36 +226,12 @@ const QualityDetailsEntry = () => {
               </div>
               <div className="d-flex mb-1">
                   <label htmlFor="userId" className="form-label text1 me-2">
-                    Product:
+                    Fc %:
                   </label>
                   <input
                     type="text"
                     autoComplete="off"
                     value="Coal"
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Size:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value="5/20"
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Material:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value="Good"
                     required
                     className="form-control"
                   />

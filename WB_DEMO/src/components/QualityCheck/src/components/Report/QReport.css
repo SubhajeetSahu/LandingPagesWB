@@ -1,0 +1,161 @@
+.quality-report-main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 110px;
+ }
+ 
+ .quality-report-heading {
+  text-align: center;
+ }
+ 
+ .quality-report-table-responsive {
+  overflow-x: auto;
+ }
+ 
+ .quality-report-table {
+  width: 100%;
+  table-layout: fixed;
+ }
+ 
+ .quality-report-input-box {
+  min-width: 100px;
+  max-width: 150px;
+  height: 40px;
+  box-sizing: border-box;
+ }
+ 
+ .quality-report-table th,
+ .quality-report-table td {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ }
+ 
+ .quality-report-table th:nth-last-child(-n+2),
+ .quality-report-table td:nth-last-child(-n+2) {
+  width: 60px;
+ }
+ 
+ /* Adjusted width for "In Time" and "Out Time" columns to prevent right side hiding */
+ .quality-report-table th:nth-child(3),
+ .quality-report-table td:nth-child(3),
+ .quality-report-table th:nth-child(4),
+ .quality-report-table td:nth-child(4) {
+  width: 90px; /* Increased width to prevent right side hiding */
+ }
+ 
+ .quality-report-upload-btn,
+ .quality-report-download-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+ }
+ 
+ /* Changed upload button color to blue */
+ .quality-report-upload-btn {
+  background-color: #007bff; /* Blue background color */
+  color: white; /* Button text color */
+ }
+ 
+ .quality-report-upload-btn:hover {
+  background-color: #0056b3; /* Darken blue on hover */
+ }
+ 
+ /* Changed download button color to green */
+ .quality-report-download-btn {
+  background-color: #28a745; /* Green background color */
+  color: white; /* Button text color */
+ }
+ 
+ .quality-report-download-btn:hover {
+  background-color: #218838; /* Darken green on hover */
+ }
+ 
+ /* Added rounded corners to button icons */
+ .quality-report-upload-btn svg,
+ .quality-report-download-btn svg {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Rounded corners */
+ }
+ 
+ @media (max-width: 768px) {
+  .quality-report-main-content {
+     margin-top: 100px;
+  }
+ 
+  .quality-report-table-responsive {
+     padding: 15px;
+     overflow-x: auto;
+  }
+ 
+  .quality-report-input-box {
+     min-width: 80px;
+     max-width: 120px;
+  }
+ 
+  .quality-report-table th,
+  .quality-report-table td {
+     width: 100px;
+  }
+ 
+  .quality-report-table th:nth-last-child(-n+2),
+  .quality-report-table td:nth-last-child(-n+2) {
+     width: 50px;
+  }
+ 
+  .quality-report-table th:nth-child(3),
+  .quality-report-table td:nth-child(3),
+  .quality-report-table th:nth-child(4),
+  .quality-report-table td:nth-child(4) {
+     width: 70px; /* Adjusted width for smaller screens */
+  }
+ }
+ 
+ .home-sidebar.expanded + .quality-report-main-content {
+  margin-left: 220px;
+ }
+ 
+
+ /* Adjusted width for "In Time" and "Out Time" columns to decrease width */
+.quality-report-table th:nth-child(3),
+.quality-report-table td:nth-child(3),
+.quality-report-table th:nth-child(4),
+.quality-report-table td:nth-child(4) {
+ width: 110px; /* Decreased width to decrease space between columns */
+}
+
+/* Ensure button icons have rounded corners */
+.quality-report-upload-btn svg,
+.quality-report-download-btn svg {
+ border-radius: 50%; /* Rounded corners */
+}
+
+/* Ensure the upload button is blue */
+.quality-report-upload-btn {
+ background-color: #007bff; /* Blue background color */
+ border-radius: 5px; /* Added border radius to the button */
+}
+
+.quality-report-upload-btn:hover {
+ background-color: #0056b3; /* Darken blue on hover */
+}
+
+/* Ensure the download button is green */
+.quality-report-download-btn {
+ background-color: #28a745; /* Green background color */
+ border-radius: 5px; /* Added border radius to the button */
+}
+
+.quality-report-download-btn:hover {
+ background-color: #218838; /* Darken green on hover */
+}
+
+/* Ensure responsiveness and other styles remain unchanged */
