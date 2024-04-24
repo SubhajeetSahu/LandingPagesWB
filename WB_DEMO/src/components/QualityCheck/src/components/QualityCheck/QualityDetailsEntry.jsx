@@ -2,11 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Chart, ArcElement } from "chart.js/auto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSave,
+  faTrashAlt,
+  faPrint,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import Header from "../../../../Header/Header";
 import "./QualityDetailsEntry.css";
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from "react-responsive";
 
 const QualityDetailsEntry = () => {
   const navigate = useNavigate();
@@ -14,9 +19,11 @@ const QualityDetailsEntry = () => {
     navigate("/QualityCheck");
   };
 
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-  const isTablet = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1023px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' });
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 768px) and (max-width: 1023px)",
+  });
+  const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const img = "https://example.com/your-image.jpg";
   <img src="example.jpg" alt="Example" loading="lazy" />;
@@ -64,18 +71,22 @@ const QualityDetailsEntry = () => {
           toggleSidebar={toggleSidebar}
         />
 
-        <div className={`quality-detail-check-main-content ${isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop'}`}>
+        <div
+          className={`quality-detail-check-main-content ${
+            isMobile ? "mobile" : isTablet ? "tablet" : "desktop"
+          }`}
+        >
           <div className="container-fluid trans-form-main-div overflow-hidden">
             <div className="close" onClick={closeForm}>
               <FontAwesomeIcon icon={faTimes} />
             </div>
 
             <div className="d-flex justify-content-between align-items-center mb-4">
-            <div style={{ textAlign: "center" }}>
-  <h2 className="mb-4" style={{ display: "inline-block", marginLeft: "500px" }}>Quality Check Inbound Details</h2>
-</div>
-
-
+              <div style={{ textAlign: "center" }}>
+                <h2 className="mb-4" style={{ display: "inline-block" }}>
+                  Quality Check Inbound Details
+                </h2>
+              </div>
 
               <div className="buttons-container">
                 <button className="btn btn-primary button-transition">
@@ -91,7 +102,7 @@ const QualityDetailsEntry = () => {
             </div>
 
             <div className="row">
-              <div className="col-lg-4" style={{ marginLeft: "50px" }}>
+              <div className="col-lg-4">
                 <div className="d-flex mb-3">
                   <label htmlFor="userId" className="form-label text1 me-2">
                     Date:
@@ -127,8 +138,12 @@ const QualityDetailsEntry = () => {
                     className="form-control"
                   />
                 </div>
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
+                <div className="d-flex mb-3" style={{ flexWrap: "nowrap" }}>
+                  <label
+                    htmlFor="userId"
+                    className="form-label text1 me-2"
+                    style={{ minWidth: "150px", whiteSpace: "nowrap" }}
+                  >
                     Vehicle Number:
                   </label>
                   <input
@@ -140,8 +155,12 @@ const QualityDetailsEntry = () => {
                   />
                 </div>
 
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
+                <div className="d-flex mb-3" style={{ flexWrap: "nowrap" }}>
+                  <label
+                    htmlFor="userId"
+                    className="form-label text1 me-2"
+                    style={{ minWidth: "150px", whiteSpace: "nowrap" }}
+                  >
                     Transporter:
                   </label>
                   <input
@@ -153,8 +172,12 @@ const QualityDetailsEntry = () => {
                   />
                 </div>
 
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
+                <div className="d-flex mb-3" style={{ flexWrap: "nowrap" }}>
+                  <label
+                    htmlFor="userId"
+                    className="form-label text1 me-2"
+                    style={{ minWidth: "150px", whiteSpace: "nowrap" }}
+                  >
                     Department:
                   </label>
                   <input
@@ -165,11 +188,9 @@ const QualityDetailsEntry = () => {
                     className="form-control"
                   />
                 </div>
-
-                
               </div>
               <div className="col-lg-4 div2 container-fluid">
-              <div className="d-flex mb-3">
+                <div className="d-flex mb-3">
                   <label htmlFor="userId" className="form-label text1 me-2">
                     Ticket No:
                   </label>
@@ -192,40 +213,44 @@ const QualityDetailsEntry = () => {
                   />
                 </div>
                 <div className="d-flex mb-3">
-                <label htmlFor="userId" className="form-label text1 me-2">
-                  Moisture %:
-                </label>
-                <input
-                  type="text"
-                  autoComplete="off"
-                  required
-                  className="form-control"
-                />
-              </div>
-              <div className="d-flex mb-3">
-                <label htmlFor="userId" className="form-label text1 me-2">
-                  Vm %:
-                </label>
-                <input
-                  type="text"
-                  autoComplete="off"
-                  required
-                  className="form-control"
-                />
-              </div>
-              <div className="d-flex mb-3">
-                <label htmlFor="userId" className="form-label text1 me-2">
-                  Ash %:
-                </label>
-                <input
-                  type="text"
-                  autoComplete="off"
-                  required
-                  className="form-control"
-                />
-              </div>
-              <div className="d-flex mb-1">
                   <label htmlFor="userId" className="form-label text1 me-2">
+                    Moisture %:
+                  </label>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    required
+                    className="form-control"
+                  />
+                  </div>
+                <div className="d-flex mb-3">
+                  <label htmlFor="userId" className="form-label text1 me-2">
+                    Vm %:
+                  </label>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    required
+                    className="form-control"
+                  />
+                </div>
+                <div className="d-flex mb-3">
+                  <label htmlFor="userId" className="form-label text1 me-2">
+                    Ash %:
+                  </label>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    required
+                    className="form-control"
+                  />
+                </div>
+                <div className="d-flex mb-3" style={{ flexWrap: "nowrap" }}>
+                  <label
+                    htmlFor="userId"
+                    className="form-label text1 me-2"
+                    style={{ minWidth: "150px", whiteSpace: "nowrap" }}
+                  >
                     Fc %:
                   </label>
                   <input

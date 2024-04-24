@@ -18,10 +18,10 @@ function QualityCheck() {
   const [selectedDate, setSelectedDate] = useState("");
   const navigate = useNavigate();
  
-  const [isDownloadDisabled, setIsDownloadDisabled] = useState(true);
+  const [isDownloadDisabled, setIsDownloadDisabled] = useState(false);
 
   const handleDownload = () => {
-    const requiredFields = ['Vehicle No.', 'Transporter Name', 'Product/Material', 'Product/Material Type', 'TP No', 'Po No', 'Challan No', 'Supplier/customer', 'Supplier/customer Address'];
+    const requiredFields = ['Vehicle No.', 'Transporter Name', 'Product/Material', 'Product/Material Type', 'TP No/Document No', 'Po No', 'Challan No', 'Supplier/customer', 'Supplier/customer Address'];
     const allowedEmptyFields = 2; // Adjust this value based on your requirement
   
     const hasDataToDownload = data.some(item => {
@@ -30,14 +30,18 @@ function QualityCheck() {
     });
   
     if (hasDataToDownload) {
-      // Your existing download logic
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+      XLSX.writeFile(wb, `quality_data_${new Date().toISOString().slice(0, 10)}.xlsx`);
     } else {
       console.log("Not enough data to download. Please fill in more fields.");
     }
   
     setIsDownloadDisabled(!hasDataToDownload); // Set the disabled state of the button
   };
-  
+
+  // ... (rest of the code remains the same)
   
 
 

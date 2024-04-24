@@ -28,25 +28,16 @@ function QualityInboundDashboard() {
   // Parse query parameters from URL
   const queryParams = new URLSearchParams(location.search);
   
-  const [isDownloadDisabled, setIsDownloadDisabled] = useState(true);
+  const [isDownloadDisabled, setIsDownloadDisabled] = useState(false); // Set to false to enable the download button
 
   const handleDownload = () => {
-    const requiredFields = ['Vehicle No.', 'Transporter Name', 'Product/Material', 'Product/Material Type', 'TP No', 'Po No', 'Challan No', 'Supplier/customer', 'Supplier/customer Address'];
-    const allowedEmptyFields = 2; // Adjust this value based on your requirement
-  
-    const hasDataToDownload = data.some(item => {
-      const emptyFieldCount = requiredFields.filter(field => !item[field]).length;
-      return emptyFieldCount <= allowedEmptyFields;
-    });
-  
-    if (hasDataToDownload) {
-      // Your existing download logic
-    } else {
-      console.log("Not enough data to download. Please fill in more fields.");
-    }
-  
-    setIsDownloadDisabled(!hasDataToDownload); // Set the disabled state of the button
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, `quality_inbound_data_${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
+
+  // ... (rest of the code remains the same)
 
   
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);

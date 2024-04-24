@@ -103,6 +103,7 @@ function CreateUser() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
+      credentials: "include"
     })
       .then((response) => {
         if (response.ok) {
