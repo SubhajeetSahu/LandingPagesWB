@@ -17,6 +17,7 @@ const LoginUser = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: userId, userPassword: userPassword }),
+        credentials: "include"
       });
 
       if (response.ok) {

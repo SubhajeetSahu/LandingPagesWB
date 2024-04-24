@@ -1,4 +1,4 @@
-//VehicleEntryDetails.jsx
+// VehicleEntryDetails.jsx
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,8 @@ import Header from "../../../../Header/Header";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import camView from "../../assets/weighbridgeCam.webp";
 import './VehicleEntryDetails.css';
-import { FaCamera } from "react-icons/fa";
-import "./VehicleEntryDetails.css";
+import ScannerImg from "../../assets/ScannerImg.png"; // Adjust the path to match your folder structure and file name
+import Camera_Icon from "../../assets/Camera_Icon.png"; // Adjust the path to match your folder structure and file name
  
 function VehicleEntryDetails() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -168,7 +168,7 @@ function VehicleEntryDetails() {
           {/* PO No */}
           <div className="col-md-3 mb-3">
             <label htmlFor="poNo" className="form-label ">
-              PO No:<span className="text-danger">*</span>
+              PO No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
             <input
               type="text"
@@ -183,7 +183,7 @@ function VehicleEntryDetails() {
           {/* TP No */}
           <div className="col-md-3 mb-3 position-relative">
             <label htmlFor="tpNo" className="form-label ">
-              TP No:<span className="text-danger">*</span>
+              TP No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
             <div className="input-group">
               <input
@@ -198,15 +198,11 @@ function VehicleEntryDetails() {
               {/* Replace "Scan" button with FaCamera icon */}
               <button
                 className="btn btn-outline-primary"
-                style={{
-                  position: "absolute",
-                  right: "1px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                }}
+                style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
                 onClick={() => alert("Scan TP No")}
               >
-                <FaCamera />
+                {/* Use the imported scanner image */}
+                <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
               </button>
             </div>
           </div>
@@ -214,7 +210,7 @@ function VehicleEntryDetails() {
           {/* Challan No */}
           <div className="col-md-3 mb-3">
             <label htmlFor="challanNo" className="form-label ">
-              Challan No:<span className="text-danger">*</span>
+              Challan No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
             <input
               type="text"
@@ -222,13 +218,14 @@ function VehicleEntryDetails() {
               name="challanNo"
               value={formData.challanNo}
               onChange={handleChange}
+              required
               className="form-control"
             />
           </div>
           {/* Vehicle No */}
           <div className="col-md-3 mb-3 position-relative">
             <label htmlFor="vehicleNo" className="form-label ">
-              Vehicle No:<span className="text-danger">*</span>
+              Vehicle No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
             <div className="input-group">
               <input
@@ -237,20 +234,17 @@ function VehicleEntryDetails() {
                 name="vehicleNo"
                 value={formData.vehicleNo}
                 onChange={handleChange}
+                required
                 className="form-control"
               />
               {/* Replace "Scan" button with FaCamera icon */}
               <button
                 className="btn btn-outline-primary"
-                style={{
-                  position: "absolute",
-                  right: "1px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                }}
+                style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
                 onClick={() => alert("Scan Vehicle No")}
               >
-                <FaCamera />
+                {/* Use the imported scanner image */}
+                <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
               </button>
             </div>
           </div>
@@ -381,7 +375,7 @@ function VehicleEntryDetails() {
                   htmlFor="driverDLNo"
                   className="form-label "
                 >
-                  Driver DL No:<span className="text-danger">*</span>
+                  Driver DL No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
                 </label>
                 <div className="input-group">
                   <input
@@ -393,18 +387,13 @@ function VehicleEntryDetails() {
                     required
                     className="form-control"
                   />
-                  {/* Replace "Scan" button with FaCamera icon */}
                   <button
                     className="btn btn-outline-primary"
-                    style={{
-                      position: "absolute",
-                      right: "1px",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                    }}
+                    style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
                     onClick={() => alert("Scan Driver DL No")}
                   >
-                    <FaCamera />
+                    {/* Use the imported scanner image */}
+                    <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
                   </button>
                 </div>
               </div>
@@ -414,7 +403,7 @@ function VehicleEntryDetails() {
                   htmlFor="driverName"
                   className="form-label "
                 >
-                  Driver Name:<span className="text-danger">*</span>
+                  Driver Name:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -499,21 +488,17 @@ function VehicleEntryDetails() {
                     name="eWayBillNo"
                     value={formData.eWayBillNo}
                     onChange={handleChange}
-                    required
+                    // required
                     className="form-control"
                   />
                   {/* Replace "Scan" button with FaCamera icon */}
                   <button
                     className="btn btn-outline-primary"
-                    style={{
-                      position: "absolute",
-                      right: "1px",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                    }}
+                    style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
                     onClick={() => alert("Scan E-WayBill No")}
                   >
-                    <FaCamera />
+                    {/* Use the imported scanner image */}
+                    <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
                   </button>
                 </div>
               </div>
@@ -524,41 +509,36 @@ function VehicleEntryDetails() {
             <table className="text-center camview table table-bordered table-striped">
               <tbody>
                 <tr>
-                  <td colSpan="5" className="cam-heading">
-                    <b>Camera</b>
+                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
+                    <span style={{ marginRight: '5px' }}>Cam-1</span>
+                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0, }}>
+                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                    </button>
+                  </td>
+                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
+                    <span style={{ marginRight: '5px' }}>Cam-2</span>
+                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0, }}>
+                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                    </button>
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" rowSpan="2">
-                    <img src={camView} alt="CamView" width={150} height={150} />
-                    <br />
-                    <button className="btn btn-primary mt-2">Capture</button>
-                  </td>
-                  <td colSpan="2" rowSpan="2">
-                    <img src={camView} alt="CamView" width={150} height={150} />
-                    <br />
-                    <button className="btn btn-primary mt-2">Captrue</button>
-                  </td>
-                  {/* <td><img src={camView} alt="CamView" width={100} height={75} /></td> */}
                 </tr>
                 <tr>
-                  {/* <td><img src={camView} alt="CamView" width={100} height={75} /></td> */}
+                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
+                    <span style={{ marginRight: '5px' }}>Cam-3</span>
+                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0, }}>
+                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                    </button>
+                  </td>
+                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
+                    <span style={{ marginRight: '5px' }}>Cam-4</span>
+                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0 }}>
+                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                    </button>
+                  </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" rowSpan="2">
-                    <img src={camView} alt="CamView" width={150} height={150} />
-                    <br />
-                    <button className="btn btn-primary mt-2">Capture</button>
-                  </td>
-                  <td colSpan="2" rowSpan="2">
-                    <img src={camView} alt="CamView" width={150} height={150} />
-                    <br />
-                    <button className="btn btn-primary mt-2">Capture</button>
-                  </td>
-                  {/* <td><img src={camView} alt="CamView" width={100} height={75} /></td> */}
-                </tr>
-                <tr>
-                  {/* <td><img src={camView} alt="CamView" width={100} height={75} /></td> */}
                 </tr>
               </tbody>
             </table>
@@ -580,4 +560,3 @@ function VehicleEntryDetails() {
 };
  
 export default VehicleEntryDetails;
- 

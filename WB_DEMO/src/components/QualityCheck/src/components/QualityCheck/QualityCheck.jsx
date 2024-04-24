@@ -80,99 +80,35 @@ function QualityCheck() {
   const [data, setData] = useState([
     {
       "Ticket No.": 1,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product/Material": " ",
-      "Product/Material Type": " ",
-      "TP No": " ",
+      Date: "2024-04-24",
+      "Vehicle No.": "OD35F-3948",
+      In: "11:16",
+      Out: "12:20",
+      "Transporter Name": "JEEN TRADE AND EXPORTS PRIVATE LTD",
+      "Product/Material": "Coal",
+      "Product/Material Type": "ROM -100MM",
+      "TP No/Document No": "I22405984/75",
       "Po No": " ",
-      "Challan No": " ",
-      "Supplier/customer": " ",
-      "Supplier/customer Address": " ",
+      "Challan No": "1310002441-5300025809",
+      "Supplier/customer": "MCL Bhubaneswari",
+      "Supplier/customer Address": "Talcher",
       "Transaction Type": "Inbound",
     },
     {
       "Ticket No.": 2,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product/Material": " ",
-      "Product/Material Type": " ",
-      "TP No": " ",
-      "Po No": " ",
+      Date: "2024-04-24",
+      "Vehicle No.": "HR38Z1951",
+      In: "16:25",
+      Out: "21:45",
+      "Transporter Name": "MAA SHERAWALI TRANSPORT",
+      "Product/Material": "SPONGE IRON",
+      "Product/Material Type": "LUMPS",
+      "TP No/Document No": "VPL/23-24/S1294",
+      "Po No": "97/3",
       "Challan No": " ",
-      "Supplier/customer": " ",
-      "Supplier/customer Address": " ",
-      "Transaction Type": "Inbound",
-    },
-    {
-      "Ticket No.": 3,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product/Material": " ",
-      "Product/Material Type": " ",
-      "TP No": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Supplier/customer": " ",
-      "Supplier/customer Address": " ",
-      "Transaction Type": "Inbound",
-    },
-    {
-      "Ticket No.": 4,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product/Material": " ",
-      "Product/Material Type": " ",
-      "TP No": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Supplier/customer": " ",
-      "Supplier/customer Address": " ",
-      "Transaction Type": "Inbound",
-    },
-    {
-      "Ticket No.": 5,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product/Material": " ",
-      "Product/Material Type": " ",
-      "TP No": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Supplier/customer": " ",
-      "Supplier/customer Address": " ",
-      "Transaction Type": "Inbound",
-    },
-    {
-      "Ticket No.": 6,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product/Material": " ",
-      "Product/Material Type": " ",
-      "TP No": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Supplier/customer": " ",
-      "Supplier/customer Address": " ",
-      "Transaction Type": "Inbound",
+      "Supplier/customer": "SAMRIDHI TRADES",
+      "Supplier/customer Address": "MUZAFFARNAGAR",
+      "Transaction Type": "Outbound",
     },
   ]);
 
@@ -284,7 +220,7 @@ function QualityCheck() {
                   <th scope="col">Transporter Name</th>
                   <th scope="col">Product/Material</th>
                   <th scope="col">Product/Material Type</th>
-                  <th scope="col">TP No</th>
+                  <th scope="col">TP No/Document No</th>
                   <th scope="col">Po No</th>
                   <th scope="col">Challan No</th>
                   <th scope="col">Supplier/Customer</th>
@@ -315,11 +251,11 @@ function QualityCheck() {
                     <td>{item["Transporter Name"]}</td>
                     <td>{item["Product/Material"]}</td>
                     <td>{item["Product/Material Type"]}</td>
-                    <td>{item["TP No"]}</td>
+                    <td>{item["TP No/Document No"]}</td>
                     <td>{item["Po No"]}</td>
                     <td>{item["Challan No"]}</td>
-                    <td>{item["Supplier/Customer"]}</td>
-                    <td>{item["Supplier/Customer Address"]}</td>
+                    <td>{item["Supplier/customer"]}</td>
+                    <td>{item["Supplier/customer Address"]}</td>
                     <td>{item["Transaction Type"]}</td>
                     <td>
                     <button

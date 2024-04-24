@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Chart, ArcElement } from "chart.js/auto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
@@ -8,6 +7,7 @@ import Header from "../../../../Header/Header";
 import "./QualityDetailsEntry.css";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from 'react-router-dom';
+import { Chart, ArcElement } from "chart.js/auto";
 
 const QualityInboundDetails = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const QualityInboundDetails = () => {
     department: "",
     ticketNo: "",
     tpNoPoNo: "",
-    material: "Select",
+    material: "",
     moisture: "",
     vm: "",
     ash: "",
@@ -36,7 +36,6 @@ const QualityInboundDetails = () => {
     navigate("/QualityCheck");
   };
 
-  
   const handleSave = () => {
     const data = {
       date: formData.date,
@@ -87,14 +86,24 @@ const QualityInboundDetails = () => {
     setMaterial(event.target.value);
   };
 
-  const handleTicketClick = (ticketNumber, index) => {
-    const transactionType = data[index]["Transaction Type"];
-    if (transactionType === "Inbound") {
-      navigate(`/QualityInboundDetails?ticketNumber=${ticketNumber}`, { state: { receiveInboundData } });
-    } else if (transactionType === "Outbound") {
-      navigate(`/QualityOutboundDetails?ticketNumber=${ticketNumber}`);
-    }
-  };
+  const renderFieldWithBox = (fieldName, fieldValue, onChange) => (
+    <div className="d-flex flex-column mb-3">
+      <label htmlFor={fieldName} className="form-label text1 mb-1">
+        {fieldName}:
+      </label>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <input
+          type="text"
+          name={fieldName}
+          autoComplete="off"
+          value={fieldValue}
+          onChange={onChange}
+          required
+          className="form-control"
+        />
+      </div>
+    </div>
+  );
 
   return (
     <div className="d-flex">
@@ -108,14 +117,15 @@ const QualityInboundDetails = () => {
           className={`quality-detail-check-main-content ${
             isMobile ? "mobile" : isTablet ? "tablet" : "desktop"
           }`}
+          style={{ marginLeft: "220px" }} 
         >
           <div className="container-fluid trans-form-main-div overflow-hidden">
             <div className="close" onClick={closeForm}>
               <FontAwesomeIcon icon={faTimes} />
             </div>
             <div className="d-flex flex-column align-items-center mb-4">
-              <div className="text-center mb-4" >
-                <h3 >Quality Check Inbound Details</h3>
+              <div className="text-center mb-4">
+                <h3 style={{ marginTop: "20px" }}>Quality Check Inbound Details</h3>
               </div>
               <div className="d-flex" style={{ justifyContent: 'flex-end', width: '100%' }}>
                 <button className="btn button-transition mx-3" onClick={handleSave}>
@@ -129,239 +139,31 @@ const QualityInboundDetails = () => {
                 </button>
               </div>
             </div>
+
             <div className="row">
-              <div className="col-lg-4" style={{ marginLeft: "50px" }}>
-                <div className="d-flex mb-3">
-                  <label htmlFor="date" className="form-label text1 me-2">
-                    Date:
-                  </label>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    autoComplete="off"
-                    value={formData.date}
-                    onChange={handleInputChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-3">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    In Time:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value={currentDateTime}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-3">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Customer:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value="Vikram Pvt. Ltd."
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Vehicle Number:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value="OD-02-AJ-1160"
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Transporter:
-                  </label>
-                  <input
-                    type="text"
-                    name="transporter"
-                    autoComplete="off"
-                    value={formData.transporter}
-                    onChange={handleInputChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-1">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Department:
-                  </label>
-                  <input
-                    type="text"
-                    name="department"
-                    autoComplete="off"
-                    value={formData.department}
-                    onChange={handleInputChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
+              <div className="col-lg-4 div2 container-fluid">
+                {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange)}
+                {renderFieldWithBox("Date", formData.date, handleInputChange)}
+                {renderFieldWithBox("Vehicle Number", formData.vehicleNumber, handleInputChange)}
+                {renderFieldWithBox("In Time", currentDateTime, () => {})} 
+                {renderFieldWithBox("Out Time", currentDateTime, () => {})}
+                {renderFieldWithBox("Transporter", formData.transporter, handleInputChange)}
               </div>
               <div className="col-lg-4 div2 container-fluid">
-                <div className="d-flex mb-3">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Ticket No:
-                  </label>
-                  <input
-                    type="text"
-                    name="ticketNo"
-                    autoComplete="off"
-                    value={formData.ticketNo}
-                    onChange={handleInputChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-3">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Tp No/Po No:
-                  </label>
-                  <input
-                    type="text"
-                    name="tpNoPoNo"
-                    autoComplete="off"
-                    value={formData.tpNoPoNo}
-                    onChange={handleInputChange}
-                    required
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex mb-3">
-                  <label htmlFor="userId" className="form-label text1 me-2">
-                    Material:
-                  </label>
-                  <select
-                    className="form-control"
-                    name="material"
-                    value={formData.material}
-                    onChange={handleInputChange}
-                  >
-                    <option value="Select">Select</option>
-                    <option value="Iron">Iron</option>
-                    <option value="Coal">Coal</option>
-                  </select>
-                </div>
-                {formData.material === "Coal" && (
-                  <>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Moisture %:
-                      </label>
-                      <input
-                        type="text"
-                        name="moisture"
-                        autoComplete="off"
-                        value={formData.moisture}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Vm %:
-                      </label>
-                      <input
-                        type="text"
-                        name="vm"
-                        autoComplete="off"
-                        value={formData.vm}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Ash %:
-                      </label>
-                      <input
-                        type="text"
-                        name="ash"
-                        autoComplete="off"
-                        value={formData.ash}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Fc %:
-                      </label>
-                      <input
-                        type="text"
-                        name="fc"
-                        autoComplete="off"
-                        value={formData.fc}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                  </>
-                )}
-                {formData.material === "Iron" && (
-                  <>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Size :
-                      </label>
-                      <input
-                        type="text"
-                        name="size"
-                        autoComplete="off"
-                        value={formData.size}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Fe(t) % :
-                      </label>
-                      <input
-                        type="text"
-                        name="fe"
-                        autoComplete="off"
-                        value={formData.fe}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="d-flex mb-3">
-                      <label htmlFor="userId" className="form-label text1 me-2">
-                        Loi % :
-                      </label>
-                      <input
-                        type="text"
-                        name="loi"
-                        autoComplete="off"
-                        value={formData.loi}
-                        onChange={handleInputChange}
-                        required
-                        className="form-control"
-                      />
-                    </div>
-                  </>
-                )}
-                
+                {renderFieldWithBox("Material", formData.material, handleInputChange)}
+                {renderFieldWithBox("Material Type", formData.material, handleInputChange)}
+                {renderFieldWithBox("Transaction Type", formData.material, handleInputChange)}
+                {renderFieldWithBox("Tp No", formData.tpNoPoNo, handleInputChange)}
+                {renderFieldWithBox("Po No", formData.tpNoPoNo, handleInputChange)}
+                {renderFieldWithBox("Challan No", formData.tpNoPoNo, handleInputChange)}
+              </div>
+              <div className="col-lg-4 div2 container-fluid">
+                {renderFieldWithBox("Supplier", formData.tpNoPoNo, handleInputChange)}
+                {renderFieldWithBox("Supplier Address", formData.tpNoPoNo, handleInputChange)}
+                {renderFieldWithBox("Moisture %", formData.moisture, handleInputChange)}
+                {renderFieldWithBox("Vm %", formData.vm, handleInputChange)}
+                {renderFieldWithBox("Ash %", formData.ash, handleInputChange)}
+                {renderFieldWithBox("Fc %", formData.fc, handleInputChange)}
               </div>
             </div>
           </div>

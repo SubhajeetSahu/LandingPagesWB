@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTachometerAlt } from "@fortawesome/free-solid-svg-icons"; // Import the icon
 import {
   faTruck,
   faUsers,
@@ -23,9 +24,32 @@ const SideBar2 = ({ isSidebarExpanded, toggleSidebar }) => {
         className="sidebar-item"
         onClick={handleSidebarItemClick}
       >
+        {/* Icon icon <FontAwesome={faTruck} className="sidebar-icon mt-1" /> */}
+        <FontAwesomeIcon icon={faTachometerAlt} className="sidebar-icon mt-1" /> {/* Add this line */}
+        <span className="sidebar-item-text text-center mt-1">
+          {/* Vehicle Entry */}
+          Dashboard
+        </span>
+      </Link>
+      <Link
+        to="/VehicleEntryDetails"
+        className="sidebar-item"
+        onClick={handleSidebarItemClick}
+      >
         <FontAwesomeIcon icon={faTruck} className="sidebar-icon mt-1" />
         <span className="sidebar-item-text text-center mt-1">
-          Vehicle Entry
+          Inbound
+        </span>
+      </Link>
+      <Link
+        to=""
+        className="sidebar-item"
+        onClick={handleSidebarItemClick}
+      >
+        {/* <FontAwesomeIcon icon={faTruck} className="sidebar-icon mt-1" /> */}
+        <FontAwesomeIcon icon={faTruck} className="sidebar-icon mt-1 flip-horizontal" /> {/* Add this line */}
+        <span className="sidebar-item-text text-center mt-1">
+          Outbound
         </span>
       </Link>
       <Link

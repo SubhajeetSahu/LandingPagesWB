@@ -1,7 +1,11 @@
-//VehicleEntry.jsx
+// VehicleEntry.jsx
+ 
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+// import InTime_Img from "../../assets/InTime_Img.svg";
+import OutTime_Img from "../../assets/OutTime_Img.png";
 import { Link } from "react-router-dom";
 import "./VehicleEntry.css";
 import { Chart, ArcElement } from "chart.js/auto";
@@ -13,6 +17,9 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
+  const [systemOutTime, setSystemOutTime] = useState('');
+ 
+ 
   const navigate = useNavigate();
  
   useEffect(() => {
@@ -86,11 +93,18 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
     setSelectedDate('');
     closePopup();
   };
+  // Function to get the system out time
+  const getSystemOutTime = () => {
+    const currentTime = new Date().toLocaleTimeString();
+    setSystemOutTime(currentTime);
+  };
  
  
   return (
     <div>
       <Header toggleSidebar={toggleSidebar} />
+      <FontAwesomeIcon icon={faPlus} />
+ 
  
       <SideBar2
         isSidebarExpanded={isSidebarExpanded}
@@ -157,7 +171,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
           <div className="row justify-content-between mb-2">
             {/* Date field */}
             <div className="col-auto d-flex align-items-center"> {/* Adjusted layout to align items */}
-              <label htmlFor="date" style={{ marginRight: '20px', marginLeft: '30px' }}>Date:</label>
+              <label htmlFor="date" style={{ marginRight: '20px', marginLeft: '-70px' }}>Date:</label>
               <input
                 type="date"
                 value={selectedDate}
@@ -167,8 +181,8 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
               />
             </div>
             <div className="col-auto text-right"> {/* Added a column for the button and aligned it to the right */}
-              <button onClick={openPopup} className="btn btn-sm btn-primary" style={{ padding: '0', width: '100px', height: '30px' }}>
-                Add Ticket
+              <button onClick={openPopup} className="btn btn-sm btn-primary btn-add-ticket" style={{ padding: '0', width: '100px', height: '40px' }}>
+                <strong>Add Ticket</strong> <FontAwesomeIcon icon={faPlus} style={{ marginLeft: '5px', fontWeight: 'bold' }} />
               </button>
             </div>
           </div>
@@ -176,23 +190,23 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
             <table className="table table-bordered">
               <thead className="text-center">
                 <tr>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>Ticket No.</th>
-                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Vehicle No.</th>
-                  <th style={{ width: '10%', padding: '10', margin: '10' }}>In Time/Date</th>
-                  <th style={{ width: '10%', padding: '10', margin: '10' }}>Out Time/Date</th>
-                  <th style={{ width: '7%', padding: '10', margin: '10' }}>Vehicle Type</th>
-                  <th style={{ width: '7%', padding: '10', margin: '10' }}>No. of Wheels</th>
-                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Transporter</th>
-                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Supplier</th>
-                  <th style={{ width: '10%', padding: '10', margin: '10' }}>Supplier's Address</th>
-                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Material</th>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>TP No.</th>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>TP Net weight</th>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>PO No.</th>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>Challan No.</th>
-                  <th style={{ width: '8%', padding: '10', margin: '10' }}>Transaction Type</th>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>IN</th>
-                  <th style={{ width: '5%', padding: '10', margin: '10' }}>OUT</th>
+                  <th style={{ width: '5%', padding: '5px', margin: '5px ' }}>Ticket No.</th>
+                  <th style={{ width: '8%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
+                  <th style={{ width: '10%', padding: '5px', margin: '5px' }}>In Time/Date</th>
+                  <th style={{ width: '10%', padding: '5px', margin: '5px' }}>Out Time/Date</th>
+                  <th style={{ width: '7%', padding: '5px', margin: '5px' }}>Vehicle Type</th>
+                  <th style={{ width: '7%', padding: '5px', margin: '5px' }}>No. of Wheels</th>
+                  <th style={{ width: '8%', padding: '5px', margin: '5px' }}>Transporter</th>
+                  <th style={{ width: '8%', padding: '5px', margin: '5px' }}>Supplier</th>
+                  <th style={{ width: '10%', padding: '5px', margin: '5px' }}>Supplier's Address</th>
+                  <th style={{ width: '8%', padding: '5px', margin: '5px' }}>Material</th>
+                  <th style={{ width: '5%', padding: '5px', margin: '5px' }}>TP No.</th>
+                  <th style={{ width: '5%', padding: '5px', margin: '5px' }}>TP Net weight</th>
+                  <th style={{ width: '5%', padding: '5px', margin: '5px' }}>PO No.</th>
+                  <th style={{ width: '5%', padding: '5px', margin: '5px' }}>Challan No.</th>
+                  <th style={{ width: '8%', padding: '5px', margin: '5px' }}>Transaction Type</th>
+                  {/* <th style={{ width: '5%', padding: '5px', margin: '5px' }}>IN</th> */}
+                  <th style={{ width: '5%', padding: '5px', margin: '5px' }}>OUT</th>
                 </tr>
               </thead>
               <tbody className="text-center">
@@ -214,11 +228,19 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                   <TicketInputBox placeholder="Challan No." width="80px" />
                   <TicketInputBox placeholder="Transaction Status" width="80px" />
  
+                  {/* <td>
+                    <button className="image-button">
+                      <div className="image-container green-background">
+                        <img src={InTime_Img} alt="In" className="time-image" />
+                      </div>
+                    </button>
+                  </td> */}
                   <td>
-                    <button className="btn btn-success">IN</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-danger">OUT</button>
+                    <button className="image-button" onClick={getSystemOutTime}>
+                      <div className="image-container red-background">
+                        <img src={OutTime_Img} alt="Out" className="time-image" />
+                      </div>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -247,3 +269,4 @@ const TicketInputBox = ({ placeholder }) => {
 };
  
 export default VehicleEntry;
+ 

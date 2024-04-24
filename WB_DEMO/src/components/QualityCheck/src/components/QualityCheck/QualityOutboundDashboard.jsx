@@ -83,93 +83,19 @@ function QualityOutboundDashboard() {
 
   const [data, setData] = useState([
     {
-      "Ticket No.": 1,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product": " ",
-      "Product Type": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Customer": " ",
-      "Customer Address": " ",
-      "Transaction Type": "Outbound",
-    },
-    {
       "Ticket No.": 2,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product": " ",
-      "Product Type": " ",
-      "Po No": " ",
+      Date: "2024-04-24",
+      "Vehicle No.": "HR38Z1951",
+      In: "16:25",
+      Out: "21:45",
+      "Transporter Name": "MAA SHERAWALI TRANSPORT",
+      "Product": "SPONGE IRON",
+      "Product Type": "LUMPS",
+      "Document No": "VPL/23-24/S1294",
+      "PO No": "97/3",
       "Challan No": " ",
-      "Customer": " ",
-      "Customer Address": " ",
-      "Transaction Type": "Outbound",
-    },
-    {
-      "Ticket No.": 3,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product": " ",
-      "Product Type": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Customer": " ",
-      "Customer Address": " ",
-      "Transaction Type": "Outbound",
-    },
-    {
-      "Ticket No.": 4,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product": " ",
-      "Product Type": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Customer": " ",
-      "Customer Address": " ",
-      "Transaction Type": "Outbound",
-    },
-    {
-      "Ticket No.": 5,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product": " ",
-      "Product Type": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Customer": " ",
-      "Customer Address": " ",
-      "Transaction Type": "Outbound",
-    },
-    {
-      "Ticket No.": 6,
-      Date: "2024-04-23",
-      "Vehicle No.": " ",
-      In: " ",
-      Out: " ",
-      "Transporter Name": " ",
-      "Product": " ",
-      "Product Type": " ",
-      "Po No": " ",
-      "Challan No": " ",
-      "Customer": " ",
-      "Customer Address": " ",
+      "Customer": "SAMRIDHI TRADES",
+      "Customer Address": "MUZAFFARNAGAR",
       "Transaction Type": "Outbound",
     },
   ]);
@@ -281,6 +207,7 @@ function QualityOutboundDashboard() {
                   <th scope="col">Transporter Name</th>
                   <th scope="col">Product</th>
                   <th scope="col">Product Type</th>
+                  <th scope="col">Document No</th>
                   <th scope="col">PO No</th>
                   <th scope="col">Challan No</th>
                   <th scope="col">Customer</th>
@@ -311,6 +238,7 @@ function QualityOutboundDashboard() {
                     <td>{item["Transporter Name"]}</td>
                     <td>{item["Product"]}</td>
                     <td>{item["Product Type"]}</td>
+                    <td>{item["Document No"]}</td>
                     <td>{item["PO No"]}</td>
                     <td>{item["Challan No"]}</td>
                     <td>{item["Customer"]}</td>
