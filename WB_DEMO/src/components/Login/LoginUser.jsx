@@ -22,6 +22,9 @@ const LoginUser = () => {
 
       if (response.ok) {
         const data = await response.json();
+        sessionStorage.setItem("userId", data.userId);
+        sessionStorage.setItem("roles", data.roles);
+        sessionStorage.setItem("userName", data.userName);
         if (data.message === "please reset your password.") {
           Swal.fire({
             title: data.message,

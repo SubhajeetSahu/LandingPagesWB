@@ -22,7 +22,7 @@ function Header({ toggleSidebar }) {
   };
  
   const userName = sessionStorage.getItem("userName");
-  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  const roles = sessionStorage.getItem("roles");
   const userId = sessionStorage.getItem("userId");
  
   const open = Boolean(anchorEl);
@@ -57,15 +57,15 @@ function Header({ toggleSidebar }) {
           }}
         >
           <List>
+          <ListItem>
+              <ListItemText primary={`User ID: ${userId}`} />
+            </ListItem>
             <ListItem>
               <ListItemText primary={`User Name: ${userName}`} />
             </ListItem>
             <ListItem>
-              <ListItemText primary={`User ID: ${userId}`} />
+              <ListItemText primary={`Roles: ${roles}`} />
             </ListItem>
-            {/* <ListItem>
-              <ListItemText primary={`Roles: ${roles.join(", ")}`} />
-            </ListItem> */}
           </List>
         </Popover>
       </div>

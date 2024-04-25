@@ -7,12 +7,12 @@ import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QReport.css";
 
 const QualityReport = () => {
-  const [ticketNumber, setTicketNumber] = useState("");
-  const [truckNumber, setTruckNumber] = useState("");
-  const [inTimeValue, setInTimeValue] = useState("");
-  const [outTimeValue, setOutTimeValue] = useState("");
-  const [productValue, setProductValue] = useState("");
-  const [poNumber, setPoNumber] = useState("");
+  const [ticketNumber, setTicketNumber] = useState("1");
+  const [truckNumber, setTruckNumber] = useState("HR38Z1951");
+  const [inTimeValue, setInTimeValue] = useState("16:25");
+  const [outTimeValue, setOutTimeValue] = useState("21:45");
+  const [productValue, setProductValue] = useState("SPONGE IRON");
+  const [poNumber, setPoNumber] = useState("97/3");
   const [chalanNumber, setChalanNumber] = useState("");
   const [file, setFile] = useState(null);
   const [isFileInserted, setIsFileInserted] = useState(false);

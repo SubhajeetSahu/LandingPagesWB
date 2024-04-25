@@ -79,7 +79,7 @@ function QualityInboundDashboard() {
   const [data, setData] = useState([
     {
       "Ticket No.": 1,
-      Date: "2024-04-24",
+      Date: "2024-04-25",
       "Vehicle No.": "OD35F-3948",
       In: "11:16",
       Out: "12:20",

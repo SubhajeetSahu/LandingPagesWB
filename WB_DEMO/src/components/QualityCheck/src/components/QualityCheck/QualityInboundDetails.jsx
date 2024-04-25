@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import Header from "../../../../Header/Header";
-import "./QualityDetailsEntry.css";
+import "./QualityInboundDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from 'react-router-dom';
 import { Chart, ArcElement } from "chart.js/auto";
@@ -14,22 +14,24 @@ const QualityInboundDetails = () => {
   const location = useLocation();
   const { receiveInboundData } = location.state || {};
   const [formData, setFormData] = useState({
-    date: "",
-    inTime: "",
-    customer: "",
-    vehicleNumber: "",
-    transporter: "",
-    department: "",
-    ticketNo: "",
-    tpNoPoNo: "",
-    material: "",
-    moisture: "",
-    vm: "",
-    ash: "",
-    fc: "",
-    size: "",
-    fe: "",
-    loi: ""
+    date: "2024-04-25",
+    inTime: "11:16",
+    outTime: "12:20",
+    vehicleNumber: "OD35F-3948",
+    transporter: "JEEN TRADE & EXPORTS",
+    transactionType: "Inbound",
+    ticketNo: "1",
+    tpNo: "I22405984/75",
+    poNo: "",
+    challanNo: "1310002441-5300025809",
+    supplier: "MCL Bhubaneswari",
+    supplierAddress: "Talcher",
+    material: "Coal",
+    materialType: "ROM -100MM",
+    moisture: "5.63",
+    vm: "27.21",
+    ash: "29.30",
+    fc: "43.49",
   });
 
   const closeForm = () => {
@@ -43,17 +45,19 @@ const QualityInboundDetails = () => {
       customer: formData.customer,
       vehicleNumber: formData.vehicleNumber,
       transporter: formData.transporter,
-      department: formData.department,
       ticketNo: formData.ticketNo,
-      tpNoPoNo: formData.tpNoPoNo,
+      tpNo: formData.tpNo,
+      poNo: formData.poNo,
+      challanNo: formData.challanNo,
+      supplier: formData.supplier,
+      supplierAddress: formData.supplierAddress,
       material: formData.material,
+      materialType: formData.materialType,
+      transactionType: formData.transactionType,
       moisture: formData.moisture,
       vm: formData.vm,
       ash: formData.ash,
       fc: formData.fc,
-      size: formData.size,
-      fe: formData.fe,
-      loi: formData.loi
     };
 
     const queryString = new URLSearchParams(data).toString();
@@ -87,11 +91,11 @@ const QualityInboundDetails = () => {
   };
 
   const renderFieldWithBox = (fieldName, fieldValue, onChange) => (
-    <div className="d-flex flex-column mb-3">
-      <label htmlFor={fieldName} className="form-label text1 mb-1">
+    <div className="d-flex flex-row mb-3 align-items-center">
+      <label htmlFor={fieldName} className="form-label text-muted me-2 fw-normal">
         {fieldName}:
       </label>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1 }}>
         <input
           type="text"
           name={fieldName}
@@ -100,6 +104,7 @@ const QualityInboundDetails = () => {
           onChange={onChange}
           required
           className="form-control"
+          readOnly
         />
       </div>
     </div>
@@ -117,7 +122,7 @@ const QualityInboundDetails = () => {
           className={`quality-detail-check-main-content ${
             isMobile ? "mobile" : isTablet ? "tablet" : "desktop"
           }`}
-          style={{ marginLeft: "220px" }} 
+          style={{ marginLeft: "220px" }}
         >
           <div className="container-fluid trans-form-main-div overflow-hidden">
             <div className="close" onClick={closeForm}>
@@ -125,7 +130,7 @@ const QualityInboundDetails = () => {
             </div>
             <div className="d-flex flex-column align-items-center mb-4">
               <div className="text-center mb-4">
-                <h3 style={{ marginTop: "20px" }}>Quality Check Inbound Details</h3>
+                <h3 style={{marginRight: "130px" , marginTop: "60px"}}>Quality Check Inbound Details</h3>
               </div>
               <div className="d-flex" style={{ justifyContent: 'flex-end', width: '100%' }}>
                 <button className="btn button-transition mx-3" onClick={handleSave}>
@@ -142,24 +147,24 @@ const QualityInboundDetails = () => {
 
             <div className="row">
               <div className="col-lg-4 div2 container-fluid">
-                {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange)}
+                {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange )}
                 {renderFieldWithBox("Date", formData.date, handleInputChange)}
                 {renderFieldWithBox("Vehicle Number", formData.vehicleNumber, handleInputChange)}
-                {renderFieldWithBox("In Time", currentDateTime, () => {})} 
-                {renderFieldWithBox("Out Time", currentDateTime, () => {})}
+                {renderFieldWithBox("In Time",formData.inTime )}
+                {renderFieldWithBox("Out Time",formData.outTime )}
                 {renderFieldWithBox("Transporter", formData.transporter, handleInputChange)}
               </div>
-              <div className="col-lg-4 div2 container-fluid">
+              <div className="col-lg-4 div2 container-fluid column-margin">
                 {renderFieldWithBox("Material", formData.material, handleInputChange)}
-                {renderFieldWithBox("Material Type", formData.material, handleInputChange)}
-                {renderFieldWithBox("Transaction Type", formData.material, handleInputChange)}
-                {renderFieldWithBox("Tp No", formData.tpNoPoNo, handleInputChange)}
-                {renderFieldWithBox("Po No", formData.tpNoPoNo, handleInputChange)}
-                {renderFieldWithBox("Challan No", formData.tpNoPoNo, handleInputChange)}
+                {renderFieldWithBox("Material Type", formData.materialType, handleInputChange)}
+                {renderFieldWithBox("Tp No", formData.tpNo, handleInputChange)}
+                {renderFieldWithBox("Po No", formData.poNo, handleInputChange)}
+                {renderFieldWithBox("Challan No", formData.challanNo, handleInputChange)}
+                {renderFieldWithBox("Transaction Type", formData.transactionType, handleInputChange)}
               </div>
               <div className="col-lg-4 div2 container-fluid">
-                {renderFieldWithBox("Supplier", formData.tpNoPoNo, handleInputChange)}
-                {renderFieldWithBox("Supplier Address", formData.tpNoPoNo, handleInputChange)}
+                {renderFieldWithBox("Supplier", formData.supplier, handleInputChange)}
+                {renderFieldWithBox("Supplier Address", formData.supplierAddress, handleInputChange)}
                 {renderFieldWithBox("Moisture %", formData.moisture, handleInputChange)}
                 {renderFieldWithBox("Vm %", formData.vm, handleInputChange)}
                 {renderFieldWithBox("Ash %", formData.ash, handleInputChange)}
