@@ -160,4 +160,10 @@
     pointer-events: none; /* Disable pointer events */
     opacity: 0.5; /* Reduce opacity to indicate disabled state */
   }
-  
+
+  .quality-inbound-dashboard-main-content {
+    margin-left: 100px;
+    margin-top: 7rem;
+    margin-right: 40px; /* Adjust this value to create the desired gap */
+    transition: margin-left 0.2s ease;
+  }

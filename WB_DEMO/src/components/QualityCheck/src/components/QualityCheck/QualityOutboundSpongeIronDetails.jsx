@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Header/Header";
-import "./QualityInboundDetails.css";
+import Header from "../../../../Admin/Header/Header";
+import "./QualityOutboundSpongeIronDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from 'react-router-dom';
 import { Chart, ArcElement } from "chart.js/auto";
 
-const QualityInboundDetails = () => {
+const QualityOutboundSpongeIronDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { receiveInboundData } = location.state || {};
   const [formData, setFormData] = useState({
-    date: "2024-04-25",
+    date: "2024-04-30",
     inTime: "11:16",
     outTime: "12:20",
     vehicleNumber: "OD35F-3948",
@@ -23,15 +23,15 @@ const QualityInboundDetails = () => {
     ticketNo: "1",
     tpNo: "I22405984/75",
     poNo: "",
-    challanNo: "1310002441-5300025809",
+    challanNo: "1310002441-5300030809",
     supplier: "MCL Bhubaneswari",
     supplierAddress: "Talcher",
-    material: "Coal",
-    materialType: "ROM -100MM",
-    moisture: "5.63",
-    vm: "27.21",
-    ash: "29.30",
-    fc: "43.49",
+    material: "Sponge Iron",
+    materialType: "hematite",
+    size20mm: "65.28",
+    size03mm: "9.24",
+    fet: "62.54",
+    loi: "4.18",
   });
 
   const closeForm = () => {
@@ -54,10 +54,10 @@ const QualityInboundDetails = () => {
       material: formData.material,
       materialType: formData.materialType,
       transactionType: formData.transactionType,
-      moisture: formData.moisture,
-      vm: formData.vm,
-      ash: formData.ash,
-      fc: formData.fc,
+      size20mm: formData.size20mm,
+      size03mm: formData.size03mm,
+      fet: formData.fet,
+      loi: formData.loi,
     };
 
     const queryString = new URLSearchParams(data).toString();
@@ -165,10 +165,10 @@ const QualityInboundDetails = () => {
               <div className="col-lg-4 div2 container-fluid">
                 {renderFieldWithBox("Supplier", formData.supplier, handleInputChange)}
                 {renderFieldWithBox("Supplier Address", formData.supplierAddress, handleInputChange)}
-                {renderFieldWithBox("Moisture %", formData.moisture, handleInputChange)}
-                {renderFieldWithBox("Vm %", formData.vm, handleInputChange)}
-                {renderFieldWithBox("Ash %", formData.ash, handleInputChange)}
-                {renderFieldWithBox("Fc %", formData.fc, handleInputChange)}
+                {renderFieldWithBox("Size %+20mm", formData.size20mm, handleInputChange)}
+                {renderFieldWithBox("Size %-03mm", formData.size03mm, handleInputChange)}
+                {renderFieldWithBox("Fe(t) %", formData.fet, handleInputChange)}
+                {renderFieldWithBox("Loi %", formData.loi, handleInputChange)}
               </div>
             </div>
           </div>
@@ -178,4 +178,4 @@ const QualityInboundDetails = () => {
   );
 };
 
-export default QualityInboundDetails;
+export default QualityOutboundSpongeIronDetails;

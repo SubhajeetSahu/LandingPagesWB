@@ -1,6 +1,11 @@
 .login-page {
   display: flex;
   height: 100vh;
+  position: relative;
+  background-image: url("https://t3.ftcdn.net/jpg/02/18/36/62/360_F_218366238_HhmF2SMiYsunnRUsa3lgodlkkV3NBx7I.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .login-container {
@@ -14,7 +19,7 @@
 
 .login-content {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255);
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -31,26 +36,28 @@
 }
 
 .login-form {
-  width: 100%; /* Ensure the form takes full width */
-  max-width: 280px; /* Limit the form width */
+  width: 100%;
+  max-width: 200px;
+  margin-right: 50px;
 }
 
 .login-truck-image {
   width: 100%;
-  max-width: 275px;
+  max-width: 300px;
   height: auto;
   margin-bottom: 20px;
 }
 
 .login-input {
   width: 100%;
-  max-width: 280px;
   height: 40px;
   margin-bottom: 15px;
   padding: 8px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ced4da;
+  margin-right: 50px;
+  max-width: 100%;
 }
 
 .login-btn {
@@ -79,4 +86,22 @@
 
 .login-forgot-password:hover {
   text-decoration: underline;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

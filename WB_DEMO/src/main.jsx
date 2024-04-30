@@ -8,17 +8,21 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import CreateUser from "./components/CreateUser/CreateUser.jsx";
-import ManageUser from "./components/ManageUser/ManageUser.jsx";
-import ViewUser from "./components/ViewUser/ViewUser.jsx";
-import UpdateUser from "./components/UpdateUser/UpdateUser.jsx";
 import LoginUser from "./components/Login/LoginUser.jsx";
 import HomePage1 from "./components/HomePages/HomePage1.jsx";
 import HomePage2 from "./components/HomePages/HomePage2.jsx";
 import HomePage3 from "./components/HomePages/HomePage3.jsx";
 import HomePage5 from "./components/HomePages/HomePage5.jsx";
 import HomePage6 from "./components/HomePages/HomePage6.jsx";
-import ResetPassword from "./components/ResetPassword/ResetPassword.jsx";
+
+import CreateUser from "./components/Admin/CreateUser/CreateUser.jsx";
+import ManageUser from "./components/Admin/ManageUser/ManageUser.jsx";
+import UpdateUser from "./components/Admin/UpdateUser/UpdateUser.jsx";
+import ResetPassword from "./components/Admin/ResetPassword/ResetPassword.jsx";
+import CompanyManagement from "./components/Admin/CompanyManagement/CompanyManagement.jsx";
+import SiteManagement from "./components/Admin/SiteManagement/SiteManagement.jsx";
+import Vehicle from "./components/Admin/Vehicle/Vehicle.jsx";
+import Transporter from "./components/Admin/Transporter/Transporter.jsx";
 
 import VehicleEntry from "./components/GateUser/src/components/Vehicle Entry/VehicleEntry.jsx";
 import VehicleEntryDetails from "./components/GateUser/src/components/Vehicle Entry/VehicleEntryDetails.jsx";
@@ -32,8 +36,11 @@ import QualityInboundDashboard from "./components/QualityCheck/src/components/Qu
 import QualityOutboundDashboard from "./components/QualityCheck/src/components/QualityCheck/QualityOutboundDashboard.jsx"
 import QPrint from "./components/QualityCheck/src/components/Print/Print.jsx";
 import QReport from "./components/QualityCheck/src/components/Report/QReport.jsx";
-import QualityInboundDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundDetails.jsx";
 import QualityOutboundDetails from "./components/QualityCheck/src/components/QualityCheck/QualityOutboundDetails.jsx";
+import QualityInboundIronOreDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundIronOreDetails.jsx";
+import QualityInboundCoalDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundCoalDetails.jsx";
+import QualityHomePage from "./components/QualityCheck/src/components/QHome/QualityHomePage.jsx";
+import QualityOutboundSpongeIronDetails from "./components/QualityCheck/src/components/QualityCheck/QualityOutboundSpongeIronDetails.jsx";
 
 import ManagementHome from "./components/Management/src/components/Home/ManagementHome.jsx";
 import ManagementLocation from "./components/Management/src/components/Location/Location.jsx";
@@ -50,15 +57,19 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<LoginUser />} />
-      <Route path="/create-user" element={<CreateUser />} />
-      <Route path="/manage-user" element={<ManageUser />} />
-      <Route path="/view-users" element={<ViewUser />} />
-      <Route path="/update-user" element={<UpdateUser />} />
       <Route path="/home1" element={<HomePage1 />} />
       <Route path="/home2" element={<HomePage2 />} />
       <Route path="/home3" element={<HomePage3 />} />
       <Route path="/home5" element={<HomePage5 />} />
       <Route path="/home6" element={<HomePage6 />} />
+
+      <Route path="/create-user" element={<CreateUser />} />
+      <Route path="/manage-user" element={<ManageUser />} />
+      <Route path="/update-user" element={<UpdateUser />} />
+      <Route path="/company-management" element={<CompanyManagement />} />
+      <Route path="/site-management" element={<SiteManagement />} />
+      <Route path="/vehicle" element={<Vehicle />} />
+      <Route path="/transporter" element={<Transporter />} />
       <Route path="/ResetPassword" element={<ResetPassword />} />
 
       <Route path="/VehicleEntry" element={<VehicleEntry />} />
@@ -68,13 +79,16 @@ const router = createBrowserRouter(
       <Route path="/Camera" element={<Camera />} />
       <Route path="/Capture" element={<Capture />} />
 
+      <Route path="/QualityHomePage" element={<QualityHomePage />} />
       <Route path="/QualityCheck" element={<QualityCheck />} />
       <Route path="/QPrint" element={<QPrint />} />
       <Route path="/QReport" element={<QReport />} />
-      <Route path="/QualityInboundDetails" element={<QualityInboundDetails/>} />
       <Route path="/QualityOutboundDetails" element={<QualityOutboundDetails/>} />
       <Route path="/QualityInboundDashboard" element={<QualityInboundDashboard/>} />
       <Route path="/QualityOutboundDashboard" element={<QualityOutboundDashboard/>} />
+      <Route path="/QualityInboundIronOreDetails" element={<QualityInboundIronOreDetails/>} />
+      <Route path="/QualityInboundCoalDetails" element={<QualityInboundCoalDetails/>} />
+      <Route path="/QualityOutboundSpongeIronDetails" element={<QualityOutboundSpongeIronDetails/>} />
 
       <Route path="/ManagementHome" element={<ManagementHome />} />
       <Route path="/ManagementLocation" element={<ManagementLocation />} />

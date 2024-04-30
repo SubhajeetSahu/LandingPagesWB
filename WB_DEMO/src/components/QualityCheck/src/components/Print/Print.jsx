@@ -4,7 +4,7 @@ import { Chart, ArcElement } from "chart.js/auto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import "./Print.css";
 
 const QPrint = () => {

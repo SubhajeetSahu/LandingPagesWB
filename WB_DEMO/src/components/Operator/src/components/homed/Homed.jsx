@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import SideBar5 from "../../../../SideBar/SideBar5";
 
 const OperatorHome= () => {

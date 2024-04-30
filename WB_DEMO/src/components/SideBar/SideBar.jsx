@@ -6,9 +6,15 @@ import {
   faUsers,
   faAngleDown,
   faPowerOff,
+  faBuilding,
+  faMapMarkerAlt,
+  faHome,
+  faTruckMoving,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./SideBar.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
   const [isUserManagementOpen, setIsUserManagementOpen] = useState(false);
@@ -26,8 +32,53 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to sign out.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, sign out",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Clear session storage
+        sessionStorage.clear();
+
+        // Clear browser history and redirect
+        window.location.href = "/";
+
+        // Additional history manipulation to prevent users from navigating back
+        if (window.history && window.history.pushState) {
+          // Use replaceState to clear the existing history
+          window.history.replaceState(null, null, "/");
+
+          // Add a dummy entry to the history to replace current entry
+          window.history.pushState(null, null, "/");
+
+          // Prevent users from navigating back to the previous state
+          window.onpopstate = function (event) {
+            window.history.go(1);
+          };
+        }
+      }
+    });
+  };
+
   return (
     <div className={`home-sidebar ${isSidebarExpanded ? "expanded" : ""}`}>
+      <Link
+        to="/home1"
+        className="sidebar-item"
+        onClick={handleSidebarItemClick}
+      >
+        <FontAwesomeIcon icon={faHome} className="sidebar-icon mt-1" />
+        <span className="sidebar-item-text text-center mt-1">Home</span>
+      </Link>
+
       <div
         className="sidebar-item dropdown"
         onClick={handleUserManagementClick}
@@ -39,10 +90,7 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
           style={{ cursor: "pointer" }}
         >
           <FontAwesomeIcon icon={faUserFriends} className="sidebar-icon" />
-          <span
-            className="sidebar-item-text text-center m-1"
-            style={{ marginLeft: "5px" }}
-          >
+          <span className="sidebar-item-text text-center m-1">
             User Management
           </span>
           <FontAwesomeIcon
@@ -70,17 +118,64 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
           </li>
         </ul>
       </div>
-      <div
-        to="/vehicle-entry"
+
+      {/* Company Management */}
+      <Link
+        to="/company-management"
+        className="sidebar-item"
+        onClick={handleSidebarItemClick}
+      >
+        <FontAwesomeIcon
+          icon={faBuilding}
+          className="sidebar-icon mt-1"
+          style={{ marginLeft: "2px" }}
+        />
+        <span className="sidebar-item-text text-center mt-1">
+          Company Management
+        </span>
+      </Link>
+
+      {/* Site Management */}
+      <Link
+        to="/site-management"
+        className="sidebar-item"
+        onClick={handleSidebarItemClick}
+      >
+        <FontAwesomeIcon
+          icon={faMapMarkerAlt}
+          className="sidebar-icon mt-1"
+          style={{ marginLeft: "2px" }}
+        />
+        <span className="sidebar-item-text text-center mt-1">
+          Site Management
+        </span>
+      </Link>
+
+      <Link
+        to="/transporter"
+        className="sidebar-item"
+        onClick={handleSidebarItemClick}
+      >
+        <FontAwesomeIcon icon={faTruckMoving} className="sidebar-icon mt-1" />
+        <span
+          className="sidebar-item-text text-center mt-1"
+          style={{ marginLeft: "5px" }}
+        >
+          Transport Management
+        </span>
+      </Link>
+
+      <Link
+        to="/vehicle"
         className="sidebar-item"
         onClick={handleSidebarItemClick}
       >
         <FontAwesomeIcon icon={faTruck} className="sidebar-icon mt-1" />
         <span className="sidebar-item-text text-center mt-1">
-          Vehicle Master
+          Vehicle Management
         </span>
-      </div>
-      <div
+      </Link>
+      {/* <div
         to="/vehicle-entry"
         className="sidebar-item"
         onClick={handleSidebarItemClick}
@@ -89,16 +184,16 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
         <span className="sidebar-item-text text-center mt-1">
           Supplier Master
         </span>
-      </div>
-      <Link to="/" className="sidebar-item" onClick={handleSidebarItemClick}>
+      </div> */}
+      <div className="sidebar-item" onClick={handleSignOut}>
         <FontAwesomeIcon icon={faPowerOff} className="sidebar-icon mt-1" />
         <span
           className="sidebar-item-text text-center mt-1"
-          style={{ marginLeft: "20px" }}
+          style={{ marginLeft: "8px" }}
         >
           Sign Out
         </span>
-      </Link>
+      </div>
     </div>
   );
 };

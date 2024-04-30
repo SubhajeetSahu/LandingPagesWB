@@ -1,7 +1,7 @@
-.trans_form_main_div{
-  margin-top: 20px;
-    margin-left: 40px;
-}
+/* .trans_form_main_div{
+  background-color: rgb(62, 144, 190);
+    
+} */
 
 .right_div{
   display: flex;
@@ -106,3 +106,7 @@ td{
     
   }
  
+  .main-content{
+    margin-top: 150px;
+    margin-left: 100px;
+  }

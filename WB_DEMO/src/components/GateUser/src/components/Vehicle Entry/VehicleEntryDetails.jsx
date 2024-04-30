@@ -3,12 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import camView from "../../assets/weighbridgeCam.webp";
-import './VehicleEntryDetails.css';
-import ScannerImg from "../../assets/ScannerImg.png"; // Adjust the path to match your folder structure and file name
-import Camera_Icon from "../../assets/Camera_Icon.png"; // Adjust the path to match your folder structure and file name
+import "./VehicleEntryDetails.css";
+import ScannerImg from "../../assets/ScannerImg.png";
+import Camera_Icon from "../../assets/Camera_Icon.png";
+import Swal from "sweetalert2";
  
 function VehicleEntryDetails() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -16,10 +17,154 @@ function VehicleEntryDetails() {
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
+  const [suppliers, setSuppliers] = useState([]);
+  // const [suppliersAddress, setSuppliersAddress] = useState();
+  const [transporter, setTransporter] = useState([]);
+  const [materials, setMaterials] = useState([]);
+ 
+ 
+ 
+ 
  
   const toggleSidebar = () => {
     setIsSidebarExpanded(!isSidebarExpanded);
   };
+ 
+  // Get API for Supplier
+  useEffect(() => {
+    const fetchSupplierList = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/supplier/get/list",
+          {
+            method: "GET",
+            credentials: "include"
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        // Assuming data is an array of suppliers, update state or handle data accordingly
+        console.log(data); // Log the data to see its structure
+        setSuppliers(data);
+      } catch (error) {
+        console.error("Error fetching supplier list:", error);
+      }
+    };
+ 
+    fetchSupplierList();
+  }, []);
+ 
+  // onChangeSupplier
+  const handleSupplierChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+ 
+    // alert(e.target.value);
+ 
+    fetch(`http://localhost:8080/api/v1/supplier/get/${e.target.value}`)
+      .then((response) => response.text())
+      .then((data) => {
+ 
+        console.log(data);
+        setFormData((prevData) => ({
+          ...prevData,
+          supplierAddress: data
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching supplier Address:", error);
+      });
+  };
+ 
+  // Get Api for Transporter:
+ 
+  // useEffect(() => {
+  //   const fetchTransporterList = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "http://localhost:8080/api/v1/transporter",
+  //         {
+  //           method: "GET",
+  //           credentials: "include"
+  //         }
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       const data = await response.json();
+  //       // Assuming data is an array of transporter, update state or handle data accordingly
+  //       console.log(data); // Log the data to see its structure
+  //       setTransporter(data);
+  //     } catch (error) {
+  //       console.error("Error fetching Transporter list:", error);
+  //     }
+  //   };
+ 
+  //   fetchTransporterList();
+  // }, []);
+ 
+  // Get API for MAterial:
+ 
+  useEffect(() => {
+    const fetchMaterialList = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/materials/names",
+          {
+            method: "GET",
+            credentials: "include"
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        // Assuming data is an array of Materials, update state or handle data accordingly
+        console.log(data); // Log the data to see its structure
+        setMaterials(data);
+      } catch (error) {
+        console.error("Error fetching Materials list:", error);
+      }
+    };
+ 
+    fetchMaterialList();
+  }, []);
+ 
+  // Get API Vehicle No.
+ 
+  const handleVehicleNoKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission
+      // Call API with the entered vehicle number
+      fetch(`http://localhost:8080/api/v1/vehicles/vehicle/${formData.vehicleNo}`)
+        .then((response) => response.json())
+        .then((data) => {
+ 
+          // Set transporter state with the data from the API response
+          setTransporter(data.transporter);
+          // Update other form data fields with the received data
+          setFormData((prevData) => ({
+            ...prevData,
+            vehicleNo: data.vehicleNo,
+            noOfWheels: data.vehicleWheelsNo,
+            vehicleType: data.vehicleType,
+            rcFitnessUpto: data.vehicleFitnessUpTo
+          }));
+        })
+        .catch((error) => {
+          console.error("Error fetching supplier Address:", error);
+        });
+    }
+  };
+ 
+ 
+ 
+ 
  
   useEffect(() => {
     Chart.register(ArcElement);
@@ -45,30 +190,32 @@ function VehicleEntryDetails() {
   }, []);
  
   const [formData, setFormData] = useState({
-    date: "",
-    inTime: "",
     poNo: "",
+    tpNo: "",
     challanNo: "",
-    customer: "",
+    vehicleNo: "",
+    vehicleType: "",
+    noOfWheels: "",
     supplier: "",
     supplierAddress: "",
-    supplierContactNo: "",
-    vehicleNo: "",
     transporter: "",
+    material: "",
     driverDLNo: "",
     driverName: "",
+    tpNetWeight: "",
+    rcFitnessUpto: "",
     department: "",
-    product: "",
     eWayBillNo: "",
-    tpNo: "",
-    vehicleType: "",
-    tpNetWeight: "", // New field: TP Net Weight
-    rcFitnessUpto: "", // New field: RC Fitness Upto
   });
-  const departmentOptions = ["Department 1", "Department 2", "Department 3"];
-  const materialtOptions = ["Material 1", "Material 2", "Material 3"];
-  const supplier = ["Supplier 1", "Supplier 2", "Supplier 3"];
-  const transporterOptions = ["Transporter 1", "Transporter 2", "Transporter 3"];
+ 
+  // const departmentOptions = ["Department 1", "Department 2", "Department 3"];
+  // const materialtOptions = ["iron", "lumps", "coal"];
+  // const supplier = ["MCL", "Hitesh Sol."];
+  // const supplier = ["", " "];
+ 
+  // const transporterOptions = ["Swift Transport Solutions","Mahanrani Inc."];
+  // const transporterOptions = ["", ""];
+ 
  
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,63 +241,102 @@ function VehicleEntryDetails() {
       !formData.poNo ||
       !formData.eWayBillNo
     ) {
-      alert("Please fill out all mandatory fields.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill out all mandatory fields.",
+      });
       return;
     }
-    // Show success message
-    alert("Data saved Successfully!");
  
-    // Reset form data after 3 seconds and navigate to VehicleEntry page
-    setTimeout(() => {
-      setFormData({
-        date: "",
-        inTime: "",
-        poNo: "",
-        challanNo: "",
-        customer: "",
-        supplier: "",
-        supplierAddress: "",
-        supplierContactNo: "",
-        vehicleNo: "",
-        transporter: "",
-        driverDLNo: "",
-        driverName: "",
-        department: "",
-        product: "",
-        eWayBillNo: "",
-        tpNo: "",
-        vehicleType: "",
-        tpNetWeight: "", // New field: TP Net Weight
-        rcFitnessUpto: "", // New field: RC Fitness Upto
+    const gateData = {
+      // userId,
+      supplier: formData.supplier,
+      transporter: formData.transporter,
+      material: formData.material,
+      vehicle: formData.vehicleNo,
+      dlNo: formData.driverDLNo,
+      driverName: formData.driverName,
+      supplyConsignmentWeight: formData.tpNetWeight,
+      poNo: formData.poNo,
+      tpNo: formData.tpNo,
+      challanNo: formData.challanNo,
+      ewayBillNo: formData.eWayBillNo
+    };
+ 
+    // Create JSON payload
+    const payload = JSON.stringify(gateData);
+    console.log("payload", payload);
+    // Fetch API
+    fetch("http://localhost:8080/api/v1/gate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+ 
+      },
+      body: payload,
+      credentials: "include"
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Show success message
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Data saved Successfully!",
+        });
+ 
+        // Reset form data after 3 seconds and navigate to VehicleEntry page
+        setTimeout(() => {
+          setFormData({
+            poNo: "",
+            tpNo: "",
+            challanNo: "",
+            vehicleNo: "",
+            vehicleType: "",
+            noOfWheels: "",
+            supplier: "",
+            supplierAddress: "",
+            transporter: "",
+            material: "",
+            driverDLNo: "",
+            driverName: "",
+            tpNetWeight: "",
+            rcFitnessUpto: "",
+            department: "",
+            eWayBillNo: "",
+          });
+          navigate("/VehicleEntry");
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
       });
- 
-      // Navigate to VehicleEntry page
-      navigate("/VehicleEntry");
-    }, 3000);
   };
  
   const handleClear = () => {
     setFormData({
-      date: "",
-      inTime: "",
       poNo: "",
+      tpNo: "",
       challanNo: "",
-      customer: "",
+      vehicleNo: "",
+      vehicleType: "",
+      noOfWheels: "",
       supplier: "",
       supplierAddress: "",
-      supplierContactNo: "",
-      vehicleNo: "",
-      NoOfWheels: "",
       transporter: "",
+      material: "",
       driverDLNo: "",
       driverName: "",
+      tpNetWeight: "",
+      rcFitnessUpto: "",
       department: "",
-      material: "",
       eWayBillNo: "",
-      tpNo: "",
-      vehicleType: "",
-      tpNetWeight: "", // Clearing the new field: TP Net Weight
-      rcFitnessUpto: "", // Clearing the new field: RC Fitness Upto
     });
   };
  
@@ -161,7 +347,10 @@ function VehicleEntryDetails() {
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}
       />
-      <div className="VehicleEntryDetailsMainContent" style={{ marginTop: "100px", marginRight: "140px" }}>
+      <div
+        className="VehicleEntryDetailsMainContent"
+        style={{ marginTop: "100px", marginRight: "140px" }}
+      >
         <h2 className="text-center mb-4">Vehicle Entry Inbound Details</h2>
         <div className="row">
           {/* Input fields */}
@@ -182,35 +371,41 @@ function VehicleEntryDetails() {
           </div>
           {/* TP No */}
           <div className="col-md-3 mb-3 position-relative">
-            <label htmlFor="tpNo" className="form-label ">
-              TP No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
-            </label>
-            <div className="input-group">
-              <input
-                type="text"
-                id="tpNo"
-                name="tpNo"
-                value={formData.tpNo}
-                onChange={handleChange}
-                required
-                className="form-control"
-              />
-              {/* Replace "Scan" button with FaCamera icon */}
-              <button
-                className="btn btn-outline-primary"
-                style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
-                onClick={() => alert("Scan TP No")}
-              >
-                {/* Use the imported scanner image */}
-                <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
-              </button>
-            </div>
-          </div>
+  <label htmlFor="tpNo" className="form-label ">
+    TP No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
+  </label>
+  <div className="input-group" style={{ position: "relative" }}>
+    <input
+      type="text"
+      id="tpNo"
+      name="tpNo"
+      value={formData.tpNo}
+      onChange={handleChange}
+      required
+      className="form-control"
+    />
+    <button
+      className="btn btn-outline-primary"
+      style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+      onClick={() => alert("Scan TP No")}
+    >
+      <img
+        src={ScannerImg}
+        alt="Scanner"
+        style={{ width: "25px", height: "25px" }}
+      />
+    </button>
+  </div>
+</div>
+
+
+
  
           {/* Challan No */}
           <div className="col-md-3 mb-3">
             <label htmlFor="challanNo" className="form-label ">
-              Challan No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
+              Challan No:
+              <span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
             <input
               type="text"
@@ -224,39 +419,46 @@ function VehicleEntryDetails() {
           </div>
           {/* Vehicle No */}
           <div className="col-md-3 mb-3 position-relative">
-            <label htmlFor="vehicleNo" className="form-label ">
-              Vehicle No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
-            </label>
-            <div className="input-group">
-              <input
-                type="text"
-                id="vehicleNo"
-                name="vehicleNo"
-                value={formData.vehicleNo}
-                onChange={handleChange}
-                required
-                className="form-control"
-              />
-              {/* Replace "Scan" button with FaCamera icon */}
-              <button
-                className="btn btn-outline-primary"
-                style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
-                onClick={() => alert("Scan Vehicle No")}
-              >
-                {/* Use the imported scanner image */}
-                <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
-              </button>
-            </div>
-          </div>
+  <label htmlFor="vehicleNo" className="form-label ">
+    Vehicle No:
+    <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+  </label>
+  <div className="input-group" style={{ position: "relative" }}>
+    <input
+      type="text"
+      id="vehicleNo"
+      name="vehicleNo"
+      value={formData.vehicleNo}
+      onChange={handleChange}
+      required
+      className="form-control"
+      onKeyDown={handleVehicleNoKeyPress}
+    />
+    {/* Replace "Scan" button with FaCamera icon */}
+    <button
+      className="btn btn-outline-primary"
+      style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+      onClick={() => alert("Scan Vehicle No")}
+    >
+      {/* Use the imported scanner image */}
+      <img
+        src={ScannerImg}
+        alt="Scanner"
+        style={{ width: "25px", height: "25px" }}
+      />
+    </button>
+  </div>
+</div>
+
+
+
+
           <div className="col-md-6">
             {/* Input fields */}
             <h4>Fill up the user details:</h4>
             <div className="row mb-3">
               <div className="col-md-6">
-                <label
-                  htmlFor="vehicleType"
-                  className="form-label"
-                >
+                <label htmlFor="vehicleType" className="form-label">
                   Vehicle Type:
                 </label>
                 <input
@@ -269,17 +471,14 @@ function VehicleEntryDetails() {
                 />
               </div>
               <div className="col-md-6">
-                <label
-                  htmlFor="NoOfWheels"
-                  className="form-label"
-                >
+                <label htmlFor="noOfWheels" className="form-label">
                   No of Wheels:
                 </label>
                 <input
                   type="text"
-                  id="NoOfWheels"
-                  name="NoOfWheels"
-                  value={formData.NoOfWheels}
+                  id="noOfWheels"
+                  name="noOfWheels"
+                  value={formData.noOfWheels}
                   onChange={handleChange}
                   className="form-control"
                 />
@@ -295,23 +494,20 @@ function VehicleEntryDetails() {
                   id="supplier"
                   name="supplier"
                   value={formData.supplier}
-                  onChange={handleChange}
+                  onChange={handleSupplierChange}
                   className="form-select"
                 >
                   <option value="">Select Supplier</option>
-                  {supplier.map((supplier, index) => (
-                    <option key={index} value={supplier}>
-                      {supplier}
+                  {suppliers.map((s, index) => (
+                    <option key={index} value={s}>
+                      {s}
                     </option>
                   ))}
                 </select>
               </div>
  
               <div className="col-md-6">
-                <label
-                  htmlFor="supplierContactNo"
-                  className="form-label "
-                >
+                <label htmlFor="supplierContactNo" className="form-label ">
                   Supplier's Address:
                 </label>
                 <input
@@ -338,19 +534,18 @@ function VehicleEntryDetails() {
                   className="form-select"
                 >
                   <option value="">Select Transporter</option>
-                  {transporterOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
+                  {/* Populate the dropdown options from the transporter state */}
+                  {transporter.map((t, index) => (
+                    <option key={index} value={t}>
+                      {t}
                     </option>
                   ))}
                 </select>
               </div>
+ 
               {/* Product dropdown */}
               <div className="col-md-6">
-                <label
-                  htmlFor="material"
-                  className="form-label "
-                >
+                <label htmlFor="material" className="form-label ">
                   Material:
                 </label>
                 <select
@@ -361,49 +556,51 @@ function VehicleEntryDetails() {
                   className="form-select"
                 >
                   <option value="">Select material</option>
-                  {materialtOptions.map((material, index) => (
-                    <option key={index} value={material}>
-                      {material}
+                  {materials.map((m, index) => (
+                    <option key={index} value={m}>
+                      {m}
                     </option>
                   ))}
                 </select>
               </div>
             </div>
+            {/* Driver DL No */}
             <div className="row mb-3">
-              <div className="col-md-6">
-                <label
-                  htmlFor="driverDLNo"
-                  className="form-label "
-                >
-                  Driver DL No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    id="driverDLNo"
-                    name="driverDLNo"
-                    value={formData.driverDLNo}
-                    onChange={handleChange}
-                    required
-                    className="form-control"
-                  />
-                  <button
-                    className="btn btn-outline-primary"
-                    style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
-                    onClick={() => alert("Scan Driver DL No")}
-                  >
-                    {/* Use the imported scanner image */}
-                    <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
-                  </button>
-                </div>
-              </div>
+  <div className="col-md-6">
+    <label htmlFor="driverDLNo" className="form-label ">
+      Driver DL No:
+      <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+    </label>
+    <div className="input-group" style={{ position: "relative" }}>
+      <input
+        type="text"
+        id="driverDLNo"
+        name="driverDLNo"
+        value={formData.driverDLNo}
+        onChange={handleChange}
+        required
+        className="form-control"
+      />
+      <button
+        className="btn btn-outline-primary"
+        style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+        onClick={() => alert("Scan Driver DL No")}
+      >
+        {/* Use the imported scanner image */}
+        <img
+          src={ScannerImg}
+          alt="Scanner"
+          style={{ width: "25px", height: "25px" }}
+        />
+      </button>
+    </div>
+  </div>
+
  
               <div className="col-md-6">
-                <label
-                  htmlFor="driverName"
-                  className="form-label "
-                >
-                  Driver Name:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                <label htmlFor="driverName" className="form-label ">
+                  Driver Name:
+                  <span style={{ color: "red", fontWeight: "bold" }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -418,10 +615,7 @@ function VehicleEntryDetails() {
             </div>
             <div className="row mb-3">
               <div className="col-md-6">
-                <label
-                  htmlFor="tpNetWeight"
-                  className="form-label "
-                >
+                <label htmlFor="tpNetWeight" className="form-label ">
                   TP Net Weight:
                 </label>
                 <input
@@ -434,10 +628,7 @@ function VehicleEntryDetails() {
                 />
               </div>
               <div className="col-md-6">
-                <label
-                  htmlFor="rcFitnessUpto"
-                  className="form-label "
-                >
+                <label htmlFor="rcFitnessUpto" className="form-label ">
                   RC Fitness Upto:
                 </label>
                 <input
@@ -452,11 +643,8 @@ function VehicleEntryDetails() {
             </div>
             {/* Department dropdown */}
             <div className="row mb-3">
-              <div className="col-md-6">
-                <label
-                  htmlFor="department"
-                  className="form-label "
-                >
+              {/* <div className="col-md-6">
+                <label htmlFor="department" className="form-label ">
                   Department:
                 </label>
                 <select
@@ -473,35 +661,36 @@ function VehicleEntryDetails() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
+              {/* E-way Bill No */}
               <div className="col-md-6">
-                <label
-                  htmlFor="eWayBillNo"
-                  className="form-label "
-                >
-                  E-way Bill No:
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    id="eWayBillNo"
-                    name="eWayBillNo"
-                    value={formData.eWayBillNo}
-                    onChange={handleChange}
-                    // required
-                    className="form-control"
-                  />
-                  {/* Replace "Scan" button with FaCamera icon */}
-                  <button
-                    className="btn btn-outline-primary"
-                    style={{ marginLeft: "3px" }} // Adjust the margin-left to create space between the input box and the button
-                    onClick={() => alert("Scan E-WayBill No")}
-                  >
-                    {/* Use the imported scanner image */}
-                    <img src={ScannerImg} alt="Scanner" style={{ width: "25px", height: "25px" }} />
-                  </button>
-                </div>
-              </div>
+  <label htmlFor="eWayBillNo" className="form-label ">
+    E-way Bill No:
+  </label>
+  <div className="input-group" style={{ position: "relative" }}>
+    <input
+      type="text"
+      id="eWayBillNo"
+      name="eWayBillNo"
+      value={formData.eWayBillNo}
+      onChange={handleChange}
+      className="form-control"
+    />
+    <button
+      className="btn btn-outline-primary"
+      style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+      onClick={() => alert("Scan E-WayBill No")}
+    >
+      {/* Use the imported scanner image */}
+      <img
+        src={ScannerImg}
+        alt="Scanner"
+        style={{ width: "25px", height: "25px" }}
+      />
+    </button>
+  </div>
+</div>
+
             </div>
           </div>
           <div className="col-md-6">
@@ -509,37 +698,95 @@ function VehicleEntryDetails() {
             <table className="text-center camview table table-bordered table-striped">
               <tbody>
                 <tr>
-                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
-                    <span style={{ marginRight: '5px' }}>Cam-1</span>
-                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0, }}>
-                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                  <td
+                    colSpan="2"
+                    rowSpan="2"
+                    style={{
+                      position: "relative",
+                      width: "180px",
+                      height: "180px",
+                    }}
+                  >
+                    <span style={{ marginRight: "5px" }}>Front-View</span>
+                    <button
+                      className="btn btn-primary"
+                      style={{ position: "absolute", bottom: 0, right: 0 }}
+                    >
+                      <img
+                        src={Camera_Icon}
+                        alt="Captured"
+                        style={{ width: "25px", height: "25px" }}
+                      />
                     </button>
                   </td>
-                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
-                    <span style={{ marginRight: '5px' }}>Cam-2</span>
-                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0, }}>
-                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                  <td
+                    colSpan="2"
+                    rowSpan="2"
+                    style={{
+                      position: "relative",
+                      width: "180px",
+                      height: "180px",
+                    }}
+                  >
+                    <span style={{ marginRight: "5px" }}>Back-View</span>
+                    <button
+                      className="btn btn-primary"
+                      style={{ position: "absolute", bottom: 0, right: 0 }}
+                    >
+                      <img
+                        src={Camera_Icon}
+                        alt="Captured"
+                        style={{ width: "25px", height: "25px" }}
+                      />
                     </button>
                   </td>
                 </tr>
+                <tr></tr>
                 <tr>
-                </tr>
-                <tr>
-                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
-                    <span style={{ marginRight: '5px' }}>Cam-3</span>
-                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0, }}>
-                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                  <td
+                    colSpan="2"
+                    rowSpan="2"
+                    style={{
+                      position: "relative",
+                      width: "180px",
+                      height: "180px",
+                    }}
+                  >
+                    <span style={{ marginRight: "5px" }}>Top-View</span>
+                    <button
+                      className="btn btn-primary"
+                      style={{ position: "absolute", bottom: 0, right: 0 }}
+                    >
+                      <img
+                        src={Camera_Icon}
+                        alt="Captured"
+                        style={{ width: "25px", height: "25px" }}
+                      />
                     </button>
                   </td>
-                  <td colSpan="2" rowSpan="2" style={{ position: 'relative', width: '180px', height: '180px' }}>
-                    <span style={{ marginRight: '5px' }}>Cam-4</span>
-                    <button className="btn btn-primary" style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                      <img src={Camera_Icon} alt="Captured" style={{ width: "25px", height: "25px" }} />
+                  <td
+                    colSpan="2"
+                    rowSpan="2"
+                    style={{
+                      position: "relative",
+                      width: "180px",
+                      height: "180px",
+                    }}
+                  >
+                    <span style={{ marginRight: "5px" }}>Side-View</span>
+                    <button
+                      className="btn btn-primary"
+                      style={{ position: "absolute", bottom: 0, right: 0 }}
+                    >
+                      <img
+                        src={Camera_Icon}
+                        alt="Captured"
+                        style={{ width: "25px", height: "25px" }}
+                      />
                     </button>
                   </td>
                 </tr>
-                <tr>
-                </tr>
+                <tr></tr>
               </tbody>
             </table>
           </div>
@@ -557,6 +804,6 @@ function VehicleEntryDetails() {
       </div>
     </div>
   );
-};
+}
  
 export default VehicleEntryDetails;

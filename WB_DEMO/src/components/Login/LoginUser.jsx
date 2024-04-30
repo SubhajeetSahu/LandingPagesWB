@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginUser.css";
 import Swal from "sweetalert2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const LoginUser = () => {
   const [userId, setUserId] = useState("");
-  const [userPassword, setPassword] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -17,83 +20,88 @@ const LoginUser = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: userId, userPassword: userPassword }),
-        credentials: "include"
+        credentials: "include",
       });
 
       if (response.ok) {
         const data = await response.json();
-        sessionStorage.setItem("userId", data.userId);
-        sessionStorage.setItem("roles", data.roles);
-        sessionStorage.setItem("userName", data.userName);
-        if (data.message === "please reset your password.") {
+        console.log(data);
+        if (data.message === "Please reset your password.") {
           Swal.fire({
             title: data.message,
             text: "Please reset your password.",
             icon: "info",
             confirmButtonText: "OK",
           });
-          navigate("/ResetPassword", { state: { userId } });
-        } else if (data.roles.includes("ADMIN")) {
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Welcome, Admin!",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            navigate("/home1");
-          });
-        } else if (data.roles.includes("QUALITY_USER")) {
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Welcome, Quality User!",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            navigate("/home2");
-          });
-        } else if (data.roles.includes("MANAGEMENT")) {
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Welcome, Management!",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            navigate("/home5");
-          });
-        } else if (data.roles.includes("GATE_USER")) {
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Welcome, Gate User!",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            navigate("/home3");
-          });
-        } 
-        else if (data.roles.includes("WEIGHBRIDGE_OPERATOR")) {
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Welcome, Weighbridge Operator!",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            navigate("/home6");
-          });
-        }else {
-          Swal.fire({
-            title: "Login Successful!",
-            text: "Welcome, User!",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
+          navigate("/reset-password", { state: { userId } });
+        } else {
+          sessionStorage.setItem("userName", data.userName);
+          sessionStorage.setItem("roles", JSON.stringify(data.roles));
+          sessionStorage.setItem("userId", data.userId);
+
+          if (data.roles.includes("ADMIN")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Admin!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home1", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("QUALITY_USER")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Quality User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home2", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("MANAGEMENT")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Management!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home5", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("GATE_USER")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Gate User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home3", { state: { userId: data.userId } });
+            });
+          } else if (data.roles.includes("WEIGHBRIDGE_OPERATOR")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Weighbridge Operator!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home4", { state: { userId: data.userId } });
+            });
+          } else {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+          }
         }
       } else {
-        console.error("Login failed:", response.statusText);
-        Swal.fire({
-          title: "Login Failed",
-          text: response.statusText,
-          icon: "error",
-          confirmButtonText: "OK",
+        return response.json().then((error) => {
+          Swal.fire({
+            title: "Error",
+            text: error.message,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+          throw new Error(error.message);
         });
       }
     } catch (error) {
@@ -105,6 +113,10 @@ const LoginUser = () => {
         confirmButtonText: "OK",
       });
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -134,16 +146,21 @@ const LoginUser = () => {
                 required
               />
             </div>
-            <div className="form-group">
-              <input
-                type="password"
-                placeholder="Password"
-                value={userPassword}
-                onChange={(e) => setPassword(e.target.value)}
-                className="form-control login-input"
-                required
-              />
-            </div>
+            <div className="form-group password-input">
+  <div className="password-wrapper">
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Password"
+      value={userPassword}
+      onChange={(e) => setUserPassword(e.target.value)}
+      className="form-control login-input"
+      required
+    />
+    <span className="password-toggle" onClick={togglePasswordVisibility}>
+      <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+    </span>
+  </div>
+</div>
             <button type="submit" className="btn btn-primary login-btn">
               Sign In
             </button>

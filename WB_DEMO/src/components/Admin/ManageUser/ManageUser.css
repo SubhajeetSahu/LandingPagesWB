@@ -6,12 +6,12 @@
   z-index: 1000;
   top: 0;
 }
- 
+
 .report-header-title {
   background-color: #5776a2;
   font-weight: 400;
 }
- 
+
 .daily_report_icon {
   border-radius: 50%;
   padding: 10px;
@@ -19,89 +19,154 @@
   background-color: #f0f0f0;
   cursor: pointer;
 }
- 
+
 .daily_report_icon:hover {
   transform: scale(1.1);
 }
- 
+
 .download-btn {
   transition: transform 0.3s ease-in-out;
 }
- 
+
 .download-btn:hover {
   background-color: green;
   transform: scale(1.1);
 }
- 
-.create-main-content {
-  margin-left: 210px;
+
+.manageuser-main-content {
+  margin-right: 0px;
   margin-top: 7rem;
   transition: margin-left 0.2s ease;
 }
- 
+.manageuser-main-content {
+  margin-left: 60px; /* Adjust the value based on the width of your sidebar */
+}
+
+
+
+/* .create-main-content {
+  width: 80%;
+  margin: 0 auto; 
+} */
+.ant-input-search {
+  margin-left: 70px; /* Adjust the margin as needed */
+}
+
 .btn-hover:hover {
   background-color: #d63031 !important;
   color: #fff !important;
   transform: scale(1.1) !important;
 }
- 
+
 .btn-hover.btn-success:hover {
   background-color: #2ecc71 !important;
   color: #fff !important;
   transform: scale(1.1) !important;
 }
- 
+
 .sidebar-toggle-btn {
   cursor: pointer;
   margin-left: 10px;
 }
- 
+
 .home-toggle-btn {
   margin-right: 10px;
 }
- 
+
 label {
   font-weight: bold;
   color: rgb(51, 65, 85);
 }
- 
-.table {
+
+/* .table {
   width: 100%;
   border-collapse: separate;
   margin-top: 20px;
   font-size: 15px;
-}
- 
-.table th {
+} */
+
+/* .table th {
   background-color: rgb(194, 196, 203);
   color: black;
   font-weight: bold;
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
-}
- 
+} */
+/* 
 .table td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
-}
- 
+} */
+
 .table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
- 
+/* 
 .table tbody tr:hover {
   background-color: #e9ecef;
-}
- 
+} */
+
 .size-input {
   width: 200%;
 }
- 
+
+/* .delete-icon {
+  color: black;
+} */
+
 @media (min-width: 768px) {
   .size-input {
     width: 5%;
   }
 }
- 
+
+.action-buttons {
+  display: flex;
+}
+
+.action-buttons button {
+  margin-right: 8px;
+}
+
+.home-sidebar.expanded + .manageuser-main-content {
+  margin-left: 220px;
+}
+
+.user-table {
+  max-width: 90%; /* Set the maximum width to 90% of the parent container */
+  margin: 0 auto;
+}
+.user-table th:first-child,
+.user-table td:first-child {
+  padding-left: 0; /* Remove left padding */
+  text-align: left; /* Align text to the left */
+}
+.user-table {
+  margin: 0 auto 0 0; /* Remove the left margin */
+}
+
+.sidebar {
+  position: fixed; /* or sticky */
+  top: 0; /* Adjust the top position as needed */
+  left: 0; /* Adjust the left position as needed */
+  height: 100vh; /* Set the height to 100% of the viewport height */
+  z-index: 1; /* Ensure the sidebar appears above other elements */
+}
+.manageuser-main-content {
+  overflow: auto; /* or scroll */
+}
+
+.manageuser-main-content {
+  z-index: 0; /* or any value lower than the sidebar's z-index */
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1;
+}
+

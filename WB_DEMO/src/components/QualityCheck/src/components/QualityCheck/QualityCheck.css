@@ -158,10 +158,34 @@
 }
 
 
-
-
+/* 
+.table-header {
+  background-color: #337AB7 !important; 
+  color: white; 
+} */
 
 .disabled {
   pointer-events: none; /* Disable pointer events */
   opacity: 0.5; /* Reduce opacity to indicate disabled state */
 }
+
+/* Main content container */
+.quality-check-main-content {
+  margin-left: 100px;
+  margin-top: 7rem;
+  margin-right: 40px; /* Adjust this value to create the desired gap */
+  transition: margin-left 0.2s ease;
+}
+
+/* .quality-check-date{
+  width: 43%; 
+} */
+
+.quality-check-header {
+  width: 25%; /* Adjust the width as needed */
+  white-space: nowrap; /* Prevent line wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflow */
+}
+
+

@@ -1,15 +1,4 @@
-.home-sidebar {
-  width: 60px;
-  background-color: #4b658a;
-  color: #fff;
-  padding: 20px 10px;
-  /* padding-top: 50px; */
-  position: fixed;
-  top: 50px;
-  bottom: 0;
-  transition: width 0.2s ease;
-  overflow: hidden;
-}
+
 
 .home-sidebar.expanded {
   width: 200px;
@@ -19,27 +8,6 @@
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
-
-.sidebar-item {
-  display: flex;
-  /* margin-bottom: 40px; */
-  height: 50px;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  background-color: white;
-}
-
-/* .sidebar-item:hover {
-  background-color: lightgray;
-} */
-
-/* .sidebar-item:hover {
-  background-color: unset;
-} */
-
 
 .sidebar-item-text {
   margin-left: 15px;
@@ -77,27 +45,8 @@
 } */
 
 
-.home-sidebar {
-  width: 200px; /* Set a fixed width for the sidebar */
-  background-color: #4b658a;
-  color: #fff;
-  padding-top: 50px; /* Adjusted padding to maintain space from top */
-  position: fixed;
-  top: 50px;
-  bottom: 0;
-  transition: width 0.2s ease;
-  overflow: hidden;
-}
 
-.sidebar-item {
-  display: flex;
-  align-items: center; /* Center items vertically */
-  padding: 10px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  background-color: white;
-}
+
 
 .sidebar-item:hover {
   background-color: lightgray;
@@ -119,4 +68,52 @@
 
 .flip-horizontal {
   transform: scaleX(-1); /* Flip the icon horizontally */
+}
+
+
+
+.home-sidebar {
+  width: 500px; /* Increased width */
+  background-color: #4b658a;
+  color: #fff;
+  padding-top: 50px; /* Adjusted padding to maintain space from top */
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+
+.sidebar-item {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  padding: 15px; /* Increased padding */
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  background-color: white;
+}
+
+.sidebar-item:hover {
+  background-color: lightgray;
+}
+
+.sidebar-item-text {
+  overflow: visible; /* Allow text to overflow */
+  margin-left: 0px; /* Adjusted margin */
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: "Times New Roman", serif; /* Corrected font family name */
+  color: #000;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.sidebar-icon {
+  font-size: 1.2rem;
+  color: #000;
+}
+
+.a.sidebar-item {
+width: 220px !important;
 }

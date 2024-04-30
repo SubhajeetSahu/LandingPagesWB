@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-// import "./ResetPassword.css";
+import "./ResetPassword.css";
 import Swal from "sweetalert2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { userId } = location.state;
@@ -14,7 +18,6 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== rePassword) {
       Swal.fire({
         title: "Error",
@@ -67,6 +70,14 @@ const ResetPassword = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleRePasswordVisibility = () => {
+    setShowRePassword(!showRePassword);
+  };
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -84,31 +95,43 @@ const ResetPassword = () => {
             className="login-form"
             style={{ backgroundColor: "white" }}
           >
-            <div className="form-group">
+            <div className="form-group password-input">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="New Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control login-input"
                 required
               />
+              <span
+                className="password-toggle"
+                onClick={togglePasswordVisibility}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
             </div>
-            <div className="form-group">
+            <div className="form-group password-input">
               <input
-                type="password"
+                type={showRePassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
                 className="form-control login-input"
                 required
               />
+              <span
+                className="password-toggle"
+                onClick={toggleRePasswordVisibility}
+              >
+                <FontAwesomeIcon icon={showRePassword ? faEyeSlash : faEye} />
+              </span>
             </div>
             <button type="submit" className="btn btn-primary login-btn">
               Reset Password
             </button>
             <a
-              href="/login"
+              href="/"
               className="login-forgot-password"
               style={{ backgroundColor: "white" }}
             >

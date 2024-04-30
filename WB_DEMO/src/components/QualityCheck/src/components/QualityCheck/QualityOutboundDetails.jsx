@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import "./QualityOutboundDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from 'react-router-dom';
@@ -14,8 +14,8 @@ const QualityOutboundDetails = () => {
   const location = useLocation();
   const { receiveOutboundData } = location.state || {};
   const [formData, setFormData] = useState({
-    date: "2024-04-25",
-    inTime: "16:25",
+    date: "2024-04-29",
+    inTime: "16:29",
     outTime: "21:45",
     customer: "SAMRIDHI TRADES",
     customerAddress: "MUZAFFARNAGAR",
@@ -48,7 +48,7 @@ const QualityOutboundDetails = () => {
       transporter: formData.transporter,
       department: formData.department,
       ticketNo: formData.ticketNo,
-      documentNo: formData.documentNo,
+      invoiceNo: formData.invoiceNo,
       poNo: formData.poNo,
       product: formData.product,
       productType: formData.productType,
@@ -164,7 +164,7 @@ const QualityOutboundDetails = () => {
               <div className="col-lg-4 div2 container-fluid">
                 {renderFieldWithBox("Product", formData.product, handleInputChange)}
                 {renderFieldWithBox("Product Type", formData.product, handleInputChange)}
-                {renderFieldWithBox("Document No", formData.documentNo, handleInputChange)}
+                {renderFieldWithBox("Invoice No", formData.invoiceNo, handleInputChange)}
                 {renderFieldWithBox("Po No", formData.poNo, handleInputChange)}
                 {renderFieldWithBox("Challan No", formData.tpNoPoNo, handleInputChange)}
                 {renderFieldWithBox("Customer", formData.customer, handleInputChange)}

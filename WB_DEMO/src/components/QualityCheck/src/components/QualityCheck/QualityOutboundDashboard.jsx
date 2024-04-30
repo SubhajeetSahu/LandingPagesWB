@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QualityOutboundDashboard.css";
 import * as XLSX from "xlsx";
@@ -10,7 +10,7 @@ import { Chart, ArcElement } from "chart.js/auto";
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowDown, faBackwardStep, faForwardStep, faBackwardFast, faForwardFast } from '@fortawesome/free-solid-svg-icons';
-import QualityInboundDetails from "./QualityInboundDetails";
+import QualityOutboundDetails from "./QualityOutboundDetails";
 
 function QualityOutboundDashboard() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -83,14 +83,14 @@ function QualityOutboundDashboard() {
   const [data, setData] = useState([
     {
       "Ticket No.": 2,
-      Date: "2024-04-25",
+      Date: "2024-04-30",
       "Vehicle No.": "HR38Z1951",
-      In: "16:25",
+      In: "16:30",
       Out: "21:45",
       "Transporter Name": "MAA SHERAWALI TRANSPORT",
       "Product": "SPONGE IRON",
       "Product Type": "LUMPS",
-      "Document No": "VPL/23-24/S1294",
+      "Document No": "VPL/23-24/S1304",
       "PO No": "97/3",
       "Challan No": " ",
       "Customer": "SAMRIDHI TRADES",
@@ -134,7 +134,7 @@ function QualityOutboundDashboard() {
 
   useEffect(() => {
     if (tableContainerRef.current) {
-      tableContainerRef.current.scrollLeft = 100;
+      tableContainerRef.current.scrollLeft = 70;
     }
   }, [data]);
 
@@ -206,7 +206,7 @@ function QualityOutboundDashboard() {
                   <th scope="col">Transporter Name</th>
                   <th scope="col">Product</th>
                   <th scope="col">Product Type</th>
-                  <th scope="col">Document No</th>
+                  <th scope="col">Invoice No</th>
                   <th scope="col">PO No</th>
                   <th scope="col">Challan No</th>
                   <th scope="col">Customer</th>

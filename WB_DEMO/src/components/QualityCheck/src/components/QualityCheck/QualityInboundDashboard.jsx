@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import Header from "../../../../Header/Header";
+import Header from "../../../../Admin/Header/Header";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QualityInboundDashboard.css";
 import * as XLSX from "xlsx";
@@ -10,7 +10,7 @@ import { Chart, ArcElement } from "chart.js/auto";
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowDown, faBackwardStep, faForwardStep, faBackwardFast, faForwardFast } from '@fortawesome/free-solid-svg-icons';
-import QualityInboundDetails from "./QualityInboundDetails";
+import QualityInboundIronOreDetails from "./QualityInboundIronOreDetails";
 
 function QualityInboundDashboard() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -79,7 +79,7 @@ function QualityInboundDashboard() {
   const [data, setData] = useState([
     {
       "Ticket No.": 1,
-      Date: "2024-04-25",
+      Date: "2024-04-30",
       "Vehicle No.": "OD35F-3948",
       In: "11:16",
       Out: "12:20",
@@ -88,7 +88,7 @@ function QualityInboundDashboard() {
       "Material Type": "ROM -100MM",
       "TP No": "I22405984/75",
       "Po No": " ",
-      "Challan No": "1310002441-5300025809",
+      "Challan No": "1310002441-5300030809",
       "Supplier": "MCL Bhubaneswari",
       "Supplier Address": "Talcher",
       "Transaction Type": "Inbound",
@@ -131,7 +131,7 @@ function QualityInboundDashboard() {
 
   useEffect(() => {
     if (tableContainerRef.current) {
-      tableContainerRef.current.scrollLeft = 100;
+      tableContainerRef.current.scrollLeft = 70;
     }
   }, [data]);
 
@@ -158,7 +158,7 @@ function QualityInboundDashboard() {
   const handleTicketClick = (ticketNumber, index) => {
     const transactionType = data[index]["Transaction Type"];
     if (transactionType === "Inbound") {
-      navigate(`/QualityInboundDetails?ticketNumber=${ticketNumber}`);
+      navigate(`/QualityInboundCoalDetails?ticketNumber=${ticketNumber}`);
     } else if (transactionType === "Outbound") {
       navigate(`/QualityOutboundDetails?ticketNumber=${ticketNumber}`);
     }
