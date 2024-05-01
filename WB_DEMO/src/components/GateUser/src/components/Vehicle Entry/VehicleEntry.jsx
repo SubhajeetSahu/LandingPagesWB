@@ -200,7 +200,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
               </button>
             </div> */}
           </div>
-          <div className='table-responsive VehicleEntrytable '>
+          <div className='vehicle-table-responsive VehicleEntrytable '>
             <table className="vehicle-table table-bordered">
               <thead className="text-center">
                 <tr>
