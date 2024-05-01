@@ -1,39 +1,41 @@
-.report-header {
+.rp-report-header {
   position: fixed;
   width: 100%;
-  background-color: #5776A2;
+  background-color: #5776a2;
   color: white;
   z-index: 1000;
   top: 0;
 }
- 
-.report-header-title {
-  background-color: #5776A2;
+
+.rp-report-header-title {
+  background-color: #5776a2;
   font-weight: 400;
 }
- 
-.daily_report_icon {
+
+.rp-daily-report-icon {
   border-radius: 50%;
   padding: 10px;
   color: black;
   background-color: #f0f0f0;
   cursor: pointer;
 }
- 
-.daily_report_icon:hover {
+
+.rp-daily-report-icon:hover {
   transform: scale(1.1);
 }
- 
-.home-toggle-btn {
+
+.rp-home-toggle-btn {
   margin-right: 10px;
 }
- 
-.sidebar-toggle-btn {
+
+.rp-sidebar-toggle-btn {
   cursor: pointer;
   margin-left: 10px;
+  font-size: 24px; /* Adjust the font size as per your requirement */
+  margin-left: 20px; /* Adjust the margin to move it to the right */
 }
- 
-.user-dropdown {
+
+.rp-user-dropdown {
   position: absolute;
   right: 20px;
   top: 50px;
@@ -43,11 +45,3 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1001; /* Ensure it's above other elements */
 }
-
-
-.report-header .sidebar_daily_report_icon {
-  font-size: 24px; /* Adjust the font size as per your requirement */
-  margin-left: 20px; /* Adjust the margin to move it to the right */
-}
-
-

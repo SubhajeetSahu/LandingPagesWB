@@ -17,15 +17,15 @@ const SideBar3 = ({ isSidebarExpanded, toggleSidebar }) => {
   <span className="sidebar-item-text">Quality Dashboard</span>
 </Link>
 
-<Link to="/QualityInboundDashboard" className="sidebar-item" onClick={handleSidebarItemClick}>
+{/* <Link to="/QualityInboundDashboard" className="sidebar-item" onClick={handleSidebarItemClick}>
   <FontAwesomeIcon icon={faSignInAlt} className="sidebar-icon" />
   <span className="sidebar-item-text">Quality Inbound</span>
-</Link>
+</Link> */}
 
-<Link to="/QualityOutboundDashboard" className="sidebar-item" onClick={handleSidebarItemClick}>
+{/* <Link to="/QualityOutboundDashboard" className="sidebar-item" onClick={handleSidebarItemClick}>
   <FontAwesomeIcon icon={faSignOutAlt} className="sidebar-icon" />
   <span className="sidebar-item-text">Quality Outbound</span>
-</Link>
+</Link> */}
 
       <Link
         to="/QReport"

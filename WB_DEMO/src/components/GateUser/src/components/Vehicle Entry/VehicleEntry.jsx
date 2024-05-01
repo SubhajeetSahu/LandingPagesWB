@@ -6,7 +6,7 @@ import OutTime_Img from "../../assets/OutTime_Img.png";
 import { Link } from "react-router-dom";
 import "./VehicleEntry.css";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Admin/Header/Header";
+import Header from "../../../../Header/Header";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import "./VehicleEntry.css";
  
@@ -185,7 +185,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
  
           <div className="row justify-content-between mb-2">
             <div className="col-auto d-flex align-items-center">
-              <label htmlFor="date" style={{ marginRight: '20px', marginLeft: '-70px' }}>Date:</label>
+              <label htmlFor="date" style={{ marginRight: '20px', marginLeft: '-20px' }}></label>
               <input
                 type="date"
                 value={selectedDate}
@@ -201,7 +201,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
             </div> */}
           </div>
           <div className='table-responsive VehicleEntrytable '>
-            <table className="table table-bordered">
+            <table className="vehicle-table table-bordered">
               <thead className="text-center">
                 <tr>
                   <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px ' }}>Ticket No.</th>

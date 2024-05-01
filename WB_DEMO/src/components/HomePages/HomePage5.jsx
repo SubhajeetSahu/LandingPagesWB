@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Bar } from "react-chartjs-2";
-import Header from "../Admin/Header/Header";
+import Header from "../Header/Header";
 import SideBar4 from "../SideBar/SideBar4";
 import {
   Chart,

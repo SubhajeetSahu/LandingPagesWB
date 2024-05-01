@@ -170,3 +170,6 @@ label {
   z-index: 1;
 }
 
+.rp-home-sidebar.rp-expanded + .manageuser-main-content {
+  margin-left: 220px; 
+}

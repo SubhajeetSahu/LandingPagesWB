@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Admin/Header/Header";
+import Header from "../../../../Header/Header";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QReport.css";
 

@@ -1,4 +1,16 @@
-
+/* sidebar.css */
+.home-sidebar {
+  width: 60px;
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 20px 10px;
+  padding-top: 50px;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
 
 .home-sidebar.expanded {
   width: 200px;
@@ -9,25 +21,44 @@
   margin-right: 0.25rem;
 }
 
-.sidebar-item-text {
-  margin-left: 15px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  font-family: "times new roman", serif;
-  color: #000;
-  transition: display 0.3s ease;
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  height: 50px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  background-color: white;
+  position: relative; /* Add position relative to the parent */
 }
 
+.sidebar-item:hover {
+  background-color: lightgray;
+  transform: scale(1.05);
+}
+
+.sidebar-item-text {
+  font-weight: bold;
+  font-size: 0.8rem;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: absolute; /* Position the text absolutely */
+  left: 18px; /* Adjust the left position as needed */
+}
 
 .home-sidebar:not(.expanded) .sidebar-item-text {
-  transform: none;
+  display: none;
 }
 
 .home-sidebar.expanded .sidebar-item-text {
   display: block;
-}
-
-.home-sidebar.expanded .sidebar-item-text {
   opacity: 1;
 }
 
@@ -40,80 +71,6 @@
   margin-left: 80px;
 }
 
-/* .home-sidebar.expanded + .create-main-content {
-  margin-left: 210px;
-} */
-
-
-
-
-
-.sidebar-item:hover {
-  background-color: lightgray;
-}
-
-.sidebar-item-text {
-  margin-left: 10px; /* Adjusted margin */
-  font-weight: bold;
-  font-size: 0.9rem;
-  font-family: "Times New Roman", serif; /* Corrected font family name */
-  color: #000;
-}
-
-.sidebar-icon {
-  font-size: 1.2rem;
-  color: #000;
-}
-
-
 .flip-horizontal {
-  transform: scaleX(-1); /* Flip the icon horizontally */
-}
-
-
-
-.home-sidebar {
-  width: 500px; /* Increased width */
-  background-color: #4b658a;
-  color: #fff;
-  padding-top: 50px; /* Adjusted padding to maintain space from top */
-  position: fixed;
-  top: 50px;
-  bottom: 0;
-  transition: width 0.2s ease;
-  overflow: hidden;
-}
-
-
-.sidebar-item {
-  display: flex;
-  align-items: center; /* Center items vertically */
-  padding: 15px; /* Increased padding */
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  background-color: white;
-}
-
-.sidebar-item:hover {
-  background-color: lightgray;
-}
-
-.sidebar-item-text {
-  overflow: visible; /* Allow text to overflow */
-  margin-left: 0px; /* Adjusted margin */
-  font-weight: bold;
-  font-size: 0.9rem;
-  font-family: "Times New Roman", serif; /* Corrected font family name */
-  color: #000;
-  white-space: nowrap; /* Prevent text from wrapping */
-}
-
-.sidebar-icon {
-  font-size: 1.2rem;
-  color: #000;
-}
-
-.a.sidebar-item {
-width: 220px !important;
+  transform: scaleX(-1);
 }

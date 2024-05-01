@@ -1,0 +1,75 @@
+/* SideBar1.css */
+.rp-home-sidebar {
+    width: 60px;
+    background-color: #4b658a;
+    color: #fff;
+    padding: 20px 10px;
+    padding-top: 50px;
+    position: fixed;
+    top: 5px;
+    bottom: 0;
+    height: 100%;
+    transition: width 0.2s ease;
+    overflow-y: hidden;
+  }
+  .rp-home-sidebar.rp-expanded {
+    width: 200px;
+  }
+  .rp-icon {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  .rp-sidebar-item {
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    height: 50px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    background-color: white;
+  }
+  .rp-sidebar-item:hover {
+    background-color: lightgray;
+  }
+  .rp-sidebar-item-text {
+    margin-left: 8px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    font-family: "times new roman", serif;
+    color: #000;
+    transition: display 0.3s ease;
+  }
+  .rp-home-sidebar:not(.rp-expanded) .rp-sidebar-item-text {
+    display: none;
+  }
+  .rp-home-sidebar.rp-expanded .rp-sidebar-item-text {
+    display: block;
+  }
+  .rp-home-sidebar.rp-expanded .rp-sidebar-item-text {
+    opacity: 1;
+  }
+  .rp-sidebar-icon {
+    font-size: 1.2rem;
+    color: #000;
+  }
+  .rp-home-sidebar:not(.rp-expanded) + .create-main-content {
+    margin-left: 80px;
+    margin-right: 20px;
+  }
+  .rp-home-sidebar.rp-expanded + .create-main-content {
+    margin-left: 210px;
+  }
+  .rp-home-sidebar:not(.rp-expanded) + .company-main-content {
+    margin-left: 80px;
+    margin-right: 20px;
+  }
+  .rp-home-sidebar.rp-expanded + .company-main-content {
+    margin-left: 210px;
+  }
+  .rp-sidebar-item:hover {
+    transform: scale(1.05); /* Increase the size of the element */
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+  }

@@ -36,7 +36,7 @@
 /* Header */
 .quality-check-header {
   text-align: center;
-  margin-left: 250px;
+  margin-left: 160px;
 }
 
 /* Pagination container */
@@ -158,12 +158,6 @@
 }
 
 
-/* 
-.table-header {
-  background-color: #337AB7 !important; 
-  color: white; 
-} */
-
 .disabled {
   pointer-events: none; /* Disable pointer events */
   opacity: 0.5; /* Reduce opacity to indicate disabled state */
@@ -177,6 +171,7 @@
   transition: margin-left 0.2s ease;
 }
 
+
 /* .quality-check-date{
   width: 43%; 
 } */
@@ -189,3 +184,15 @@
 }
 
 
+
+
+/* Adjust table header cell styles */
+.quality-check-table th {
+  white-space: nowrap; /* Prevent wrapping of header cells */
+  background-color: #C2C4CB; /* Add a background color for visibility */
+  height: 60px;
+}
+
+.quality-check-table-container{
+  margin-top: 40px;
+}

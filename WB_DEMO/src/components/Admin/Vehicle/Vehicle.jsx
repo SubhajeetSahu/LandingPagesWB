@@ -1,5 +1,5 @@
 import Sidebar from "../../SideBar/SideBar";
-import Header from "../Header/Header";
+import Header from "../../Header/Header";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 

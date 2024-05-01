@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'; // Import Link along with 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Camera.css';
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Admin/Header/Header";
+import Header from "../../../../Header/Header";
 import SideBar2 from "../../../../SideBar/SideBar2";
 
 const Camera = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Header from "../../../../Admin/Header/Header";
+import Header from "../../../../Header/Header";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QualityCheck.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -196,9 +196,18 @@ function QualityCheck() {
 
   useEffect(() => {
     if (tableContainerRef.current) {
-      tableContainerRef.current.scrollLeft = 70;
+      tableContainerRef.current.style.overflowX = 'auto';
+      tableContainerRef.current.scrollLeft = 100;
     }
   }, [data]);
+  
+
+  const pageCount = Math.ceil(filteredData.length / itemsPerPage) || 1;
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
   
   return (
     <div>
@@ -226,7 +235,7 @@ function QualityCheck() {
         <div className="quality-check-table-container " ref={tableContainerRef}>
           <div className="quality-check-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
             <table className="table table-bordered table-striped">
-              <thead className="table-header">
+              <thead className="quality-check-table-header">
                 <tr>
                   <th>Ticket No.</th>
                   <th>Date</th>
@@ -285,6 +294,22 @@ function QualityCheck() {
           </div>
         </div>
         {/* Pagination */}
+<div className="quality-check-pagination-container">
+  <span className="pagination-text">Showing {currentPage * itemsPerPage + 1} to {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries</span>
+  <div className="pagination-buttons">
+    <button onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
+    {[...Array(pageCount)].map((_, index) => (
+      <button
+        key={index}
+        className={currentPage === index ? "active" : ""}
+        onClick={() => setCurrentPage(index)}
+      >
+        {index + 1}
+      </button>
+    ))}
+    <button onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
+  </div>
+</div>
       </div>
     </div>
   );

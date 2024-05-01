@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../Admin/Header/Header";
+import Header from "../Header/Header";
 import SideBar2 from "../SideBar/SideBar2";
 import VehicleEntry from "../GateUser/src/components/Vehicle Entry/VehicleEntry";
 

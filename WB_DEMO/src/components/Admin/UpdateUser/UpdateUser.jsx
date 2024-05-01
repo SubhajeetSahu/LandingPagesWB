@@ -4,7 +4,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./UpdateUser.css";
 import Sidebar from "../../SideBar/SideBar";
-import Header from "../Header/Header";
+import Header from "../../Header/Header";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Admin/Header/Header";
+import Header from "../../../../Header/Header";
 import "./QualityInboundIronOreDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from 'react-router-dom';

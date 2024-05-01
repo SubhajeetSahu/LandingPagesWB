@@ -54,3 +54,12 @@ table{
 .home-sidebar.expanded + .main-content {
     margin-left: 220px !important;
 }
+
+
+.operator-table th {
+    white-space: nowrap; /* Prevent wrapping of header cells */
+    background-color: #C2C4CB; /* Add a background color for visibility */
+    height: 60px;
+  }
+  
+ 

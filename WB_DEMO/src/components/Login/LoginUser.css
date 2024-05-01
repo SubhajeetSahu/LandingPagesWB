@@ -1,4 +1,4 @@
-.login-page {
+.weighbridge-login-page {
   display: flex;
   height: 100vh;
   position: relative;
@@ -7,8 +7,7 @@
   background-size: cover;
   background-position: center;
 }
-
-.login-container {
+.weighbridge-login-container {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -16,8 +15,7 @@
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
-
-.login-content {
+.weighbridge-login-content {
   text-align: center;
   background-color: rgba(255, 255, 255);
   border-radius: 10px;
@@ -27,40 +25,33 @@
   flex-direction: column;
   align-items: center;
 }
-
-.login-title {
+.weighbridge-login-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
   color: #343a40;
 }
-
-.login-form {
-  width: 100%;
-  max-width: 200px;
-  margin-right: 50px;
+.weighbridge-login-form {
+  width: 100%; /* Ensure the form takes full width */
+  max-width: 200px; /* Limit the form width */
 }
-
-.login-truck-image {
+.weighbridge-login-truck-image {
   width: 100%;
   max-width: 300px;
   height: auto;
   margin-bottom: 20px;
 }
-
-.login-input {
+.weighbridge-login-input {
   width: 100%;
+  max-width: 280px;
   height: 40px;
   margin-bottom: 15px;
   padding: 8px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ced4da;
-  margin-right: 50px;
-  max-width: 100%;
 }
-
-.login-btn {
+.weighbridge-login-btn {
   width: 100%;
   max-width: 280px;
   height: 45px;
@@ -73,35 +64,49 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-.login-btn:hover {
+.weighbridge-login-btn:hover {
   background-color: #0056b3;
 }
-
-.login-forgot-password {
+.weighbridge-login-forgot-password {
   color: #007bff;
   text-decoration: none;
   font-size: 14px;
 }
-
-.login-forgot-password:hover {
+.weighbridge-login-forgot-password:hover {
   text-decoration: underline;
 }
 
-.password-input {
-  position: relative;
+.weighbridge-login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.password-wrapper {
-  position: relative;
+.weighbridge-login-form {
+  width: 100%;
+  max-width: 400px; /* Adjust this value as needed */
+}
+
+.Login-form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login-form-group input,
+.weighbridge-login-btn {
+  width: 62%; /* Subtracting the padding from the total width */
+  margin-bottom: 10px;
+}
+
+.password-input {
   display: flex;
   align-items: center;
 }
 
 .password-toggle {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
+  margin-right: 75px;
+  margin-top: -8px ;
 }
+

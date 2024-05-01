@@ -5,7 +5,7 @@ import "./ManageUser.css";
 import { useNavigate } from "react-router-dom";
 import { Table, Tag, Button, Input } from "antd";
 import Sidebar from "../../SideBar/SideBar";
-import Header from "../Header/Header";
+import Header from "../../Header/Header";
 import Swal from "sweetalert2";
 
 

@@ -120,57 +120,60 @@ const LoginUser = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-content">
-          <h1 className="login-title" style={{ backgroundColor: "white" }}>
+    <div className="weighbridge-login-page">
+      <div className="weighbridge-login-container">
+        <div className="weighbridge-login-content">
+          <h1 className="weighbridge-login-title" style={{ backgroundColor: "white" }}>
             Weighbridge Management System
           </h1>
           <img
             src="https://www.seewise.ai/assets/img/landing/weighbridge.jpg"
             alt="Truck"
-            className="login-truck-image"
+            className="weighbridge-login-truck-image"
           />
           <form
             onSubmit={handleSubmit}
-            className="login-form"
+            className="weighbridge-login-form"
             style={{ backgroundColor: "white" }}
           >
-            <div className="form-group">
+            <div className="Login-form-group">
               <input
                 type="text"
                 placeholder="User Id"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                className="form-control login-input"
+                className="form-control weighbridge-login-input"
                 required
               />
             </div>
-            <div className="form-group password-input">
-  <div className="password-wrapper">
-    <input
-      type={showPassword ? "text" : "password"}
-      placeholder="Password"
-      value={userPassword}
-      onChange={(e) => setUserPassword(e.target.value)}
-      className="form-control login-input"
-      required
-    />
-    <span className="password-toggle" onClick={togglePasswordVisibility}>
-      <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-    </span>
-  </div>
-</div>
-            <button type="submit" className="btn btn-primary login-btn">
+            <div className="Login-form-group password-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={userPassword}
+                onChange={(e) => setUserPassword(e.target.value)}
+                className="form-control weighbridge-login-input"
+                required
+              />
+              <span
+                className="password-toggle"
+                onClick={togglePasswordVisibility}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
+            </div>
+            <div className="Login-form-group password-input"> 
+            <button type="submit" className="btn btn-primary weighbridge-login-btn">
               Sign In
             </button>
             {/* <a
               href="#"
-              className="login-forgot-password"
+              className="weighbridge-login-forgot-password"
               style={{ backgroundColor: "white" }}
             >
               Forgot Password?
             </a> */}
+            </div>
           </form>
         </div>
       </div>

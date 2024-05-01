@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../Admin/Header/Header";
+import Header from "../Header/Header";
 import SideBar3 from "../SideBar/SideBar3";
 import QualityCheck from "../QualityCheck/src/components/QualityCheck/QualityCheck";
 

@@ -4,7 +4,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./CreateUser.css";
 import Sidebar from "../../SideBar/SideBar";
-import Header from "../Header/Header";
+import Header from "../../Header/Header";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 

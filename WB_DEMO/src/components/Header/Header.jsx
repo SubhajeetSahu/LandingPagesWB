@@ -1,46 +1,39 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
-import {
-  Typography,
-  Popover,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
+import { Typography, Popover, List, ListItem, ListItemText } from "@mui/material";
 import "./Header.css";
- 
+
 function Header({ toggleSidebar }) {
   const [anchorEl, setAnchorEl] = useState(null);
- 
+
   const handleUserProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
- 
+
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
+
   const userName = sessionStorage.getItem("userName");
   const roles = sessionStorage.getItem("roles");
   const userId = sessionStorage.getItem("userId");
- 
   const open = Boolean(anchorEl);
- 
+
   return (
-    <div className="report-header d-flex justify-content-between align-items-center">
+    <div className="rp-report-header d-flex justify-content-between align-items-center">
       <FontAwesomeIcon
         icon={faBars}
-        className="sidebar_daily_report_icon mt-2 me-3 sidebar-toggle-btn"
+        className="rp-sidebar-daily-report-icon mt-2 me-3 rp-sidebar-toggle-btn"
         onClick={toggleSidebar}
       />
-      <h2 className="report-header-title text-center mt-3">
+      <h2 className="rp-report-header-title text-center mt-3">
         WEIGHBRIDGE MANAGEMENT SYSTEM
       </h2>
       <div>
         <FontAwesomeIcon
           icon={faUser}
-          className="daily_report_icon mt-2 me-2 home-toggle-btn"
+          className="rp-daily-report-icon mt-2 me-2 rp-home-toggle-btn"
           onClick={handleUserProfileClick}
         />
         <Popover
@@ -57,7 +50,7 @@ function Header({ toggleSidebar }) {
           }}
         >
           <List>
-          <ListItem>
+            <ListItem>
               <ListItemText primary={`User ID: ${userId}`} />
             </ListItem>
             <ListItem>
@@ -72,5 +65,5 @@ function Header({ toggleSidebar }) {
     </div>
   );
 }
- 
+
 export default Header;

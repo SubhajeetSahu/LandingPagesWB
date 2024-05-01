@@ -12,7 +12,7 @@ import {
   faTruckMoving,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import "./SideBar.css";
+import "./SideBar1.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -69,18 +69,18 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
   };
 
   return (
-    <div className={`home-sidebar ${isSidebarExpanded ? "expanded" : ""}`}>
+    <div className={`rp-home-sidebar ${isSidebarExpanded ? "rp-expanded" : ""}`}>
       <Link
         to="/home1"
-        className="sidebar-item"
+        className="rp-sidebar-item"
         onClick={handleSidebarItemClick}
       >
-        <FontAwesomeIcon icon={faHome} className="sidebar-icon mt-1" />
-        <span className="sidebar-item-text text-center mt-1">Home</span>
+        <FontAwesomeIcon icon={faHome} className="rp-sidebar-icon mt-1" />
+        <span className="rp-sidebar-item-text text-center mt-1">Home</span>
       </Link>
 
       <div
-        className="sidebar-item dropdown"
+        className="rp-sidebar-item rp-dropdown"
         onClick={handleUserManagementClick}
       >
         <div
@@ -89,13 +89,13 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
           aria-expanded="false"
           style={{ cursor: "pointer" }}
         >
-          <FontAwesomeIcon icon={faUserFriends} className="sidebar-icon" />
-          <span className="sidebar-item-text text-center m-1">
+          <FontAwesomeIcon icon={faUserFriends} className="rp-sidebar-icon" />
+          <span className="rp-sidebar-item-text text-center m-1">
             User Management
           </span>
           <FontAwesomeIcon
             icon={faAngleDown}
-            className={`sidebar-icon ms-auto ${
+            className={`rp-sidebar-icon ms-auto ${
               isSidebarExpanded ? "" : "d-none"
             }`}
             style={{ fontSize: "0.8rem" }}
@@ -122,15 +122,15 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
       {/* Company Management */}
       <Link
         to="/company-management"
-        className="sidebar-item"
+        className="rp-sidebar-item"
         onClick={handleSidebarItemClick}
       >
         <FontAwesomeIcon
           icon={faBuilding}
-          className="sidebar-icon mt-1"
+          className="rp-sidebar-icon mt-1"
           style={{ marginLeft: "2px" }}
         />
-        <span className="sidebar-item-text text-center mt-1">
+        <span className="rp-sidebar-item-text text-center mt-1">
           Company Management
         </span>
       </Link>
@@ -138,27 +138,27 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
       {/* Site Management */}
       <Link
         to="/site-management"
-        className="sidebar-item"
+        className="rp-sidebar-item"
         onClick={handleSidebarItemClick}
       >
         <FontAwesomeIcon
           icon={faMapMarkerAlt}
-          className="sidebar-icon mt-1"
+          className="rp-sidebar-icon mt-1"
           style={{ marginLeft: "2px" }}
         />
-        <span className="sidebar-item-text text-center mt-1">
+        <span className="rp-sidebar-item-text text-center mt-1">
           Site Management
         </span>
       </Link>
 
       <Link
         to="/transporter"
-        className="sidebar-item"
+        className="rp-sidebar-item"
         onClick={handleSidebarItemClick}
       >
-        <FontAwesomeIcon icon={faTruckMoving} className="sidebar-icon mt-1" />
+        <FontAwesomeIcon icon={faTruckMoving} className="rp-sidebar-icon mt-1" />
         <span
-          className="sidebar-item-text text-center mt-1"
+          className="rp-sidebar-item-text text-center mt-1"
           style={{ marginLeft: "5px" }}
         >
           Transport Management
@@ -167,28 +167,28 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
 
       <Link
         to="/vehicle"
-        className="sidebar-item"
+        className="rp-sidebar-item"
         onClick={handleSidebarItemClick}
       >
-        <FontAwesomeIcon icon={faTruck} className="sidebar-icon mt-1" />
-        <span className="sidebar-item-text text-center mt-1">
+        <FontAwesomeIcon icon={faTruck} className="rp-sidebar-icon mt-1" />
+        <span className="rp-sidebar-item-text text-center mt-1">
           Vehicle Management
         </span>
       </Link>
       {/* <div
         to="/vehicle-entry"
-        className="sidebar-item"
+        className="rp-sidebar-item"
         onClick={handleSidebarItemClick}
       >
-        <FontAwesomeIcon icon={faUsers} className="sidebar-icon mt-1" />
-        <span className="sidebar-item-text text-center mt-1">
+        <FontAwesomeIcon icon={faUsers} className="rp-sidebar-icon mt-1" />
+        <span className="rp-sidebar-item-text text-center mt-1">
           Supplier Master
         </span>
       </div> */}
-      <div className="sidebar-item" onClick={handleSignOut}>
-        <FontAwesomeIcon icon={faPowerOff} className="sidebar-icon mt-1" />
+      <div className="rp-sidebar-item" onClick={handleSignOut}>
+        <FontAwesomeIcon icon={faPowerOff} className="rp-sidebar-icon mt-1" />
         <span
-          className="sidebar-item-text text-center mt-1"
+          className="rp-sidebar-item-text text-center mt-1"
           style={{ marginLeft: "8px" }}
         >
           Sign Out
