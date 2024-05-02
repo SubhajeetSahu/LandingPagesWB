@@ -9,7 +9,7 @@ import { faFileWord } from '@fortawesome/free-solid-svg-icons';
 
 function QualityCheck() {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const [selectedDate, setSelectedDate] = useState("");
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ function QualityCheck() {
   const [data, setData] = useState([
       {
         "Ticket No.": 1,
-        Date: "2024-04-30",
+        Date: "2024-05-02",
         "Vehicle No.": "OD35F-3948",
         In: "11:16",
         Out: "12:20",
@@ -52,21 +52,21 @@ function QualityCheck() {
         "Product/Material Type": "ROM -100MM",
         "TP No/Invoice No": "I22405984/75",
         "Po No": " ",
-        "Challan No": "1310002441-5300030809",
+        "Challan No": "1310002441-5020002809",
         "Supplier/customer": "MCL Bhubaneswari",
         "Supplier/customer Address": "Talcher",
         "Transaction Type": "Inbound",
       },
       {
         "Ticket No.": 2,
-        Date: "2024-04-30",
+        Date: "2024-05-02",
         "Vehicle No.": "HR38Z1951",
-        In: "16:30",
+        In: "16:02",
         Out: "21:45",
         "Transporter Name": "MAA SHERAWALI TRANSPORT",
         "Product/Material": "Sponge Iron",
         "Product/Material Type": "LUMPS",
-        "TP No/Invoice No": "VPL/23-24/S1304",
+        "TP No/Invoice No": "VPL/23-24/S1024",
         "Po No": "97/3",
         "Challan No": " ",
         "Supplier/customer": "SAMRIDHI TRADES",
@@ -75,14 +75,62 @@ function QualityCheck() {
       },
       {
         "Ticket No.": 3,
-        Date: "2024-04-30",
-        "Vehicle No.": "MH30Z1841",
+        Date: "2024-05-02",
+        "Vehicle No.": "MH02Z1841",
         In: "15:45",
         Out: "20:18",
         "Transporter Name": "MAA SHERAWALI TRANSPORT",
         "Product/Material": "Iron Ore",
         "Product/Material Type": "Hematite",
-        "TP No/Invoice No": "HSI/27-30/S12362",
+        "TP No/Invoice No": "HSI/27-02/S12362",
+        "Po No": " ",
+        "Challan No": "1280003114-9600063102",
+        "Supplier/customer": "JAGA TRADES",
+        "Supplier/customer Address": "MAHANADI",
+        "Transaction Type": "Inbound",
+      },
+      {
+        "Ticket No.": 4,
+        Date: "2024-05-02",
+        "Vehicle No.": "MH02Z1841",
+        In: "15:45",
+        Out: "20:18",
+        "Transporter Name": "MAA SHERAWALI TRANSPORT",
+        "Product/Material": "Iron Ore",
+        "Product/Material Type": "Hematite",
+        "TP No/Invoice No": "HSI/27-02/S12362",
+        "Po No": " ",
+        "Challan No": "1280003114-9600063102",
+        "Supplier/customer": "JAGA TRADES",
+        "Supplier/customer Address": "MAHANADI",
+        "Transaction Type": "Inbound",
+      },
+      {
+        "Ticket No.": 5,
+        Date: "2024-05-02",
+        "Vehicle No.": "MH02Z1841",
+        In: "15:45",
+        Out: "20:18",
+        "Transporter Name": "MAA SHERAWALI TRANSPORT",
+        "Product/Material": "Iron Ore",
+        "Product/Material Type": "Hematite",
+        "TP No/Invoice No": "HSI/27-02/S12362",
+        "Po No": " ",
+        "Challan No": "1280003114-9600063102",
+        "Supplier/customer": "JAGA TRADES",
+        "Supplier/customer Address": "MAHANADI",
+        "Transaction Type": "Inbound",
+      },
+      {
+        "Ticket No.": 6,
+        Date: "2024-05-02",
+        "Vehicle No.": "MH02Z1841",
+        In: "15:45",
+        Out: "20:18",
+        "Transporter Name": "MAA SHERAWALI TRANSPORT",
+        "Product/Material": "Iron Ore",
+        "Product/Material Type": "Hematite",
+        "TP No/Invoice No": "HSI/27-02/S12362",
         "Po No": " ",
         "Challan No": "1280003114-9600063102",
         "Supplier/customer": "JAGA TRADES",
@@ -112,6 +160,9 @@ function QualityCheck() {
       ? data.filter((item) => item.Date === selectedDate)
       : data;
 
+      const renderedData = filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
+
   const handleDownload = (ticketNumber) => {
     const item = data.find((item) => item["Ticket No."] === ticketNumber);
   
@@ -137,7 +188,7 @@ function QualityCheck() {
     <div style="font-family: Calibri; font-weight: bold; text-align: center;">
     <p style="margin: 0;">Vikram Private Limited</p>
     <p style="margin: 0;">Bad Tumkela, Rajamunda</p>
-    <p style="margin: 0;">Sundargarh- 770040</p>
+    <p style="margin: 0;">Sundargarh- 770050</p>
     <p style="margin: 0;">GSTIN- 21AABCV4695C1ZI</p>
   </div>
   <p style="text-align:center;">*************************************************************</p>
@@ -193,7 +244,7 @@ function QualityCheck() {
     }
   };
 
-  const pageCount = Math.ceil(filteredData.length / itemsPerPage) || 1;
+  const pageCount = Math.ceil(data.length / itemsPerPage) || 1;
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
@@ -246,7 +297,7 @@ function QualityCheck() {
                 </tr>
               </thead>
               <tbody>
-              {data.map((item, index) => (
+              {renderedData.map((item, index) => (
   <tr key={index}>
     <td>
       <a
@@ -271,7 +322,7 @@ function QualityCheck() {
     <td>{item["Transaction Type"]}</td>
     <td>
       <button
-        className="btn btn-success download-btn"
+        className="Quality-btn  download-btn"
         onClick={() => handleDownload(item["Ticket No."])}
       >
         <FontAwesomeIcon icon={faFileWord} />

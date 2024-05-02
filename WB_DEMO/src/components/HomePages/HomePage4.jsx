@@ -5,7 +5,7 @@ import SideBar5 from "../SideBar/SideBar5";
 import OperatorHome from "../Operator/src/components/homed/Homed";
 import OperatorTransaction from "../Operator/src/components/transaction/Transaction";
 
-function HomePage6() {
+function HomePage4() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
@@ -56,4 +56,4 @@ function HomePage6() {
   );
 }
 
-export default HomePage6;
+export default HomePage4;

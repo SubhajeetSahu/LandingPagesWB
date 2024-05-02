@@ -35,8 +35,7 @@
 
 /* Header */
 .quality-check-header {
-  text-align: center;
-  margin-left: 160px;
+  margin-left: 130px;
 }
 
 /* Pagination container */
@@ -81,22 +80,6 @@
 
 .pagination-buttons input:focus {
   outline: none;
-}
-
-/* Download button */
-.download-btn {
-  border: none; /* Remove border */
-  padding: 10px 18px; /* Increase padding to make the button larger */
-  background-color: transparent; /* Remove background */
-  cursor: pointer;
-  color: green; /* Set text color to green */
-  font-size: 1.2em; /* Increase font size to make the button larger */
-  transition: transform 0.3s ease-in-out; /* Add transition for transform */
-}
-
-.download-btn:hover {
-  transform: scale(1.1); /* Scale up on hover */
-  background-color: lightgreen; /* Change background color on hover */
 }
 
 
@@ -146,16 +129,6 @@
   
 }
 
-/* Download button */
-.download-btn {
-  border: none; /* Remove border */
-  padding: 6px 12px !important; /* Reduce padding to make the button smaller */
-  background-color: transparent; /* Remove background */
-  cursor: pointer;
-  color: green; /* Set text color to green */
-  font-size: 1.0em !important; /* Reduce font size to make the button smaller */
-  transition: transform 0.3s ease-in-out; /* Add transition for transform */
-}
 
 
 .disabled {
@@ -198,5 +171,50 @@
 }
 
 .quality-check-table-container{
-  margin-top: 40px;
+  margin-top: -20px;
+}
+
+.home-sidebar.expanded + .quality-check-main-content {
+  margin-left: 220px; /* Ensure enough space for the expanded sidebar */
+  transition: margin-left 0.2s ease;
+}
+
+/* Adjust the width of the heading container */
+.home-sidebar.expanded + .quality-check-main-content .quality-check-header {
+  width: auto; /* Allow the heading to take full available width */
+  white-space: normal; /* Allow the heading to wrap if needed */
+  overflow: visible; /* Ensure the full heading is visible */
+  text-overflow: initial; /* Disable text truncation */
+}
+
+/* Remove body scroll */
+body {
+  overflow: hidden;
+}
+
+/* Download button */
+.download-btn {
+  border: none; /* Remove border */
+  cursor: pointer;
+  padding: 0; /* Remove padding */
+  font-size: 1.4em !important; /* Increase font size of the icon */
+}
+
+
+/* Adjust padding for the button */
+.Quality-btn {
+  padding: 5px !important; /* Add padding if needed */
+}
+
+/* Download button */
+.download-btn {
+  border: none; /* Remove border */
+  cursor: pointer;
+  padding: 0; /* Remove padding */
+  background-color: transparent !important; /* Set background color to transparent */
+}
+
+/* Remove hover effect */
+.download-btn:hover {
+  background-color: transparent !important; /* Set hover background color to transparent */
 }

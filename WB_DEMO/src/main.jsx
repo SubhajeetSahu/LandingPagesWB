@@ -12,8 +12,8 @@ import LoginUser from "./components/Login/LoginUser.jsx";
 import HomePage1 from "./components/HomePages/HomePage1.jsx";
 import HomePage2 from "./components/HomePages/HomePage2.jsx";
 import HomePage3 from "./components/HomePages/HomePage3.jsx";
+import HomePage4 from "./components/HomePages/HomePage4.jsx";
 import HomePage5 from "./components/HomePages/HomePage5.jsx";
-import HomePage6 from "./components/HomePages/HomePage6.jsx";
 
 import CreateUser from "./components/Admin/CreateUser/CreateUser.jsx";
 import ManageUser from "./components/Admin/ManageUser/ManageUser.jsx";
@@ -60,8 +60,8 @@ const router = createBrowserRouter(
       <Route path="/home1" element={<HomePage1 />} />
       <Route path="/home2" element={<HomePage2 />} />
       <Route path="/home3" element={<HomePage3 />} />
+      <Route path="/home4" element={<HomePage4 />} />
       <Route path="/home5" element={<HomePage5 />} />
-      <Route path="/home6" element={<HomePage6 />} />
 
       <Route path="/create-user" element={<CreateUser />} />
       <Route path="/manage-user" element={<ManageUser />} />
