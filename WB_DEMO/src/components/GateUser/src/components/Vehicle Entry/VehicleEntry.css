@@ -161,5 +161,5 @@ body {
 .vehicle-table th {
   white-space: nowrap; /* Prevent wrapping of header cells */
   background-color: #C2C4CB; /* Add a background color for visibility */
-  height: 60px;
+  height: 80px;
 }

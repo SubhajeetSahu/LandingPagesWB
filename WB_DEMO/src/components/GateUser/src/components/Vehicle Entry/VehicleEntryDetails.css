@@ -21,17 +21,52 @@
   font-weight: 450;
 }
  
-@media (max-width: 768px) {
-  .position-relative {
-    position: relative;
-  }
-  .position-absolute {
-    position: absolute;
-  }
-  .top-0 {
-    top: 0 !important;
-  }
-  .mb-3 {
-    margin-bottom: 1rem !important;
-  }
+/* Add this rule to make the camera table border less bold */
+.camview td {
+  /* border: 1px solid; */
+  border-radius: 5px;
 }
+.table {
+  margin: 20px 0px 0px 0px;
+}
+ 
+/* button for scannar image */
+.button {
+  border: 1px solid;
+  border-radius: 5px;
+  /* border-color: transparent !important;  */
+}
+ 
+/* table- btn for camera Image capture*/
+.table-btn {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+ 
+.btn-save {
+  width: 120px; /* Adjust the width as needed */
+}
+ 
+.btn-clear {
+  width: 120px; /* Adjust the width as needed */
+}
+ 
+/* Swal Modal size decrease */
+ 
+.my-popup-class {
+  width: 400px; /* Adjust the width as needed */
+  max-width: calc(100% - 20px); /* Maximum width */
+}
+ 
+.my-title-class {
+  /* Custom styles for the title */
+  /* width:10px; */
+  max-width: calc(100% - 20px);
+  font-size: 20px;
+}
+ 
+.my-content-class {
+  /* Custom styles for the content */
+  width: 10px;
+}
+ 

@@ -286,23 +286,23 @@ function QualityCheck() {
         </div>
         {/* Pagination */}
         <div className="quality-check-pagination-container">
-  <span className="pagination-text">Showing {currentPage * itemsPerPage + 1} to {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries</span>
-  <div className="pagination-buttons">
-  <button onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}>&lt;&lt;</button>
-    <button onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
-    {[...Array(pageCount)].map((_, index) => (
-      <button
-        key={index}
-        className={currentPage === index ? "active" : ""}
-        onClick={() => setCurrentPage(index)}
-      >
-        {index + 1}
-      </button>
-    ))}
-    <button onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
-    <button onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}>&gt;&gt;</button>
-  </div>
-</div>
+            <span className="pagination-text">Showing {currentPage * itemsPerPage + 1} to {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries</span>
+              <div className="pagination-buttons">
+                  <button onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}>&lt;&lt;</button>
+                    <button onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
+                    {[...Array(pageCount)].map((_, index) => (
+                      <button
+                        key={index}
+                        className={currentPage === index ? "active" : ""}
+                        onClick={() => setCurrentPage(index)}
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+                    <button onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
+                    <button onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}>&gt;&gt;</button>
+                  </div>
+                                </div>
 
       </div>
     </div>

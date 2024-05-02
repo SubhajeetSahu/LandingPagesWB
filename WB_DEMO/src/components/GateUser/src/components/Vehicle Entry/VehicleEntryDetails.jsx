@@ -10,6 +10,9 @@ import "./VehicleEntryDetails.css";
 import ScannerImg from "../../assets/ScannerImg.png";
 import Camera_Icon from "../../assets/Camera_Icon.png";
 import Swal from "sweetalert2";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faEraser } from '@fortawesome/free-solid-svg-icons';
  
 function VehicleEntryDetails() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -19,7 +22,7 @@ function VehicleEntryDetails() {
   const homeMainContentRef = useRef(null);
   const [suppliers, setSuppliers] = useState([]);
   // const [suppliersAddress, setSuppliersAddress] = useState();
-  const [transporter, setTransporter] = useState([]);
+  const [transporter, setTransporter] = useState();
   const [materials, setMaterials] = useState([]);
  
  
@@ -224,22 +227,38 @@ function VehicleEntryDetails() {
       [name]: value,
     });
  
-    if (name === "poNo" || name === "challanNo") {
+    // Disable TP No if PO No is entered and vice versa
+
+    if (name === "poNo") {
+
       setFormData((prevData) => ({
+
         ...prevData,
-        [name === "poNo" ? "challanNo" : "poNo"]: value
-          ? ""
-          : prevData[name === "poNo" ? "challanNo" : "poNo"],
+
+        tpNo: value ? "" : prevData.tpNo,
+
       }));
+
+    } else if (name === "tpNo") {
+
+      setFormData((prevData) => ({
+
+        ...prevData,
+
+        poNo: value ? "" : prevData.poNo,
+
+      }));
+
     }
+
   };
  
   const handleSave = () => {
     if (
+      (!formData.poNo && !formData.tpNo) ||
       !formData.vehicleNo ||
       !formData.driverName ||
-      !formData.poNo ||
-      !formData.eWayBillNo
+      !formData.challanNo
     ) {
       Swal.fire({
         icon: "error",
@@ -252,7 +271,7 @@ function VehicleEntryDetails() {
     const gateData = {
       // userId,
       supplier: formData.supplier,
-      transporter: formData.transporter,
+      transporter: transporter.toString(),
       material: formData.material,
       vehicle: formData.vehicleNo,
       dlNo: formData.driverDLNo,
@@ -340,6 +359,34 @@ function VehicleEntryDetails() {
     });
   };
  
+  const handleCapturePicture = () => {
+
+    // Make a request to the backend to capture the picture
+
+    // Display a Swal modal indicating that the picture will be coming from the backend
+
+    Swal.fire({
+
+      icon: "info",
+
+      title: "Picture will be coming from backend",
+
+      text: "Please wait...",
+
+      customClass: {
+
+        popup: 'my-popup-class',
+
+        title: 'my-title-class',
+
+        content: 'my-content-class'
+
+      }
+
+    });
+
+  };
+  
   return (
     <div>
       <Header toggleSidebar={toggleSidebar} />
@@ -367,6 +414,7 @@ function VehicleEntryDetails() {
               onChange={handleChange}
               required
               className="form-control"
+              disabled={!!formData.tpNo} // Disable if tpNo has a value
             />
           </div>
           {/* TP No */}
@@ -383,11 +431,13 @@ function VehicleEntryDetails() {
       onChange={handleChange}
       required
       className="form-control"
+      disabled={!!formData.poNo} // Disable if poNo has a value
     />
     <button
       className="btn btn-outline-primary"
       style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
       onClick={() => alert("Scan TP No")}
+      disabled={!!formData.poNo}
     >
       <img
         src={ScannerImg}
@@ -419,35 +469,65 @@ function VehicleEntryDetails() {
           </div>
           {/* Vehicle No */}
           <div className="col-md-3 mb-3 position-relative">
+
   <label htmlFor="vehicleNo" className="form-label ">
+
     Vehicle No:
+
     <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+
   </label>
+
   <div className="input-group" style={{ position: "relative" }}>
+
     <input
+
       type="text"
+
       id="vehicleNo"
+
       name="vehicleNo"
+
       value={formData.vehicleNo}
+
       onChange={handleChange}
+
       required
+
       className="form-control"
+
       onKeyDown={handleVehicleNoKeyPress}
+
     />
+
     {/* Replace "Scan" button with FaCamera icon */}
+
     <button
+
       className="btn btn-outline-primary"
+
       style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+
       onClick={() => alert("Scan Vehicle No")}
+
     >
+
       {/* Use the imported scanner image */}
+
       <img
+
         src={ScannerImg}
+
         alt="Scanner"
+
         style={{ width: "25px", height: "25px" }}
+
       />
+
     </button>
+
   </div>
+
 </div>
 
 
@@ -526,7 +606,7 @@ function VehicleEntryDetails() {
                 <label htmlFor="transporter" className="form-label ">
                   Transporter:
                 </label>
-                <select
+                {/* <select
                   id="transporter"
                   name="transporter"
                   value={formData.transporter}
@@ -534,13 +614,29 @@ function VehicleEntryDetails() {
                   className="form-select"
                 >
                   <option value="">Select Transporter</option>
-                  {/* Populate the dropdown options from the transporter state */}
                   {transporter.map((t, index) => (
                     <option key={index} value={t}>
                       {t}
                     </option>
                   ))}
-                </select>
+                </select> */}
+                 <input
+
+type="text"
+
+id="transporter"
+
+name="transporter"
+
+value={formData.transporter}
+
+onChange={handleChange}
+
+className="form-control"
+
+// placeholder="Enter Transporter"
+
+/>
               </div>
  
               {/* Product dropdown */}
@@ -566,37 +662,64 @@ function VehicleEntryDetails() {
             </div>
             {/* Driver DL No */}
             <div className="row mb-3">
-  <div className="col-md-6">
-    <label htmlFor="driverDLNo" className="form-label ">
-      Driver DL No:
-      <span style={{ color: "red", fontWeight: "bold" }}>*</span>
-    </label>
-    <div className="input-group" style={{ position: "relative" }}>
-      <input
-        type="text"
-        id="driverDLNo"
-        name="driverDLNo"
-        value={formData.driverDLNo}
-        onChange={handleChange}
-        required
-        className="form-control"
+
+<div className="col-md-6">
+
+  <label htmlFor="driverDLNo" className="form-label ">
+
+    Driver DL No:
+
+    <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+
+  </label>
+
+  <div className="input-group" style={{ position: "relative" }}>
+
+    <input
+
+      type="text"
+
+      id="driverDLNo"
+
+      name="driverDLNo"
+
+      value={formData.driverDLNo}
+
+      onChange={handleChange}
+
+      required
+
+      className="form-control"
+
+    />
+
+    <button
+
+      className="btn btn-outline-primary"
+
+      style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+
+      onClick={() => alert("Scan Driver DL No")}
+
+    >
+
+      {/* Use the imported scanner image */}
+
+      <img
+
+        src={ScannerImg}
+
+        alt="Scanner"
+
+        style={{ width: "25px", height: "25px" }}
+
       />
-      <button
-        className="btn btn-outline-primary"
-        style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
-        onClick={() => alert("Scan Driver DL No")}
-      >
-        {/* Use the imported scanner image */}
-        <img
-          src={ScannerImg}
-          alt="Scanner"
-          style={{ width: "25px", height: "25px" }}
-        />
-      </button>
-    </div>
+
+    </button>
+
   </div>
 
- 
+</div>
               <div className="col-md-6">
                 <label htmlFor="driverName" className="form-label ">
                   Driver Name:
@@ -630,6 +753,7 @@ function VehicleEntryDetails() {
               <div className="col-md-6">
                 <label htmlFor="rcFitnessUpto" className="form-label ">
                   RC Fitness Upto:
+                  <span style={{ color: "red", fontWeight: "bold" }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -637,6 +761,7 @@ function VehicleEntryDetails() {
                   name="rcFitnessUpto"
                   value={formData.rcFitnessUpto}
                   onChange={handleChange}
+                  required
                   className="form-control"
                 />
               </div>
@@ -664,38 +789,66 @@ function VehicleEntryDetails() {
               </div> */}
               {/* E-way Bill No */}
               <div className="col-md-6">
-  <label htmlFor="eWayBillNo" className="form-label ">
-    E-way Bill No:
-  </label>
-  <div className="input-group" style={{ position: "relative" }}>
-    <input
-      type="text"
-      id="eWayBillNo"
-      name="eWayBillNo"
-      value={formData.eWayBillNo}
-      onChange={handleChange}
-      className="form-control"
+
+<label htmlFor="eWayBillNo" className="form-label ">
+
+  E-way Bill No:
+
+</label>
+
+<div className="input-group" style={{ position: "relative" }}>
+
+  <input
+
+    type="text"
+
+    id="eWayBillNo"
+
+    name="eWayBillNo"
+
+    value={formData.eWayBillNo}
+
+    onChange={handleChange}
+
+    className="form-control"
+
+  />
+
+  <button
+
+    className="btn btn-outline-primary"
+
+    style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
+
+    onClick={() => alert("Scan E-WayBill No")}
+
+  >
+
+    {/* Use the imported scanner image */}
+
+    <img
+
+      src={ScannerImg}
+
+      alt="Scanner"
+
+      style={{ width: "25px", height: "25px" }}
+
     />
-    <button
-      className="btn btn-outline-primary"
-      style={{ position: "absolute", right: "0", top: "0px", margin: "auto", zIndex: 1, height: "calc(100% - 15px)" }}
-      onClick={() => alert("Scan E-WayBill No")}
-    >
-      {/* Use the imported scanner image */}
-      <img
-        src={ScannerImg}
-        alt="Scanner"
-        style={{ width: "25px", height: "25px" }}
-      />
-    </button>
-  </div>
+
+  </button>
+
 </div>
 
-            </div>
+</div>
+
+
+
+</div>
           </div>
           <div className="col-md-6">
             {/* Camera view */}
-            <table className="text-center camview table table-bordered table-striped">
+             <table className="text-center camview table  ">
               <tbody>
                 <tr>
                   <td
@@ -703,19 +856,21 @@ function VehicleEntryDetails() {
                     rowSpan="2"
                     style={{
                       position: "relative",
-                      width: "180px",
+                      width: "80px",
                       height: "180px",
                     }}
                   >
                     <span style={{ marginRight: "5px" }}>Front-View</span>
                     <button
-                      className="btn btn-primary"
-                      style={{ position: "absolute", bottom: 0, right: 0 }}
+                      className="table-btn"
+                      style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }}
+
+                      onClick={handleCapturePicture}
                     >
                       <img
                         src={Camera_Icon}
                         alt="Captured"
-                        style={{ width: "25px", height: "25px" }}
+                        style={{ width: "45px", height: "36px" }}
                       />
                     </button>
                   </td>
@@ -724,19 +879,29 @@ function VehicleEntryDetails() {
                     rowSpan="2"
                     style={{
                       position: "relative",
-                      width: "180px",
+                      width: "80px",
                       height: "180px",
                     }}
                   >
                     <span style={{ marginRight: "5px" }}>Back-View</span>
                     <button
-                      className="btn btn-primary"
-                      style={{ position: "absolute", bottom: 0, right: 0 }}
-                    >
-                      <img
-                        src={Camera_Icon}
-                        alt="Captured"
-                        style={{ width: "25px", height: "25px" }}
+                       // className="btn btn-primary"
+
+                       className="table-btn"
+
+                       style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }}
+ 
+                       onClick={handleCapturePicture}
+ 
+                     >
+ 
+                       <img
+ 
+                         src={Camera_Icon}
+ 
+                         alt="Captured"
+ 
+                         style={{ width: "45px", height: "36px" }}
                       />
                     </button>
                   </td>
@@ -748,19 +913,29 @@ function VehicleEntryDetails() {
                     rowSpan="2"
                     style={{
                       position: "relative",
-                      width: "180px",
+                      width: "80px",
                       height: "180px",
                     }}
                   >
                     <span style={{ marginRight: "5px" }}>Top-View</span>
                     <button
-                      className="btn btn-primary"
-                      style={{ position: "absolute", bottom: 0, right: 0 }}
+                      // className="btn btn-primary"
+
+                      className="table-btn"
+
+                      style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }}
+
+                      onClick={handleCapturePicture}
+
                     >
+
                       <img
+
                         src={Camera_Icon}
+
                         alt="Captured"
-                        style={{ width: "25px", height: "25px" }}
+
+                        style={{ width: "45px", height: "36px" }}
                       />
                     </button>
                   </td>
@@ -769,19 +944,29 @@ function VehicleEntryDetails() {
                     rowSpan="2"
                     style={{
                       position: "relative",
-                      width: "180px",
+                      width: "80px",
                       height: "180px",
                     }}
                   >
                     <span style={{ marginRight: "5px" }}>Side-View</span>
                     <button
-                      className="btn btn-primary"
-                      style={{ position: "absolute", bottom: 0, right: 0 }}
-                    >
-                      <img
-                        src={Camera_Icon}
-                        alt="Captured"
-                        style={{ width: "25px", height: "25px" }}
+                       // className="btn btn-primary"
+
+                       className="table-btn"
+
+                       style={{ position: "absolute", bottom: 0, right: 0, border: "0px", }}
+ 
+                       onClick={handleCapturePicture}
+ 
+                     >
+ 
+                       <img
+ 
+                         src={Camera_Icon}
+ 
+                         alt="Captured"
+ 
+                         style={{ width: "45px", height: "36px" }}
                       />
                     </button>
                   </td>
