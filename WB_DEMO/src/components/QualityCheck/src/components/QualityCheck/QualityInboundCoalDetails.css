@@ -60,3 +60,7 @@
   .column-margin {
     margin-right: 0px; /* Adjust the margin as needed */
   }
+
+  .home-sidebar.expanded + .quality-inbound-coal-detail-check-main-content {
+    margin-left: 220px;
+  }

@@ -1,3 +1,4 @@
+// QualityOutboundSpongeIronDetails.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,10 +34,6 @@ const QualityOutboundSpongeIronDetails = () => {
     fet: "62.54",
     loi: "4.18",
   });
-
-  const closeForm = () => {
-    navigate("/QualityCheck");
-  };
 
   const handleSave = () => {
     const data = {
@@ -91,22 +88,20 @@ const QualityOutboundSpongeIronDetails = () => {
   };
 
   const renderFieldWithBox = (fieldName, fieldValue, onChange) => (
-    <div className="d-flex flex-row mb-3 align-items-center">
-      <label htmlFor={fieldName} className="form-label text-muted me-2 fw-normal">
+    <div className="field-container">
+      <label htmlFor={fieldName} className="form-label">
         {fieldName}:
       </label>
-      <div style={{ flex: 1 }}>
-        <input
-          type="text"
-          name={fieldName}
-          autoComplete="off"
-          value={fieldValue}
-          onChange={onChange}
-          required
-          className="form-control"
-          readOnly
-        />
-      </div>
+      <input
+        type="text"
+        name={fieldName}
+        autoComplete="off"
+        value={fieldValue}
+        onChange={onChange}
+        required
+        className="form-control"
+        readOnly
+      />
     </div>
   );
 
@@ -119,18 +114,13 @@ const QualityOutboundSpongeIronDetails = () => {
           toggleSidebar={toggleSidebar}
         />
         <div
-          className={`quality-detail-check-main-content ${
-            isMobile ? "mobile" : isTablet ? "tablet" : "desktop"
-          }`}
-          style={{ marginLeft: "220px" }}
-        >
+          className={`quality-outbound-sponge-iron-detail-check-main-content ${
+            isSidebarExpanded ? "expanded" : ""
+          }`}>
           <div className="container-fluid trans-form-main-div overflow-hidden">
-            <div className="close" onClick={closeForm}>
-              <FontAwesomeIcon icon={faTimes} />
-            </div>
             <div className="d-flex flex-column align-items-center mb-4">
               <div className="text-center mb-4">
-                <h3 style={{marginRight: "130px" , marginTop: "60px"}}>Quality Check Inbound Details</h3>
+                <h3>Quality Check Outbound Sponge Iron Details</h3>
               </div>
               <div className="d-flex" style={{ justifyContent: 'flex-end', width: '100%' }}>
                 <button className="btn button-transition mx-3" onClick={handleSave}>
@@ -146,7 +136,7 @@ const QualityOutboundSpongeIronDetails = () => {
             </div>
 
             <div className="row">
-              <div className="col-lg-4 div2 container-fluid">
+              <div className="col-lg-4">
                 {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange )}
                 {renderFieldWithBox("Date", formData.date, handleInputChange)}
                 {renderFieldWithBox("Vehicle Number", formData.vehicleNumber, handleInputChange)}
@@ -154,7 +144,7 @@ const QualityOutboundSpongeIronDetails = () => {
                 {renderFieldWithBox("Out Time",formData.outTime )}
                 {renderFieldWithBox("Transporter", formData.transporter, handleInputChange)}
               </div>
-              <div className="col-lg-4 div2 container-fluid column-margin">
+              <div className="col-lg-4 column-margin">
                 {renderFieldWithBox("Material", formData.material, handleInputChange)}
                 {renderFieldWithBox("Material Type", formData.materialType, handleInputChange)}
                 {renderFieldWithBox("Tp No", formData.tpNo, handleInputChange)}
@@ -162,7 +152,7 @@ const QualityOutboundSpongeIronDetails = () => {
                 {renderFieldWithBox("Challan No", formData.challanNo, handleInputChange)}
                 {renderFieldWithBox("Transaction Type", formData.transactionType, handleInputChange)}
               </div>
-              <div className="col-lg-4 div2 container-fluid">
+              <div className="col-lg-4">
                 {renderFieldWithBox("Supplier", formData.supplier, handleInputChange)}
                 {renderFieldWithBox("Supplier Address", formData.supplierAddress, handleInputChange)}
                 {renderFieldWithBox("Size %+20mm", formData.size20mm, handleInputChange)}

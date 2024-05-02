@@ -1,61 +1,163 @@
-/* QualityDetailsEntry.css */
-/* Define the box styles */
-.form-control {
-    border: 1px solid #ced4da; /* Add border */
-    border-radius: 0.25rem; /* Add border radius */
-    padding: 0.75rem 0.75rem; /* Increase padding */
-    height: 50px; /* Increase input box size */
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Add transition effect */
-  }
-  
-  .form-control:focus {
-    color: #495057; /* Change text color on focus */
-    background-color: #fff; /* Change background color on focus */
-    border-color: #80bdff; /* Change border color on focus */
-    outline: 0; /* Remove outline */
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add box shadow on focus */
-  }
-  
-  /* QualityDetailsEntry.css */
-  /* Adjust the left margin of the container */
-  .container-wrapper {
-    margin-left: 100px !important; /* Adjust the value as needed */
-  }
-  
-  .quality-detail-check-main-content {
-    padding-right: 140px; /* Adjust the value as needed */
-  }
-  
-  /* Adjust font weight between label and content */
-  .form-label {
-    font-weight: normal; /* Set the font weight for labels */
-  }
-  
-  .form-control {
-    font-weight: normal; /* Set the font weight for input fields */
-  }
-  
-  /* Align labels to the left */
-  .form-label {
-    text-align: left; /* Align labels to the left */
-  }
-  
-  /* Vertical spacing between boxes */
-  .field-container {
-    margin-top: 1rem; /* Add margin-top for vertical spacing */
-  }
-  
-  .btn {
-    font-size: 1.5rem; /* Adjust the font size as needed */
-    /* You can also modify other properties such as padding, margin, etc. to fine-tune the button size */
-  }
-  
-  .form-control {
-    height: 50px !important; /* Adjust the height as needed */
-    width:240px !important;
-    margin-bottom: 15px !important;
-  }
-  
-  .column-margin {
-    margin-right: 0px; /* Adjust the margin as needed */
-  }
+/* css */
+/* QualityOutboundSpongeIronDetails.css */
+
+/* Main content container */
+.quality-outbound-sponge-iron-detail-check-main-content {
+    margin-left: 100px;
+    margin-top: 7rem;
+    transition: margin-left 0.2s ease;
+}
+
+/* Date section */
+.quality-outbound-sponge-iron-detail-check-date {
+    font-weight: bold;
+}
+
+.disabled {
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+}
+
+/* Table container */
+.quality-outbound-sponge-iron-detail-check-table-container {
+    display: flex;
+    justify-content: flex-end;
+    overflow-x: auto; /* Always show horizontal scrollbar */
+    overflow-y: hidden; /* Hide vertical scrollbar */
+}
+
+/* Table styles */
+.quality-outbound-sponge-iron-detail-check-table {
+    width: 100%;
+    table-layout: fixed; /* Ensure that the table has a fixed layout */
+    margin: auto;
+}
+
+.quality-outbound-sponge-iron-detail-check-table th,
+.quality-outbound-sponge-iron-detail-check-table td {
+    white-space: nowrap; /* Prevent wrapping of table cells */
+    width: auto;
+}
+
+/* Header */
+.quality-outbound-sponge-iron-detail-check-header {
+    text-align: center;
+    margin-left: 250px;
+}
+
+/* Pagination container */
+.quality-outbound-sponge-iron-detail-check-pagination-container {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    margin-top: 1rem; /* Add margin to separate from table */
+}
+
+/* Pagination buttons */
+.pagination-buttons {
+    margin: 0 5px;
+}
+
+.pagination-buttons button {
+    display: inline-block;
+    padding: 8px 12px; /* Adjust padding as needed */
+    border: 1px solid #333; /* Darken border color */
+    border-radius: 5px; /* Add border radius */
+    background-color: #222; /* Darken background color */
+    color: white; /* White text color */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-buttons button:hover {
+    background-color: #444; /* Darken background color on hover */
+}
+
+.pagination-buttons input {
+    width: 50px;
+    padding: 4px 8px;
+    margin: 0 5px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    text-align: center; /* Center text */
+}
+
+.pagination-buttons input:focus {
+    outline: none;
+}
+
+/* Download button */
+.quality-outbound-sponge-iron-detail-check-download-btn {
+    border: none; /* Remove border */
+    padding: 8px 16px; /* Add padding to increase button size */
+    background-color: transparent; /* Remove background */
+    cursor: pointer;
+    color: green; /* Set text color to green */
+    font-size: 2em; /* Set font size */
+    transition: transform 0.3s ease-in-out; /* Add transition for transform */
+}
+
+.quality-outbound-sponge-iron-detail-check-download-btn:hover {
+    transform: scale(1.1); /* Scale up on hover */
+    background-color: lightgreen; /* Change background color on hover */
+}
+
+/* Pagination container */
+.quality-outbound-sponge-iron-detail-check-pagination-container {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    justify-content: space-between; /* Align items to the left and right */
+    margin-top: 1rem; /* Add margin to separate from table */
+}
+
+/* Pagination buttons */
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.pagination-buttons button {
+    margin: 0 5px; /* Add margin between buttons */
+    padding: 8px 12px; /* Adjust padding as needed */
+    border: 1px solid #333; /* Darken border color */
+    border-radius: 5px; /* Add border radius */
+    background-color: #fff; /* Change background color to white */
+    color: #333; /* Darken text color */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-buttons button:hover {
+    background-color: #eee; /* Darken background color on hover */
+}
+
+.pagination-text {
+    color: #333; /* Darken text color */
+}
+
+/* Active page button */
+.pagination-buttons button.active {
+    outline: 2px solid rgb(116, 189, 241); /* Add blue outline for active page */
+}
+
+.home-sidebar.expanded + .quality-outbound-sponge-iron-detail-check-main-content {
+    margin-left: 220px;
+}
+
+.disabled {
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+}
+
+.quality-outbound-sponge-iron-detail-check-main-content {
+    margin-left: 100px;
+    margin-top: 7rem;
+    margin-right: 40px; /* Adjust this value to create the desired gap */
+    transition: margin-left 0.2s ease;
+}

@@ -1,4 +1,4 @@
-/* Add this CSS to your QualityCheck.css file */
+/* QualityCheck.css */
 
 /* Main content container */
 .quality-check-main-content {
@@ -183,7 +183,11 @@
   text-overflow: ellipsis; /* Display ellipsis (...) for overflow */
 }
 
-
+.table
+  {
+    margin: 0;
+    padding: 0;
+}
 
 
 /* Adjust table header cell styles */

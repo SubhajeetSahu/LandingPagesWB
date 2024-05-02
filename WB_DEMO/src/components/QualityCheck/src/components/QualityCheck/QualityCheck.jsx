@@ -1,3 +1,4 @@
+//QualityCheck.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../../../Header/Header";
@@ -192,16 +193,6 @@ function QualityCheck() {
     }
   };
 
-  const tableContainerRef = useRef(null);
-
-  useEffect(() => {
-    if (tableContainerRef.current) {
-      tableContainerRef.current.style.overflowX = 'auto';
-      tableContainerRef.current.scrollLeft = 100;
-    }
-  }, [data]);
-  
-
   const pageCount = Math.ceil(filteredData.length / itemsPerPage) || 1;
 
   const handlePageChange = ({ selected }) => {
@@ -232,7 +223,7 @@ function QualityCheck() {
           <h2 className="quality-check-header">Quality Dashboard</h2>
         </div>
 
-        <div className="quality-check-table-container " ref={tableContainerRef}>
+        <div className="quality-check-table-container " >
           <div className="quality-check-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
             <table className="table table-bordered table-striped">
               <thead className="quality-check-table-header">
@@ -294,9 +285,10 @@ function QualityCheck() {
           </div>
         </div>
         {/* Pagination */}
-<div className="quality-check-pagination-container">
+        <div className="quality-check-pagination-container">
   <span className="pagination-text">Showing {currentPage * itemsPerPage + 1} to {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries</span>
   <div className="pagination-buttons">
+  <button onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}>&lt;&lt;</button>
     <button onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
     {[...Array(pageCount)].map((_, index) => (
       <button
@@ -308,8 +300,10 @@ function QualityCheck() {
       </button>
     ))}
     <button onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
+    <button onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}>&gt;&gt;</button>
   </div>
 </div>
+
       </div>
     </div>
   );
