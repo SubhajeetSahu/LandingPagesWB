@@ -1,66 +1,114 @@
-/* QualityDetailsEntry.css */
+/* QualityInboundCoalDetails.css */
 /* Define the box styles */
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.7rem 1rem; /* Adjusted padding */
+  height: 40px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-size: 14px; /* Adjusted font size */
+  font-family: 'Roboto', sans-serif; /* Added font family */
+  color: #333; /* Adjusted text color */
+}
+
+/* Styles for non-read-only input fields when in focus */
+.form-control:not(:read-only):focus {
+  color: #495057;
+  background-color: #f0f9ff;
+  border-color: #007bff;
+  outline: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:read-only {
+  background-color: #f8f9fa; /* Light gray background color */
+  color: #495057; /* Text color */
+  border-color: #ced4da; /* Border color */
+  cursor: not-allowed; /* Change cursor to indicate read-only */
+}
+
+.form-control:read-only:hover {
+  background-color: #f8f9fa; /* Same as read-only background color */
+  border-color: #ced4da; /* Same as read-only border color */
+  cursor: not-allowed; /* Same as read-only cursor */
+}
+
+/* Adjust the left margin of the container */
+.container-wrapper {
+  margin-left: 100px !important;
+}
+
+/* Main content padding */
+.quality-detail-check-main-content {
+  padding: 20px 140px 20px 20px;
+}
+
+/* Font weight for labels and content */
+.form-label {
+  font-weight: bold;
+  color: #333; /* Change label color */
+  font-size: 16px; /* Increase label font size */
+  font-family: 'Roboto', sans-serif; /* Added font family */
+}
 
 .form-control {
-    border: 1px solid #ced4da; /* Add border */
-    border-radius: 0.25rem; /* Add border radius */
-    padding: 0.75rem 0.75rem; /* Increase padding */
-    height: 50px; /* Increase input box size */
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Add transition effect */
-  }
-  
-  .form-control:focus {
-    color: #495057; /* Change text color on focus */
-    background-color: #fff; /* Change background color on focus */
-    border-color: #80bdff; /* Change border color on focus */
-    outline: 0; /* Remove outline */
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add box shadow on focus */
-  }
-  
-  /* QualityDetailsEntry.css */
-  /* Adjust the left margin of the container */
-  .container-wrapper {
-    margin-left: 100px !important; /* Adjust the value as needed */
-  }
-  
-  .quality-detail-check-main-content {
-    padding-right: 140px; /* Adjust the value as needed */
-  }
-  
-  /* Adjust font weight between label and content */
-  .form-label {
-    font-weight: normal; /* Set the font weight for labels */
-  }
-  
-  .form-control {
-    font-weight: normal; /* Set the font weight for input fields */
-  }
-  
-  /* Align labels to the left */
-  .form-label {
-    text-align: left; /* Align labels to the left */
-  }
-  
-  /* Vertical spacing between boxes */
-  .field-container {
-    margin-top: 1rem; /* Add margin-top for vertical spacing */
-  }
-  
-  .btn {
-    font-size: 1.5rem; /* Adjust the font size as needed */
-    /* You can also modify other properties such as padding, margin, etc. to fine-tune the button size */
-  }
-  
-  .form-control {
-    height: 50px !important; /* Adjust the height as needed */
-    width:240px !important;
-    margin-bottom: 15px !important;
-  }
-  
-  .column-margin {
-    margin-right: 0px; /* Adjust the margin as needed */
-  }
+  font-weight: normal;
+}
 
-  .home-sidebar.expanded + .quality-inbound-coal-detail-check-main-content {
-    margin-left: 220px;
+/* Align labels to the left */
+.form-label {
+  text-align: left;
+}
+
+/* Vertical spacing between boxes */
+.field-container {
+  margin-bottom: 1.5rem; /* Increase vertical spacing */
+}
+
+/* Button size */
+.btn {
+  font-size: 1.2rem; /* Adjusted font size */
+  font-family: 'Roboto', sans-serif; /* Added font family */
+}
+
+/* Sidebar adjustment */
+.home-sidebar.expanded + .quality-inbound-coal-detail-check-main-content {
+  margin-left: 220px;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .form-control {
+    width: 100% !important;
   }
+}
+
+/* Header margin */
+.quality-inbound-header {
+  margin-left: 290px !important;
+  font-size: 27px; /* Increased font size */
+  /* font-family: 'Roboto', sans-serif; */
+  color: #333; /* Adjusted text color */
+}
+
+/* Main content margin top */
+.quality-inbound-coal-detail-check-main-content {
+  margin-top: 80px;
+}
+
+/* Card styles */
+.quality-inbound-upper-card,
+.quality-inbound-lower-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  background-color: #fff; /* Add background color */
+  margin-left: -50px !important;
+  width: 100%;
+  margin-top: -20px; /* Adjusted margin-top value */
+}
+
+/* Adjust margin for columns */
+.col-lg-3 {
+  margin-top: -70px !important;
+}
