@@ -10,7 +10,9 @@
 
 /* Date section */
 .qc-quality-check-date {
-  font-weight: bold;
+  display: flex; /* Use flexbox */
+  justify-content: space-between; /* Space items evenly along the main axis */
+  align-items: center; /* Align items vertically */
 }
 
 /* Table container */
@@ -36,12 +38,17 @@
 
 /* Header */
 .qc-quality-check-header {
-  margin-left: 190px;
-  width: 25%; /* Adjust the width as needed */
+  flex: 2; /* Adjust flex-grow value */
+  text-align: center; /* Center the text within the header */
   white-space: nowrap; /* Prevent line wrapping */
   overflow: hidden; /* Hide overflowing content */
   text-overflow: ellipsis; /* Display ellipsis (...) for overflow */
+  margin-right: 200px;
 }
+
+
+
+
 
 /* Pagination container */
 .qc-quality-check-pagination-container {

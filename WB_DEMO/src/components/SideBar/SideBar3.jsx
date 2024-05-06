@@ -13,9 +13,12 @@ const SideBar3 = ({ isSidebarExpanded, toggleSidebar }) => {
   return (
     <div className={`home-sidebar ${isSidebarExpanded ? "expanded" : ""}`}>
       <Link to="/QualityCheck" className="sidebar-item" onClick={handleSidebarItemClick}>
-  <FontAwesomeIcon icon={faChartLine} className="sidebar-icon" />
+  <img src="src/components/QualityCheck/src/assets/QD.svg" className="sidebar-icon" alt="Quality Dashboard Icon" style={{ width: '20px', height: 'auto' }} />
   <span className="sidebar-item-text">Quality Dashboard</span>
 </Link>
+
+
+
 
 {/* <Link to="/QualityInboundDashboard" className="sidebar-item" onClick={handleSidebarItemClick}>
   <FontAwesomeIcon icon={faSignInAlt} className="sidebar-icon" />

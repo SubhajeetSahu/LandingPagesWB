@@ -1,4 +1,4 @@
-//QualityInboundCoalDetails.jsx
+// QualityInboundCoalDetails.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,28 +17,53 @@ import { Chart, ArcElement } from "chart.js/auto";
 const QualityInboundCoalDetails = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const ticketNumber = searchParams.get("ticketNumber");
 
   const [formData, setFormData] = useState({
-    date: "2024-04-29",
-    inTime: "11:16",
-    outTime: "12:20",
-    vehicleNumber: "OD35F-3948",
-    transporter: "JEEN TRADE & EXPORTS",
-    transactionType: "Inbound",
-    ticketNo: ticketNumber || "1",
-    tpNo: "I22405984/75",
+    date: "",
+    inTime: "",
+    outTime: "",
+    vehicleNumber: "",
+    transporter: "",
+    transactionType: "",
+    ticketNo: "",
+    tpNo: "",
     poNo: "",
-    challanNo: "1310002441-5300029809",
-    supplier: "MCL Bhubaneswari",
-    supplierAddress: "Talcher",
-    material: "Coal",
-    materialType: "ROM -100MM",
-    moisture: '', 
-  vm: '', 
-  ash: '', 
-  fc: '', 
-});
+    challanNo: "",
+    supplier: "",
+    supplierAddress: "",
+    material: "",
+    materialType: "",
+    moisture: "",
+    vm: "",
+    ash: "",
+    fc: "",
+  });
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlData = {
+      date: urlParams.get("date"),
+      inTime: urlParams.get("inTime"),
+      outTime: urlParams.get("outTime"),
+      vehicleNumber: urlParams.get("vehicleNumber"),
+      transporter: urlParams.get("transporter"),
+      transactionType: urlParams.get("Transaction Type"),
+      ticketNo: urlParams.get("Ticket No."),
+      tpNo: urlParams.get("TP No/Invoice No"),
+      poNo: urlParams.get("Po No"),
+      challanNo: urlParams.get("Challan No"),
+      supplier: urlParams.get("Supplier/customer"),
+      supplierAddress: urlParams.get("Supplier/customer Address"),
+      material: urlParams.get("Product/Material"),
+      materialType: urlParams.get("Product/Material Type"),
+      moisture: "",
+      vm: "",
+      ash: "",
+      fc: "",
+    };
+
+    setFormData(urlData);
+  }, []);
 
   const handleSave = () => {
     const data = {
@@ -56,14 +81,15 @@ const QualityInboundCoalDetails = () => {
       "Supplier/customer Address": formData.supplierAddress,
       "Product/Material": formData.material,
       "Product/Material Type": formData.materialType,
-      "Moisture %": formData["Moisture %"],
-      "Vm %": formData["Vm %"],
-      "Ash %": formData["Ash %"],
-      "Fc %": formData["Fc %"],
+      "Moisture %": formData.moisture,
+      "Vm %": formData.vm,
+      "Ash %": formData.ash,
+      "Fc %": formData.fc,
     };
-  
-    const queryString = new URLSearchParams(data).toString();
 
+   
+
+    const queryString = new URLSearchParams(data).toString();
     navigate(`/QualityCheck?${queryString}`);
   };
 
@@ -92,29 +118,31 @@ const QualityInboundCoalDetails = () => {
     setMaterial(event.target.value);
   };
 
-  const renderFieldWithBox = (fieldName, fieldValue, onChange, readOnly = false) => (
+  const renderFieldWithBox = (fieldName, fieldValue, onChange) => {
+  const fieldNameCamelCase = fieldName
+    .replace(/[\s%]/g, '')
+    .replace(/([A-Z])/g, ' $1')
+    .toLowerCase()
+    .trim()
+    .replace(/ /g, '');
+
+  return (
     <div className="field-container">
-      <label htmlFor={fieldName} className="form-label">
+      <label htmlFor={fieldNameCamelCase} className="form-label">
         {fieldName}:
       </label>
       <input
         type="text"
-        name={fieldName}
+        name={fieldNameCamelCase}
         autoComplete="off"
-        value={fieldValue} // Change this line
-        onChange={onChange} // Change this line
+        value={fieldValue || ''}
+        onChange={onChange}
         required
         className="form-control"
-        readOnly={
-          fieldName !== "Moisture %" &&
-          fieldName !== "Vm %" &&
-          fieldName !== "Ash %" &&
-          fieldName !== "Fc %"
-        }
       />
     </div>
   );
-  
+};
 
   return (
     <div className="d-flex">
@@ -149,54 +177,51 @@ const QualityInboundCoalDetails = () => {
                   <div className="quality-inbound-upper-card p-0">
                     <div className="row mx-0 mb-6">
                       <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                        {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange, true)}
-                        {renderFieldWithBox("Date", formData.date, handleInputChange, true)}
-                        {renderFieldWithBox("Vehicle Number", formData.vehicleNumber, handleInputChange, true)}
-                      </div>
-                      <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                        {renderFieldWithBox("Transporter", formData.transporter, handleInputChange, true)}
-                        {renderFieldWithBox("Material", formData.material, handleInputChange, true)}
-                        {renderFieldWithBox("Material Type", formData.materialType, handleInputChange, true)}
-                      </div>
-                      <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                        {renderFieldWithBox("Tp No", formData.tpNo, handleInputChange, true)}
-                        {renderFieldWithBox("Po No", formData.poNo, handleInputChange, true)}
-                        {renderFieldWithBox("Challan No", formData.challanNo, handleInputChange, true)}
-                      </div>
-                      <div className="col-lg-3 px-4 py-3">
-                        {renderFieldWithBox("Supplier", formData.supplier, handleInputChange, true)}
-                        {renderFieldWithBox("Supplier Address", formData.supplierAddress, handleInputChange, true)}
-                        {renderFieldWithBox("Transaction Type", formData.transactionType, handleInputChange, true)}
-                      </div>
-                    </div>
-                  </div>
-              </div>
-
-              <div className="col-12">
-                  <div className="quality-inbound-lower-card  p-0">
-                    <div className="row mx-0">
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-  {renderFieldWithBox("Moisture %", formData["Moisture %"], handleInputChange)}
-</div>
-<div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-  {renderFieldWithBox("Vm %", formData["Vm %"], handleInputChange)}
-</div>
-<div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-  {renderFieldWithBox("Ash %", formData["Ash %"], handleInputChange)}
+                       {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange)}
+                       {renderFieldWithBox("Date", formData.date, handleInputChange)}
+                       {renderFieldWithBox("Vehicle Number", formData.vehicleNumber, handleInputChange)}
+                     </div>
+                     <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
+                       {renderFieldWithBox("Transporter", formData.transporter, handleInputChange)}
+                       {renderFieldWithBox("Material", formData.material, handleInputChange)}
+                       {renderFieldWithBox("Material Type", formData.materialType, handleInputChange)}
+                     </div>
+                     <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
+                       {renderFieldWithBox("Tp No", formData.tpNo, handleInputChange)}
+                       {renderFieldWithBox("Po No", formData.poNo, handleInputChange)}
+					   {renderFieldWithBox("Challan No", formData.challanNo, handleInputChange)}
 </div>
 <div className="col-lg-3 px-4 py-3">
-  {renderFieldWithBox("Fc %", formData["Fc %"], handleInputChange)}
+{renderFieldWithBox("Supplier", formData.supplier, handleInputChange)}
+{renderFieldWithBox("Supplier Address", formData.supplierAddress, handleInputChange)}
+{renderFieldWithBox("Transaction Type", formData.transactionType, handleInputChange)}
 </div>
-
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+</div>
+</div>
+</div>
+<div className="col-12">
+             <div className="quality-inbound-lower-card  p-0">
+               <div className="row mx-0">
+                 <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
+                   {renderFieldWithBox("Moisture %", formData.moisture, handleInputChange)}
+                 </div>
+                 <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
+                   {renderFieldWithBox("Vm %", formData.vm, handleInputChange)}
+                 </div>
+                 <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
+                   {renderFieldWithBox("Ash %", formData.ash, handleInputChange)}
+                 </div>
+                 <div className="col-lg-3 px-4 py-3">
+                   {renderFieldWithBox("Fc %", formData.fc, handleInputChange)}
+                 </div>
+               </div>
+             </div>
+             </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ );
 };
-
 export default QualityInboundCoalDetails;
