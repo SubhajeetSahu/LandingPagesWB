@@ -111,6 +111,7 @@
   padding: 0; /* Remove padding */
   font-size: 1.4em !important; /* Increase font size of the icon */
   background-color: transparent !important; /* Set background color to transparent */
+  color: green;
 }
 
 /* Remove hover effect */

@@ -2,8 +2,9 @@
 
 /* Main content container */
 .quality-inbound-coal-detail-check-main-content {
-  margin-left: 100px;
+  margin-left: 100px; /* Adjust left margin as needed */
   margin-top: 7rem;
+  margin-right: 40px; /* Add margin-right to create gap */
   transition: margin-left 0.2s ease;
 }
 
@@ -12,6 +13,7 @@
   font-weight: bold;
 }
 
+/* Disabled state */
 .disabled {
   pointer-events: none; /* Disable pointer events */
   opacity: 0.5; /* Reduce opacity to indicate disabled state */
@@ -41,67 +43,7 @@
 /* Header */
 .quality-inbound-coal-detail-check-header {
   text-align: center;
-  margin-left: 250px;
-}
-
-/* Pagination container */
-.quality-inbound-coal-detail-check-pagination-container {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  justify-content: center;
-  margin-top: 1rem; /* Add margin to separate from table */
-}
-
-/* Pagination buttons */
-.pagination-buttons {
-  margin: 0 5px;
-}
-
-.pagination-buttons button {
-  display: inline-block;
-  padding: 8px 12px; /* Adjust padding as needed */
-  border: 1px solid #333; /* Darken border color */
-  border-radius: 5px; /* Add border radius */
-  background-color: #222; /* Darken background color */
-  color: white; /* White text color */
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pagination-buttons button:hover {
-  background-color: #444; /* Darken background color on hover */
-}
-
-.pagination-buttons input {
-  width: 50px;
-  padding: 4px 8px;
-  margin: 0 5px;
-  border: 1px solid #333;
-  border-radius: 3px;
-  text-align: center; /* Center text */
-}
-
-.pagination-buttons input:focus {
-  outline: none;
-}
-
-/* Download button */
-.quality-inbound-coal-detail-check-download-btn {
-  border: none; /* Remove border */
-  padding: 8px 16px; /* Add padding to increase button size */
-  background-color: transparent; /* Remove background */
-  cursor: pointer;
-  color: green; /* Set text color to green */
-  font-size: 2em; /* Set font size */
-  transition: transform 0.3s ease-in-out; /* Add transition for transform */
-}
-
-.quality-inbound-coal-detail-check-download-btn:hover {
-  transform: scale(1.1); /* Scale up on hover */
-  background-color: lightgreen; /* Change background color on hover */
+  margin-left: 250px; /* Adjust margin as needed */
 }
 
 /* Pagination container */
@@ -145,18 +87,18 @@
   outline: 2px solid rgb(116, 189, 241); /* Add blue outline for active page */
 }
 
-.home-sidebar.expanded + .quality-inbound-coal-detail-check-main-content {
-  margin-left: 220px;
+/* Download button */
+.quality-inbound-coal-detail-check-download-btn {
+  border: none; /* Remove border */
+  padding: 8px 16px; /* Add padding to increase button size */
+  background-color: transparent; /* Remove background */
+  cursor: pointer;
+  color: green; /* Set text color to green */
+  font-size: 2em; /* Set font size */
+  transition: transform 0.3s ease-in-out; /* Add transition for transform */
 }
 
-.disabled {
-  pointer-events: none; /* Disable pointer events */
-  opacity: 0.5; /* Reduce opacity to indicate disabled state */
-}
-
-.quality-inbound-coal-detail-check-main-content {
-  margin-left: 100px;
-  margin-top: 7rem;
-  margin-right: 40px; /* Adjust this value to create the desired gap */
-  transition: margin-left 0.2s ease;
+.quality-inbound-coal-detail-check-download-btn:hover {
+  transform: scale(1.1); /* Scale up on hover */
+  background-color: lightgreen; /* Change background color on hover */
 }
