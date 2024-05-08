@@ -3,12 +3,16 @@
 .form-control {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  padding: 0.7rem 1rem; /* Adjusted padding */
+  padding: 0.7rem 1rem;
+  /* Adjusted padding */
   height: 40px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  font-size: 14px; /* Adjusted font size */
-  font-family: 'Roboto', sans-serif; /* Added font family */
-  color: #333; /* Adjusted text color */
+  font-size: 14px;
+  /* Adjusted font size */
+  font-family: 'Roboto', sans-serif;
+  /* Added font family */
+  color: #333;
+  /* Adjusted text color */
 }
 
 /* Styles for non-read-only input fields when in focus */
@@ -21,16 +25,23 @@
 }
 
 .form-control:read-only {
-  background-color: #f8f9fa; /* Light gray background color */
-  color: #495057; /* Text color */
-  border-color: #ced4da; /* Border color */
-  cursor: not-allowed; /* Change cursor to indicate read-only */
+  background-color: #f8f9fa;
+  /* Light gray background color */
+  color: #495057;
+  /* Text color */
+  border-color: #ced4da;
+  /* Border color */
+  cursor: not-allowed;
+  /* Change cursor to indicate read-only */
 }
 
 .form-control:read-only:hover {
-  background-color: #f8f9fa; /* Same as read-only background color */
-  border-color: #ced4da; /* Same as read-only border color */
-  cursor: not-allowed; /* Same as read-only cursor */
+  background-color: #f8f9fa;
+  /* Same as read-only background color */
+  border-color: #ced4da;
+  /* Same as read-only border color */
+  cursor: not-allowed;
+  /* Same as read-only cursor */
 }
 
 /* Adjust the left margin of the container */
@@ -46,9 +57,12 @@
 /* Font weight for labels and content */
 .form-label {
   font-weight: bold;
-  color: #333; /* Change label color */
-  font-size: 16px; /* Increase label font size */
-  font-family: 'Roboto', sans-serif; /* Added font family */
+  color: #333;
+  /* Change label color */
+  font-size: 16px;
+  /* Increase label font size */
+  font-family: 'Roboto', sans-serif;
+  /* Added font family */
 }
 
 .form-control {
@@ -62,17 +76,20 @@
 
 /* Vertical spacing between boxes */
 .field-container {
-  margin-bottom: 1.5rem; /* Increase vertical spacing */
+  margin-bottom: 1.5rem;
+  /* Increase vertical spacing */
 }
 
 /* Button size */
 .btn {
-  font-size: 1.2rem; /* Adjusted font size */
-  font-family: 'Roboto', sans-serif; /* Added font family */
+  font-size: 1.2rem;
+  /* Adjusted font size */
+  font-family: 'Roboto', sans-serif;
+  /* Added font family */
 }
 
 /* Sidebar adjustment */
-.home-sidebar.expanded + .quality-inbound-coal-detail-check-main-content {
+.home-sidebar.expanded+.quality-inbound-coal-detail-check-main-content {
   margin-left: 220px;
 }
 
@@ -86,26 +103,44 @@
 /* Header margin */
 .quality-inbound-header {
   margin-left: 290px !important;
-  font-size: 27px; /* Increased font size */
+  font-size: 27px;
+  /* Increased font size */
   /* font-family: 'Roboto', sans-serif; */
-  color: #333; /* Adjusted text color */
+  color: #333;
+  /* Adjusted text color */
+  margin-top: 10px;
 }
 
 /* Main content margin top */
 .quality-inbound-coal-detail-check-main-content {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 /* Card styles */
-.quality-inbound-upper-card,
+.quality-inbound-upper-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Add box shadow */
+  background-color: #fff;
+  /* Add background color */
+  margin-left: -50px !important;
+  width: 100%;
+  margin-top: -40px;
+  /* Adjusted margin-top value */
+}
+
 .quality-inbound-lower-card {
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow */
-  background-color: #fff; /* Add background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Add box shadow */
+  background-color: #fff;
+  /* Add background color */
   margin-left: -50px !important;
   width: 100%;
-  margin-top: -20px; /* Adjusted margin-top value */
+  margin-top: -10px;
+  /* Adjusted margin-top value */
 }
 
 /* Adjust margin for columns */

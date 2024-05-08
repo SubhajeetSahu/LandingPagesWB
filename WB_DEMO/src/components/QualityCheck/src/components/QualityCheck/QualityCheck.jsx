@@ -232,7 +232,7 @@ function QualityCheck() {
   };
 
   const handleTicketClick = (ticketNumber, productMaterial) => {
-    if (productMaterial === "coal") {
+    if (productMaterial === "Coal") {
       const item = data.find((item) => item.ticketNo === ticketNumber);
       if (item) {
         const { moisture, vm, ash, fc, ...queryParams } = item;
@@ -240,7 +240,11 @@ function QualityCheck() {
         navigate(`/QualityInboundCoalDetails?${queryString}`);
       }
     } else if (productMaterial === "Iron Ore") {
-      navigate(`/QualityInboundIronOreDetails?ticketNumber=${ticketNumber}`);
+      const item = data.find((item) => item.ticketNo === ticketNumber);
+      if (item) {
+        const queryString = new URLSearchParams(item).toString();
+        navigate(`/QualityInboundIronOreDetails?${queryString}`);
+      }
     } else if (productMaterial === "Sponge Iron") {
       navigate(`/QualityOutboundSpongeIronDetails?ticketNumber=${ticketNumber}`);
     }

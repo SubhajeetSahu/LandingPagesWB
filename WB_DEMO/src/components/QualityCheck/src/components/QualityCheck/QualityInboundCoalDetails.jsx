@@ -153,7 +153,7 @@ const QualityInboundCoalDetails = () => {
   // Add useEffect to execute side effects after rendering
   useEffect(() => {
     // Any side effect code can be placed here
-    console.log("Updated state:", formData);
+    // console.log("Updated state:", formData);
   }, [formData]); // This will ensure the effect runs whenever formData changes
 
 
@@ -172,16 +172,18 @@ const QualityInboundCoalDetails = () => {
         </label>
         <input
           type="text"
-          name={propertyName} // Use the propertyName parameter as the name attribute
+          name={propertyName}
           autoComplete="off"
           value={fieldValue || ''}
           onChange={onChange}
           required
           className="form-control"
+          id={propertyName} // Add this line to ensure id matches name
         />
       </div>
     );
   };
+
 
 
 
@@ -218,24 +220,24 @@ const QualityInboundCoalDetails = () => {
                 <div className="quality-inbound-upper-card p-0">
                   <div className="row mx-0 mb-6">
                     <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                      {renderFieldWithBox("Ticket No", formData.ticketNo, handleInputChange)}
-                      {renderFieldWithBox("Date", formData.date, handleInputChange)}
-                      {renderFieldWithBox("Vehicle Number", formData.vehicleNo, handleInputChange)}
+                      {renderFieldWithBox("Ticket No", formData.ticketNo, "ticketNo", handleInputChange)}
+                      {renderFieldWithBox("Date", formData.date, "date", handleInputChange)}
+                      {renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange)}
                     </div>
                     <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                      {renderFieldWithBox("Transporter", formData.transporterName, handleInputChange)}
-                      {renderFieldWithBox("Material", formData.materialOrProduct, handleInputChange)}
-                      {renderFieldWithBox("Material Type", formData.materialTypeOrProductType, handleInputChange)}
+                      {renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange)}
+                      {renderFieldWithBox("Material", formData.materialOrProduct, "materialOrProduct", handleInputChange)}
+                      {renderFieldWithBox("Material Type", formData.materialTypeOrProductType, "materialTypeOrProductType", handleInputChange)}
                     </div>
                     <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                      {renderFieldWithBox("Tp No", formData.tpNo, handleInputChange)}
-                      {renderFieldWithBox("Po No", formData.poNo, handleInputChange)}
-                      {renderFieldWithBox("Challan No", formData.challanNo, handleInputChange)}
+                      {renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange)}
+                      {renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange)}
+                      {renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange)}
                     </div>
                     <div className="col-lg-3 px-4 py-3">
-                      {renderFieldWithBox("Supplier", formData.supplierOrCustomerName, handleInputChange)}
-                      {renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, handleInputChange)}
-                      {renderFieldWithBox("Transaction Type", formData.transactionType, handleInputChange)}
+                      {renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange)}
+                      {renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange)}
+                      {renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange)}
                     </div>
                   </div>
                 </div>
