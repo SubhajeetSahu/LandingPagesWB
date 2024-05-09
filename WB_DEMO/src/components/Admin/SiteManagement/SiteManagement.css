@@ -1,6 +1,5 @@
-.site-main-content {
-    margin-left: 210px;
-    margin-top: 7em;
-    transition: margin-left 0.2s ease;
-  }
-  
+.site-management-main-content {
+  margin-top: 1rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}

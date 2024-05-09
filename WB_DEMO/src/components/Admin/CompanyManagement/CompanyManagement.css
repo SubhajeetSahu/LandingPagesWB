@@ -1,6 +1,6 @@
 .company-main-content {
-    margin-left: 210px;
-    margin-top: 7em;
-    transition: margin-left 0.2s ease;
-  }
-  
+  margin-top: 1rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  margin-bottom: 1rem;
+}

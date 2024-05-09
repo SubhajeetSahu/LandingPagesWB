@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Header/Header";
+
 import "./QualityOutboundDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from 'react-router-dom';
@@ -119,7 +119,7 @@ const QualityOutboundDetails = () => {
   return (
     <div className="d-flex">
       <div className="flex-grow-1">
-        <Header toggleSidebar={toggleSidebar} />
+        
         <SideBar3
           isSidebarExpanded={isSidebarExpanded}
           toggleSidebar={toggleSidebar}

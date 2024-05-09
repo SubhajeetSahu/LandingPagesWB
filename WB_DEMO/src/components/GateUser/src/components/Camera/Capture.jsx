@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar2 from "../../../../SideBar/SideBar2";
 
 const Capture = () => {
@@ -69,7 +69,7 @@ const Capture = () => {
   return (
     <>
       <div>
-    <Header toggleSidebar={toggleSidebar} />
+    
 
     <SideBar2
       isSidebarExpanded={isSidebarExpanded}

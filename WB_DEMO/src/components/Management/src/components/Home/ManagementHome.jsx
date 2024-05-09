@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { faBellSlash, faSearch, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'chart.js/auto';
 import SideBar4 from "../../../../SideBar/SideBar4";
-import Header from "../../../../Header/Header";
+
 
 function ManagementHome() {
   const chartRef = useRef(null);
@@ -45,7 +45,7 @@ function ManagementHome() {
       
       <div className="home-page">
 
-<Header toggleSidebar={toggleSidebar} />
+
 
       <SideBar4
         isSidebarExpanded={isSidebarExpanded}

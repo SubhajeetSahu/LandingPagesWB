@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import "./Camera.css";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar4 from "../../../../SideBar/SideBar4";
 import {
   faHome,
@@ -71,7 +71,7 @@ function ManagementCamera() {
 
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
 
 <SideBar4
   isSidebarExpanded={isSidebarExpanded}

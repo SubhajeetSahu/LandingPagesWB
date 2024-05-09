@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../Header/Header";
 import SideBar3 from "../SideBar/SideBar3";
 import QualityCheck from "../QualityCheck/src/components/QualityCheck/QualityCheck";
+import "./HomePage1.css";
 
 function HomePage2() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -39,7 +39,6 @@ function HomePage2() {
 
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
 
       <SideBar3
         isSidebarExpanded={isSidebarExpanded}

@@ -11,7 +11,7 @@ import {
 import { Chart, ArcElement } from "chart.js/auto";
 import "./report.css";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../../Header/Header";
+
 import SideBar5 from "../../../../SideBar/SideBar5";
 
 function OperatorReport() {
@@ -71,7 +71,7 @@ function OperatorReport() {
 
   return (
     <>
-    <Header toggleSidebar={toggleSidebar} />
+    
 
 <SideBar5
   isSidebarExpanded={isSidebarExpanded}

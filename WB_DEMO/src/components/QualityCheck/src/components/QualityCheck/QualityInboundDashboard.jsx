@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import Header from "../../../../Header/Header";
+
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QualityInboundDashboard.css";
 import * as XLSX from "xlsx";
@@ -167,7 +167,7 @@ function QualityInboundDashboard() {
 
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
 
       <SideBar3
         isSidebarExpanded={isSidebarExpanded}

@@ -4,7 +4,7 @@ import * as XLSX from "xlsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar4 from "../../../../SideBar/SideBar4";
 import {
   faHome,
@@ -235,7 +235,7 @@ function ManagementTransaction() {
 
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
 
 <SideBar4
   isSidebarExpanded={isSidebarExpanded}

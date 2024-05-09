@@ -1,65 +1,23 @@
-.download-btn {
-  transition: transform 0.3s ease-in-out;
-}
-
-.download-btn:hover {
-  background-color: green;
-  transform: scale(1.1);
-}
-
-.create-main-content {
-  margin-left: 210px;
-  margin-top: 7em;
-  transition: margin-left 0.2s ease;
-}
-
-.btn-hover:hover {
-  background-color: #d63031 !important;
-  color: #fff !important;
-  transform: scale(1.1) !important;
-}
-
-.btn-hover.btn-success-1:hover {
-  background-color: #2ecc71 !important;
-  color: #fff !important;
-  transform: scale(1.1) !important;
-}
-
 label {
   font-weight: bold;
   color: rgb(51, 65, 85);
 }
 
-.download-btn {
-  transition: transform 0.3s ease-in-out;
-}
-
-.download-btn:hover {
-  background-color: green;
-  transform: scale(1.1);
-}
-
-.create-main-content {
-  margin-left: 210px;
-  margin-top: 7em;
-  transition: margin-left 0.2s ease;
-}
-
 .btn-hover:hover {
   background-color: #d63031 !important;
   color: #fff !important;
-  transform: scale(1.1) !important;
+}
+
+.create-main-content {
+  margin-top: 1rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  margin-bottom: 1rem;
 }
 
 .btn-hover.btn-success-1:hover {
-  background-color: #2ecc71 !important;
+  background-color: #008060 !important;
   color: #fff !important;
-  transform: scale(1.1) !important;
-}
-
-label {
-  font-weight: bold;
-  color: rgb(51, 65, 85);
 }
 
 .spinner-container {
@@ -86,3 +44,5 @@ label {
     transform: rotate(360deg);
   }
 }
+
+

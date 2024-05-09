@@ -6,7 +6,7 @@ import OutTime_Img from "../../assets/OutTime_Img.png";
 import { Link } from "react-router-dom";
 import "./VehicleEntry.css";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar2 from "../../../../SideBar/SideBar2";
 import "./VehicleEntry.css";
  
@@ -156,7 +156,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
  
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
       <FontAwesomeIcon icon={faPlus} />
  
       <SideBar2

@@ -4,7 +4,7 @@ import { Chart, ArcElement } from "chart.js/auto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Header/Header";
+
 import "./Print.css";
 
 const QPrint = () => {
@@ -52,7 +52,7 @@ const QPrint = () => {
 
       <div className="flex-grow-1">
         {/* Add the header */}
-        <Header toggleSidebar={toggleSidebar} />
+        
 
     <SideBar3
       isSidebarExpanded={isSidebarExpanded}

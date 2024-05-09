@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import camView from "../../assets/weighbridge.webp";
-import Header from "../../../../Header/Header";
+
 import SideBar5 from "../../../../SideBar/SideBar5";
 
 const OperatorTransactionFromOutbound = () => {
@@ -66,7 +66,7 @@ const OperatorTransactionFromOutbound = () => {
   };
   return (
     <div className=" trans_form_main_div overflow-hidden">
-      <Header toggleSidebar={toggleSidebar} />
+      
 
       <SideBar5
         isSidebarExpanded={isSidebarExpanded}

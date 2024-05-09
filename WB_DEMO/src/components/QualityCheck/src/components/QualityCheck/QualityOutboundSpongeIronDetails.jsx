@@ -8,7 +8,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import Header from "../../../../Header/Header";
+
 import "./QualityOutboundSpongeIronDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { Chart, ArcElement } from "chart.js/auto";
@@ -191,7 +191,7 @@ const QualityOutboundSpongeIronDetails = () => {
   return (
     <div className="d-flex">
       <div className="flex-grow-1">
-        <Header toggleSidebar={toggleSidebar} />
+        
         <SideBar3
           isSidebarExpanded={isSidebarExpanded}
           toggleSidebar={toggleSidebar}

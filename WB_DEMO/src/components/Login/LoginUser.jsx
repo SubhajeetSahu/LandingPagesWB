@@ -38,6 +38,7 @@ const LoginUser = () => {
           sessionStorage.setItem("userName", data.userName);
           sessionStorage.setItem("roles", JSON.stringify(data.roles));
           sessionStorage.setItem("userId", data.userId);
+          console.log(data);
 
           if (data.roles.includes("ADMIN")) {
             Swal.fire({
@@ -120,39 +121,39 @@ const LoginUser = () => {
   };
 
   return (
-    <div className="weighbridge-login-page">
-      <div className="weighbridge-login-container">
-        <div className="weighbridge-login-content">
-          <h1 className="weighbridge-login-title" style={{ backgroundColor: "white" }}>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-content">
+          <h1 className="login-title" style={{ backgroundColor: "white" }}>
             Weighbridge Management System
           </h1>
           <img
             src="https://www.seewise.ai/assets/img/landing/weighbridge.jpg"
             alt="Truck"
-            className="weighbridge-login-truck-image"
+            className="login-truck-image"
           />
           <form
             onSubmit={handleSubmit}
-            className="weighbridge-login-form"
+            className="login-form"
             style={{ backgroundColor: "white" }}
           >
-            <div className="Login-form-group">
+            <div className="form-group">
               <input
                 type="text"
                 placeholder="User Id"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                className="form-control weighbridge-login-input"
+                className="form-control login-input"
                 required
               />
             </div>
-            <div className="Login-form-group password-input">
+            <div className="form-group password-input">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={userPassword}
                 onChange={(e) => setUserPassword(e.target.value)}
-                className="form-control weighbridge-login-input"
+                className="form-control login-input"
                 required
               />
               <span
@@ -162,18 +163,16 @@ const LoginUser = () => {
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </span>
             </div>
-            <div className="Login-form-group password-input"> 
-            <button type="submit" className="btn btn-primary weighbridge-login-btn">
+            <button type="submit" className="btn btn-primary login-btn">
               Sign In
             </button>
             {/* <a
               href="#"
-              className="weighbridge-login-forgot-password"
+              className="login-forgot-password"
               style={{ backgroundColor: "white" }}
             >
               Forgot Password?
             </a> */}
-            </div>
           </form>
         </div>
       </div>

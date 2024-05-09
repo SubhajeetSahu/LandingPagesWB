@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar5 from "../../../../SideBar/SideBar5";
 
 const OperatorHome= () => {
@@ -55,7 +55,7 @@ const OperatorHome= () => {
 
   return (
     <div className="home-page">
-      <Header toggleSidebar={toggleSidebar} />
+      
 
 <SideBar5
   isSidebarExpanded={isSidebarExpanded}

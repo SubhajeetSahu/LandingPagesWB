@@ -40,7 +40,7 @@ function HomePage4() {
  
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
  
       {/* <SideBar
         isSidebarExpanded={isSidebarExpanded}

@@ -4,7 +4,7 @@ import "./Report.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar4 from "../../../../SideBar/SideBar4";
 import {
   faHome,
@@ -72,7 +72,7 @@ function ManagementReport() {
 
   return (
     <>
-<Header toggleSidebar={toggleSidebar} />
+
 
 <SideBar4
   isSidebarExpanded={isSidebarExpanded}

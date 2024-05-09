@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Header from "../../../../Header/Header";
+
 import SideBar2 from "../../../../SideBar/SideBar2";
 import camView from "../../assets/weighbridgeCam.webp";
 import "./VehicleEntryDetails.css";
@@ -389,7 +389,7 @@ function VehicleEntryDetails() {
   
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
       <SideBar2
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}

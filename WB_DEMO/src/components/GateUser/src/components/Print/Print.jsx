@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import './Print.css';
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar2 from "../../../../SideBar/SideBar2";
 
 function Print() {
@@ -82,7 +82,7 @@ function Print() {
 
   return (
     <>
-      <Header toggleSidebar={toggleSidebar} />
+      
 
       <SideBar2
         isSidebarExpanded={isSidebarExpanded}

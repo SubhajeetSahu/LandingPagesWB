@@ -1,39 +1,77 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUserFriends,
-  faTruck,
-  faUsers,
-  faAngleDown,
-  faPowerOff,
-  faBuilding,
-  faMapMarkerAlt,
-  faHome,
-  faTruckMoving,
-} from "@fortawesome/free-solid-svg-icons";
+  Drawer,
+  List,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  IconButton,
+  ListItemButton,
+  Typography,
+  Box,
+  useMediaQuery,
+  Popover,
+  Divider,
+  Avatar,
+} from "@mui/material";
+import {
+  ExpandLess,
+  ExpandMore,
+  Person,
+  DirectionsCar,
+  Dashboard as DashboardIcon,
+  Menu as MenuIcon,
+  Home,
+  BusinessCenter,
+  Store,
+  Commute,
+  Group,
+  ExitToApp,
+  Build,
+  Handyman
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import "./SideBar1.css";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-
-const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
-  const [isUserManagementOpen, setIsUserManagementOpen] = useState(false);
-
-  const handleUserManagementClick = () => {
-    if (!isSidebarExpanded) {
-      toggleSidebar();
-    }
-    setIsUserManagementOpen(!isUserManagementOpen);
+ 
+ 
+const Sidebar = ({ children }) => {
+  const [openUser, setOpenUser] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+ 
+  const isLargeScreen = useMediaQuery("(min-width:600px)");
+ 
+  const handleUserClick = () => {
+    setOpenUser(!openUser);
+    setSelectedItem(openUser ? null : "user");
   };
-
-  const handleSidebarItemClick = () => {
-    if (!isSidebarExpanded) {
-      toggleSidebar();
-    }
+ 
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
   };
-
-  const navigate = useNavigate();
-
+ 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+ 
+  const handleUserProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+ 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+ 
+  const userName = sessionStorage.getItem("userName");
+  const roles = JSON.parse(sessionStorage.getItem("roles"));
+  const userId = sessionStorage.getItem("userId");
+  console.log(userName, roles, userId);
+ 
+  const open = Boolean(anchorEl);
+ 
+ 
+ 
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -47,18 +85,18 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
       if (result.isConfirmed) {
         // Clear session storage
         sessionStorage.clear();
-
+ 
         // Clear browser history and redirect
         window.location.href = "/";
-
+ 
         // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
           // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
-
+ 
           // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
-
+ 
           // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
@@ -67,135 +105,401 @@ const Sidebar = ({ isSidebarExpanded, toggleSidebar }) => {
       }
     });
   };
-
+ 
   return (
-    <div className={`rp-home-sidebar ${isSidebarExpanded ? "rp-expanded" : ""}`}>
-      <Link
-        to="/home1"
-        className="rp-sidebar-item"
-        onClick={handleSidebarItemClick}
+    <>
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          backgroundColor: "rgb(14, 23, 38)",
+          width: "100%",
+        }}
       >
-        <FontAwesomeIcon icon={faHome} className="rp-sidebar-icon mt-1" />
-        <span className="rp-sidebar-item-text text-center mt-1">Home</span>
-      </Link>
-
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "15px",
+          }}
+        >
+          <IconButton onClick={toggleSidebar}>
+            <MenuIcon sx={{ color: "white" }} />
+          </IconButton>
+          <Typography
+            variant={isLargeScreen ? "h6" : "h5"}
+            sx={{ color: "white" }}
+          >
+            Weighbridge Management System
+          </Typography>
+          <IconButton onClick={handleUserProfileClick}>
+            <Person style={{ color: "white" }} />
+          </IconButton>
+          <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <Box sx={{ backgroundColor: "black", p: 3 }}>
+              <Avatar
+                sx={{
+                  color: "black",
+                  width: 56,
+                  height: 56,
+                  margin: "auto",
+                  mb: 2,
+                }}
+              >
+                <Person />
+              </Avatar>
+              <Typography
+                variant="h6"
+                sx={{ color: "white", textAlign: "center", mb: 1 }}
+              >
+                {userName}
+              </Typography>
+              <Typography sx={{ color: "white", textAlign: "center", mb: 1, fontWeight: "bold" }}>
+                User ID: {userId}
+              </Typography>
+              <Divider sx={{ backgroundColor: "white", mb: 1 }} />
+              <Typography sx={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
+                Roles: {roles.join(", ")}
+              </Typography>
+            </Box>
+          </Popover>
+        </Box>
+      </Box>
+      <Drawer
+        variant="temporary"
+        open={isSidebarOpen}
+        onClose={toggleSidebar}
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          zIndex: 0,
+          "& .MuiDrawer-paper": {
+            width: 240,
+            position: "fixed",
+            boxSizing: "border-box",
+            backgroundColor: "rgb(229, 232, 237)",
+          },
+        }}
+      >
+        <List sx={{ marginTop: "120px" }}>
+          <ListItemButton
+            component={Link}
+            to="/home1"
+            onClick={() => handleItemClick("dashboard")}
+            selected={selectedItem === "dashboard"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+            }}
+          >
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItemButton>
+       
+          <ListItemButton
+            onClick={handleUserClick}
+            selected={selectedItem === "user"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Person />
+            </ListItemIcon>
+            <ListItemText primary="User Management" />
+            {openUser ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openUser} timeout="auto" unmountOnExit>
+            <List
+              component="div"
+              disablePadding
+              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+            >
+              <ListItemButton
+                component={Link}
+                to="/create-user"
+                onClick={() => handleItemClick("createUser")}
+                selected={selectedItem === "createUser"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                     
+                  },
+                }}
+              >
+                <ListItemText primary="Create User" />
+              </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/manage-user"
+                onClick={() => handleItemClick("maintainUser")}
+                selected={selectedItem === "maintainUser"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                     
+                  },
+                }}
+              >
+                <ListItemText primary="Maintain User" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+          <ListItemButton
+            component={Link}
+            to="/role-management"
+            selected={selectedItem === "role"}
+             sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+         
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Build />
+            </ListItemIcon>
+            <ListItemText primary="Role Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/company-management"
+            onClick={() => handleItemClick("companyManagement")}
+            selected={selectedItem === "companyManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+   
+              },
+            }}
+          >
+            <ListItemIcon>
+              <BusinessCenter />
+            </ListItemIcon>
+            <ListItemText primary="Company Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/site-management"
+            onClick={() => handleItemClick("siteManagement")}
+            selected={selectedItem === "siteManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+           
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Site Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/transporter"
+            onClick={() => handleItemClick("transportManagement")}
+            selected={selectedItem === "transportManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Commute />
+            </ListItemIcon>
+            <ListItemText primary="Transport Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/vehicle"
+            onClick={() => handleItemClick("vehicleManagement")}
+            selected={selectedItem === "vehicleManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+       
+              },
+            }}
+          >
+            <ListItemIcon>
+              <DirectionsCar />
+            </ListItemIcon>
+            <ListItemText primary="Vehicle Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/supplier"
+            onClick={() => handleItemClick("supplierManagement")}
+            selected={selectedItem === "supplierManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+       
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Store />
+            </ListItemIcon>
+            <ListItemText primary="Supplier Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/customer"
+            onClick={() => handleItemClick("customerManagement")}
+            selected={selectedItem === "customerManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+       
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Group />
+            </ListItemIcon>
+            <ListItemText primary="Customer Management" />
+          </ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/material-management"
+            onClick={() => handleItemClick("materialManagement")}
+            selected={selectedItem === "materialManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Handyman/>
+            </ListItemIcon>
+            <ListItemText primary="Material Management" />
+          </ListItemButton>
+          <ListItemButton
+            onClick={handleSignOut}  
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+                 
+              },
+            }}
+          >
+            <ListItemIcon>
+              <ExitToApp />
+            </ListItemIcon>
+            <ListItemText primary="Sign Out" />
+          </ListItemButton>
+        </List>
+      </Drawer>
       <div
-        className="rp-sidebar-item rp-dropdown"
-        onClick={handleUserManagementClick}
+        style={{
+          transition: "margin-left 0.3s ease",
+          marginLeft: isSidebarOpen ? "240px" : "0",
+          overflowX: "hidden",
+        }}
       >
-        <div
-          className="d-flex align-items-center"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          style={{ cursor: "pointer" }}
-        >
-          <FontAwesomeIcon icon={faUserFriends} className="rp-sidebar-icon" />
-          <span className="rp-sidebar-item-text text-center m-1">
-            User Management
-          </span>
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            className={`rp-sidebar-icon ms-auto ${
-              isSidebarExpanded ? "" : "d-none"
-            }`}
-            style={{ fontSize: "0.8rem" }}
-          />
-        </div>
-        <ul
-          className={`dropdown-menu dropdown-menu-dark ${
-            isUserManagementOpen ? "show" : ""
-          }`}
-        >
-          <li onClick={handleSidebarItemClick}>
-            <Link to="/create-user" className="dropdown-item">
-              Create User
-            </Link>
-          </li>
-          <li onClick={handleSidebarItemClick}>
-            <Link to="/manage-user" className="dropdown-item">
-              Maintain User
-            </Link>
-          </li>
-        </ul>
+        {children}
       </div>
-
-      {/* Company Management */}
-      <Link
-        to="/company-management"
-        className="rp-sidebar-item"
-        onClick={handleSidebarItemClick}
-      >
-        <FontAwesomeIcon
-          icon={faBuilding}
-          className="rp-sidebar-icon mt-1"
-          style={{ marginLeft: "2px" }}
-        />
-        <span className="rp-sidebar-item-text text-center mt-1">
-          Company Management
-        </span>
-      </Link>
-
-      {/* Site Management */}
-      <Link
-        to="/site-management"
-        className="rp-sidebar-item"
-        onClick={handleSidebarItemClick}
-      >
-        <FontAwesomeIcon
-          icon={faMapMarkerAlt}
-          className="rp-sidebar-icon mt-1"
-          style={{ marginLeft: "2px" }}
-        />
-        <span className="rp-sidebar-item-text text-center mt-1">
-          Site Management
-        </span>
-      </Link>
-
-      <Link
-        to="/transporter"
-        className="rp-sidebar-item"
-        onClick={handleSidebarItemClick}
-      >
-        <FontAwesomeIcon icon={faTruckMoving} className="rp-sidebar-icon mt-1" />
-        <span
-          className="rp-sidebar-item-text text-center mt-1"
-          style={{ marginLeft: "5px" }}
-        >
-          Transport Management
-        </span>
-      </Link>
-
-      <Link
-        to="/vehicle"
-        className="rp-sidebar-item"
-        onClick={handleSidebarItemClick}
-      >
-        <FontAwesomeIcon icon={faTruck} className="rp-sidebar-icon mt-1" />
-        <span className="rp-sidebar-item-text text-center mt-1">
-          Vehicle Management
-        </span>
-      </Link>
-      {/* <div
-        to="/vehicle-entry"
-        className="rp-sidebar-item"
-        onClick={handleSidebarItemClick}
-      >
-        <FontAwesomeIcon icon={faUsers} className="rp-sidebar-icon mt-1" />
-        <span className="rp-sidebar-item-text text-center mt-1">
-          Supplier Master
-        </span>
-      </div> */}
-      <div className="rp-sidebar-item" onClick={handleSignOut}>
-        <FontAwesomeIcon icon={faPowerOff} className="rp-sidebar-icon mt-1" />
-        <span
-          className="rp-sidebar-item-text text-center mt-1"
-          style={{ marginLeft: "8px" }}
-        >
-          Sign Out
-        </span>
-      </div>
-    </div>
+    </>
   );
 };
-
 export default Sidebar;

@@ -11,7 +11,7 @@ import {
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar5 from "../../../../SideBar/SideBar5";
 
 const OperatorTransaction = () => {
@@ -77,7 +77,7 @@ const OperatorTransaction = () => {
 
   return (
     <>
-      <Header toggleSidebar={toggleSidebar} />
+      
 
       <SideBar5
         isSidebarExpanded={isSidebarExpanded}

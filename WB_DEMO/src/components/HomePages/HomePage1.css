@@ -1,3 +1,9 @@
+.home-main-content {
+  margin-top: 1rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 .card-gradient {
   background-size: 200% 100%;
   color: #fff;
@@ -8,52 +14,60 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center; /* Added */
-  height: 150px; /* Adjust the height */
-}
-
-.card-gradient:hover {
-  transform: translateY(-5px);
+  text-align: center;
+  height: 150px;
+  cursor: pointer;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+
+
+
 
 .card-body {
   padding: 1.5rem;
 }
 
 .card-title {
-  font-size: 1.1rem; /* Adjusted font size */
+  font-size: 1.1rem;
   font-weight: 500;
-  margin-bottom: 0.5rem; /* Adjusted margin */
+  margin-bottom: 0.5rem;
 }
 
 .card-text {
-  font-size: 1.2rem; /* Adjusted font size */
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
 .card-gradient-active {
-  background: linear-gradient(
-    to right,
-    #55dd55,
-    #7ee87e
-  ); /* Adjusted gradient */
+  background: linear-gradient(to right, #36b9cc, #2a99a2);
 }
 
 .card-gradient-inactive {
-  background: linear-gradient(
-    to right,
-    #ff5555,
-    #ff7c7c
-  ); /* Adjusted gradient */
+  background: linear-gradient(to right, #f8d7da, #ea8689);
 }
 
 .card-gradient-registered {
-  background: linear-gradient(
-    to right,
-    #ffa500,
-    #ffbf7e
-  ); /* Adjusted gradient */
+  background: linear-gradient(to right, #f6c23e, #d9a566);
+}
+
+.card-gradient-all-users {
+  background: linear-gradient(to right, #4e73df, #224abe);
+}
+
+.card-gradient-transporters {
+  background: linear-gradient(to right, #20c997, #17a673);
+}
+
+.card-gradient-companies {
+  background: linear-gradient(to right, #6610f2, #512da8);
+}
+
+.card-gradient-suppliers {
+  background: linear-gradient(to right, #ffc107, #d39e00);
+}
+
+.card-gradient-customers {
+  background: linear-gradient(to right, #fd7e14, #d65d00);
 }
 
 .fa-3x {

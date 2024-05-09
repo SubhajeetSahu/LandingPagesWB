@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { Chart, ArcElement } from "chart.js/auto";
-import Header from "../../../../Header/Header";
+
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QReport.css";
 
@@ -70,7 +70,7 @@ const QualityReport = () => {
 
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
+      
       <SideBar3
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}

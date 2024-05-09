@@ -1,7 +1,6 @@
 // QualityCheck.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import Header from "../../../../Header/Header";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import "./QualityCheck.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -258,8 +257,6 @@ function QualityCheck() {
 
   return (
     <div>
-      <Header toggleSidebar={toggleSidebar} />
-
       <SideBar3
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}
