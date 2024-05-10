@@ -79,12 +79,9 @@ const QualityOutboundDetails = () => {
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const currentDateTime = new Date().toLocaleString();
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const [material, setMaterial] = useState("Select");
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -121,8 +118,6 @@ const QualityOutboundDetails = () => {
       <div className="flex-grow-1">
         
         <SideBar3
-          isSidebarExpanded={isSidebarExpanded}
-          toggleSidebar={toggleSidebar}
         />
         <div
           className={`quality-detail-check-main-content ${

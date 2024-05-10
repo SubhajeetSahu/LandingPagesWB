@@ -99,7 +99,7 @@ function SiteManagement() {
           <h2 className="text-center">Site Management</h2>
           <div className="create-user-container d-flex justify-content-center">
             <div
-              className="card-body"
+              className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)", maxWidth: "600px" }}
             >
               <form>

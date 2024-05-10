@@ -27,6 +27,8 @@ import Customer from "./components/Admin/Customer/Customer.jsx";
 import Supplier from "./components/Admin/Supplier/Supplier.jsx";
 import ViewCompany from "./components/Admin/ViewCompany/ViewCompany.jsx";
 import MaterialManagement from "./components/Admin/MaterialManagement/MaterialManagement.jsx";
+import RoleManagement from "./components/Admin/RoleManagement/RoleManagement.jsx";
+
 
 
 import VehicleEntry from "./components/GateUser/src/components/Vehicle Entry/VehicleEntry.jsx";
@@ -80,6 +82,7 @@ const router = createBrowserRouter(
       <Route path="/Supplier" element={<Supplier />} />
       <Route path="/ViewCompany" element={<ViewCompany />} />
       <Route path="/material-management" element={<MaterialManagement />} />
+      <Route path="/role-management" element={<RoleManagement />} />
       
 
       <Route path="/VehicleEntry" element={<VehicleEntry />} />

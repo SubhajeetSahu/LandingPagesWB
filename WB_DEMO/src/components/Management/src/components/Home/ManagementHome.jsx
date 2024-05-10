@@ -12,15 +12,12 @@ function ManagementHome() {
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const [showNotification, setShowNotification] = useState(false);
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
 
   const toggleNotification = () => {
     setShowNotification(!showNotification);
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -47,9 +44,7 @@ function ManagementHome() {
 
 
 
-      <SideBar4
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
+      <SideBar4 
       />
         <div className="home-logo-container-1 container-fluid">
 

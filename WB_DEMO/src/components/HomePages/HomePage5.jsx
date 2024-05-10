@@ -12,14 +12,11 @@ import {
 import ManagementHome from "../Management/src/components/Home/ManagementHome";
 
 function HomePage5() {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     Chart.register(ArcElement, CategoryScale, LinearScale, BarElement);
@@ -48,9 +45,7 @@ function HomePage5() {
     <div>
       
 
-      <SideBar4
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
+      <SideBar4 
       />
       
       <ManagementHome/>

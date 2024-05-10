@@ -67,7 +67,7 @@
 }
 
 /* Button size */
-.btn {
+.qt-btn {
     font-size: 1.2rem; /* Adjusted font size */
     font-family: 'Roboto', sans-serif; /* Added font family */
     margin-top: 30px;

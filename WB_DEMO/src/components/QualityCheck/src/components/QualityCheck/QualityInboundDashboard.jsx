@@ -40,14 +40,10 @@ function QualityInboundDashboard() {
   // ... (rest of the code remains the same)
 
   
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
-
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -169,9 +165,7 @@ function QualityInboundDashboard() {
     <div>
       
 
-      <SideBar3
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
+      <SideBar3 
       />
       <div className="quality-inbound-dashboard-main-content">
         <div className="quality-inbound-dashboard-date d-flex">

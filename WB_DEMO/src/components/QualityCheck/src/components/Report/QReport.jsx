@@ -36,14 +36,11 @@ const QualityReport = () => {
     }
   };
 
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -71,9 +68,7 @@ const QualityReport = () => {
   return (
     <div>
       
-      <SideBar3
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
+      <SideBar3 
       />
       <div className="quality-report-main-content" ref={homeMainContentRef}>
         <h2 className="quality-report-heading">Quality Report</h2>

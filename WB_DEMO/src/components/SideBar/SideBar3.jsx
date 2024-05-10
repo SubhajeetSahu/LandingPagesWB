@@ -32,6 +32,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import "./SideBar1.css";
  
  
 const Sidebar = ({ children }) => {

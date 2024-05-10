@@ -15,14 +15,11 @@ const QPrint = () => {
   const img = "https://example.com/your-image.jpg";
   const currentDateTime = new Date().toLocaleString();
 
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
  
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
  
   useEffect(() => {
     Chart.register(ArcElement);

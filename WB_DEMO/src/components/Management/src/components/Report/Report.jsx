@@ -38,14 +38,11 @@ function ManagementReport() {
     navigate("/customizedreport");
   };
 
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
  
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
  
   useEffect(() => {
     Chart.register(ArcElement);

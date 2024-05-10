@@ -1,6 +1,5 @@
-//Tansaction.jsx
-
-
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import "./transaction.css";
@@ -8,14 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRectangleXmark,
+  faGreaterThan,
+  faLessThan,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import { Chart, ArcElement } from "chart.js/auto";
-
 import SideBar5 from "../../../../SideBar/SideBar5";
+import { useParams } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 const OperatorTransaction = () => {
   const [currentDate, setCurrentDate] = useState(getFormattedDate());
+  /* const [curPage, setCurPage] = useState(1);
+  let totPage = 5; */
   const navigate = useNavigate();
 
   function getFormattedDate() {
@@ -30,27 +35,74 @@ const OperatorTransaction = () => {
   const closeForm = () => {
     navigate("/home");
   };
-  const goToTransForm = () => {
-    navigate("/OperatorTransactionFromInbound");
+  const goToTransForm = (ticketNo, transactionType, grossWeight, tareWeight) => {
+    if (transactionType === "Inbound") {
+        navigate(`/OperatorTransactionFromInbound/?ticketNumber=${ticketNo}&grossWeight=${grossWeight}&tareWeight=${tareWeight}`);
+    }
+    else{
+      navigate(`/OperatorTransactionFromOutbound/?ticketNumber=${ticketNo} &grossWeight=${grossWeight}&tareWeight=${tareWeight}`);
+    }
   };
-  const goToTransForm1 = () => {
-    navigate("/OperatorTransactionFromOutbound");
-  };
+
+
+  
+  
+  // const goToTransForm1 = () => {
+  //   navigate("/OperatorTransactionFromOutbound");
+  // };
 
   const handleQualityReportDownload = () => {
     // Implement download functionality here
-    // For example, you can create a download link or fetch data and trigger download
+   
     alert("Downloading quality report...");
+    
   };
 
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+ 
+
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
+  const [weighments, setWeighments] = useState([]);
+  const [ticket, setTicket] = useState(null);
+  const [pageNumber, setPageNumber] = useState(0);
+  const weighmentsPerPage = 5;
+  const pagesVisited = pageNumber * weighmentsPerPage;
+  const { ticketNo } = useParams();
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/weighment/get/{ticketNo}`);
+        setTicket(response.data);
+      } catch (error) {
+
+
+        console.error("Error fetching ticket details:", error);
+      }
+    };
+
+    fetchData();
+  }, [ticketNo]);
+
+  useEffect(() => {
+    // Fetch data from the API
+    axios
+      .get("http://localhost:8080/api/v1/weighment/getAll", {
+        withCredentials: true, // Include credentials
+      })
+      .then((response) => {
+        // Update state with the fetched data
+        setWeighments(response.data);
+        console.log(weighments);
+      })
+      .catch((error) => {
+        console.error("Error fetching weighments:", error);
+      });
+  }, []);
+
+
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -75,25 +127,29 @@ const OperatorTransaction = () => {
     };
   }, []);
 
+  const pageCount = Math.ceil(weighments.length / weighmentsPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   return (
     <>
       
 
-      <SideBar5
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
+      <SideBar5 
       />
-      <div className="main-content">
+      <div className="transaction-main-content">
         <div className="row">
-          <h1 className="tr_dash">Transaction Dashboard</h1>
-          <div className="col-3">
-            <label htmlFor="trDate">Date:-</label>
+          <h1 className="tr_dash1">Transaction Dashboard</h1>
+          <div className="date">
+            {/* <label htmlFor="trDate">Date:-</label> */}
             <input
               type="date"
               id="trDate"
               value={currentDate}
               onChange={(e) => setCurrentDate(e.target.value)}
-              className="Date"
+              className="Date1"
               readOnly
             />
             <br />
@@ -147,6 +203,7 @@ const OperatorTransaction = () => {
             </div>
           </div> */}
         </div>
+        <div className="backend">
         <table className="table table-bordered">
           <thead className="text-center">
             <tr>
@@ -154,17 +211,11 @@ const OperatorTransaction = () => {
               <th>Weightment No.</th>
               <th>Vehicle No.</th>
               <th>In Time/ Date</th>
-              {/* <th >Out Time/ Date</th>
-            <th >Vehicle Type</th>
-            <th >No. of Wheels</th> */}
               <th>Transporter</th>
               <th>Supplier/ Customer</th>
-
-              {/* <th >Supplier's/ Customer's Address</th> */}
               <th>Gross wt./ Time</th>
               <th>Tare wt./ Time</th>
               <th>Net wt./ Time</th>
-
               <th>Material/Product</th>
               <th>Fitness Upto</th>
               <th>Transaction Type</th>
@@ -173,154 +224,104 @@ const OperatorTransaction = () => {
             </tr>
           </thead>
           <tbody className="text-center">
-            <tr>
-              {/* Ticket Input Box Component */}
-              <td>
-                <input
-                  value="T001"
-                  style={{ justifyContent: "center", textAlign: "center" }}
-                  className="form-control back"
-                  onClick={goToTransForm}
-                />
-              </td>
-              <td>
-                <input value="1" className="abc" />
-              </td>
-              <td>
-                <input value="Vehicle No." className="abc" />
-              </td>
-
-              <td>
-                <input value="In Time/Date" className="abc" />
-              </td>
-              {/*  <td>
-              <input value="Out Time/Date" className="abcd" />
-            </td>
-            <td>
-              <input value="Vehicle Type"   className="abc"/>
-            </td>
-            <td>
-              <input value="No. of Wheels" className="abc" />
-            </td> */}
-              <td>
-                <input value="Transporter" className="abc" />
-              </td>
-              <td>
-                <input value="Supplier" className="abc" />
-              </td>
-              {/* <td>
-              <input
-                value="Supplier's Address"
-                className="abcd"
-              />
-            </td> */}
-              <td>
-                <input value="" className="abc" />
-              </td>
-              <td>
-                <input value="" className="abc" />
-              </td>
-              <td>
-                <input value="" className="abc" />
-              </td>
-
-              <td>
-                <input value="Material" className="abc" />
-              </td>
-              <td>
-                <input value="Fitness Upto" className="abc" />
-              </td>
-              <td>
-                <input value="Inbound" className="abc" />
-              </td>
-              <td>
-                <input value="Pending" className="abc" />
-              </td>
-              <td>
-                <FontAwesomeIcon
-                  icon={faDownload}
-                  onClick={handleQualityReportDownload}
-                />
-              </td>
-            </tr>
-          </tbody>
-          <tbody className="text-center">
-            <tr>
-              {/* Ticket Input Box Component */}
-              <td>
-                <input
-                  value="T002"
-                  style={{ justifyContent: "center", textAlign: "center" }}
-                  className="form-control back"
-                  onClick={goToTransForm1}
-                />
-              </td>
-              <td>
-                <input value="2" className="abc" />
-              </td>
-              <td>
-                <input value="Vehicle No." className="abc" />
-              </td>
-
-              <td>
-                <input value="In Time/Date" className="abc" />
-              </td>
-              {/* <td>
-              <input value="Out Time/Date"  className="abcd" />
-            </td>
-            <td>
-              <input value="Vehicle Type"  className="abc" />
-            </td>
-            <td>
-              <input value="No. of Wheels"  className="abc" />
-            </td> */}
-              <td>
-                <input value="Transporter" className="abc" />
-              </td>
-              <td>
-                <input value="Customer" className="abc" />
-              </td>
-              {/* <td>
-              <input
-                value="Customer's Address"
-                className="abcd"
-              />
-            </td> */}
-              <td>
-                <input value="" className="abc" />
-              </td>
-              <td>
-                <input value="" className="abc" />
-              </td>
-              <td>
-                <input value="" className="abc" />
-              </td>
-
-              <td>
-                <input value="Product" className="abc" />
-              </td>
-              <td>
-                <input value="Fitness Upto" className="abc" />
-              </td>
-              <td>
-                <input value="Outbound" className="abc" />
-              </td>
-              <td>
-                <input value="Pending" className="abc" />
-              </td>
-              <td>
-                <FontAwesomeIcon
-                  icon={faDownload}
-                  onClick={handleQualityReportDownload}
-                />
-              </td>
-            </tr>
+          {weighments
+              .slice(pagesVisited, pagesVisited + weighmentsPerPage)
+              .map((weighment) => (
+              <tr key={weighment.id}>
+                <td>
+                  <input
+                    value={weighment.ticketNo}
+                    style={{ justifyContent: "center", textAlign: "center",backgroundColor:"#89CFF0",width:"80px", cursor:"pointer" }}
+                    // className="form-control back"
+                    className="input-cell"
+                     onClick={()=>{goToTransForm(weighment.ticketNo,weighment.transactionType,weighment.grossWeight,weighment.tareWeight)}}
+                     
+                  />
+                </td>
+                <td>
+                  <input value={weighment.weighmentNo} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td>
+                  <input value={weighment.vehicleNo} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td>
+                  <input value={weighment.inTime} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td>
+                  <input
+                    value={weighment.transporterName}
+                    style={{width:"200px"}}
+                    className="input-cell"
+                  />
+                </td>
+                <td>
+                  <input
+                    value={weighment.supplierName}
+                    style={{width:"90px"}}
+                    className="input-cell"
+                  />
+                </td>
+                <td>
+                  <input value={weighment.grossWeight} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td>
+                  <input value={weighment.tareWeight} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td>
+                  <input value={weighment.netWeight} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td>
+                  <input
+                    value={weighment.materialName}
+                    style={{width:"90px"}}
+                    className="input-cell"
+                  />
+                </td>
+                <td>
+                  <input
+                    value={weighment.vehicleFitnessUpTo}
+                    style={{width:"90px"}}
+                    className="input-cell"
+                  />
+                </td>
+                <td>
+                  <input
+                    value={weighment.transactionType}
+                    style={{width:"90px"}}
+                    className="input-cell"
+                  />
+                </td>
+                <td>
+                  <input value={weighment.status} style={{width:"90px"}} className="input-cell" />
+                </td>
+                <td className="icon-cell">
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    onClick={handleQualityReportDownload}
+                  />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
+        </div>
+        <br />
+       
+      <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"paginationBtns"}
+          previousLinkClassName={"previousBtn"}
+          nextLinkClassName={"nextBtn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+          pageLinkClassName={"paginationLink"} 
+        />
       </div>
     </>
   );
 };
 
 export default OperatorTransaction;
-

@@ -18,7 +18,7 @@ function QualityHomePage() {
       };
 
     
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
@@ -28,9 +28,7 @@ function QualityHomePage() {
   
   return (
     <div>
-      <SideBar3
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
+      <SideBar3 
       />
       </div>
       

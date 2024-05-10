@@ -8,10 +8,11 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
-
-import "./QualityInboundIronOreDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { Chart, ArcElement } from "chart.js/auto";
+
+// Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const QualityInboundIronOreDetails = () => {
   const navigate = useNavigate();
@@ -59,7 +60,9 @@ const QualityInboundIronOreDetails = () => {
 
     const fetchParameterRanges = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/types/${urlData.materialTypeOrProductType}`);
+        const response = await fetch(
+          `http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/types/${urlData.materialTypeOrProductType}`
+        );
         const data = await response.json();
         if (data.length > 0 && data[0].parameters) {
           const ranges = data[0].parameters.reduce((acc, parameter) => {
@@ -80,7 +83,6 @@ const QualityInboundIronOreDetails = () => {
       fetchParameterRanges();
     }
   }, []);
-
 
   const handleSave = async () => {
     const data = {
@@ -103,17 +105,19 @@ const QualityInboundIronOreDetails = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/qualities/${formData.ticketNo}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/v1/qualities/${formData.ticketNo}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         console.log("Data saved successfully");
-        // You can perform additional actions here, such as navigating or resetting the form
         const queryString = new URLSearchParams(data).toString();
         navigate(`/QualityCheck?${queryString}`);
       } else {
@@ -124,18 +128,15 @@ const QualityInboundIronOreDetails = () => {
     }
   };
 
-
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
-  const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 1023px)" });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 768px) and (max-width: 1023px)",
+  });
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const currentDateTime = new Date().toLocaleString();
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-  const [material, setMaterial] = useState("Select");
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
+  const [material, setMaterial] = useState("Select");
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -150,13 +151,10 @@ const QualityInboundIronOreDetails = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Add useEffect to execute side effects after rendering
   useEffect(() => {
     // Any side effect code can be placed here
     // console.log("Updated state:", formData);
-  }, [formData]); // This will ensure the effect runs whenever formData changes
-
-
+  }, [formData]);
 
   const generateFieldNameWithRange = (parameterName) => {
     if (!parameterRanges[parameterName]) return parameterName;
@@ -166,7 +164,7 @@ const QualityInboundIronOreDetails = () => {
 
   const renderFieldWithBox = (fieldName, fieldValue, propertyName, onChange) => {
     return (
-      <div className="field-container">
+      <div className="col-md-3 mb-3">
         <label htmlFor={propertyName} className="form-label">
           {fieldName}:
         </label>
@@ -174,87 +172,67 @@ const QualityInboundIronOreDetails = () => {
           type="text"
           name={propertyName}
           autoComplete="off"
-          value={fieldValue || ''}
+          value={fieldValue || ""}
           onChange={onChange}
           required
           className="form-control"
-          id={propertyName} // Add this line to ensure id matches name
+          id={propertyName}
         />
       </div>
     );
   };
-  
-  
-
-
 
   return (
     <div className="d-flex">
       <div className="flex-grow-1">
-        
-        <SideBar3
-          isSidebarExpanded={isSidebarExpanded}
-          toggleSidebar={toggleSidebar}
-        />
-        <div
-          className={`quality-inbound-iron-ore-detail-check-main-content ${isSidebarExpanded ? "expanded" : ""
-            }`}>
+        <SideBar3 />
+        <h3 className="text-center p-3">Quality Check Inbound Iron Ore Details</h3>
+        <div className="main-content mt-1 ms-md-3">
           <div className="container-fluid trans-form-main-div overflow-hidden">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h3 className="quality-inbound-header">Quality Check Inbound Iron Ore Details</h3>
+            <div className="d-flex justify-content-between align-items-center mb-2 ml-6">
+              <div></div>
               <div>
-                <button className="btn button-transition mx-2" onClick={handleSave}>
+                <button className="btn btn-primary mx-2" onClick={handleSave}>
                   <FontAwesomeIcon icon={faSave} />
                 </button>
-                <button className="btn button-transition mx-2">
+                <button className="btn btn-secondary mx-2">
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
-                <button className="btn button-transition mx-2">
+                <button className="btn btn-secondary mx-2">
                   <FontAwesomeIcon icon={faPrint} />
                 </button>
               </div>
             </div>
-
             <div className="row">
-              <div className="col-12 mb-4">
-                <div className="quality-inbound-upper-card p-0">
-                  <div className="row mx-0 mb-6">
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                    {renderFieldWithBox("Ticket No", formData.ticketNo, "ticketNo", handleInputChange)}
-{renderFieldWithBox("Date", formData.date, "date", handleInputChange)}
-{renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange)}
-                    </div>
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                    {renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange)}
-{renderFieldWithBox("Material", formData.materialOrProduct, "materialOrProduct", handleInputChange)}
-{renderFieldWithBox("Material Type", formData.materialTypeOrProductType, "materialTypeOrProductType", handleInputChange)}
-                    </div>
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                    {renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange)}
-{renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange)}
-{renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange)}
-                    </div>
-                    <div className="col-lg-3 px-4 py-3">
-                    {renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange)}
-{renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange)}
-{renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange)}
+              <div className="col-lg-12">
+              <div className="card mb-3 p-3 border shadow-lg">
+                  <div className="card-body">
+                    <div className="row">
+                      {renderFieldWithBox("TicketNo", formData.ticketNo, "ticketNo", handleInputChange)}
+                      {renderFieldWithBox("Date", formData.date, "date", handleInputChange)}
+                      {renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange)}
+                      {renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange)}
+                      {renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange)}
+                      {renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange)}
+                      {renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange)}
+                      {renderFieldWithBox("Material", formData.materialOrProduct, "materialOrProduct", handleInputChange)}
+                      {renderFieldWithBox("Material Type", formData.materialTypeOrProductType, "materialTypeOrProductType", handleInputChange)}
+                      {renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange)}
+                      {renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange)}
+                      {renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange)}
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-12">
-                <div className="quality-inbound-lower-card  p-0">
-                  <div className="row mx-0">
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
-                    {renderFieldWithBox(generateFieldNameWithRange("size_20mm"), formData.size_20mm, "size_20mm", handleInputChange)}
-                    </div>
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+              <div className="card mb-3 p-3 border shadow-lg">
+                  <div className="card-body">
+                    <div className="row">
+                      {renderFieldWithBox(generateFieldNameWithRange("size_20mm"), formData.size_20mm, "size_20mm", handleInputChange)}
                       {renderFieldWithBox(generateFieldNameWithRange("size_03mm"), formData.size_03mm, "size_03mm", handleInputChange)}
-                    </div>
-                    <div className="col-lg-3 mb-3 mb-lg-0 px-4 py-3">
                       {renderFieldWithBox(generateFieldNameWithRange("fe_t"), formData.fe_t, "fe_t", handleInputChange)}
-                    </div>
-                    <div className="col-lg-3 px-4 py-3">
                       {renderFieldWithBox(generateFieldNameWithRange("loi"), formData.loi, "loi", handleInputChange)}
                     </div>
                   </div>

@@ -5,14 +5,10 @@ import QualityCheck from "../QualityCheck/src/components/QualityCheck/QualityChe
 import "./HomePage1.css";
 
 function HomePage2() {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
-
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -39,11 +35,6 @@ function HomePage2() {
 
   return (
     <div>
-
-      <SideBar3
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
-      />
       <QualityCheck/>
     </div>
   );

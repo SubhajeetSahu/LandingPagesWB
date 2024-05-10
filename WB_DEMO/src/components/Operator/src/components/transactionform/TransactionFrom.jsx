@@ -1,48 +1,138 @@
-import React, { useState } from "react";
-import "./transactionform.css";
+// Transaction Inbound.js
+
+
+
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import { useState, useEffect, useRef } from "react";
+import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
-import camView from "../../assets/weighbridge.webp";
-
+// eslint-disable-next-line no-unused-vars
+import { Link } from "react-router-dom";
 import SideBar5 from "../../../../SideBar/SideBar5";
+// eslint-disable-next-line no-unused-vars
+import camView from "../../assets/weighbridge.webp";
+import "./transactionform.css";
+// import ScannerImg1 from "../../assets/ScannerImg1.png";
+import Camera_Icon from "../../assets/Camera_Icon.png";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRectangleXmark,
+  faFloppyDisk,
+  faPrint,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
-const OperatorTransactionFromInbound = () => {
+
+
+
+
+
+
+
+function TransactionFrom() {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const navigate = useNavigate();
+  const chartRef = useRef(null);
+  const chartRef2 = useRef(null);
+  const homeMainContentRef = useRef(null);
+  const queryParams = new URLSearchParams(window.location.search);
+
   const [currentDate, setCurrentDate] = useState(getFormattedDate());
   const [currentTime, setCurrentTime] = useState(getFormattedTime());
   const [inputValue, setInputValue] = useState(0);
-  const [grossWeight, setGrossWeight] = useState();
-  const [tareWeight, setTareWeight] = useState();
-  const [netWeight, setNetWeight] = useState();
+  const [grossWeight, setGrossWeight] = useState(queryParams.get('grossWeight').split('/')[0]);
+  const [tareWeight, setTareWeight] = useState(queryParams.get('tareWeight').split('/')[0]);
+  const [netWeight, setNetWeight] = useState(0);
   const [isTareWeightEnabled, setIsTareWeightEnabled] = useState(false);
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+ 
+  const [ticket, setTicket] = useState([]);
 
+
+const ticketNumber = queryParams.get('ticketNumber');
+// const grossWt = queryParams.get('grossWeight');
+// const tareWt = queryParams.get('tareWeight');
+
+console.log(ticketNumber); 
+
+
+useEffect(() => {
+  // Fetch data from the API
+  axios
+    .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
+      withCredentials: true, // Include credentials
+    })
+    .then((response) => {
+      // Update state with the fetched data
+      setTicket(response.data);
+      console.log(response.data); // Log fetched data
+    })
+    .catch((error) => {
+      console.error("Error fetching weighments:", error);
+    });
+}, []);
+
+
+  useEffect(() => {
+    setNetWeight(grossWeight - inputValue);
+    console.log("Count changed:", netWeight);
+  }, [tareWeight]);
+
+  const handleChange1 = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+
+    // if (!isTareWeightEnabled) {
+    //   setGrossWeight(newValue);
+    // } else {
+    //   setTareWeight(newValue);
+    // }
+  };
+
+  // const handleSave = () => {
+  // if (!isTareWeightEnabled) {
+  //   setGrossWeight(inputValue);
+  //   setInputValue();
+  //   setIsTareWeightEnabled(true);
   const handleSave = () => {
-    if (!isTareWeightEnabled) {
+    if (grossWeight===0) {
       setGrossWeight(inputValue);
-      setInputValue(); 
-      setIsTareWeightEnabled(true);
-    } else {
-      setTareWeight(inputValue);
-      var netWeightValue = grossWeight - inputValue;
-      setNetWeight(netWeightValue);
-      console.log("Net Weight:", netWeightValue);
+      setInputValue();
+      //setIsTareWeightEnabled(true);
     }
-    
-  };
-  const handleClear = () => {
-  setGrossWeight(0); 
-  setTareWeight(0);
-  setNetWeight(0);
-  setInputValue(0);
-    
-   };
+    else {
+      setTareWeight(inputValue);
+    }
+    const payload = {
+      machineId: "1",
+      ticketNo: ticketNumber, // Replace with your ticket number
+      weight: inputValue
+    };
 
-   const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
+    axios.post('http://localhost:8080/api/v1/weighment/measure', payload, {
+        withCredentials: true
+      })
+      .then(response => {
+        console.log('Measurement saved:', response.data);
+        // Handle response as needed
+      })
+      .catch(error => {
+        console.error('Error saving measurement:', error);
+        // Handle error as needed
+      });
+  
+};
 
-  const navigate = useNavigate();
+  
+
+  // const handleClear = () => {
+  //   setGrossWeight(0);
+  //   setTareWeight(0);
+  //   setNetWeight(0);
+  //   setInputValue(0);
+  // };
 
   function getFormattedDate() {
     const date = new Date();
@@ -61,282 +151,432 @@ const OperatorTransactionFromInbound = () => {
     return `${hours}:${minutes}:${seconds}`;
   }
 
-  // const closeForm = () => {
-  //   navigate("/transaction");
-  // };
+  useEffect(() => {
+    Chart.register(ArcElement);
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (
+        homeMainContentRef.current &&
+        chartRef.current?.chartInstance &&
+        chartRef2.current?.chartInstance
+      ) {
+        chartRef.current.chartInstance.resize();
+        chartRef2.current.chartInstance.resize();
+      }
+    });
+
+    if (homeMainContentRef.current) {
+      resizeObserver.observe(homeMainContentRef.current);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  const [formData, setFormData] = useState({
+    date: "",
+    inTime: "",
+    poNo: "",
+    challanNo: "",
+    customer: "",
+    supplier: "",
+    supplierAddress: "",
+    supplierContactNo: "",
+    vehicleNo: "",
+    transporter: "",
+    driverDLNo: "",
+    driverName: "",
+    department: "",
+    product: "",
+    eWayBillNo: "",
+    tpNo: "",
+    vehicleType: "",
+    tpNetWeight: "", 
+    rcFitnessUpto: "", 
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    if (name === "poNo" || name === "challanNo") {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name === "poNo" ? "challanNo" : "poNo"]: value
+          ? ""
+          : prevData[name === "poNo" ? "challanNo" : "poNo"],
+      }));
+    }
+  };
 
   return (
-    <div className=" trans_form_main_div overflow-hidden">
-      
-
-<SideBar5
-  isSidebarExpanded={isSidebarExpanded}
-  toggleSidebar={toggleSidebar}
-/>
-      {/* <div className="close" onClick={closeForm}>
-        <FontAwesomeIcon icon={faRectangleXmark} />
-      </div> */}
-      <div className="main-content">
-      <h1> Inbound Transaction Form </h1>
-      <div className="row">
-        <div className="col-5 ">
-          <label htmlFor="trDate">Date:-</label>
-          <input
-            type="date"
-            id="trDate"
-            value={currentDate}
-            onChange={(e) => setCurrentDate(e.target.value)}
-            readOnly
-          />
-
-          <br/>
-          <br/>
-
-          <input
-            className="display_weight"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            oninput="reflectInput(this.value, 'grossWeight')"
-            // disabled={isTareWeightEnabled}
-          />
-
-          <br />
-          <br />
-
-          <div className="div1 ">
-            <label htmlFor="userId" className="text1">
-              Gross Wt:
+    <div>
+      <SideBar5
+      />
+      <div
+        className="VehicleEntryDetailsMainContent"
+        style={{ marginTop: "100px", marginRight: "140px" }}
+      >
+        <h2 className="op-text-center mb-2"> Inbound Transaction Form</h2>
+        <div className="row">
+          <div className="op-text-center mb-3 " id="A1">
+            <label htmlFor="poNo" className="form-label ">
+              PO No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
-
             <input
               type="text"
-              autoComplete="off"
-              value={grossWeight}
-              readOnly
-            />
-            <input
-              type="date"
-              value={currentDate}
-              onChange={ (e) => setCurrentDate(e.target.value)}
-              readOnly
-            />
-
-            <input
-              type="time"
-              value={currentTime}
-              onChange={(e) => setCurrentTime(e.target.value)}
-              readOnly
-            />
-            <br />
-
-            <label htmlFor="userId" className="text1">
-              Tare Wt:
-            </label>
-
-            <input
-              type="text"
-              autoComplete="off"
-              value={tareWeight}
-              required={isTareWeightEnabled}
-              readOnly
-            />
-            <input
-              type="date"
-              value={currentDate}
-              onChange={(e) => setCurrentDate(e.target.value)}
-              readOnly
-            />
-
-            <input
-              type="time"
-              value={currentTime}
-              onChange={(e) => setCurrentTime(e.target.value)}
-              readOnly
-            />
-            <br />
-
-            <label htmlFor="userId" className="text1">
-              Net Wt:
-            </label>
-
-            <input
-              type="text"
-              autoComplete="off"
-              value={netWeight}
-              required={isTareWeightEnabled}
-              readOnly
-            />
-
-            <input
-              type="date"
-              value={currentDate}
-              onChange={(e) => setCurrentDate(e.target.value)}
-              readOnly
-            />
-
-            <input
-              type="time"
-              value={currentTime}
-              onChange={(e) => setCurrentTime(e.target.value)}
+              id="poNo"
+              name="poNo"
+              value={ticket.poNo}
+              onChange={handleChange}
+              required
+              className="abcv"
               readOnly
             />
           </div>
+          {/* TP No */}
+          <div className="op-text-center mb-3 " id="A1">
+            <label htmlFor="tpNo" className="form-label ">
+              TP No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
+            </label>
+            <div className="input-group">
+              <input
+                type="text"
+                id="tpNo"
+                name="tpNo"
+                value={ticket.tpNo}
+                onChange={handleChange}
+                required
+                className="abcv"
+                readOnly
+              />
+            </div>
+          </div>
 
-          <div className="div2">
-            <label htmlFor="userId" className="text1">
+          {/* Challan No */}
+          <div className="op-text-center mb-3" id="A1">
+            <label htmlFor="challanNo" className="form-label ">
+              Challan No:
+              <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+            </label>
+            <input
+              type="text"
+              id="challanNo"
+              name="challanNo"
+              value={ticket.challanNo}
+              onChange={handleChange}
+              required
+              className="abcv"
+              readOnly
+            />
+          </div>
+          {/* Vehicle No */}
+          <div className="op-text-center mb-3 " id="A1">
+            <label htmlFor="vehicleNo" className="form-label ">
+              Vehicle No:
+              <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+            </label>
+            <div className="input-group">
+              <input
+                type="text"
+                id="vehicleNo"
+                name="vehicleNo"
+                value={ ticket.vehicleNo}
+                onChange={handleChange}
+                required
+                className="abcv"
+                readOnly
+              />
+            </div>
+          </div>
+          <div className="col-md-6" id="c1">
+            {/* Input fields */}
+            <h5>Weighment Details:</h5>
+            <div className="sub">
+              <input
+                type="text"
+                className="abcv"
+                style={{
+                  // backgroundColor: "rgb(116 165 217)",
+                  backgroundColor: "#919295",
+                  color: "white",
+                  width: "260px",
+                  height: "50px",
+                  // border: "0px solid ",
+                }}
+                value={inputValue}
+                 onChange={handleChange1}
+                // oninput="reflectInput(this.value, 'grossWeight')"
+              />
+              <div className="icons-group">
+                <div>
+                  <FontAwesomeIcon
+                    icon={faFloppyDisk}
+                    onClick={handleSave}
+                    className="icons"
+                  />
+                </div>
+                <div>
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    // onClick={handleClear}
+                    className="icons"
+                  />
+                </div>
+                <div>
+                  <FontAwesomeIcon icon={faPrint} className="icons" />
+                </div>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="mno">
+                <label htmlFor="vehicleType" className="form-label">
+                  Gross Weight:
+                </label>
+                <div style={{ display: "flex" }}>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    value={grossWeight}
+                    className="abcv"
+                    readOnly
+                  />
+                  <input
+                    type="date"
+                    value={currentDate}
+                    onChange={(e) => setCurrentDate(e.target.value)}
+                    className="abcv"
+                    readOnly
+                  />
+                  <input
+                    type="time"
+                    value={currentTime}
+                    onChange={(e) => setCurrentTime(e.target.value)}
+                    className="abcv"
+                    readOnly
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="pqr">
+                <label htmlFor="vehicleType" className="form-label">
+                  Tare Weight:
+                </label>
+                <div style={{ display: "flex" }}>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    value={tareWeight}
+                    // required={isTareWeightEnabled}
+                    className="abcv"
+                    readOnly
+                  />
+                  <input
+                    type="date"
+                    value={currentDate}
+                    onChange={(e) => setCurrentDate(e.target.value)}
+                    className="abcv"
+                    readOnly
+                  />
+                  <input
+                    type="time"
+                    value={currentTime}
+                    onChange={(e) => setCurrentTime(e.target.value)}
+                    className="abcv"
+                    readOnly
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="row  mb-3">
+              <div className="stu">
+                <label htmlFor="vehicleType" className="form-label">
+                  Net Weight:
+                </label>
+                <div style={{ display: "flex" }}>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    value={netWeight}
+                    required={isTareWeightEnabled}
+                    className="abcv"
+                    readOnly
+                  />
+                  <input
+                    type="date"
+                    value={currentDate}
+                    onChange={(e) => setCurrentDate(e.target.value)}
+                    className="abcv"
+                    readOnly
+                  />
+                  <input
+                    type="time"
+                    value={currentTime}
+                    onChange={(e) => setCurrentTime(e.target.value)}
+                    className="abcv"
+                    readOnly
+                  />
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          <div className="col-md-6" style={{ marginTop: "20px" }}>
+    
+
+            <div className="grid-container">
+              <div className="grid-item">
+                <img src={camView} />
+                <div className="overlay">
+                  <span>Cam-1</span>
+                  <button className="ct-btn ">
+                    <img src={Camera_Icon} alt="Captured" />
+                  </button>
+                </div>
+              </div>
+              <div className="grid-item">
+                <img src={camView} />
+                <div className="overlay">
+                  <span>Cam-2</span>
+                  <button className="ct-btn ">
+                    <img src={Camera_Icon} alt="Captured" />
+                  </button>
+                </div>
+              </div>
+              <div className="grid-item">
+                <img src={camView} />
+                <div className="overlay">
+                  <span>Cam-3</span>
+                  <button className="ct-btn ">
+                    <img src={Camera_Icon} alt="Captured" />
+                  </button>
+                </div>
+              </div>
+              <div className="grid-item">
+                <img src={camView} />
+                <div className="overlay">
+                  <span>Cam-4</span>
+                  <button className="ct-btn">
+                    <img src={Camera_Icon} alt="Captured" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h5 id="E2">Transaction Details:</h5>
+        <div className="grid-container-2">
+          <div className="grid-item-2">
+            <label htmlFor="supplier" className="form-label">
               Supplier:
             </label>
-
-            <input type="text" autoComplete="off" value="" readOnly />
-            <br />
-
-            <label htmlFor="userId" className="text1">
+            <input
+              type="text"
+              id="supplier"
+              name="supplier"
+              value={ticket.supplierName}
+              onChange={handleChange}
+              className="abcv"
+              readOnly
+            />
+          </div>
+          <div className="grid-item-2">
+            <label htmlFor="supplierAddress" className="form-label">
               Supplier Address:
             </label>
-
-            <input type="text" autoComplete="off" value="" readOnly />
-            <br />
-
-            <label htmlFor="userId" className="text1">
+            <input
+              type="text"
+              id="supplierAddress"
+              name="supplierAddress"
+              value={ticket.supplierAddress}
+              onChange={handleChange}
+              className="abcv"
+              readOnly
+            />
+          </div>
+          <div className="grid-item-2">
+            <label htmlFor="transporter" className="form-label">
               Transporter:
             </label>
-
             <input
               type="text"
-              autoComplete="off"
-              value=""
+              id="transporter"
+              name="transporter"
+              value={ticket.transporter}
+              onChange={handleChange}
+              className="abcv"
               readOnly
             />
-            <br />
-
-            <label htmlFor="userId" className="text1">
-              Driver DL no:
-            </label>
-
-            <input
-              type="text"
-              autoComplete="off"
-              value=""
-              readOnly
-            />
-            <br />
-
-            <label htmlFor="userId" className="text1">
-              Driver Name:
-            </label>
-
-            <input type="text" autoComplete="off" value="" readOnly />
-            <br />
-
-            <label htmlFor="userId" className="text1">
+          </div>
+          <div className="grid-item-2">
+            <label htmlFor="department" className="form-label">
               Department:
             </label>
-
-            <input type="text" autoComplete="off" value="" readOnly />
-            <br />
-
-            <label htmlFor="userId" className="text1">
+            <input
+              type="text"
+              id="department"
+              name="department"
+              value={ticket.department}
+              onChange={handleChange}
+              className="abcv"
+              readOnly
+            />
+          </div>
+          <div className="grid-item-2">
+            <label htmlFor="driverDL" className="form-label">
+              Driver DL No:
+            </label>
+            <input
+              type="text"
+              id="driverDL"
+              name="driverDL"
+              value={ticket.driverDlNo}
+              onChange={handleChange}
+              className="abcv"
+              readOnly
+            />
+          </div>
+          <div className="grid-item-2">
+            <label htmlFor="driverName" className="form-label">
+              Driver Name:
+            </label>
+            <input
+              type="text"
+              id="driverName"
+              name="driverName"
+              value={ticket.driverName}
+              onChange={handleChange}
+              className="abcv"
+              readOnly
+            />
+          </div>
+          <div className="grid-item-2">
+            <label htmlFor="material" className="form-label">
               Material:
             </label>
-
-            <input type="text" autoComplete="off" value=" " readOnly />
-          </div>
-          <br />
-        </div>
-        <div className="col-6 ">
-          <div className="row">
-            <div className="col-5">
-            <div className="input-container">
-              <label htmlFor="userId">
-                Truck No:
-              </label>
-
-              <input type="text" autoComplete="off" readOnly />
-              <br />
-            </div>
-            <div className="input-container">
-              <label htmlFor="userId">
-                PO No:
-              </label>
-
-              <input type="text" autoComplete="off" readOnly />
-              <br />
-            </div>
-            <div className="input-container">
-              <label htmlFor="userId" >
-                TP No:
-              </label>
-
-              <input type="text" autoComplete="off" readOnly/>
-              <br />
-              </div>
-              <div className="input-container">
-              <label htmlFor="userId"  >
-                Challan No:
-              </label>
-
-              <input type="text" autoComplete="off" readOnly />
-              <br />
-            </div>
-            </div>
-
-            <div className="col-2">
-              <button
-                className="btn btn-primary"
-                onClick={handleSave}
-                style={{ marginBottom: "5px" }}
-              >
-                Save[F10]
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={handleClear}
-                style={{ marginBottom: "5px" }}
-              >
-                Clear[F9]
-              </button>
-              <button
-                className="btn btn-primary"
-                style={{ marginBottom: "5px" }}
-              >
-                Print
-              </button>
-            </div>
-            <br></br>
-            <div className="row">
-              <div class="text-center camview">
-                <div className="camera">
-                  <b>Camera</b>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <img src={camView} alt="CamView" className="style" />
-                    <br />
-                    <button class="btn btn-success ">Capture</button>
-                  </div>
-                  <div class="col">
-                    <img src={camView} alt="CamView" className="style" />
-                    <br />
-                    <button class="btn btn-success ">Capture</button>
-                  </div>
-                  <div class="col">
-                    <img src={camView} alt="CamView" className="style" />
-                    <br />
-                    <button class="btn btn-success">Capture</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <input
+              type="text"
+              id="material"
+              name="material"
+              value={ticket.material}
+              onChange={handleChange}
+              className="abcv"
+              readOnly
+            />
           </div>
         </div>
-      </div>
-      </div>
-      <div>
-        <label htmlFor="userId" className="text3">
-          Status:Inbound
-        </label>
       </div>
     </div>
   );
-};
-export default OperatorTransactionFromInbound;
+}
+
+// eslint-disable-next-line no-undef
+export default TransactionFrom;

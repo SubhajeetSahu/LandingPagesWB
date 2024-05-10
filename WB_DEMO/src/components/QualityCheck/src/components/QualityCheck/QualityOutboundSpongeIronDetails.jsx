@@ -130,12 +130,9 @@ const QualityOutboundSpongeIronDetails = () => {
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const currentDateTime = new Date().toLocaleString();
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+   
   const [material, setMaterial] = useState("Select");
 
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -193,8 +190,6 @@ const QualityOutboundSpongeIronDetails = () => {
       <div className="flex-grow-1">
         
         <SideBar3
-          isSidebarExpanded={isSidebarExpanded}
-          toggleSidebar={toggleSidebar}
         />
         <div
           className={`quality-outbound-sponge-iron-detail-check-main-content ${isSidebarExpanded ? "expanded" : ""
@@ -203,13 +198,13 @@ const QualityOutboundSpongeIronDetails = () => {
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h3 className="quality-outbound-header">Quality Check Outbound Sponge Iron Details</h3>
               <div>
-                <button className="btn button-transition mx-2" onClick={handleSave}>
+                <button className="qt-btn button-transition mx-2" onClick={handleSave}>
                   <FontAwesomeIcon icon={faSave} />
                 </button>
-                <button className="btn button-transition mx-2">
+                <button className="qt-btn button-transition mx-2">
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
-                <button className="btn button-transition mx-2">
+                <button className="qt-btn button-transition mx-2">
                   <FontAwesomeIcon icon={faPrint} />
                 </button>
               </div>

@@ -218,7 +218,7 @@ function MaterialManagement() {
           <h2 className="text-center">Material Management</h2>
           <div className="create-user-container">
             <div
-              className="card-body"
+              className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
             >
               <form>
