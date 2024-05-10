@@ -42,7 +42,7 @@ function VehicleEntryDetails() {
   });
 
   const departmentOptions = ["Department 1", "Department 2", "Department 3"];
-  const materialType = ["iron", "Sand", "coal"];
+  const materialType = ["Lumps", "Fines", "ROM"];
   const transactionType = ["Inbound"];
 
   const handleChange = (e) => {
@@ -66,7 +66,30 @@ function VehicleEntryDetails() {
     }
   };
 
-  // ... (other code)
+  useEffect(() => {
+    const fetchSupplierList = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/supplier/get/list",
+          {
+            method: "GET",
+            credentials: "include"
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        // Assuming data is an array of suppliers, update state or handle data accordingly
+        console.log(data); // Log the data to see its structure
+        setSuppliers(data);
+      } catch (error) {
+        console.error("Error fetching supplier list:", error);
+      }
+    };
+
+    fetchSupplierList();
+  }, []);
 
   // onChangeSupplier
   const handleSupplierChange = (e) => {
@@ -94,6 +117,40 @@ function VehicleEntryDetails() {
       });
   };
 
+
+
+  // Get API for MAterial:
+
+  useEffect(() => {
+    const fetchMaterialList = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/materials/names",
+          {
+            method: "GET",
+            credentials: "include"
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        // Assuming data is an array of Materials, update state or handle data accordingly
+        console.log(data); // Log the data to see its structure
+        setMaterials(data);
+      } catch (error) {
+        console.error("Error fetching Materials list:", error);
+      }
+    };
+
+    fetchMaterialList();
+  }, []);
+
+
+  // onChangeSupplier
+  
+
+    
   // Get API Vehicle No.
 
   const handleVehicleNoKeyPress = (e) => {
@@ -117,10 +174,14 @@ function VehicleEntryDetails() {
           }));
         })
         .catch((error) => {
-          console.error("Error fetching supplier Address:", error);
+          console.error("Error fetching vehicle details:", error);
         });
     }
   };
+
+
+
+
   const [capturedImages, setCapturedImages] = useState({
     frontView: null,
     backView: null,
@@ -351,15 +412,26 @@ function VehicleEntryDetails() {
                   </div>
                 </div>
                 <div className="row mb-3">
-                  <div className="col-md-6">
-                    <label htmlFor="supplier" className="form-label">Supplier:</label>
-                    <select id="supplier" name="supplier" value={formData.supplier} onChange={handleSupplierChange} className="form-select">
-                      <option value="">Select Supplier</option>
-                      {suppliers.map((s, index) => (
-                        <option key={index} value={s}>{s}</option>
-                      ))}
-                    </select>
-                  </div>
+                {/* Supplier dropdown */}
+                <div className="col-md-6">
+                  <label htmlFor="supplier" className="form-label ">
+                    Supplier:
+                  </label>
+                  <select
+                    id="supplier"
+                    name="supplier"
+                    value={formData.supplier}
+                    onChange={handleSupplierChange}
+                    className="form-select"
+                  >
+                    <option value="">Select Supplier</option>
+                    {suppliers.map((s, index) => (
+                      <option key={index} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                   <div className="col-md-6">
                     <label htmlFor="supplierContactNo" className="form-label">Supplier's Address:</label>
                     <input type="text" id="supplierAddressLine1" name="supplierAddressLine1" value={formData.supplierAddressLine1} onChange={handleChange} className="form-control" />
