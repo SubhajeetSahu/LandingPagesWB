@@ -204,10 +204,12 @@ const OperatorTransaction = () => {
           </div> */}
         </div>
         <div className="backend">
-        <table className="table table-bordered">
+        <div className="table-container">
+          <table className="table table-bordered">
           <thead className="text-center">
             <tr>
               <th>Ticket No.</th>
+              <th>Transaction Type</th>
               <th>Weightment No.</th>
               <th>Vehicle No.</th>
               <th>In Time/ Date</th>
@@ -218,8 +220,8 @@ const OperatorTransaction = () => {
               <th>Net wt./ Time</th>
               <th>Material/Product</th>
               <th>Fitness Upto</th>
-              <th>Transaction Type</th>
-              <th>Status</th>
+              
+              {/* <th>Status</th> */}
               <th>Quality Report</th>
             </tr>
           </thead>
@@ -236,6 +238,13 @@ const OperatorTransaction = () => {
                     className="input-cell"
                      onClick={()=>{goToTransForm(weighment.ticketNo,weighment.transactionType,weighment.grossWeight,weighment.tareWeight)}}
                      
+                  />
+                </td>
+                <td>
+                  <input
+                    value={weighment.transactionType}
+                    style={{width:"90px"}}
+                    className="input-cell"
                   />
                 </td>
                 <td>
@@ -284,16 +293,10 @@ const OperatorTransaction = () => {
                     className="input-cell"
                   />
                 </td>
-                <td>
-                  <input
-                    value={weighment.transactionType}
-                    style={{width:"90px"}}
-                    className="input-cell"
-                  />
-                </td>
-                <td>
+             
+                {/* <td>
                   <input value={weighment.status} style={{width:"90px"}} className="input-cell" />
-                </td>
+                </td> */}
                 <td className="icon-cell">
                   <FontAwesomeIcon
                     icon={faDownload}
@@ -304,6 +307,7 @@ const OperatorTransaction = () => {
             ))}
           </tbody>
         </table>
+        </div>
         </div>
         <br />
        

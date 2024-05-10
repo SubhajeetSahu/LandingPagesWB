@@ -61,7 +61,7 @@ const QualityInboundCoalDetails = () => {
     const fetchParameterRanges = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/types/${urlData.materialTypeOrProductType}`
+          `http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/parameters`
         );
         const data = await response.json();
         if (data.length > 0 && data[0].parameters) {
@@ -162,6 +162,8 @@ const QualityInboundCoalDetails = () => {
     return `${parameterName} % (${rangeFrom}-${rangeTo})`;
   };
 
+  
+
   const renderFieldWithBox = (fieldName, fieldValue, propertyName, onChange) => {
     return (
       <div className="col-md-3 mb-3">
@@ -181,6 +183,7 @@ const QualityInboundCoalDetails = () => {
       </div>
     );
   };
+  
 
   return (
     <div className="d-flex">
@@ -231,12 +234,13 @@ const QualityInboundCoalDetails = () => {
           <div className="col-lg-12">
           <div className="card mb-3 p-3 border shadow-lg">
               <div className="card-body">
-                <div className="row">
-                  {renderFieldWithBox(generateFieldNameWithRange("moisture"), formData.moisture, "moisture", handleInputChange)}
-                  {renderFieldWithBox(generateFieldNameWithRange("vm"), formData.vm, "vm", handleInputChange)}
-                  {renderFieldWithBox(generateFieldNameWithRange("ash"), formData.ash, "ash", handleInputChange)}
-                  {renderFieldWithBox(generateFieldNameWithRange("fc"), formData.fc, "fc", handleInputChange)}
-                </div>
+              <div className="row">
+  {renderFieldWithBox(generateFieldNameWithRange("Moisture"), formData.moisture, "moisture", handleInputChange)}
+  {renderFieldWithBox(generateFieldNameWithRange("Vm"), formData.vm, "vm", handleInputChange)}
+  {renderFieldWithBox(generateFieldNameWithRange("Ash"), formData.ash, "ash", handleInputChange)}
+  {renderFieldWithBox(generateFieldNameWithRange("Fc"), formData.fc, "fc", handleInputChange)}
+</div>
+
               </div>
             </div>
           </div>

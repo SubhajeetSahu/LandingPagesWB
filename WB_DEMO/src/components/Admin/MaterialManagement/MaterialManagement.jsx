@@ -264,7 +264,7 @@ function MaterialManagement() {
                     >
                       Material Type{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                       
                       </span>
                     </label>
                     {showTypeInput ? (
@@ -274,7 +274,7 @@ function MaterialManagement() {
                         id="materialTypeName"
                         value={userInputType}
                         onChange={handleTypeInputChange}
-                        required
+                        
                       />
                     ) : (
                       <div>
@@ -284,7 +284,6 @@ function MaterialManagement() {
                             id="materialTypeName"
                             value={materialTypeName}
                             onChange={handleTypeSelectChange}
-                            required
                           >
                             <option value="">Select Material Type</option>
                             {materialTypeNames.map((type, index) => (
@@ -301,7 +300,6 @@ function MaterialManagement() {
                             id="materialTypeName"
                             value={userInputType}
                             onChange={handleTypeInputChange}
-                            required
                           />
                         )}
                       </div>

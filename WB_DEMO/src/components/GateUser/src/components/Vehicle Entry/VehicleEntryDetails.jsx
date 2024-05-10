@@ -137,18 +137,18 @@ function VehicleEntryDetails() {
           resolve();
         };
       });
-  
+
       const canvas = document.createElement("canvas");
       canvas.width = videoElement.videoWidth;
       canvas.height = videoElement.videoHeight;
       canvas.getContext("2d").drawImage(videoElement, 0, 0);
       const capturedImage = canvas.toDataURL("image/png");
-  
+
       setCapturedImages((prevState) => ({
         ...prevState,
         [view]: capturedImage,
       }));
-  
+
       stream.getTracks().forEach((track) => track.stop());
     } catch (error) {
       console.error("Error capturing picture:", error);
@@ -170,7 +170,7 @@ function VehicleEntryDetails() {
       });
       return;
     }
-  
+
     const gateData = {
       // userId,
       supplier: formData.supplier,
@@ -188,11 +188,11 @@ function VehicleEntryDetails() {
       ewayBillNo: formData.eWayBillNo,
       transactionType: formData.transactionType
     };
-  
+
     // Create JSON payload
     const payload = JSON.stringify(gateData);
     console.log("payload", payload);
-  
+
     // Fetch API
     fetch("http://localhost:8080/api/v1/gate", {
       method: "POST",
@@ -210,7 +210,7 @@ function VehicleEntryDetails() {
           title: "Success!",
           text: "Data saved Successfully!",
         });
-  
+
         // Reset form data after 3 seconds and navigate to VehicleEntry page
         setTimeout(() => {
           setFormData({
@@ -270,9 +270,8 @@ function VehicleEntryDetails() {
   };
   return (
     <SideBar2>
-      <div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-md-10">
+<div className="container-fluid d-flex justify-content-center align-items-center" style={{ marginTop: "-50px" }}>    <div className="row justify-content-center">
+      <div className="col-md-10">
             <h2 className="text-center mb-4">Vehicle Entry Inbound Details</h2>
             <div className="row">
               <div className="col-md-3 mb-3">
@@ -283,8 +282,25 @@ function VehicleEntryDetails() {
                 <label htmlFor="tpNo" className="form-label">TP No:<span className="text-danger fw-bold">*</span></label>
                 <div className="input-group">
                   <input type="text" id="tpNo" name="tpNo" value={formData.tpNo} onChange={handleChange} required className="form-control" disabled={!!formData.poNo} />
-                  <button className="btn btn-outline-primary" style={{ marginLeft: "3px" }} onClick={() => alert("Scan TP No")} disabled={!!formData.poNo}>
-                    <img src={scanner} alt="Scanner" style={{ width: "25px", height: "25px" }} />
+                  <button
+                    className="btn btn-outline-primary"
+                    style={{
+                      marginLeft: "3px",
+                      padding: "2px 6px", // Adjust padding to decrease the height of the outer box
+                      borderRadius: "4px", // Adjust border-radius to maintain the button shape
+                      height: "40px", // Decrease the height of the outer box
+                    }}
+                    onClick={() => alert("Scan TP No")}
+                  >
+                    {/* Use the imported scanner image */}
+                    <img
+                      src={scanner}
+                      alt="Scanner"
+                      style={{
+                        width: "20px", // Keep the width of the image the same
+                        height: "20px", // Keep the height of the image the same
+                      }}
+                    />
                   </button>
                 </div>
               </div>
@@ -296,155 +312,241 @@ function VehicleEntryDetails() {
                 <label htmlFor="vehicleNo" className="form-label">Vehicle No:<span className="text-danger fw-bold">*</span></label>
                 <div className="input-group">
                   <input type="text" id="vehicleNo" name="vehicleNo" value={formData.vehicleNo} onChange={handleChange} required className="form-control" onKeyDown={handleVehicleNoKeyPress} />
-                  <button className="btn btn-outline-primary" style={{ marginLeft: "3px" }} onClick={() => alert("Scan Vehicle No")}>
-                    <img src={scanner} alt="Scanner" style={{ width: "25px", height: "25px" }} />
+                  <button
+                    className="btn btn-outline-primary"
+                    style={{
+                      marginLeft: "3px",
+                      padding: "2px 6px", // Adjust padding to decrease the height of the outer box
+                      borderRadius: "4px", // Adjust border-radius to maintain the button shape
+                      height: "40px", // Decrease the height of the outer box
+                    }}
+                    onClick={() => alert("Scan Vehicle No")}
+                  >
+                    {/* Use the imported scanner image */}
+                    <img
+                      src={scanner}
+                      alt="Scanner"
+                      style={{
+                        width: "20px", // Keep the width of the image the same
+                        height: "20px", // Keep the height of the image the same
+                      }}
+                    />
                   </button>
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-6">
-                <h4>Fill up the user details:</h4>
-                <div className="row mb-3">
-                  <div className="col-md-6">
-                    <label htmlFor="vehicleType" className="form-label">Vehicle Type:</label>
+
+            <div className="row mb-3">
+        <div className="col-md-6" style={{ marginLeft: "-55px" }}>
+        <h4 className="text-center">Fill up the user details:</h4>
+
+    <div className="row mb-3">
+  <div className="col-md-6">
+    <label htmlFor="vehicleType" className="form-label">Vehicle Type:</label>
                     <input type="text" id="vehicleType" name="vehicleType" value={formData.vehicleType} onChange={handleChange} className="form-control" />
                   </div>
                   <div className="col-md-6">
-  <label htmlFor="noOfWheels" className="form-label">No of Wheels:</label>
-  <input type="text" id="noOfWheels" name="noOfWheels" value={formData.noOfWheels} onChange={handleChange} className="form-control" />
-</div>
-</div>
-<div className="row mb-3">
-  <div className="col-md-6">
-    <label htmlFor="supplier" className="form-label">Supplier:</label>
-    <select id="supplier" name="supplier" value={formData.supplier} onChange={handleSupplierChange} className="form-select">
-      <option value="">Select Supplier</option>
-      {suppliers.map((s, index) => (
-        <option key={index} value={s}>{s}</option>
-      ))}
-    </select>
-  </div>
-  <div className="col-md-6">
-    <label htmlFor="supplierContactNo" className="form-label">Supplier's Address:</label>
-    <input type="text" id="supplierAddressLine1" name="supplierAddressLine1" value={formData.supplierAddressLine1} onChange={handleChange} className="form-control" />
-  </div>
-</div>
-<div className="row mb-3">
-  <div className="col-md-6 mb-3">
-    <label htmlFor="transporter" className="form-label">Transporter:</label>
-    <input type="text" id="transporter" name="transporter" value={formData.transporter} onChange={handleChange} className="form-control" />
-  </div>
-  <div className="col-md-6">
-    <label htmlFor="material" className="form-label">Material:</label>
-    <select id="material" name="material" value={formData.material} onChange={handleChange} className="form-select">
-      <option value="">Select material</option>
-      {materials.map((m, index) => (
-        <option key={index} value={m}>{m}</option>
-      ))}
-    </select>
-  </div>
-</div>
-<div className="row mb-3">
-  <div className="col-md-6">
-    <label htmlFor="driverDLNo" className="form-label">Driver DL No:<span className="text-danger fw-bold">*</span></label>
-    <div className="input-group">
-      <input type="text" id="driverDLNo" name="driverDLNo" value={formData.driverDLNo} onChange={handleChange} required className="form-control" />
-      <button className="btn btn-outline-primary" style={{ marginLeft: "3px" }} onClick={() => alert("Scan Driver DL No")}>
-        <img src={scanner} alt="Scanner" style={{ width: "25px", height: "25px" }} />
-      </button>
-    </div>
-  </div>
-  <div className="col-md-6">
-    <label htmlFor="driverName" className="form-label">Driver Name:<span className="text-danger fw-bold">*</span></label>
-    <input type="text" id="driverName" name="driverName" value={formData.driverName} onChange={handleChange} required className="form-control" />
-  </div>
-</div>
-<div className="row mb-3">
-  <div className="col-md-6">
-    <label htmlFor="tpNetWeight" className="form-label">TP Net Weight:</label>
-    <input type="text" id="tpNetWeight" name="tpNetWeight" value={formData.tpNetWeight} onChange={handleChange} className="form-control" />
-  </div>
-  <div className="col-md-6">
-    <label htmlFor="rcFitnessUpto" className="form-label">RC Fitness Upto:<span className="text-danger fw-bold">*</span></label>
-    <input type="text" id="rcFitnessUpto" name="rcFitnessUpto" value={formData.rcFitnessUpto} onChange={handleChange} required className="form-control" />
-  </div>
-</div>
-<div className="row mb-3">
-  <div className="col-md-6">
-    <label htmlFor="materialType" className="form-label">Material Type:</label>
-    <select id="materialType" name="materialType" value={formData.materialType} onChange={handleChange} className="form-select">
-      <option value="">Select material Type</option>
-      {materialType.map((material, index) => (
-        <option key={index} value={material}>{material}</option>
-      ))}
-    </select>
-  </div>
-  <div className="col-md-6">
-    <label htmlFor="eWayBillNo" className="form-label">E-way Bill No:</label>
-    <div className="input-group">
-      <input type="text" id="eWayBillNo" name="eWayBillNo" value={formData.eWayBillNo} onChange={handleChange} className="form-control" />
-      <button className="btn btn-outline-primary" style={{ marginLeft: "3px" }} onClick={() => alert("Scan E-WayBill No")}>
-        <img src={scanner} alt="Scanner" style={{ width: "25px", height: "25px" }} />
-      </button>
-    </div>
-  </div>
-</div>
-</div>
-<div className="col-md-6">
-  <table className="text-center camview table">
-    <tbody>
-      <tr>
-        <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
-          <span style={{ marginRight: "5px" }}>Front-View</span>
-          <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
-            <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
-          </button>
-        </td>
-        <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
-          <span style={{ marginRight: "5px" }}>Back-View</span>
-          <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
-            <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
-          </button>
-        </td>
-      </tr>
-      <tr></tr>
-      <tr>
-        <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
-          <span style={{ marginRight: "5px" }}>Top-View</span>
-          <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
-            <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
-          </button>
-        </td>
-        <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
-          <span style={{ marginRight: "5px" }}>Side-View</span>
-          <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
-            <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
-          </button>
-        </td>
-      </tr>
-      <tr></tr>
-    </tbody>
-  </table>
+                    <label htmlFor="noOfWheels" className="form-label">No of Wheels:</label>
+                    <input type="text" id="noOfWheels" name="noOfWheels" value={formData.noOfWheels} onChange={handleChange} className="form-control" />
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-6">
+                    <label htmlFor="supplier" className="form-label">Supplier:</label>
+                    <select id="supplier" name="supplier" value={formData.supplier} onChange={handleSupplierChange} className="form-select">
+                      <option value="">Select Supplier</option>
+                      {suppliers.map((s, index) => (
+                        <option key={index} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="supplierContactNo" className="form-label">Supplier's Address:</label>
+                    <input type="text" id="supplierAddressLine1" name="supplierAddressLine1" value={formData.supplierAddressLine1} onChange={handleChange} className="form-control" />
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="transporter" className="form-label">Transporter:</label>
+                    <input type="text" id="transporter" name="transporter" value={formData.transporter} onChange={handleChange} className="form-control" />
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="material" className="form-label">Material:</label>
+                    <select id="material" name="material" value={formData.material} onChange={handleChange} className="form-select">
+                      <option value="">Select material</option>
+                      {materials.map((m, index) => (
+                        <option key={index} value={m}>{m}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-6">
+                    <label htmlFor="driverDLNo" className="form-label">Driver DL No:<span className="text-danger fw-bold">*</span></label>
+                    <div className="input-group">
+                      <input type="text" id="driverDLNo" name="driverDLNo" value={formData.driverDLNo} onChange={handleChange} required className="form-control" />
+                      <button
+                        className="btn btn-outline-primary"
+                        style={{
+                          marginLeft: "3px",
+                          padding: "2px 6px", // Adjust padding to decrease the height of the outer box
+                          borderRadius: "4px", // Adjust border-radius to maintain the button shape
+                          height: "40px", // Decrease the height of the outer box
+                        }}
+                        onClick={() => alert("Scan Driver DL No")}
+                      >
+                        {/* Use the imported scanner image */}
+                        <img
+                          src={scanner}
+                          alt="Scanner"
+                          style={{
+                            width: "20px", // Keep the width of the image the same
+                            height: "20px", // Keep the height of the image the same
+                          }}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="driverName" className="form-label">Driver Name:<span className="text-danger fw-bold">*</span></label>
+                    <input type="text" id="driverName" name="driverName" value={formData.driverName} onChange={handleChange} required className="form-control" />
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-6">
+                    <label htmlFor="tpNetWeight" className="form-label">TP Net Weight:</label>
+                    <input type="text" id="tpNetWeight" name="tpNetWeight" value={formData.tpNetWeight} onChange={handleChange} className="form-control" />
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="rcFitnessUpto" className="form-label">RC Fitness Upto:<span className="text-danger fw-bold">*</span></label>
+                    <input type="text" id="rcFitnessUpto" name="rcFitnessUpto" value={formData.rcFitnessUpto} onChange={handleChange} required className="form-control" />
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-6">
+                    <label htmlFor="materialType" className="form-label">Material Type:</label>
+                    <select id="materialType" name="materialType" value={formData.materialType} onChange={handleChange} className="form-select">
+                      <option value="">Select material Type</option>
+                      {materialType.map((material, index) => (
+                        <option key={index} value={material}>{material}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="eWayBillNo" className="form-label">E-way Bill No:</label>
+                    <div className="input-group">
+                      <input type="text" id="eWayBillNo" name="eWayBillNo" value={formData.eWayBillNo} onChange={handleChange} className="form-control" />
+                      <button
+                        className="btn btn-outline-primary"
+                        style={{
+                          marginLeft: "3px",
+                          padding: "2px 6px", // Adjust padding to decrease the height of the outer box
+                          borderRadius: "4px", // Adjust border-radius to maintain the button shape
+                          height: "40px", // Decrease the height of the outer box
+                        }}
+                        onClick={() => alert("Scan E-WayBill No")}
+                      >
+                        {/* Use the imported scanner image */}
+                        <img
+                          src={scanner}
+                          alt="Scanner"
+                          style={{
+                            width: "20px", // Keep the width of the image the same
+                            height: "20px", // Keep the height of the image the same
+                          }}
+                        />
+                      </button>
 
-  <div style={{ height: 60 }}></div>
-  <div className="row justify-content-end mt-6 mb-2">
-    <div className="col-md-6 col-sm-12 text-center">
-      <button onClick={handleSave} className="btn btn-success me-md-4 me-sm-2 btn-save">
-        Save <FontAwesomeIcon icon={faSave} className="ms-2 d-none d-md-inline" />
-      </button>
-      <button onClick={handleClear} className="btn btn-secondary btn-clear">
-        Clear <FontAwesomeIcon icon={faEraser} className="ms-2 d-none d-md-inline" />
-      </button>
-    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="col-md-6">
+                <table className="text-center camview table">
+                  <tbody>
+                    <tr>
+                      <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
+                        <span style={{ marginRight: "5px" }}>Front-View</span>
+                        <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
+                          <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
+                        </button>
+                      </td>
+                      <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
+                        <span style={{ marginRight: "5px" }}>Back-View</span>
+                        <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
+                          <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
+                        </button>
+                      </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
+                        <span style={{ marginRight: "5px" }}>Top-View</span>
+                        <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
+                          <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
+                        </button>
+                      </td>
+                      <td colSpan="2" rowSpan="2" style={{ position: "relative", width: "80px", height: "180px", border: "1px solid" }}>
+                        <span style={{ marginRight: "5px" }}>Side-View</span>
+                        <button className="btn btn-primary" style={{ position: "absolute", bottom: 0, right: 0, border: "0px" }} onClick={handleCapturePicture}>
+                          <img src={Camera_Icon} alt="Captured" style={{ width: "45px", height: "36px" }} />
+                        </button>
+                      </td>
+                    </tr>
+                    <tr></tr>
+                  </tbody>
+                </table>
+
+                <div style={{ height: 60 }}></div>
+                <div className="row justify-content-end mt-6 mb-2">
+  <div className="col-md-6 col-sm-12 d-flex justify-content-end align-items-center">
+    <button 
+      onClick={handleSave} 
+      className="btn btn-success me-2" 
+      style={{
+        height: '40px',
+        minWidth: '120px',
+        width: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center', // Center the content horizontally
+        textAlign: 'center' // Center the text within the button
+      }}
+    >
+      <FontAwesomeIcon icon={faSave} className="me-2 d-none d-md-inline" />
+      Save
+    </button>
+    <button 
+      onClick={handleClear} 
+      className="btn btn-secondary" 
+      style={{
+        height: '40px',
+        minWidth: '120px',
+        width: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center', // Center the content horizontally
+        textAlign: 'center' // Center the text within the button
+      }}
+    >
+      <FontAwesomeIcon icon={faEraser} className="me-2 d-none d-md-inline" />
+      Clear
+    </button>
   </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</SideBar2>
-); 
+
+
+    
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SideBar2>
+  );
 }
 
 export default VehicleEntryDetails;

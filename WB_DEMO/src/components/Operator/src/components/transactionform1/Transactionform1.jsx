@@ -63,7 +63,7 @@ useEffect(() => {
 
 
   useEffect(() => {
-    setNetWeight( tareWeight-inputValue );
+    setNetWeight( inputValue-tareWeight );
     console.log("Count changed:", netWeight);
   }, [grossWeight]);
 
@@ -95,7 +95,7 @@ useEffect(() => {
   //   setInputValue(0);
   // };
 
-  const handleSave = () => {
+  const handleSave = (tareWeight) => {
     if (tareWeight===0) {
       setTareWeight(inputValue);
       setInputValue();
@@ -213,8 +213,37 @@ useEffect(() => {
       >
         <h2 className="text-center mb-2"> Outbound Transaction Form</h2>
         <div className="row">
-          <div className="col-md-3 mb-3 " id="A1">
-            <label htmlFor="poNo" className="form-label ">
+        <div className="col-md-3 mb-3 " id="A1">
+
+<input
+
+  type="text"
+
+  id="ticketNo"
+
+  name="ticketNo"
+
+  value={`Ticket No: ${ticketNumber}`}
+
+  onChange={handleChange}
+
+  required
+
+  className="abcv"
+
+  readOnly
+
+/>
+
+</div>
+
+</div>
+
+<div className="row">
+
+<div className="col-md-3 mb-3 " id="A1">
+
+<label htmlFor="poNo" className="form-label ">
               PO No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
             <input
@@ -306,7 +335,7 @@ useEffect(() => {
                 <div>
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
-                    onClick={handleSave}
+                    onClick={()=>{handleSave(ticket.tareWeight)}}
                     className="icons"
                   />
                 </div>
@@ -364,7 +393,7 @@ useEffect(() => {
                     type="text"
                     autoComplete="off"
                     value={tareWeight}
-                    // required={isGrossWeightEnabled}
+                    required={isGrossWeightEnabled}
                     className="abcv"
                     readOnly
                   />
@@ -465,28 +494,28 @@ useEffect(() => {
         <h5 id="E2">Transaction Details:</h5>
         <div className="grid-container-2">
           <div className="grid-item-2">
-            <label htmlFor="supplier" className="form-label">
-              Supplier:
+            <label htmlFor="customer" className="form-label">
+            Customer:
             </label>
             <input
               type="text"
-              id="supplier"
-              name="supplier"
-              value={ticket.supplierName}
+              id="customer"
+              name="customer"
+              value={ticket.customerName}
               onChange={handleChange}
               className="abcv"
               readOnly
             />
           </div>
           <div className="grid-item-2">
-            <label htmlFor="supplierAddress" className="form-label">
-              Supplier Address:
+            <label htmlFor="customerAddress" className="form-label">
+            Customer Address:
             </label>
             <input
               type="text"
-              id="supplierAddress"
-              name="supplierAddress"
-              value={ticket.supplierAddress}
+              id="customerAddress"
+              name="customerAddress"
+              value={ticket.customerAddress}
               onChange={handleChange}
               className="abcv"
               readOnly

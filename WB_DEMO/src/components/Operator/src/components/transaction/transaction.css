@@ -156,3 +156,19 @@ color: rgba(14, 13, 13, 0.911);
     color: black;
     cursor: pointer;
   }
+
+  .table-container {
+    max-height: 400px; /* Adjust the height as per your requirement */
+    overflow-y: auto;
+    margin: 0 auto; /* Center the container horizontally */
+    width: 100%; /* Adjust the width as needed */
+  }
+  
+  .transaction-main-content {
+    padding: 20px;
+    margin-top: -60px; /* Move the main content up */
+    margin-right: 60px;
+  }
+  
+  
+  

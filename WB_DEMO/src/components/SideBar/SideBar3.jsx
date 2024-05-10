@@ -35,7 +35,7 @@ import Swal from "sweetalert2";
 import "./SideBar1.css";
  
  
-const Sidebar = ({ children }) => {
+const Sidebar3 = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -303,4 +303,4 @@ const Sidebar = ({ children }) => {
     </>
   );
 };
-export default Sidebar;
+export default Sidebar3;

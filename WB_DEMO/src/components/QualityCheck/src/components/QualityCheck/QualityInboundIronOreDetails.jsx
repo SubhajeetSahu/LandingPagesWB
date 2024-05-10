@@ -61,7 +61,7 @@ const QualityInboundIronOreDetails = () => {
     const fetchParameterRanges = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/types/${urlData.materialTypeOrProductType}`
+          `http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/parameters`
         );
         const data = await response.json();
         if (data.length > 0 && data[0].parameters) {

@@ -1,7 +1,4 @@
-// Transaction Inbound.js
-
-
-
+// Transaction Outbound.jsx
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -25,13 +22,6 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-
-
-
-
-
-
-
 function TransactionFrom() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
@@ -39,7 +29,6 @@ function TransactionFrom() {
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
   const queryParams = new URLSearchParams(window.location.search);
-
   const [currentDate, setCurrentDate] = useState(getFormattedDate());
   const [currentTime, setCurrentTime] = useState(getFormattedTime());
   const [inputValue, setInputValue] = useState(0);
@@ -47,32 +36,30 @@ function TransactionFrom() {
   const [tareWeight, setTareWeight] = useState(queryParams.get('tareWeight').split('/')[0]);
   const [netWeight, setNetWeight] = useState(0);
   const [isTareWeightEnabled, setIsTareWeightEnabled] = useState(false);
- 
+
   const [ticket, setTicket] = useState([]);
 
 
-const ticketNumber = queryParams.get('ticketNumber');
-// const grossWt = queryParams.get('grossWeight');
-// const tareWt = queryParams.get('tareWeight');
+  const ticketNumber = queryParams.get('ticketNumber');
 
-console.log(ticketNumber); 
+  console.log(ticketNumber);
 
 
-useEffect(() => {
-  // Fetch data from the API
-  axios
-    .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
-      withCredentials: true, // Include credentials
-    })
-    .then((response) => {
-      // Update state with the fetched data
-      setTicket(response.data);
-      console.log(response.data); // Log fetched data
-    })
-    .catch((error) => {
-      console.error("Error fetching weighments:", error);
-    });
-}, []);
+  useEffect(() => {
+    // Fetch data from the API
+    axios
+      .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
+        withCredentials: true, // Include credentials
+      })
+      .then((response) => {
+        // Update state with the fetched data
+        setTicket(response.data);
+        console.log(response.data); // Log fetched data
+      })
+      .catch((error) => {
+        console.error("Error fetching weighments:", error);
+      });
+  }, []);
 
 
   useEffect(() => {
@@ -84,26 +71,44 @@ useEffect(() => {
     const newValue = e.target.value;
     setInputValue(newValue);
 
-    // if (!isTareWeightEnabled) {
-    //   setGrossWeight(newValue);
-    // } else {
+    // if (!isGrossWeightEnabled) {
     //   setTareWeight(newValue);
+    // } else {
+    //   setGrossWeight(newValue);
     // }
   };
 
   // const handleSave = () => {
-  // if (!isTareWeightEnabled) {
-  //   setGrossWeight(inputValue);
-  //   setInputValue();
-  //   setIsTareWeightEnabled(true);
-  const handleSave = () => {
-    if (grossWeight===0) {
+  //   if (!isGrossWeightEnabled) {
+  //     setTareWeight(inputValue);
+  //     setInputValue();
+  //     setIsGrossWeightEnabled(true);
+  //   } else {
+  //     setGrossWeight(inputValue);
+  //   }
+  // };
+
+  // const handleClear = () => {
+  //   setGrossWeight(0);
+  //   setTareWeight(0);
+  //   setNetWeight(0);
+  //   setInputValue(0);
+  // };
+
+  const handleSave = (grossWeight) => {
+
+    if (grossWeight === 0) {
+
       setGrossWeight(inputValue);
+
+
       setInputValue();
       //setIsTareWeightEnabled(true);
     }
     else {
+
       setTareWeight(inputValue);
+
     }
     const payload = {
       machineId: "1",
@@ -112,8 +117,8 @@ useEffect(() => {
     };
 
     axios.post('http://localhost:8080/api/v1/weighment/measure', payload, {
-        withCredentials: true
-      })
+      withCredentials: true
+    })
       .then(response => {
         console.log('Measurement saved:', response.data);
         // Handle response as needed
@@ -122,17 +127,8 @@ useEffect(() => {
         console.error('Error saving measurement:', error);
         // Handle error as needed
       });
-  
-};
 
-  
-
-  // const handleClear = () => {
-  //   setGrossWeight(0);
-  //   setTareWeight(0);
-  //   setNetWeight(0);
-  //   setInputValue(0);
-  // };
+  };
 
   function getFormattedDate() {
     const date = new Date();
@@ -192,8 +188,8 @@ useEffect(() => {
     eWayBillNo: "",
     tpNo: "",
     vehicleType: "",
-    tpNetWeight: "", 
-    rcFitnessUpto: "", 
+    tpNetWeight: "",
+    rcFitnessUpto: "",
   });
 
   const handleChange = (e) => {
@@ -221,9 +217,37 @@ useEffect(() => {
         className="VehicleEntryDetailsMainContent"
         style={{ marginTop: "100px", marginRight: "140px" }}
       >
-        <h2 className="op-text-center mb-2"> Inbound Transaction Form</h2>
+        <h2 className="text-center mb-2"> Inbound Transaction Form</h2>
         <div className="row">
-          <div className="op-text-center mb-3 " id="A1">
+          <div className="col-md-3 mb-3 " id="A1">
+
+            <input
+
+              type="text"
+
+              id="ticketNo"
+
+              name="ticketNo"
+
+              value={`Ticket No: ${ticketNumber}`}
+
+              onChange={handleChange}
+
+              required
+
+              className="abcv"
+
+              readOnly
+
+            />
+
+          </div>
+
+        </div>
+
+        <div className="row">
+
+          <div className="col-md-3 mb-3 " id="A1">
             <label htmlFor="poNo" className="form-label ">
               PO No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
@@ -239,7 +263,7 @@ useEffect(() => {
             />
           </div>
           {/* TP No */}
-          <div className="op-text-center mb-3 " id="A1">
+          <div className="col-md-3 mb-3 " id="A1">
             <label htmlFor="tpNo" className="form-label ">
               TP No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
             </label>
@@ -258,7 +282,7 @@ useEffect(() => {
           </div>
 
           {/* Challan No */}
-          <div className="op-text-center mb-3" id="A1">
+          <div className="col-md-3 mb-3" id="A1">
             <label htmlFor="challanNo" className="form-label ">
               Challan No:
               <span style={{ color: "red", fontWeight: "bold" }}>*</span>
@@ -275,7 +299,7 @@ useEffect(() => {
             />
           </div>
           {/* Vehicle No */}
-          <div className="op-text-center mb-3 " id="A1">
+          <div className="col-md-3 mb-3 " id="A1">
             <label htmlFor="vehicleNo" className="form-label ">
               Vehicle No:
               <span style={{ color: "red", fontWeight: "bold" }}>*</span>
@@ -285,7 +309,7 @@ useEffect(() => {
                 type="text"
                 id="vehicleNo"
                 name="vehicleNo"
-                value={ ticket.vehicleNo}
+                value={ticket.vehicleNo}
                 onChange={handleChange}
                 required
                 className="abcv"
@@ -309,14 +333,14 @@ useEffect(() => {
                   // border: "0px solid ",
                 }}
                 value={inputValue}
-                 onChange={handleChange1}
-                // oninput="reflectInput(this.value, 'grossWeight')"
+                onChange={handleChange1}
+              // oninput="reflectInput(this.value, 'grossWeight')"
               />
               <div className="icons-group">
                 <div>
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
-                    onClick={handleSave}
+                    onClick={()=>handleSave(ticket.grossWeight)}
                     className="icons"
                   />
                 </div>
@@ -374,7 +398,7 @@ useEffect(() => {
                     type="text"
                     autoComplete="off"
                     value={tareWeight}
-                    // required={isTareWeightEnabled}
+                    // required={isGrossWeightEnabled}
                     className="abcv"
                     readOnly
                   />
@@ -395,7 +419,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className="row  mb-3">
+            <div className="row mb-3">
               <div className="stu">
                 <label htmlFor="vehicleType" className="form-label">
                   Net Weight:
@@ -426,10 +450,10 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-           
+
           </div>
           <div className="col-md-6" style={{ marginTop: "20px" }}>
-    
+
 
             <div className="grid-container">
               <div className="grid-item">
@@ -463,7 +487,7 @@ useEffect(() => {
                 <img src={camView} />
                 <div className="overlay">
                   <span>Cam-4</span>
-                  <button className="ct-btn">
+                  <button className="ct-btn ">
                     <img src={Camera_Icon} alt="Captured" />
                   </button>
                 </div>

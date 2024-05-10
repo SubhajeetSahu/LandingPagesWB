@@ -87,6 +87,13 @@ function QualityCheck() {
     }
   };
 
+  const [currentDate, setCurrentDate] = useState("");
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+    setCurrentDate(formattedDate);
+  }, []);
+
   const handleDownload = (ticketNumber) => {
     const item = data.find((item) => item.ticketNo === ticketNumber);
 
@@ -241,127 +248,129 @@ function QualityCheck() {
     <div>
       <SideBar3 />
       <div className="container mt-4">
-      <div className="mb-3 text-center">
-  <input
-    type="date"
-    id="date"
-    name="date"
-    className="form-control form-control-sm"
-    style={{ width: "auto" }}
-  />
-  <h2 className="text-dark">Quality Dashboard</h2>
-</div>
+        <div className="mb-3 text-center">
+          <h2 className="text-dark">Quality Dashboard</h2>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            className="form-control form-control-sm"
+            style={{ width: "auto" }}
+            value={currentDate}
+            disabled // Disable user input
+          />
+        </div>
 
         <div className="table-responsive">
           <table className="table table-bordered table-striped">
-<thead className="thead-light">
-<tr>
-<th>Ticket No.</th>
-<th>Date</th>
-<th>Vehicle No.</th>
-<th>In</th>
-<th>Out</th>
-<th>Transporter Name</th>
-<th>Product/Material</th>
-<th>Product/Material Type</th>
-<th>TP No/Invoice No</th>
-<th>Po No</th>
-<th>Challan No</th>
-<th>Supplier/Customer</th>
-<th>Supplier/Customer Address</th>
-<th>Transaction Type</th>
-<th>Download</th>
-</tr>
-</thead>
-<tbody>
-{data
-.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-.map((item, index) => (
-<tr key={index}>
-<td>
-<a
-href="#"
-onClick={() => handleTicketClick(item.ticketNo, item.materialOrProduct)}
-className="text-primary"
->
-{item.ticketNo}
-</a>
-</td>
-<td>{item.date}</td>
-<td>{item.vehicleNo}</td>
-<td>{item.in}</td>
-<td>{item.out}</td>
-<td>{item.transporterName}</td>
-<td>{item.materialOrProduct}</td>
-<td>{item.materialTypeOrProductType}</td>
-<td>{item.tpNo}</td>
-<td>{item.poNo}</td>
-<td>{item.challanNo}</td>
-<td>{item.supplierOrCustomerName}</td>
-<td>{item.supplierOrCustomerAddress}</td>
-<td>{item.transactionType}</td>
-<td>
-<button
-className="btn btn-success btn-sm"
-onClick={() => handleDownload(item.ticketNo)}
->
-<FontAwesomeIcon icon={faFileWord} />
-</button>
-</td>
-</tr>
-))}
-</tbody>
-</table>
-</div>
+            <thead className="thead-light">
+              <tr>
+                <th>Ticket No.</th>
+                <th>Date</th>
+                <th>Vehicle No.</th>
+                <th>In</th>
+                <th>Out</th>
+                <th>Transporter Name</th>
+                <th>Product/Material</th>
+                <th>Product/Material Type</th>
+                <th>TP No/Invoice No</th>
+                <th>Po No</th>
+                <th>Challan No</th>
+                <th>Supplier/Customer</th>
+                <th>Supplier/Customer Address</th>
+                <th>Transaction Type</th>
+                <th>Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data
+                .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+                .map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      <a
+                        href="#"
+                        onClick={() => handleTicketClick(item.ticketNo, item.materialOrProduct)}
+                        className="text-primary"
+                      >
+                        {item.ticketNo}
+                      </a>
+                    </td>
+                    <td>{item.date}</td>
+                    <td>{item.vehicleNo}</td>
+                    <td>{item.in}</td>
+                    <td>{item.out}</td>
+                    <td>{item.transporterName}</td>
+                    <td>{item.materialOrProduct}</td>
+                    <td>{item.materialTypeOrProductType}</td>
+                    <td>{item.tpNo}</td>
+                    <td>{item.poNo}</td>
+                    <td>{item.challanNo}</td>
+                    <td>{item.supplierOrCustomerName}</td>
+                    <td>{item.supplierOrCustomerAddress}</td>
+                    <td>{item.transactionType}</td>
+                    <td>
+                      <button
+                        className="btn btn-success btn-sm"
+                        onClick={() => handleDownload(item.ticketNo)}
+                      >
+                        <FontAwesomeIcon icon={faFileWord} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
 
-{/* Pagination */}
-<div className="d-flex justify-content-between align-items-center mt-3 ml-2">
-      <span>
-        Showing {currentPage * itemsPerPage + 1} to{" "}
-        {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries
-      </span>
-      <div className="ml-auto">
-        <button
-          className="btn btn-outline-primary btn-sm me-2"
-          onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}
-          disabled={currentPage === 0}
-        >
-          &lt;&lt;
-        </button>
-        <button
-          className="btn btn-outline-primary btn-sm me-2"
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 0}
-        >
-          &lt;
-        </button>
-        {[...Array(pageCount)].map((_, index) => (
-          <button
-            key={index}
-            className={`btn btn-${currentPage === index ? "primary" : "outline-primary"} btn-sm me-2`}
-            onClick={() => setCurrentPage(index)}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          className="btn btn-outline-primary btn-sm me-2"
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === pageCount - 1}
-        >
-          &gt;
-        </button>
-        <button
-          className="btn btn-outline-primary btn-sm"
-          onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}
-          disabled={currentPage === pageCount - 1}
-        >
-          &gt;&gt;
-        </button>
+        {/* Pagination */}
+        <div className="d-flex justify-content-between align-items-center mt-3 ml-2">
+          <span>
+            Showing {currentPage * itemsPerPage + 1} to{" "}
+            {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries
+          </span>
+          <div className="ml-auto">
+            <button
+              className="btn btn-outline-primary btn-sm me-2"
+              onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}
+              disabled={currentPage === 0}
+            >
+              &lt;&lt;
+            </button>
+            <button
+              className="btn btn-outline-primary btn-sm me-2"
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 0}
+            >
+              &lt;
+            </button>
+            {[...Array(pageCount)].map((_, index) => (
+              <button
+                key={index}
+                className={`btn btn-${currentPage === index ? "primary" : "outline-primary"} btn-sm me-2`}
+                onClick={() => setCurrentPage(index)}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className="btn btn-outline-primary btn-sm me-2"
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === pageCount - 1}
+            >
+              &gt;
+            </button>
+            <button
+              className="btn btn-outline-primary btn-sm"
+              onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}
+              disabled={currentPage === pageCount - 1}
+            >
+              &gt;&gt;
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-);
+  );
 }
 export default QualityCheck;
