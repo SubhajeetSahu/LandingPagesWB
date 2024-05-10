@@ -156,6 +156,7 @@ function VehicleEntryDetails() {
   const handleVehicleNoKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault(); // Prevent form submission
+      console.log(formData.vehicleNo);
       // Call API with the entered vehicle number
       fetch(`http://localhost:8080/api/v1/vehicles/vehicle/${formData.vehicleNo}`)
         .then((response) => response.json())
