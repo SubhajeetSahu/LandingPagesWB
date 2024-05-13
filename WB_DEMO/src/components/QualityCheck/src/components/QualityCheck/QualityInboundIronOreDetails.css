@@ -65,13 +65,8 @@
   margin-bottom: 1.5rem; /* Increase vertical spacing */
 }
 
-/* Button size */
-.btn {
-  font-size: 1.2rem; /* Adjusted font size */
-  font-family: 'Roboto', sans-serif; /* Added font family */
-}
 
-/* Sidebar adjustment */
+
 .home-sidebar.expanded + .quality-inbound-iron-ore-detail-check-main-content {
   margin-left: 220px;
 }

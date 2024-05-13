@@ -12,8 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage1.css";
 import Sidebar from "../SideBar/SideBar";
- 
- 
+
+
 function HomePage1() {
   const [activeUsers, setActiveUsers] = useState(0);
   const [inactiveUsers, setInactiveUsers] = useState(0);
@@ -23,56 +23,56 @@ function HomePage1() {
   const [suppliers, setSuppliers] = useState(0);
   const [customers, setCustomers] = useState(0);
   const [companies, setCompanies] = useState(0);
- 
- 
- 
+
+
+
  
   useEffect(() => {
- 
+
     // Fetch all users
     fetch("http://localhost:8080/api/v1/home/all-users")
       .then((response) => response.json())
       .then((data) => setAllUsers(data))
       .catch((error) => console.error("Error fetching all users:", error));
- 
+
     // Fetch active users
     fetch("http://localhost:8080/api/v1/home/active-users")
       .then((response) => response.json())
       .then((data) => setActiveUsers(data))
       .catch((error) => console.error("Error fetching active users:", error));
- 
+
     // Fetch inactive users
     fetch("http://localhost:8080/api/v1/home/inactive-users")
       .then((response) => response.json())
       .then((data) => setInactiveUsers(data))
       .catch((error) => console.error("Error fetching inactive users:", error));
- 
+
     // Fetch registered trucks
       fetch("http://localhost:8080/api/v1/home/transporters")
       .then((response) => response.json())
       .then((data) => setTransporters(data))
       .catch((error) => console.error("Error fetching registered trucks:", error));
- 
- 
+
+
     // Fetch registered companies
       fetch("http://localhost:8080/api/v1/home/companies")
       .then((response) => response.json())
       .then((data) => setCompanies(data))
       .catch((error) => console.error("Error fetching registered companies:", error));
- 
- 
+
+
     // Fetch registered suppliers
       fetch("http://localhost:8080/api/v1/home/suppliers")
       .then((response) => response.json())
       .then((data) => setSuppliers(data))
       .catch((error) => console.error("Error fetching registered suppliers:", error));
- 
+
     // Fetch registered customers
       fetch("http://localhost:8080/api/v1/home/customers")
       .then((response) => response.json())
       .then((data) => setCustomers(data))
       .catch((error) => console.error("Error fetching registered customers:", error));
- 
+
     // Fetch registered vehicles
     fetch("http://localhost:8080/api/v1/home/vehicles")
       .then((response) => response.json())
@@ -81,9 +81,9 @@ function HomePage1() {
         console.error("Error fetching registered vehicles:", error)
       );
   }, []);
- 
- 
- 
+
+  
+
   return (
     <Sidebar>
       <div className="admin-home-main-content">
@@ -168,5 +168,5 @@ function HomePage1() {
     </Sidebar>
   );
 }
- 
+
 export default HomePage1;

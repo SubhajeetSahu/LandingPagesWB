@@ -1,5 +1,4 @@
-/* Transaction Dashboard.css */
-
+/* 
 
  .row{
     margin-top: 65px;
@@ -158,17 +157,17 @@ color: rgba(14, 13, 13, 0.911);
   }
 
   .table-container {
-    max-height: 400px; /* Adjust the height as per your requirement */
+    max-height: 400px; 
     overflow-y: auto;
-    margin: 0 auto; /* Center the container horizontally */
-    width: 100%; /* Adjust the width as needed */
+    margin: 0 auto; 
+    width: 100%; 
   }
   
   .transaction-main-content {
     padding: 20px;
-    margin-top: -60px; /* Move the main content up */
+    margin-top: -60px; 
     margin-right: 60px;
   }
   
   
-  
+   */
