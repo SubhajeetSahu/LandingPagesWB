@@ -9,7 +9,7 @@ import "./ManageUser.css";
 import { useNavigate } from "react-router-dom";
 import { Table, Tag, Button, Input } from "antd";
 import Swal from "sweetalert2";
-import SideBar from "../SideBar/SideBar";
+import SideBar from "../../SideBar/SideBar";
 import "antd/dist/reset.css";
 
 const { Column } = Table;
@@ -237,49 +237,49 @@ function ManageUser() {
                   )}
                 />
                 <Column
-  title="Action"
-  key="action"
-  render={(text, record) => (
-    <>
-      {/* Check if the user's role is not "ADMIN" */}
-      {!record.role.includes("ADMIN") && (
-        <div className="action-buttons">
-          {record.status === "ACTIVE" && (
-            <Button onClick={() => handleEdit(record)}>
-              <FontAwesomeIcon
-                icon={faPencilAlt}
-                style={{ color: "orange" }} // Inline style for orange color
-                className="action-icon activate-icon"
-              />
-            </Button>
-          )}
-          {record.status === "INACTIVE" ? (
-            <Button
-              onClick={() => handleActivate(record.userId)}
-            >
-              <FontAwesomeIcon
-                icon={faUserCheck}
-                style={{ color: "green" }}
-                className="action-icon activate-icon"
-              />
-            </Button>
-          ) : (
-            <Button
-              onClick={() => handleDelete(record.userId)}
-              style={{ marginLeft: "8px" }}
-            >
-              <FontAwesomeIcon
-                icon={faUserXmark}
-                style={{ color: "red" }}
-                className="action-icon delete-icon"
-              />
-            </Button>
-          )}
-        </div>
-      )}
-    </>
-  )}
-/>
+                  title="Action"
+                  key="action"
+                  render={(text, record) => (
+                    <>
+                      {/* Check if the user's role is not "ADMIN" */}
+                      {!record.role.includes("ADMIN") && (
+                        <div className="action-buttons">
+                          {record.status === "ACTIVE" && (
+                            <Button onClick={() => handleEdit(record)}>
+                              <FontAwesomeIcon
+                                icon={faPencilAlt}
+                                style={{ color: "orange" }} // Inline style for orange color
+                                className="action-icon activate-icon"
+                              />
+                            </Button>
+                          )}
+                          {record.status === "INACTIVE" ? (
+                            <Button
+                              onClick={() => handleActivate(record.userId)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faUserCheck}
+                                style={{ color: "green" }}
+                                className="action-icon activate-icon"
+                              />
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => handleDelete(record.userId)}
+                              style={{ marginLeft: "8px" }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faUserXmark}
+                                style={{ color: "red" }}
+                                className="action-icon delete-icon"
+                              />
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                />
               </Table>
             </div>
             <div className="d-flex justify-content-center gap-3 m-3">
