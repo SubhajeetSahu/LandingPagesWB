@@ -25,6 +25,9 @@ import Transporter from "./components/Admin/Transporter/Transporter.jsx";
 import Customer from "./components/Admin/Customer/Customer.jsx";
 import Supplier from "./components/Admin/Supplier/Supplier.jsx";
 import ViewCompany from "./components/Admin/ViewCompany/ViewCompany.jsx";
+import ViewSupplier from "./components/Admin/ViewSupplier/ViewSupplier.jsx";
+import ViewVehicle from "./components/Admin/ViewVehicle/ViewVehicle.jsx";
+import ViewCustomer from "./components/Admin/ViewCustomer/ViewCustomer.jsx";
 import MaterialManagement from "./components/Admin/MaterialManagement/MaterialManagement.jsx";
 import RoleManagement from "./components/Admin/RoleManagement/RoleManagement.jsx";
 
@@ -79,9 +82,13 @@ const router = createBrowserRouter(
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/Customer" element={<Customer />} />
       <Route path="/Supplier" element={<Supplier />} />
-      <Route path="/ViewCompany" element={<ViewCompany />} />
+      <Route path="/view-company" element={<ViewCompany />} />
+      <Route path="/view-supplier" element={<ViewSupplier />} />
+      <Route path="/view-vehicle" element={<ViewVehicle />} />
+      <Route path="/view-customer" element={<ViewCustomer />} />
       <Route path="/material-management" element={<MaterialManagement />} />
       <Route path="/role-management" element={<RoleManagement />} />
+
       
 
       <Route path="/VehicleEntry" element={<VehicleEntry />} />
