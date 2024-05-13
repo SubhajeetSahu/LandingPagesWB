@@ -29,12 +29,12 @@ function ManageUser() {
   const handleDelete = async (userId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You are about to delete this user. This action cannot be undone.",
+      text: "You are about to inactive this user. This action cannot be undone.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, inactive it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
