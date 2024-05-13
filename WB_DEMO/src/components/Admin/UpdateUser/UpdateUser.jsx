@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./UpdateUser.css";
 import SideBar from "../../SideBar/SideBar";
+
 
 
 import { useLocation } from "react-router-dom";
@@ -212,8 +213,8 @@ function UpdateUser() {
       <div className="update-user">
         <div className="update-main-content">
           <h2 className="text-center">Update User</h2>
-          <div className="create-user-container">
-            <div className="card create-user-form">
+          <div className="update-user-container">
+            <div className="card update-user-form">
               <div
                 className="card-body"
                 style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -478,6 +479,7 @@ function UpdateUser() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -494,6 +496,7 @@ function UpdateUser() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

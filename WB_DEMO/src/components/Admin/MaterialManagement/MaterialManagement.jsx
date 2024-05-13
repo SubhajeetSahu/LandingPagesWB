@@ -4,6 +4,8 @@ import "./MaterialManagement.css";
 import SideBar from "../../SideBar/SideBar";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function MaterialManagement() {
   const [materialName, setMaterialName] = useState("");
@@ -216,7 +218,7 @@ function MaterialManagement() {
       <div className="material-management">
         <div className="material-management-main-content">
           <h2 className="text-center">Material Management</h2>
-          <div className="create-user-container">
+          <div className="material-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -264,7 +266,7 @@ function MaterialManagement() {
                     >
                       Material Type{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                       
+                        *
                       </span>
                     </label>
                     {showTypeInput ? (
@@ -274,7 +276,7 @@ function MaterialManagement() {
                         id="materialTypeName"
                         value={userInputType}
                         onChange={handleTypeInputChange}
-                        
+                        required
                       />
                     ) : (
                       <div>
@@ -284,6 +286,7 @@ function MaterialManagement() {
                             id="materialTypeName"
                             value={materialTypeName}
                             onChange={handleTypeSelectChange}
+                            required
                           >
                             <option value="">Select Material Type</option>
                             {materialTypeNames.map((type, index) => (
@@ -300,6 +303,7 @@ function MaterialManagement() {
                             id="materialTypeName"
                             value={userInputType}
                             onChange={handleTypeInputChange}
+                            required
                           />
                         )}
                       </div>
@@ -397,6 +401,7 @@ function MaterialManagement() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -411,6 +416,7 @@ function MaterialManagement() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

@@ -4,6 +4,9 @@ import { Country, State, City } from "country-state-city";
 import Select from "react-select";
 import "./Supplier.css";
 import SideBar from "../../SideBar/SideBar";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 function Supplier() {
 
@@ -174,7 +177,7 @@ function Supplier() {
       <div className="supplier-management">
         <div className="supplier-main-content">
           <h2 className="text-center">Supplier Management</h2>
-          <div className="create-user-container">
+          <div className="supplier-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -372,6 +375,7 @@ function Supplier() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes}  className="me-1"/>
                     Cancel
                   </button>
                   <button
@@ -387,6 +391,7 @@ function Supplier() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave}  className="me-1"/>
                     Save
                   </button>
                 </div>

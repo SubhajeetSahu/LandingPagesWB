@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import "./CompanyManagement.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar from "../../SideBar/SideBar";
 
 function CompanyManagement() {
@@ -113,7 +115,7 @@ function CompanyManagement() {
       <div className="company-management">
         <div className="company-main-content">
           <h2 className="text-center">Company Management</h2>
-          <div className="create-user-container">
+          <div className="company-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -214,6 +216,7 @@ function CompanyManagement() {
                     }}
                     onClick={handleCancel}
                   >
+                      <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -228,6 +231,7 @@ function CompanyManagement() {
                     }}
                     onClick={handleSave}
                   >
+                      <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

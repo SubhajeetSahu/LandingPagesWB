@@ -76,7 +76,7 @@ const router = createBrowserRouter(
       <Route path="/site-management" element={<SiteManagement />} />
       <Route path="/vehicle" element={<Vehicle />} />
       <Route path="/transporter" element={<Transporter />} />
-      <Route path="/ResetPassword" element={<ResetPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/Customer" element={<Customer />} />
       <Route path="/Supplier" element={<Supplier />} />
       <Route path="/ViewCompany" element={<ViewCompany />} />

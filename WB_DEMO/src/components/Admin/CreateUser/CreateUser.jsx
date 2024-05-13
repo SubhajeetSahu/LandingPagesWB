@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./CreateUser.css";
 import SideBar from "../../SideBar/SideBar";
@@ -442,6 +442,7 @@ function CreateUser() {
                           }}
                           onClick={handleCancel}
                         >
+                          <FontAwesomeIcon icon={faTimes} className="me-1" />
                           Cancel
                         </button>
                         <button
@@ -458,6 +459,7 @@ function CreateUser() {
                           }}
                           onClick={handleSave}
                         >
+                          <FontAwesomeIcon icon={faSave} className="me-1" />
                           Save
                         </button>
                       </div>

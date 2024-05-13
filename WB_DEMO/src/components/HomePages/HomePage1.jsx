@@ -11,7 +11,7 @@ import {
   faBuilding,
 } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage1.css";
-import Sidebar from "../SideBar/SideBar";
+import SideBar from "../SideBar/SideBar";
 
 
 function HomePage1() {
@@ -85,7 +85,7 @@ function HomePage1() {
   
 
   return (
-    <Sidebar>
+    <SideBar>
       <div className="admin-home-main-content">
         <h2 className="text-center">Admin Dashboard</h2>
         <div className="container-fluid mt-3">
@@ -165,7 +165,7 @@ function HomePage1() {
           </div>
         </div>
       </div>
-    </Sidebar>
+    </SideBar>
   );
 }
 

@@ -4,15 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 import SideBar from "../../SideBar/SideBar";
 import './RoleManagement.css';
- 
+
 function RoleManagement() {
   const [roleName, setRoleName] = useState("");
   const [error, setError] = useState("");
- 
+
   const handleCancel = () => {
     setRoleName("");
   };
- 
+
   const handleSave = () => {
     if (roleName.trim() === "") {
       Swal.fire({
@@ -25,11 +25,11 @@ function RoleManagement() {
       });
       return;
     }
- 
+
     const roleData = {
       roleName,
     };
- 
+
     fetch("http://localhost:8080/api/v1/roles", {
       method: "POST",
       headers: {
@@ -73,27 +73,27 @@ function RoleManagement() {
         });
       });
   };
- 
+
   return (
-<SideBar>
-<div className="role-management">
-<div className="role-management-main-content">
-<h2 className="text-center">Role Management</h2>
-<div className="role-container d-flex justify-content-center">
-<div
+    <SideBar>
+      <div className="role-management">
+        <div className="role-management-main-content">
+          <h2 className="text-center">Role Management</h2>
+          <div className="role-container d-flex justify-content-center">
+            <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)", maxWidth: "600px" }}
->
-<form>
-<div className="row mb-3 justify-content-center">
-<div className="col-md-8">
-<label htmlFor="roleName" className="form-label">
+            >
+              <form>
+                <div className="row mb-3 justify-content-center">
+                  <div className="col-md-8">
+                    <label htmlFor="roleName" className="form-label">
                       Role Name{" "}
-<span style={{ color: "red", fontWeight: "bold" }}>
+                      <span style={{ color: "red", fontWeight: "bold" }}>
                         *
-</span>
-</label>
-<input
+                      </span>
+                    </label>
+                    <input
                       type="text"
                       className="form-control"
                       id="roleName"
@@ -102,10 +102,10 @@ function RoleManagement() {
                       onChange={(e) => setRoleName(e.target.value)}
                       required
                     />
-</div>
-</div>
-<div className="d-flex justify-content-center mt-3">
-<button
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center mt-3">
+                  <button
                     type="button"
                     className="btn btn-danger me-4 btn-hover"
                     style={{
@@ -116,11 +116,11 @@ function RoleManagement() {
                       width: "100px",
                     }}
                     onClick={handleCancel}
->
-<FontAwesomeIcon icon={faTimes} className="me-1" />
+                  >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
-</button>
-<button
+                  </button>
+                  <button
                     type="button"
                     className="btn btn-success-1 btn-hover"
                     style={{
@@ -131,18 +131,18 @@ function RoleManagement() {
                       width: "100px",
                     }}
                     onClick={handleSave}
->
-<FontAwesomeIcon icon={faSave} className="me-1" />
+                  >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
-</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</SideBar>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SideBar>
   );
 }
- 
+
 export default RoleManagement;

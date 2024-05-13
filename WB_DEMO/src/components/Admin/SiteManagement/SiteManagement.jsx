@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import SideBar from "../../SideBar/SideBar";
 import "./SiteManagement.css";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 
 function SiteManagement() {
   const [companyName, setCompanyName] = useState("");
@@ -97,7 +101,7 @@ function SiteManagement() {
       <div className="site-management">
         <div className="site-management-main-content">
           <h2 className="text-center">Site Management</h2>
-          <div className="create-user-container d-flex justify-content-center">
+          <div className="site-card-container d-flex justify-content-center">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)", maxWidth: "600px" }}
@@ -180,6 +184,7 @@ function SiteManagement() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -196,6 +201,7 @@ function SiteManagement() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>
