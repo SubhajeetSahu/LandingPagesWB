@@ -130,7 +130,7 @@ function HomePage1() {
               <div className="card card-gradient-registered card-gradient">
                 <div className="card-body-home">
                   <FontAwesomeIcon icon={faTruck} size="3x" />
-                  <h5 className="card-title-home admin">Registered Vehicles</h5>
+                  <h5 className="card-title-home admin">Vehicles</h5>
                   <p className="card-text-home">{registeredTrucks}</p>
                 </div>
               </div>
