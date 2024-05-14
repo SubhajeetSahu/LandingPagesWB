@@ -259,7 +259,7 @@ function UpdateUser() {
                         Role
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <div className="d-flex gap-2">
                         <div className="d-flex flex-wrap gap-2">
@@ -322,7 +322,7 @@ function UpdateUser() {
                         First Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="text"
@@ -351,7 +351,7 @@ function UpdateUser() {
                         Last Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="text"
@@ -370,7 +370,7 @@ function UpdateUser() {
                         Email Id
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="emailId"
@@ -390,7 +390,7 @@ function UpdateUser() {
                         Mobile Number
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="tel"
@@ -420,7 +420,7 @@ function UpdateUser() {
                         Company Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <select
                         className="form-select"
@@ -443,7 +443,7 @@ function UpdateUser() {
                         Site Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <select
                         className="form-select"

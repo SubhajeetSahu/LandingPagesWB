@@ -15,7 +15,7 @@ const ViewCustomer = () => {
 
   const columns = [
     {
-      title: 'Customer ID',
+      title: 'ID',
       dataIndex: 'customerId',
       key: 'customerId',
     },
@@ -25,22 +25,22 @@ const ViewCustomer = () => {
       key: 'customerName',
     },
     {
-      title: 'Customer Email',
+      title: 'Email',
       dataIndex: 'customerEmail',
       key: 'customerEmail',
     },
     {
-      title: 'Customer Contact No',
+      title: 'Contact No',
       dataIndex: 'customerContactNo',
       key: 'customerContactNo',
     },
     {
-      title: 'Customer Address Line 1',
+      title: 'Address Line 1',
       dataIndex: 'customerAddressLine1',
       key: 'customerAddressLine1',
     },
     {
-      title: 'Customer Address Line 2',
+      title: 'Address Line 2',
       dataIndex: 'customerAddressLine2',
       key: 'customerAddressLine2',
     },

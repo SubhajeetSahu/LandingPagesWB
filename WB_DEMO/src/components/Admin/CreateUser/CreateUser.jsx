@@ -54,7 +54,7 @@ function CreateUser() {
       .then((data) => {
         console.log("Site List:", data);
         const formattedSites = data.map((site) => ({
-          site: `${site.siteName},${site.siteAddress}`,
+          site: `${site.siteName}, ${site.siteAddress}`,
         }));
         setSites(formattedSites);
       })
@@ -219,7 +219,7 @@ function CreateUser() {
                           <label htmlFor="firstName" className="form-label">
                             First Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              *
+                          {" "}*
                             </span>
                           </label>
                           <input
@@ -249,7 +249,7 @@ function CreateUser() {
                           <label htmlFor="lastName" className="form-label">
                             Last Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              *
+                          {" "}*
                             </span>
                           </label>
                           <input
@@ -269,7 +269,7 @@ function CreateUser() {
                             Email Id
                           </label>
                           <span style={{ color: "red", fontWeight: "bold" }}>
-                            *
+                            {" "}*
                           </span>
                           <input
                             type="email"
@@ -289,7 +289,7 @@ function CreateUser() {
                           <label htmlFor="contactNo" className="form-label">
                             Mobile Number
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              *
+                          {" "}*
                             </span>
                           </label>
                           <input
@@ -323,7 +323,7 @@ function CreateUser() {
                           <label htmlFor="company" className="form-label">
                             Company Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              *
+                          {" "}*
                             </span>
                           </label>
                           <select
@@ -345,7 +345,7 @@ function CreateUser() {
                           <label htmlFor="site" className="form-label">
                             Site Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              *
+                          {" "}*
                             </span>
                           </label>
                           <select
@@ -369,7 +369,7 @@ function CreateUser() {
                           <label htmlFor="role" className="form-label">
                             Role
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              *
+                          {" "}*
                             </span>
                           </label>
                           <div className="d-flex gap-2">

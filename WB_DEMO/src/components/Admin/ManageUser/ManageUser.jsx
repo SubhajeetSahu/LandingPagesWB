@@ -29,7 +29,7 @@ function ManageUser() {
   const handleDelete = async (userId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You are about to inactive this user. This action cannot be undone.",
+      text: "You are about to inactive this user.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -66,7 +66,7 @@ function ManageUser() {
   const handleActivate = async (userId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You are about to activate this user. This action cannot be undone.",
+      text: "You are about to activate this user.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -200,6 +200,9 @@ function ManageUser() {
                             break;
                           case "MANAGEMENT":
                             color = "cyan";
+                            break;
+                          case "SALES":
+                            color = "geekblue";
                             break;
                           default:
                             color = "default";

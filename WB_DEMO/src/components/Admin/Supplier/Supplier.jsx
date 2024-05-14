@@ -206,13 +206,12 @@ function Supplier() {
                       Supplier Email
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
+                    {" "}*
+                    </span>
                     <input
                       type="email"
-                      className={`form-control ${
-                        emailError ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${emailError ? "is-invalid" : ""
+                        }`}
                       id="supplierEmail"
                       placeholder="Enter Supplier Email"
                       value={supplierEmail}
@@ -234,9 +233,8 @@ function Supplier() {
                     </label>
                     <input
                       type="tel"
-                      className={`form-control ${
-                        phoneError ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${phoneError ? "is-invalid" : ""
+                        }`}
                       id="supplierContactNo"
                       placeholder="Enter Contact Number"
                       value={supplierContactNo}
@@ -258,22 +256,26 @@ function Supplier() {
                       htmlFor="supplierAddressLine1"
                       className="form-label"
                     >
-                          
+
                       Address Line 1
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
+                      {" "}*
+                    </span>
                     <input
                       type="text"
                       className="form-control"
                       id="supplierAddressLine1"
                       placeholder="Enter Address Line 1"
                       value={supplierAddressLine1}
-                      onChange={(e) => setSupplierAddressLine1(e.target.value)}
+                      onChange={(e) => {
+                        const onlyAlphabetsAndSpace = e.target.value.replace(/[^A-Za-z\s]/ig, '');
+                        setSupplierAddressLine1(onlyAlphabetsAndSpace);
+                      }}
                       required
                     />
-                
+
+
                   </div>
                 </div>
                 <div className="row mb-2">
@@ -375,7 +377,7 @@ function Supplier() {
                     }}
                     onClick={handleCancel}
                   >
-                    <FontAwesomeIcon icon={faTimes}  className="me-1"/>
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -391,7 +393,7 @@ function Supplier() {
                     }}
                     onClick={handleSave}
                   >
-                    <FontAwesomeIcon icon={faSave}  className="me-1"/>
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

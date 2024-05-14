@@ -202,7 +202,7 @@ function Customer() {
                       Customer Email
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                    {" "}*
                       </span>
                     <input
                       type="email"
@@ -257,15 +257,18 @@ function Customer() {
                       Address Line 1
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                    {" "}*
                       </span>
                     <input
                       type="text"
                       className="form-control"
                       id="customerAddressLine1"
                       placeholder="Enter Address Line 1"
-                      value={customerAddressLine1}
-                      onChange={(e) => setCustomerAddressLine1(e.target.value)}
+                      value={customerAddressLine1}    
+                      onChange={(e) => {
+                        const onlyAlphabetsAndSpace = e.target.value.replace(/[^A-Za-z\s]/ig, '');
+                        setCustomerAddressLine1(onlyAlphabetsAndSpace);
+                      }}
                       required
                     />
                     
