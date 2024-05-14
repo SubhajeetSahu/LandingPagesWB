@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function SalesOrder() {
   const [purchaseOrderedDate, setPurchaseOrderedDate] = useState("");
   const [saleOrderNo, setSaleOrderNo] = useState("");
+  const [purchaseOrderNo, setPurchaseOrderNo] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
   const [customerContact, setCustomerContact] = useState("");
@@ -21,6 +22,7 @@ function SalesOrder() {
 
   const handleCancel = () => {
     setPurchaseOrderedDate("");
+    setPurchaseOrderNo("");
     setSaleOrderNo("");
     setCustomerName("");
     setCustomerAddress("");
@@ -42,8 +44,8 @@ function SalesOrder() {
       !purchaseOrderedDate ||
       !customerName ||
       !customerAddress ||
-      !customerEmail ||
       !productName ||
+      !purchaseOrderNo ||
       !orderedQuantity
     ) {
       Swal.fire({
@@ -79,6 +81,7 @@ function SalesOrder() {
 
     const salesOrderData = {
       purchaseOrderedDate,
+      purchaseOrderNo,
       saleOrderNo,
       customerName,
       customerAddress,
@@ -145,7 +148,7 @@ function SalesOrder() {
             >
               <form>
                 <div className="row mb-2">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <label
                       htmlFor="purchaseOrderedDate"
                       className="form-label"
@@ -164,7 +167,24 @@ function SalesOrder() {
                       required
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
+                    <label htmlFor="purchaseOrderNo" className="form-label">
+                      Purchase Order No{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="purchaseOrderNo"
+                      placeholder="Enter Purchase Order No"
+                      value={purchaseOrderNo}
+                      onChange={(e) => setPurchaseOrderNo(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-4">
                     <label htmlFor="saleOrderNo" className="form-label">
                       Sale Order No
                     </label>
@@ -193,15 +213,12 @@ function SalesOrder() {
                       placeholder="Enter Customer Name"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      required
+
                     />
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="customerEmail" className="form-label">
                       Customer Email{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
                     </label>
                     <input
                       type="email"
@@ -222,9 +239,6 @@ function SalesOrder() {
                   <div className="col-md-6">
                     <label htmlFor="customerContact" className="form-label">
                       Customer Contact{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
                     </label>
                     <input
                       type="tel"
@@ -234,7 +248,7 @@ function SalesOrder() {
                       placeholder="Enter Customer Contact"
                       value={customerContact}
                       onChange={(e) => setCustomerContact(e.target.value)}
-                      required
+        
                       pattern="\d{10}"
                       title="Please enter 10 numbers"
                       maxLength="10"

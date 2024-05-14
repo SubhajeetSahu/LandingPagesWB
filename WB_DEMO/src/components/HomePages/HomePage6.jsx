@@ -47,11 +47,6 @@ const HomePage6 = () => {
       dataIndex: 'orderedQty',
       key: 'orderedQty',
     },
-    {
-      title: 'Purchase Pass No',
-      dataIndex: 'purchasePassNo',
-      key: 'purchasePassNo',
-    },
   ];
 
   const handleRowClick = (record) => {
