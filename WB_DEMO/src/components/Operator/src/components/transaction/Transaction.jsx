@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import "./transaction.css";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Chart, ArcElement } from "chart.js/auto";
+// import Header from "../../../../Header/Header";
 import SideBar5 from "../../../../SideBar/SideBar5";
 import { useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
@@ -35,32 +33,34 @@ const OperatorTransaction = () => {
   const closeForm = () => {
     navigate("/home");
   };
-  const goToTransForm = (ticketNo, transactionType, grossWeight, tareWeight) => {
+  const goToTransForm = (
+    ticketNo,
+    transactionType,
+    grossWeight,
+    tareWeight
+  ) => {
     if (transactionType === "Inbound") {
-        navigate(`/OperatorTransactionFromInbound/?ticketNumber=${ticketNo}&grossWeight=${grossWeight}&tareWeight=${tareWeight}`);
-    }
-    else{
-      navigate(`/OperatorTransactionFromOutbound/?ticketNumber=${ticketNo} &grossWeight=${grossWeight}&tareWeight=${tareWeight}`);
+      navigate(
+        `/OperatorTransactionFromInbound/?ticketNumber=${ticketNo}&grossWeight=${grossWeight}&tareWeight=${tareWeight}`
+      );
+    } else {
+      navigate(
+        `/OperatorTransactionFromOutbound/?ticketNumber=${ticketNo} &grossWeight=${grossWeight}&tareWeight=${tareWeight}`
+      );
     }
   };
 
-
-  
-  
   // const goToTransForm1 = () => {
   //   navigate("/OperatorTransactionFromOutbound");
   // };
 
   const handleQualityReportDownload = () => {
     // Implement download functionality here
-   
+
     alert("Downloading quality report...");
-    
   };
 
- 
-
-   
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
@@ -74,11 +74,12 @@ const OperatorTransaction = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/weighment/get/{ticketNo}`);
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/weighment/get/{ticketNo}`
+        );
         setTicket(response.data);
+      
       } catch (error) {
-
-
         console.error("Error fetching ticket details:", error);
       }
     };
@@ -102,7 +103,9 @@ const OperatorTransaction = () => {
       });
   }, []);
 
-
+  const toggleSidebar = () => {
+    setIsSidebarExpanded(!isSidebarExpanded);
+  };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -134,16 +137,13 @@ const OperatorTransaction = () => {
   };
 
   return (
-    <>
-      
+    <SideBar5>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
 
-      <SideBar5 
-      />
-      <div className="transaction-main-content">
+      <div className="container-fluid">
         <div className="row">
-          <h1 className="tr_dash1">Transaction Dashboard</h1>
+          <h2 className="tr_dash1">Transaction Dashboard</h2>
           <div className="date">
-            {/* <label htmlFor="trDate">Date:-</label> */}
             <input
               type="date"
               id="trDate"
@@ -155,165 +155,175 @@ const OperatorTransaction = () => {
             <br />
             <br />
           </div>
-          {/* <div className="col-8">
-            <h3 className="pending">Pending Actions</h3>
-            <div className="row">
-              <div className="col-6 border-right">
-                <h4 className="in">Inbound</h4>
-                <table className="table">
-                  <thead className="thead">
-                    <tr>
-                      <th>Gross Weight</th>
-                      <th>Tare Weight</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <input type="text" value="1" />
-                      </td>
-                      <td>
-                        <input type="text" value="0" />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="col-6">
-                <h4 className="out">Outbound</h4>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Tare Weight</th>
-                      <th>Gross Weight</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <input type="text" value="1" />
-                      </td>
-                      <td>
-                        <input type="text" value="0" />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div> */}
         </div>
+        {/* <div className="row mt-4">
+          <div className="col-12">
+            <h1 className="tr_dash1">Transaction Dashboard</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <label htmlFor="trDate">Date:-</label>
+            <input
+              type="date"
+              id="trDate"
+              value="{currentDate}"
+              className="form-control Date1"
+              readOnly
+            />
+          </div>
+        </div>  */}
         <div className="backend">
-        <div className="table-container">
+
           <table className="table table-bordered">
-          <thead className="text-center">
-            <tr>
-              <th>Ticket No.</th>
-              <th>Transaction Type</th>
-              <th>Weightment No.</th>
-              <th>Vehicle No.</th>
-              <th>In Time/ Date</th>
-              <th>Transporter</th>
-              <th>Supplier/ Customer</th>
-              <th>Gross wt./ Time</th>
-              <th>Tare wt./ Time</th>
-              <th>Net wt./ Time</th>
-              <th>Material/Product</th>
-              <th>Fitness Upto</th>
-              
-              {/* <th>Status</th> */}
-              <th>Quality Report</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-          {weighments
-              .slice(pagesVisited, pagesVisited + weighmentsPerPage)
-              .map((weighment) => (
-              <tr key={weighment.id}>
-                <td>
-                  <input
-                    value={weighment.ticketNo}
-                    style={{ justifyContent: "center", textAlign: "center",backgroundColor:"#89CFF0",width:"80px", cursor:"pointer" }}
-                    // className="form-control back"
-                    className="input-cell"
-                     onClick={()=>{goToTransForm(weighment.ticketNo,weighment.transactionType,weighment.grossWeight,weighment.tareWeight)}}
-                     
-                  />
-                </td>
-                <td>
-                  <input
-                    value={weighment.transactionType}
-                    style={{width:"90px"}}
-                    className="input-cell"
-                  />
-                </td>
-                <td>
-                  <input value={weighment.weighmentNo} style={{width:"90px"}} className="input-cell" />
-                </td>
-                <td>
-                  <input value={weighment.vehicleNo} style={{width:"90px"}} className="input-cell" />
-                </td>
-                <td>
-                  <input value={weighment.inTime} style={{width:"90px"}} className="input-cell" />
-                </td>
-                <td>
-                  <input
-                    value={weighment.transporterName}
-                    style={{width:"200px"}}
-                    className="input-cell"
-                  />
-                </td>
-                <td>
-                  <input
-                    value={weighment.supplierName}
-                    style={{width:"90px"}}
-                    className="input-cell"
-                  />
-                </td>
-                <td>
-                  <input value={weighment.grossWeight} style={{width:"90px"}} className="input-cell" />
-                </td>
-                <td>
-                  <input value={weighment.tareWeight} style={{width:"90px"}} className="input-cell" />
-                </td>
-                <td>
-                  <input value={weighment.netWeight} style={{width:"90px"}} className="input-cell" />
-                </td>
-                <td>
-                  <input
-                    value={weighment.materialName}
-                    style={{width:"90px"}}
-                    className="input-cell"
-                  />
-                </td>
-                <td>
-                  <input
-                    value={weighment.vehicleFitnessUpTo}
-                    style={{width:"90px"}}
-                    className="input-cell"
-                  />
-                </td>
-             
-                {/* <td>
-                  <input value={weighment.status} style={{width:"90px"}} className="input-cell" />
-                </td> */}
-                <td className="icon-cell">
-                  <FontAwesomeIcon
-                    icon={faDownload}
-                    onClick={handleQualityReportDownload}
-                  />
-                </td>
+            
+            <thead className="text-center">
+              <tr>
+                <th>Ticket No.</th>
+                <th>Transaction Type</th>
+                {/* <th>Weightment No.</th> */}
+                <th>Vehicle No.</th>
+                {/* <th>In Time/ Date</th> */}
+                <th>Transporter</th>
+                <th>Supplier/ Customer</th>
+                <th>Gross wt./ Time</th>
+                <th>Tare wt./ Time</th>
+                <th>Net wt./ Time</th>
+                <th>Material/Product</th>
+                {/* <th>Fitness Upto</th> */}
+
+                {/* <th>Status</th> */}
+                <th>Quality Report</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
+            </thead>
+            <tbody className="text-center">
+              {weighments
+                .slice(pagesVisited, pagesVisited + weighmentsPerPage)
+                .map((weighment) => (
+                  <tr key={weighment.id}>
+                    <td>
+                      <input
+                        value={weighment.ticketNo}
+                        style={{
+                          justifyContent: "center",
+                          textAlign: "center",
+                          backgroundColor: "#89CFF0",
+                          width: "80px",
+                          cursor: "pointer",
+                        }}
+                        // className="form-control back"
+                        className="input-celll"
+                        onClick={() => {
+                          goToTransForm(
+                            weighment.ticketNo,
+                            weighment.transactionType,
+                            weighment.grossWeight,
+                            weighment.tareWeight
+                          );
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        value={weighment.transactionType}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    {/* <td>
+                      <input
+                        value={weighment.weighmentNo}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td> */}
+                    <td>
+                      <input
+                        value={weighment.vehicleNo}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    {/* <td>
+                      <input
+                        value={weighment.inTime}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td> */}
+                    <td>
+                      <input
+                        value={weighment.transporterName}
+                        style={{ width: "150px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        value={weighment.supplierName}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        value={weighment.grossWeight}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        value={weighment.tareWeight}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        value={weighment.netWeight}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        value={weighment.materialName}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td>
+                    {/* <td>
+                      <input
+                        value={weighment.vehicleFitnessUpTo}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td> */}
+
+                    {/* <td>
+                      <input
+                        value={weighment.status}
+                        style={{ width: "90px" }}
+                        className="input-celll"
+                      />
+                    </td> */}
+                    <td className="icon-celll">
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        onClick={handleQualityReportDownload}
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
         <br />
-       
-      <ReactPaginate
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
+        </div>
+        <ReactPaginate
+          previousLabel={"<"}
+          nextLabel={">"}
           pageCount={pageCount}
           onPageChange={changePage}
           containerClassName={"paginationBtns"}
@@ -321,10 +331,10 @@ const OperatorTransaction = () => {
           nextLinkClassName={"nextBtn"}
           disabledClassName={"paginationDisabled"}
           activeClassName={"paginationActive"}
-          pageLinkClassName={"paginationLink"} 
+          pageLinkClassName={"paginationLink"}
         />
-      </div>
-    </>
+     
+    </SideBar5>
   );
 };
 

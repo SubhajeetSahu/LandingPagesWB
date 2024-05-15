@@ -1,173 +1,139 @@
-/* 
-
- .row{
-    margin-top: 65px;
-    margin-left: 70px;
-}   
-.date{
-  margin-left: 25px;
-}
+/* .content{
+  overflow-x: hidden;
+  
+} */
+/* .content .row{
+   
+  margin-left: 70px; 
+}    */
+/* .row .date{
+margin-left: 0px;
+} */
 .tr_dash1{
-   font-size: 35px;
-    color: black;
-    text-align: center;
-     margin-left: -10px; 
-    margin-bottom: 13px;
+ font-size: 35px;
+  color: black;
+  text-align: center;
+  margin-left: -10px;  
+  margin-bottom: 33px;
+ 
 }
 
 .heading{
-    display: flex;
-    font-weight: 500;
-    
+  display: flex;
+  font-weight: 500;
+  
 }
 
 .heading p{
-    padding: 20px;
-    background-color: black;
-    color: white;
-    
+  padding: 20px;
+  background-color: black;
+  color: white;
+  
 }
 
 .content1{
-    display: flex;
+  display: flex;
 }
 
 .content1 p{
-    padding: 18px;
+  padding: 18px;
 }
- .table{
-    margin-top: -10px;
-    margin-left: 70px;
-} 
+ .backend .table{
+  margin-top: -10px;
+  /* margin-left: 70px; */
+}   
 
-.backend{
-    margin-left: 8%;
-}
 
 .back{
-    background-color: skyblue;
-    color:  black;
-    cursor: pointer;
-    font-weight: 600;
-    width: 90px;
+  background-color: skyblue;
+  color:  black;
+  cursor: pointer;
+  font-weight: 600;
+  width: 90px;
 }
 
 
-.home-sidebar.expanded + .transaction-main-content {
-    margin-left: 200px !important;
-}
 
- input{
-    border: none;
-    outline: none;
-    text-align: center;
+
+input{
+  border: none;
+  outline: none;
+  text-align: center;
 } 
 .Date1{
-    width: 110px;
-    background-color: rgb(194, 196, 203);
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+  width: 110px;
+  background-color: rgb(194, 196, 203);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 
-.col-8{
-    margin-top: 0%;
-    text-align: center;
-  
-}
-.col-8 h3{
-color: rgba(14, 13, 13, 0.911);
-}
+
+.input-celll {
+  width: fit-content;
+  border: none;
+  background: transparent; 
+  text-align: center;
  
-
- .col-6{
-    margin-top: -7%;
-    text-align: center;
-   
 } 
- .input-cell {
-    width: fit-content;
-    border: none;
-    background: transparent; 
-    text-align: center;
-   
-  } 
- 
-  .icon-cell {
-    text-align: center;
 
-  } 
-   .alert{
-    font-weight: bolder;
-    font-size: 34px;
-   }
+.icon-celll {
+  text-align: center;
+  width: 90px;
 
-.table th{
-    background-color: rgb(194, 196, 203);
-    
-}  
+} 
+ .alert{
+  font-weight: bolder;
+  font-size: 34px;
+ }
+
+
 .table th:nth-child(3),
 .table th:nth-child(4),
 .table th:nth-child(5) {
-  width: 100px !important; 
+width: 100px !important; 
 }
 
 .table td:nth-child(3),
 .table td:nth-child(4),
 .table td:nth-child(5){
-    width: 100px !important;
+  width: 100px !important;
 }
 
 .paginationBtns {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
-  }
-  
-  .previousBtn,
-  .nextBtn,
-  .paginationLink {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .previousBtn:hover,
-  .nextBtn:hover,
-  .paginationLink:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .paginationDisabled {
-    color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .paginationActive {
-    font-weight: bold;
-    color: black;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
 
-  .table-container {
-    max-height: 400px; 
-    overflow-y: auto;
-    margin: 0 auto; 
-    width: 100%; 
-  }
-  
-  .transaction-main-content {
-    padding: 20px;
-    margin-top: -60px; 
-    margin-right: 60px;
-  }
-  
-  
-   */
+.previousBtn,
+.nextBtn,
+.paginationLink {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.previousBtn:hover,
+.nextBtn:hover,
+.paginationLink:hover {
+  background-color: #f0f0f0;
+}
+
+.paginationDisabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.paginationActive {
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}

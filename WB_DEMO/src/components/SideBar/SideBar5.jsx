@@ -28,51 +28,50 @@ import {
   Group,
   ExitToApp,
   Build,
-  Handyman
+  Handyman,
 } from "@mui/icons-material";
+import PrintIcon from '@mui/icons-material/Print';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./SideBar1.css";
- 
- 
-const Sidebar = ({ children }) => {
+
+const SideBar5 = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
- 
+
   const isLargeScreen = useMediaQuery("(min-width:600px)");
- 
+
   const handleUserClick = () => {
     setOpenUser(!openUser);
     setSelectedItem(openUser ? null : "user");
   };
- 
+
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
- 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
- 
+
   const handleUserProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
- 
+
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
+
   const userName = sessionStorage.getItem("userName");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const userId = sessionStorage.getItem("userId");
   console.log(userName, roles, userId);
- 
+
   const open = Boolean(anchorEl);
- 
- 
- 
+
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -86,18 +85,18 @@ const Sidebar = ({ children }) => {
       if (result.isConfirmed) {
         // Clear session storage
         sessionStorage.clear();
- 
+
         // Clear browser history and redirect
         window.location.href = "/";
- 
+
         // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
           // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
- 
+
           // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
- 
+
           // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
@@ -106,7 +105,7 @@ const Sidebar = ({ children }) => {
       }
     });
   };
- 
+
   return (
     <>
       <Box
@@ -168,11 +167,20 @@ const Sidebar = ({ children }) => {
               >
                 {userName}
               </Typography>
-              <Typography sx={{ color: "white", textAlign: "center", mb: 1, fontWeight: "bold" }}>
+              <Typography
+                sx={{
+                  color: "white",
+                  textAlign: "center",
+                  mb: 1,
+                  fontWeight: "bold",
+                }}
+              >
                 User ID: {userId}
               </Typography>
               <Divider sx={{ backgroundColor: "white", mb: 1 }} />
-              <Typography sx={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
+              <Typography
+                sx={{ color: "white", textAlign: "center", fontWeight: "bold" }}
+              >
                 Roles: {roles.join(", ")}
               </Typography>
             </Box>
@@ -205,12 +213,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -219,56 +225,7 @@ const Sidebar = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Transactions" />
           </ListItemButton>
-       
-          
-          <ListItemButton
-            component={Link}
-            to="/OperatorTransactionFromInbound"
-            onClick={() => handleItemClick("Inbound")}
-            selected={selectedItem === "Inbound"}
-            sx={{
-              "&.Mui-selected": {
-                backgroundColor: "#3e8ee6",
-                color: "white",
-                 
-              },
-              "&:hover": {
-                backgroundColor: "#3e8ee6",
-                color: "white",
-                 
-   
-              },
-            }}
-          >
-            <ListItemIcon>
-              <BusinessCenter />
-            </ListItemIcon>
-            <ListItemText primary="Inbound" />
-          </ListItemButton>
-          <ListItemButton
-            component={Link}
-            to="/OperatorTransactionFromOutbound"
-            onClick={() => handleItemClick("Outbound")}
-            selected={selectedItem === "Outbound"}
-            sx={{
-              "&.Mui-selected": {
-                backgroundColor: "#3e8ee6",
-                color: "white",
-                 
-              },
-              "&:hover": {
-                backgroundColor: "#3e8ee6",
-                color: "white",
-                 
-           
-              },
-            }}
-          >
-            <ListItemIcon>
-              <Home />
-            </ListItemIcon>
-            <ListItemText primary="Outbound" />
-            </ListItemButton>
+
           <ListItemButton
             component={Link}
             to="/print"
@@ -278,21 +235,18 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-           
               },
             }}
           >
             <ListItemIcon>
-              <Home />
+              <PrintIcon />
             </ListItemIcon>
             <ListItemText primary="Print" />
-            </ListItemButton>
+          </ListItemButton>
           <ListItemButton
             component={Link}
             to="/OperatorReport"
@@ -302,33 +256,28 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-           
               },
             }}
           >
             <ListItemIcon>
-              <Home />
+              <SummarizeIcon  />
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
           <ListItemButton
-            onClick={handleSignOut}  
+            onClick={handleSignOut}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -351,4 +300,4 @@ const Sidebar = ({ children }) => {
     </>
   );
 };
-export default Sidebar;
+export default SideBar5;
