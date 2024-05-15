@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SideBar6 from '../SideBar/Sidebar6';
 import './HomePage6.css';
 
+
 const HomePage6 = () => {
   const [sales, setSales] = useState([]);
   const navigate = useNavigate();
@@ -58,7 +59,8 @@ const HomePage6 = () => {
       <div className='home-page-6'>
         <h2 className="text-center">Sales Dashboard</h2>
         <div>
-          <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo" />
+          <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo " 
+          className="user-table mt-3 custom-table" />
         </div>
       </div>
     </SideBar6>
