@@ -1,0 +1,130 @@
+/* VehicleEntryDetails.css */
+
+/* .VehicleEntryDetailsMainContent {
+  margin-left: 100px;
+} */
+
+.user-form-label {
+  font-weight: 450;
+}
+h4.userdetail {
+  margin-bottom: 0;
+}
+
+/* Target the specific class */
+.move-left {
+  /* Adjust margins to move the element to the left */
+  margin-right: auto;
+  margin-left: 0;
+  /* margin-top: 5px;  */
+  /* margin-bottom: 0px !important;  */
+}
+
+/* To make scanner button responsive for page */
+input.tpscanner {
+  width: 85% !important;
+}
+
+/* To remove padding from each fields */
+.inputbox-padding {
+  padding-left: 0px !important;
+  /* padding-right: 0px !important; */
+}
+/* Table */
+.camview1 {
+  margin: 20px 0px 0px 0px;
+}
+.camview1 td {
+  border: 0px none;
+  padding: 0px 10px;
+}
+td .camview1 {
+  text-align: center;
+  border-radius: 5px !important;
+  position: relative;
+  width: 100% !important;
+  height: 180px !important;
+  border: 1px solid #cccccc !important;
+
+  /* margin-right: 5px; */
+}
+
+/* button for scannar image */
+.scanner_button1 {
+  border: 1px solid;
+  border-radius: 5px;
+  /* border-color: transparent !important;  */
+}
+.scanner_button1 img {
+  width: 25px;
+  height: 25px;
+}
+.scanner_button2 {
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.scanner_button2 img {
+  width: 25px;
+  height: 25px;
+}
+.scanner_button3 {
+  border: 1px solid;
+  border-radius: 5px;
+}
+.scanner_button3 img {
+  width: 25px;
+  height: 25px;
+}
+.scanner_button4 {
+  border: 1px solid;
+  border-radius: 5px;
+}
+.scanner_button4 img {
+  width: 25px;
+  height: 25px;
+}
+/* table- btn for camera Image capture*/
+.table-btn {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.mysave-btn {
+  background-color: green; /* Adding background color */
+  color: white; /* Setting text color */
+  border: 1px solid rgb(111, 108, 108); /* Adding border color and width */
+  border-radius: 10px; /* Increasing border radius */
+  padding: 10px 20px; /* Increasing padding for length */
+}
+.mysave-btn:hover {
+  background-color: darkgreen; /* Changing background color on hover */
+}
+
+.myclear-btn {
+  background-color: gray; /* Adding background color */
+  color: white; /* Setting text color */
+  border: 1px solid rgb(111, 108, 108); /* Adding border color and width */
+  border-radius: 10px; /* Increasing border radius */
+  padding: 10px 20px; /* Increasing padding for length */
+}
+.myclear-btn:hover {
+  background-color: #5f5252;
+}
+/* Swal Modal size decrease */
+
+.my-popup-class {
+  width: 400px; /* Adjust the width as needed */
+  max-width: calc(100% - 20px); /* Maximum width */
+}
+
+.my-title-class {
+  /* Custom styles for the title */
+  /* width:10px; */
+  max-width: calc(100% - 20px);
+  font-size: 20px;
+}
+
+.my-content-class {
+  /* Custom styles for the content */
+  width: 10px;
+}
