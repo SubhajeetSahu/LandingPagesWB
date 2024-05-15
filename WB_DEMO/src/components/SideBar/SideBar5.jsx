@@ -228,6 +228,7 @@ const SideBar5 = ({ children }) => {
 
           <ListItemButton
             component={Link}
+            // to="/print"
             onClick={() => handleItemClick("Print")}
             selected={selectedItem === "Print"}
             sx={{
@@ -248,7 +249,7 @@ const SideBar5 = ({ children }) => {
           </ListItemButton>
           <ListItemButton
             component={Link}
-            to="/OperatorReport"
+            // to="/OperatorReport"
             onClick={() => handleItemClick("Reports")}
             selected={selectedItem === "Reports"}
             sx={{
@@ -267,6 +268,7 @@ const SideBar5 = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
+          
           <ListItemButton
             onClick={handleSignOut}
             sx={{
