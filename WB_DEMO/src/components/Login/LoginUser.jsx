@@ -85,7 +85,18 @@ const LoginUser = () => {
             }).then(() => {
               navigate("/home4", { state: { userId: data.userId } });
             });
-          } else {
+          } 
+          else if (data.roles.includes("SALES")) {
+            Swal.fire({
+              title: "Login Successful!",
+              text: "Welcome, Sales User!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/home6", { state: { userId: data.userId } });
+            });
+          }
+          else {
             Swal.fire({
               title: "Login Successful!",
               text: "Welcome, User!",

@@ -1,5 +1,4 @@
-import React from "react";
-import App from "./App.jsx";
+
 import "./index.css";
 import ReactDOM from "react-dom/client";
 import {
@@ -14,6 +13,7 @@ import HomePage2 from "./components/HomePages/HomePage2.jsx";
 import HomePage3 from "./components/HomePages/HomePage3.jsx";
 import HomePage4 from "./components/HomePages/HomePage4.jsx";
 import HomePage5 from "./components/HomePages/HomePage5.jsx";
+import HomePage6 from "./components/HomePages/HomePage6.jsx";
 
 import CreateUser from "./components/Admin/CreateUser/CreateUser.jsx";
 import ManageUser from "./components/Admin/ManageUser/ManageUser.jsx";
@@ -26,6 +26,9 @@ import Transporter from "./components/Admin/Transporter/Transporter.jsx";
 import Customer from "./components/Admin/Customer/Customer.jsx";
 import Supplier from "./components/Admin/Supplier/Supplier.jsx";
 import ViewCompany from "./components/Admin/ViewCompany/ViewCompany.jsx";
+import ViewSupplier from "./components/Admin/ViewSupplier/ViewSupplier.jsx";
+import ViewVehicle from "./components/Admin/ViewVehicle/ViewVehicle.jsx";
+import ViewCustomer from "./components/Admin/ViewCustomer/ViewCustomer.jsx";
 import MaterialManagement from "./components/Admin/MaterialManagement/MaterialManagement.jsx";
 import RoleManagement from "./components/Admin/RoleManagement/RoleManagement.jsx";
 
@@ -62,6 +65,11 @@ import OperatorTransaction from "./components/Operator/src/components/transactio
 import OperatorReport from "./components/Operator/src/components/report/Report.jsx";
 import OperatorTransactionFromInbound from "./components/Operator/src/components/transactionform/TransactionFrom.jsx";
 import OperatorTransactionFromOutbound from "./components/Operator/src/components/transactionform1/Transactionform1.jsx";
+
+import SalesOrder from "./components/Sales/SalesOrder/SalesOrder.jsx";
+import ProcessOrder from "./components/Sales/ProcessOrder/ProcessOrder.jsx";
+import SideBar6 from "./components/SideBar/Sidebar6.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -71,6 +79,7 @@ const router = createBrowserRouter(
       <Route path="/home3" element={<HomePage3 />} />
       <Route path="/home4" element={<HomePage4 />} />
       <Route path="/home5" element={<HomePage5 />} />
+      <Route path="/home6" element={<HomePage6 />} />
 
       <Route path="/create-user" element={<CreateUser />} />
       <Route path="/manage-user" element={<ManageUser />} />
@@ -79,13 +88,15 @@ const router = createBrowserRouter(
       <Route path="/site-management" element={<SiteManagement />} />
       <Route path="/vehicle" element={<Vehicle />} />
       <Route path="/transporter" element={<Transporter />} />
-      <Route path="/ResetPassword" element={<ResetPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/Customer" element={<Customer />} />
       <Route path="/Supplier" element={<Supplier />} />
-      <Route path="/ViewCompany" element={<ViewCompany />} />
+      <Route path="/view-company" element={<ViewCompany />} />
+      <Route path="/view-supplier" element={<ViewSupplier />} />
+      <Route path="/view-vehicle" element={<ViewVehicle />} />
+      <Route path="/view-customer" element={<ViewCustomer />} />
       <Route path="/material-management" element={<MaterialManagement />} />
       <Route path="/role-management" element={<RoleManagement />} />
-
 
       <Route path="/VehicleEntry" element={<VehicleEntry />} />
       <Route path="/VehicleEntryDetails" element={<VehicleEntryDetails />} />
@@ -118,6 +129,11 @@ const router = createBrowserRouter(
       <Route path="/OperatorReport" element={<OperatorReport />} />
       <Route path="/OperatorTransactionFromInbound" element={<OperatorTransactionFromInbound />} />
       <Route path="/OperatorTransactionFromOutbound" element={<OperatorTransactionFromOutbound />} />
+
+      <Route path="/SalesOrder" element={<SalesOrder />} />
+      <Route path="/ProcessOrder" element={<ProcessOrder />} />
+      <Route path="/Sidebar6" element={<SideBar6 />} />
+
     </Route>
   )
 );

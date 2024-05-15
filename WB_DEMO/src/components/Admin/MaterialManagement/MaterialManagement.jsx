@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./MaterialManagement.css";
 import SideBar from "../../SideBar/SideBar";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function MaterialManagement() {
   const [materialName, setMaterialName] = useState("");
@@ -15,7 +17,9 @@ function MaterialManagement() {
   const [showTypeInput, setShowTypeInput] = useState(false);
   const [userInputName, setUserInputName] = useState("");
   const [userInputType, setUserInputType] = useState("");
-  const [parameters, setParameters] = useState([{ parameterName: "", rangeFrom: "", rangeTo: "" }]);
+  const [parameters, setParameters] = useState([
+    { parameterName: "", rangeFrom: "", rangeTo: "" },
+  ]);
 
   useEffect(() => {
     fetchMaterialNames();
@@ -89,12 +93,11 @@ function MaterialManagement() {
   const handleSave = () => {
     let finalMaterialName = materialName;
     let finalMaterialTypeName;
-  
+
     if (showNameInput && userInputName.trim() !== "") {
       finalMaterialName = userInputName.trim();
     } else if (
       materialName.trim() === "" ||
-      materialTypeName.trim() === "" ||
       parameters.some(
         (param) =>
           param.parameterName.trim() === "" ||
@@ -112,13 +115,13 @@ function MaterialManagement() {
       });
       return;
     }
-  
+
     if (showTypeInput && userInputType.trim() !== "") {
       finalMaterialTypeName = userInputType.trim();
     } else if (!showTypeInput && materialTypeName.trim() !== "") {
       finalMaterialTypeName = materialTypeName.trim();
     }
-  
+
     const materialData = {
       materialName: finalMaterialName,
       materialTypeName: finalMaterialTypeName,
@@ -128,7 +131,7 @@ function MaterialManagement() {
         rangeTo: parseFloat(param.rangeTo.trim()),
       })),
     };
-  
+
     fetch("http://localhost:8080/api/v1/materials", {
       method: "POST",
       headers: {
@@ -202,21 +205,24 @@ function MaterialManagement() {
   };
 
   const handleAddParameter = () => {
-    setParameters([...parameters, { parameterName: "", rangeFrom: "", rangeTo: "" }]);
+    setParameters([
+      ...parameters,
+      { parameterName: "", rangeFrom: "", rangeTo: "" },
+    ]);
   };
 
   const handleRemoveParameter = (index) => {
     const updatedParameters = [...parameters];
     updatedParameters.splice(index, 1);
     setParameters(updatedParameters);
-  }
+  };
 
   return (
     <SideBar>
       <div className="material-management">
         <div className="material-management-main-content">
           <h2 className="text-center">Material Management</h2>
-          <div className="create-user-container">
+          <div className="material-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -258,14 +264,8 @@ function MaterialManagement() {
                     )}
                   </div>
                   <div className="col-md-6">
-                    <label
-                      htmlFor="materialTypeName"
-                      className="form-label"
-                    >
+                    <label htmlFor="materialTypeName" className="form-label">
                       Material Type{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                       
-                      </span>
                     </label>
                     {showTypeInput ? (
                       <input
@@ -274,7 +274,6 @@ function MaterialManagement() {
                         id="materialTypeName"
                         value={userInputType}
                         onChange={handleTypeInputChange}
-                        
                       />
                     ) : (
                       <div>
@@ -349,10 +348,7 @@ function MaterialManagement() {
                       />
                     </div>
                     <div className="col-md-3">
-                      <label
-                        htmlFor={`rangeTo${index}`}
-                        className="form-label"
-                      >
+                      <label htmlFor={`rangeTo${index}`} className="form-label">
                         Max{" "}
                         <span style={{ color: "red", fontWeight: "bold" }}>
                           *
@@ -371,13 +367,16 @@ function MaterialManagement() {
                     <div className="col-md-1 d-flex align-items-center">
                       {index > 0 && (
                         <RemoveIcon
-                        style={{ cursor: 'pointer', color: 'red' }}
+                          style={{ cursor: "pointer", color: "red" }}
                           onClick={() => handleRemoveParameter(index)}
-      
                         />
                       )}
                       <AddIcon
-                        style={{ cursor: 'pointer', marginLeft: '0.5rem', color: 'green' }}
+                        style={{
+                          cursor: "pointer",
+                          marginLeft: "0.5rem",
+                          color: "green",
+                        }}
                         onClick={handleAddParameter}
                       />
                     </div>
@@ -397,6 +396,7 @@ function MaterialManagement() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -411,6 +411,7 @@ function MaterialManagement() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

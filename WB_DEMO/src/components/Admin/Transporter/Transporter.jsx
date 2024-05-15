@@ -148,7 +148,7 @@ function Transporter() {
                     >
                       Contact Number
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                        {" "}*
                       </span>
                     </label>
                     <input

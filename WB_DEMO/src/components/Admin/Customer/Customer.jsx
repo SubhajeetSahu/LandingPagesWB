@@ -4,6 +4,8 @@ import { Country, State, City } from "country-state-city";
 import Select from "react-select";
 import "./Customer.css";
 import SideBar from "../../SideBar/SideBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Customer() {
   const [customerName, setCustomerName] = useState("");
@@ -171,7 +173,7 @@ function Customer() {
       <div className="customer-management">
         <div className="customer-main-content">
           <h2 className="text-center">Customer Management</h2>
-          <div className="create-user-container">
+          <div className="customer-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -200,7 +202,7 @@ function Customer() {
                       Customer Email
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                    {" "}*
                       </span>
                     <input
                       type="email"
@@ -255,15 +257,18 @@ function Customer() {
                       Address Line 1
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                    {" "}*
                       </span>
                     <input
                       type="text"
                       className="form-control"
                       id="customerAddressLine1"
                       placeholder="Enter Address Line 1"
-                      value={customerAddressLine1}
-                      onChange={(e) => setCustomerAddressLine1(e.target.value)}
+                      value={customerAddressLine1}    
+                      onChange={(e) => {
+                        const onlyAlphabetsAndSpace = e.target.value.replace(/[^A-Za-z\s]/ig, '');
+                        setCustomerAddressLine1(onlyAlphabetsAndSpace);
+                      }}
                       required
                     />
                     
@@ -368,6 +373,7 @@ function Customer() {
                     }}
                     onClick={handleCancel}
                   >
+                       <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -383,6 +389,7 @@ function Customer() {
                     }}
                     onClick={handleSave}
                   >
+                       <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./UpdateUser.css";
 import SideBar from "../../SideBar/SideBar";
+
 
 
 import { useLocation } from "react-router-dom";
@@ -212,8 +213,8 @@ function UpdateUser() {
       <div className="update-user">
         <div className="update-main-content">
           <h2 className="text-center">Update User</h2>
-          <div className="create-user-container">
-            <div className="card create-user-form">
+          <div className="update-user-container">
+            <div className="card update-user-form">
               <div
                 className="card-body"
                 style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -258,7 +259,7 @@ function UpdateUser() {
                         Role
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <div className="d-flex gap-2">
                         <div className="d-flex flex-wrap gap-2">
@@ -321,7 +322,7 @@ function UpdateUser() {
                         First Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="text"
@@ -350,7 +351,7 @@ function UpdateUser() {
                         Last Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="text"
@@ -369,7 +370,7 @@ function UpdateUser() {
                         Email Id
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="emailId"
@@ -389,7 +390,7 @@ function UpdateUser() {
                         Mobile Number
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <input
                         type="tel"
@@ -419,7 +420,7 @@ function UpdateUser() {
                         Company Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <select
                         className="form-select"
@@ -442,7 +443,7 @@ function UpdateUser() {
                         Site Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
+                     {" "}*
                       </span>
                       <select
                         className="form-select"
@@ -478,6 +479,7 @@ function UpdateUser() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -494,6 +496,7 @@ function UpdateUser() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

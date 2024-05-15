@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./Vehicle.css";
 import SideBar from "../../SideBar/SideBar";
+import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 function Vehicle() {
   const [vehicleNo, setVehicleNo] = useState("");
@@ -108,7 +111,7 @@ function Vehicle() {
       <div className="vehicle-register">
         <div className="vehicle-content">
           <h2 className="text-center">Vehicle Registration</h2>
-          <div className="create-user-container">
+          <div className="vehicle-user-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -219,7 +222,10 @@ function Vehicle() {
                       id="vehicleLoadCapacity"
                       placeholder="Enter Vehicle Load Capacity"
                       value={vehicleLoadCapacity}
-                      onChange={(e) => setVehicleLoadCapacity(e.target.value)}
+                      onChange={(e) => {
+                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        setVehicleLoadCapacity(newValue);
+                      }}
                       required
                     />
                   </div>
@@ -251,7 +257,6 @@ function Vehicle() {
                       value={vehicleWheelsNo}
                       onChange={(e) => setvehicleWheelsNo(e.target.value)}
                     >
-                      <option value="">0</option>
                       <option value="6">6</option>
                       <option value="8">8</option>
                       <option value="10">10</option>
@@ -280,6 +285,7 @@ function Vehicle() {
                     }}
                     onClick={handleCancel}
                   >
+                    <FontAwesomeIcon icon={faTimes} className="me-1" />
                     Cancel
                   </button>
                   <button
@@ -296,6 +302,7 @@ function Vehicle() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

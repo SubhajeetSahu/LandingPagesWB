@@ -29,12 +29,12 @@ function ManageUser() {
   const handleDelete = async (userId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You are about to delete this user. This action cannot be undone.",
+      text: "You are about to inactive this user.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, inactivate it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -45,11 +45,11 @@ function ManageUser() {
             }
           );
           if (response.ok) {
-            Swal.fire("Deleted!", "The user is inactive now.", "success");
+            Swal.fire("Deactivated!", "The user is inactive now.", "success");
             // User deleted successfully, you can update the state or refetch the data
             fetchUserData();
           } else {
-            Swal.fire("Failed", "Failed to delete user", "error");
+            Swal.fire("Failed", "Failed to inactivate user", "error");
           }
         } catch (error) {
           Swal.fire(
@@ -66,7 +66,7 @@ function ManageUser() {
   const handleActivate = async (userId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You are about to activate this user. This action cannot be undone.",
+      text: "You are about to activate this user.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -149,7 +149,7 @@ function ManageUser() {
       <div className="ViewUser">
         <div className="view-user-content">
           <h2 className="text-center">View User</h2>
-          <div className="create-user-container">
+          <div className="maintain-user-container">
             <div className="filters">
               <Search
                 placeholder="Search User ID"
@@ -163,7 +163,7 @@ function ManageUser() {
               <Table
                 dataSource={users}
                 pagination={false} // Disable pagination here
-                className="user-table mt-3"
+                className="user-table mt-3 custom-table"
               >
                 <Column title="User ID" dataIndex="userId" key="userId" />
                 <Column
@@ -201,6 +201,9 @@ function ManageUser() {
                           case "MANAGEMENT":
                             color = "cyan";
                             break;
+                          case "SALES":
+                            color = "geekblue";
+                            break;
                           default:
                             color = "default";
                         }
@@ -236,42 +239,48 @@ function ManageUser() {
                     </Tag>
                   )}
                 />
-
                 <Column
                   title="Action"
                   key="action"
                   render={(text, record) => (
-                    <div className="action-buttons">
-                      <Button onClick={() => handleEdit(record)}>
-                        <FontAwesomeIcon
-                          icon={faPencilAlt}
-                          className="action-icon activate-icon"
-                        />
-                      </Button>
-                      {record.status === "INACTIVE" ? ( // Check if status is "INACTIVE"
-                        <Button
-                          onClick={() => handleActivate(record.userId)}
-                          style={{ marginLeft: "8px" }}
-                        >
-                          <FontAwesomeIcon
-                            icon={faUserCheck}
-                            style={{ color: "green" }}
-                            className="action-icon activate-icon"
-                          />
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={() => handleDelete(record.userId)}
-                          style={{ marginLeft: "8px" }}
-                        >
-                          <FontAwesomeIcon
-                            icon={faUserXmark}
-                            style={{ color: "red" }}
-                            className="action-icon delete-icon"
-                          />
-                        </Button>
+                    <>
+                      {/* Check if the user's role is not "ADMIN" */}
+                      {!record.role.includes("ADMIN") && (
+                        <div className="action-buttons">
+                          {record.status === "ACTIVE" && (
+                            <Button onClick={() => handleEdit(record)}>
+                              <FontAwesomeIcon
+                                icon={faPencilAlt}
+                                style={{ color: "orange" }} // Inline style for orange color
+                                className="action-icon activate-icon"
+                              />
+                            </Button>
+                          )}
+                          {record.status === "INACTIVE" ? (
+                            <Button
+                              onClick={() => handleActivate(record.userId)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faUserCheck}
+                                style={{ color: "green" }}
+                                className="action-icon activate-icon"
+                              />
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => handleDelete(record.userId)}
+                              style={{ marginLeft: "8px" }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faUserXmark}
+                                style={{ color: "red" }}
+                                className="action-icon delete-icon"
+                              />
+                            </Button>
+                          )}
+                        </div>
                       )}
-                    </div>
+                    </>
                   )}
                 />
               </Table>

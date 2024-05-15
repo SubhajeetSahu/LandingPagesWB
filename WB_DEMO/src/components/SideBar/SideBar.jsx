@@ -28,50 +28,54 @@ import {
   Group,
   ExitToApp,
   Build,
-  Handyman
+  Handyman,
+  Visibility,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
- 
- 
-const Sidebar = ({ children }) => {
+
+
+const SideBar = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [openView, setOpenView] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
- 
+
   const isLargeScreen = useMediaQuery("(min-width:600px)");
- 
+
   const handleUserClick = () => {
     setOpenUser(!openUser);
     setSelectedItem(openUser ? null : "user");
   };
- 
+
+  const handleViewClick = () => {
+    setOpenView(!openView);
+    setSelectedItem(openView ? null : "view");
+  };
+
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
- 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+
+  const toggleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
   };
- 
+
   const handleUserProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
- 
+
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
+
   const userName = sessionStorage.getItem("userName");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const userId = sessionStorage.getItem("userId");
-  console.log(userName, roles, userId);
- 
+
   const open = Boolean(anchorEl);
- 
- 
- 
+
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -85,18 +89,18 @@ const Sidebar = ({ children }) => {
       if (result.isConfirmed) {
         // Clear session storage
         sessionStorage.clear();
- 
+
         // Clear browser history and redirect
         window.location.href = "/";
- 
+
         // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
           // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
- 
+
           // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
- 
+
           // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
@@ -105,7 +109,7 @@ const Sidebar = ({ children }) => {
       }
     });
   };
- 
+
   return (
     <>
       <Box
@@ -124,7 +128,7 @@ const Sidebar = ({ children }) => {
             padding: "15px",
           }}
         >
-          <IconButton onClick={toggleSidebar}>
+          <IconButton onClick={toggleSideBar}>
             <MenuIcon sx={{ color: "white" }} />
           </IconButton>
           <Typography
@@ -180,8 +184,8 @@ const Sidebar = ({ children }) => {
       </Box>
       <Drawer
         variant="temporary"
-        open={isSidebarOpen}
-        onClose={toggleSidebar}
+        open={isSideBarOpen}
+        onClose={toggleSideBar}
         sx={{
           width: 240,
           flexShrink: 0,
@@ -204,12 +208,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -218,7 +220,7 @@ const Sidebar = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItemButton>
-       
+        
           <ListItemButton
             onClick={handleUserClick}
             selected={selectedItem === "user"}
@@ -226,12 +228,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -256,7 +256,6 @@ const Sidebar = ({ children }) => {
                   "&.Mui-selected, &:hover": {
                     backgroundColor: "#3e8ee6",
                     color: "white",
-                     
                   },
                 }}
               >
@@ -271,7 +270,6 @@ const Sidebar = ({ children }) => {
                   "&.Mui-selected, &:hover": {
                     backgroundColor: "#3e8ee6",
                     color: "white",
-                     
                   },
                 }}
               >
@@ -279,21 +277,121 @@ const Sidebar = ({ children }) => {
               </ListItemButton>
             </List>
           </Collapse>
+
+          {/* New Dropdown */}
           <ListItemButton
-            component={Link}
-            to="/role-management"
-            selected={selectedItem === "role"}
-             sx={{
+            onClick={handleViewClick}
+            selected={selectedItem === "view"}
+            sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-         
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Visibility />
+            </ListItemIcon>
+            <ListItemText primary="View Management" />
+            {openView ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openView} timeout="auto" unmountOnExit>
+            <List
+              component="div"
+              disablePadding
+              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+            >
+              <ListItemButton
+                component={Link}
+                to="/view-company"
+                onClick={() => handleItemClick("viewCompany")}
+                selected={selectedItem === "viewCompany"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                }}
+              >
+                <ListItemText primary="View Company" />
+              </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/view-supplier"
+                onClick={() => handleItemClick("viewSupplier")}
+                selected={selectedItem === "viewSupplier"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                }}
+              >
+                <ListItemText primary="View Supplier" />
+              </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/view-customer"
+                onClick={() => handleItemClick("viewCustomer")}
+                selected={selectedItem === "viewCustomer"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                }}
+              >
+                <ListItemText primary="View Customer" />
+              </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/view-transporter"
+                onClick={() => handleItemClick("viewTransporter")}
+                selected={selectedItem === "viewTransporter"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                }}
+              >
+                <ListItemText primary="View Transporter" />
+              </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/view-vehicle"
+                onClick={() => handleItemClick("viewVehicle")}
+                selected={selectedItem === "viewVehicle"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                }}
+              >
+                <ListItemText primary="View Vehicle" />
+              </ListItemButton>
+            </List>
+            
+          </Collapse>
+          {/* End of New Dropdown */}
+
+          <ListItemButton
+            component={Link}
+            to="/role-management"
+            selected={selectedItem === "role"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
               },
             }}
           >
@@ -311,13 +409,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-   
               },
             }}
           >
@@ -335,13 +430,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-           
               },
             }}
           >
@@ -359,12 +451,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -382,13 +472,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-       
               },
             }}
           >
@@ -406,13 +493,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-       
               },
             }}
           >
@@ -430,13 +514,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-       
               },
             }}
           >
@@ -454,12 +535,10 @@ const Sidebar = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -469,17 +548,15 @@ const Sidebar = ({ children }) => {
             <ListItemText primary="Material Management" />
           </ListItemButton>
           <ListItemButton
-            onClick={handleSignOut}  
+            onClick={handleSignOut}   
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -493,7 +570,7 @@ const Sidebar = ({ children }) => {
       <div
         style={{
           transition: "margin-left 0.3s ease",
-          marginLeft: isSidebarOpen ? "240px" : "0",
+          marginLeft: isSideBarOpen ? "240px" : "0",
           overflowX: "hidden",
         }}
       >
@@ -502,4 +579,4 @@ const Sidebar = ({ children }) => {
     </>
   );
 };
-export default Sidebar;
+export default SideBar;

@@ -3,7 +3,6 @@
   margin-top: 1rem;
   margin-left: 3rem;
   margin-right: 3rem;
-  margin-bottom: 1rem;
 }
 
 
@@ -13,4 +12,25 @@
 
 .action-buttons button {
   margin-right: 8px;
+}
+
+
+
+/* ManageUser.css */
+.custom-table .ant-table-thead > tr > th {
+  background-color: #0077b6; /* Navy blue */
+  color: white;
+}
+
+.custom-table .ant-table-tbody > tr:nth-child(even) {
+  background-color: #f5f5f5; /* Light gray */
+}
+
+.custom-table .ant-table-tbody > tr:hover {
+  background-color: #e6f7ff; 
+}
+
+/* Change color of the filter icon */
+.custom-table .ant-table-filter-trigger .anticon-filter {
+  color: white;
 }

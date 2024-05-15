@@ -4,7 +4,6 @@ import {
   List,
   ListItemIcon,
   ListItemText,
-  Collapse,
   IconButton,
   ListItemButton,
   Typography,
@@ -15,46 +14,29 @@ import {
   Avatar,
 } from "@mui/material";
 import {
-  ExpandLess,
-  ExpandMore,
   Person,
-  DirectionsCar,
   Dashboard as DashboardIcon,
   Menu as MenuIcon,
-  Home,
-  BusinessCenter,
-  Store,
-  Commute,
-  Group,
   ExitToApp,
+  Assignment,
   Build,
-  Handyman,
 } from "@mui/icons-material";
-import PrintIcon from '@mui/icons-material/Print';
-import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./SideBar1.css";
 
-const SideBar5 = ({ children }) => {
-  const [openUser, setOpenUser] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+const SideBar6 = ({ children }) => {
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isLargeScreen = useMediaQuery("(min-width:600px)");
 
-  const handleUserClick = () => {
-    setOpenUser(!openUser);
-    setSelectedItem(openUser ? null : "user");
-  };
-
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+  const toggleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
   };
 
   const handleUserProfileClick = (event) => {
@@ -68,7 +50,6 @@ const SideBar5 = ({ children }) => {
   const userName = sessionStorage.getItem("userName");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const userId = sessionStorage.getItem("userId");
-  console.log(userName, roles, userId);
 
   const open = Boolean(anchorEl);
 
@@ -124,7 +105,7 @@ const SideBar5 = ({ children }) => {
             padding: "15px",
           }}
         >
-          <IconButton onClick={toggleSidebar}>
+          <IconButton onClick={toggleSideBar}>
             <MenuIcon sx={{ color: "white" }} />
           </IconButton>
           <Typography
@@ -168,12 +149,7 @@ const SideBar5 = ({ children }) => {
                 {userName}
               </Typography>
               <Typography
-                sx={{
-                  color: "white",
-                  textAlign: "center",
-                  mb: 1,
-                  fontWeight: "bold",
-                }}
+                sx={{ color: "white", textAlign: "center", mb: 1, fontWeight: "bold" }}
               >
                 User ID: {userId}
               </Typography>
@@ -189,8 +165,8 @@ const SideBar5 = ({ children }) => {
       </Box>
       <Drawer
         variant="temporary"
-        open={isSidebarOpen}
-        onClose={toggleSidebar}
+        open={isSideBarOpen}
+        onClose={toggleSideBar}
         sx={{
           width: 240,
           flexShrink: 0,
@@ -206,9 +182,9 @@ const SideBar5 = ({ children }) => {
         <List sx={{ marginTop: "120px" }}>
           <ListItemButton
             component={Link}
-            to="/OperatorTransaction"
-            onClick={() => handleItemClick("Transactions")}
-            selected={selectedItem === "Transactions"}
+            to="/home6"
+            onClick={() => handleItemClick("dashboard")}
+            selected={selectedItem === "dashboard"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
@@ -223,14 +199,13 @@ const SideBar5 = ({ children }) => {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Transactions" />
+            <ListItemText primary="Dashboard" />
           </ListItemButton>
-
           <ListItemButton
             component={Link}
-            // to="/print"
-            onClick={() => handleItemClick("Print")}
-            selected={selectedItem === "Print"}
+            to="/SalesOrder"
+            onClick={() => handleItemClick("SalesOrder")}
+            selected={selectedItem === "SalesOrder"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
@@ -243,15 +218,15 @@ const SideBar5 = ({ children }) => {
             }}
           >
             <ListItemIcon>
-              <PrintIcon />
+              <Assignment />
             </ListItemIcon>
-            <ListItemText primary="Print" />
+            <ListItemText primary="Sales Order" />
           </ListItemButton>
           <ListItemButton
             component={Link}
-            // to="/OperatorReport"
-            onClick={() => handleItemClick("Reports")}
-            selected={selectedItem === "Reports"}
+            to="/ProcessOrder"
+            onClick={() => handleItemClick("ProcessOrder")}
+            selected={selectedItem === "ProcessOrder"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
@@ -264,11 +239,10 @@ const SideBar5 = ({ children }) => {
             }}
           >
             <ListItemIcon>
-              <SummarizeIcon  />
+              <Build />
             </ListItemIcon>
-            <ListItemText primary="Reports" />
+            <ListItemText primary="Process Order" />
           </ListItemButton>
-          
           <ListItemButton
             onClick={handleSignOut}
             sx={{
@@ -292,7 +266,7 @@ const SideBar5 = ({ children }) => {
       <div
         style={{
           transition: "margin-left 0.3s ease",
-          marginLeft: isSidebarOpen ? "240px" : "0",
+          marginLeft: isSideBarOpen ? "240px" : "0",
           overflowX: "hidden",
         }}
       >
@@ -301,4 +275,4 @@ const SideBar5 = ({ children }) => {
     </>
   );
 };
-export default SideBar5;
+export default SideBar6;
