@@ -228,7 +228,6 @@ const SideBar5 = ({ children }) => {
 
           <ListItemButton
             component={Link}
-            to="/print"
             onClick={() => handleItemClick("Print")}
             selected={selectedItem === "Print"}
             sx={{
