@@ -13,6 +13,7 @@ import HomePage2 from "./components/HomePages/HomePage2.jsx";
 import HomePage3 from "./components/HomePages/HomePage3.jsx";
 import HomePage4 from "./components/HomePages/HomePage4.jsx";
 import HomePage5 from "./components/HomePages/HomePage5.jsx";
+import HomePage6 from "./components/HomePages/HomePage6.jsx";
 
 import CreateUser from "./components/Admin/CreateUser/CreateUser.jsx";
 import ManageUser from "./components/Admin/ManageUser/ManageUser.jsx";
@@ -62,6 +63,11 @@ import OperatorTransaction from "./components/Operator/src/components/transactio
 import OperatorReport from "./components/Operator/src/components/report/Report.jsx";
 import OperatorTransactionFromInbound from "./components/Operator/src/components/transactionform/TransactionFrom.jsx";
 import OperatorTransactionFromOutbound from "./components/Operator/src/components/transactionform1/Transactionform1.jsx";
+
+import SalesOrder from "./components/Sales/SalesOrder/SalesOrder.jsx";
+import ProcessOrder from "./components/Sales/ProcessOrder/ProcessOrder.jsx";
+import SideBar6 from "./components/SideBar/Sidebar6.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -71,6 +77,7 @@ const router = createBrowserRouter(
       <Route path="/home3" element={<HomePage3 />} />
       <Route path="/home4" element={<HomePage4 />} />
       <Route path="/home5" element={<HomePage5 />} />
+      <Route path="/home6" element={<HomePage6 />} />
 
       <Route path="/create-user" element={<CreateUser />} />
       <Route path="/manage-user" element={<ManageUser />} />
@@ -120,6 +127,11 @@ const router = createBrowserRouter(
       <Route path="/OperatorReport" element={<OperatorReport />} />
       <Route path="/OperatorTransactionFromInbound" element={<OperatorTransactionFromInbound />} />
       <Route path="/OperatorTransactionFromOutbound" element={<OperatorTransactionFromOutbound />} />
+
+      <Route path="/SalesOrder" element={<SalesOrder />} />
+      <Route path="/ProcessOrder" element={<ProcessOrder />} />
+      <Route path="/Sidebar6" element={<SideBar6 />} />
+
     </Route>
   )
 );

@@ -15,7 +15,7 @@ const ViewSupplier = () => {
 
   const columns = [
     {
-      title: 'Supplier ID',
+      title: 'ID',
       dataIndex: 'supplierId',
       key: 'supplierId',
     },
@@ -25,22 +25,22 @@ const ViewSupplier = () => {
       key: 'supplierName',
     },
     {
-      title: 'Supplier Email',
+      title: 'Email',
       dataIndex: 'supplierEmail',
       key: 'supplierEmail',
     },
     {
-      title: 'Supplier Contact No',
+      title: 'Contact No',
       dataIndex: 'supplierContactNo',
       key: 'supplierContactNo',
     },
     {
-      title: 'Supplier Address Line 1',
+      title: 'Address Line 1',
       dataIndex: 'supplierAddressLine1',
       key: 'supplierAddressLine1',
     },
     {
-      title: 'Supplier Address Line 2',
+      title: 'Address Line 2',
       dataIndex: 'supplierAddressLine2',
       key: 'supplierAddressLine2',
     },
