@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function QualityCheck() {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 5;
+  const itemsPerPage = 7;
   const navigate = useNavigate();
 
   const homeMainContentRef = useRef(null);
@@ -47,8 +47,8 @@ function QualityCheck() {
             in: item.in,
             out: item.out,
             transporterName: item.transporterName,
-            materialOrProduct: item.materialOrProduct,
-            materialTypeOrProductType: item.materialTypeOrProductType,
+            materialName: item.materialName,
+            materialType: item.materialType,
             tpNo: item.tpNo,
             poNo: item.poNo,
             challanNo: item.challanNo,
@@ -67,8 +67,8 @@ function QualityCheck() {
               in: data.in,
               out: data.out,
               transporterName: data.transporterName,
-              materialOrProduct: data.materialOrProduct,
-              materialTypeOrProductType: data.materialTypeOrProductType,
+              materialName: data.materialName,
+              materialType: data.materialType,
               tpNo: data.tpNo,
               poNo: data.poNo,
               challanNo: data.challanNo,
@@ -102,107 +102,10 @@ function QualityCheck() {
       return;
     }
 
-    const {
-      ticketNo,
-      date,
-      vehicleNo,
-      transporterName,
-      tpNo,
-      poNo,
-      challanNo,
-      supplierOrCustomerName,
-      supplierOrCustomerAddress,
-      materialOrProduct,
-      materialTypeOrProductType,
-      transactionType,
-      "Moisture %": moisture,
-      "Vm %": vm,
-      "Ash %": ash,
-      "Fc %": fc,
-    } = item;
+    
 
     const content = `
-      <div style="font-family: Calibri; text-align: center;">
-        <p style="margin: 0; font-weight: bold; font-size: 16pt;">Vikram Private Limited</p>
-        <p style="margin: 0; font-size: 11pt;">Bad Tumkela, Rajamunda</p>
-        <p style="margin: 0; font-size: 11pt;">Sundargarh- 770050</p>
-        <p style="margin: 0; font-size: 11pt;">GSTIN- 21AABCV4695C1ZI</p>
-      </div>
- 
-      <p style="text-align: center; margin-top: 10px; margin-bottom: 10px; font-size: 14pt;">***********************************************************************</p>
- 
-      <div style="text-align: left;">
-        <p style="font-family: Calibri; font-weight: bold; text-decoration: underline; margin-bottom: 5px;">${materialOrProduct} Test Report</p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Dtd: -</span>
-          <span style="font-weight: lighter;">${date}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Supplier/customer:</span>
-          <span style="font-weight: lighter;">${supplierOrCustomerName}</span>
-        </p>
-        <p style="font-family: Calibri; font-weight: lighter; margin: 0;">${supplierOrCustomerAddress}</p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Vehicle No: -</span>
-          <span style="font-weight: lighter;">${vehicleNo}</span>
-        </p>
-        <p style="font-family: Calibri; font-weight: normal; margin: 0;">Name of Product : ${materialOrProduct} (<strong>${materialTypeOrProductType}</strong>)</p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Ticket No.:</span>
-          <span style="font-weight: lighter;">${ticketNo}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Transporter:</span>
-          <span style="font-weight: lighter;">${transporterName}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">TP No/Invoice No:</span>
-          <span style="font-weight: lighter;">${tpNo}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Po No:</span>
-          <span style="font-weight: lighter;">${poNo}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-          <span style="font-weight: normal;">Challan No:</span>
-          <span style="font-weight: lighter;">${challanNo}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Supplier/customer:</span>
-        <span style="font-weight: lighter;">${supplierOrCustomerName}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Supplier/customer Address:</span>
-        <span style="font-weight: lighter;">${supplierOrCustomerAddress}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Transaction Type:</span>
-        <span style="font-weight: lighter;">${transactionType}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Moisture %:</span>
-        <span style="font-weight: lighter;">${moisture}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Vm %:</span>
-        <span style="font-weight: lighter;">${vm}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Ash %:</span>
-        <span style="font-weight: lighter;">${ash}</span>
-        </p>
-        <p style="font-family: Calibri; margin: 0;">
-        <span style="font-weight: normal;">Fc %:</span>
-        <span style="font-weight: lighter;">${fc}</span>
-        </p>
-        <br>
-        </div>
-        <div style="text-align: left;">
-        <p style="font-family: Calibri; font-weight: bold; margin: 40px 0 0 0;">Chief Chemist</p>
-        <p style="font-family: Calibri; font-weight: bold; margin: 0;">For Vikram Private Limited</p>
-        <br/><br/><br/><br/><br/>
-        <p style="font-family: Calibri; font-weight: bold; margin: 0;">Authorised Signatory</p>
-        </div>
+    <div> <h1> Pdf here </h1></div>
         `;
     const blob = new Blob([content], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
@@ -245,11 +148,12 @@ function QualityCheck() {
   };
 
   return (
-    <div>
-      <SideBar3 />
-      <div className="container mt-4">
-        <div className="mb-3 text-center">
-          <h2 className="text-dark">Quality Dashboard</h2>
+    <div style={{ fontFamily: 'Arial', color: '#333' }}>
+    <SideBar3 />
+    <div className="container-fluid mt-0">
+      <div className="mb-3 text-center">
+        <h2 style={{ fontFamily: 'Arial', marginBottom: 0 }}>Quality Dashboard</h2>
+
           <input
             type="date"
             id="date"
@@ -262,24 +166,21 @@ function QualityCheck() {
         </div>
 
         <div className="table-responsive">
-          <table className="table table-bordered table-striped">
+        <table className="table table-bordered table-striped" style={{ fontFamily: 'Arial', borderRadius: '10px' }}>
             <thead className="thead-light">
               <tr>
-                <th>Ticket No.</th>
-                <th>Date</th>
-                <th>Vehicle No.</th>
-                <th>In</th>
-                <th>Out</th>
-                <th>Transporter Name</th>
-                <th>Product/Material</th>
-                <th>Product/Material Type</th>
-                <th>TP No/Invoice No</th>
-                <th>Po No</th>
-                <th>Challan No</th>
-                <th>Supplier/Customer</th>
-                <th>Supplier/Customer Address</th>
-                <th>Transaction Type</th>
-                <th>Download</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Ticket No.</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Date</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Vehicle No.</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>In</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Out</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Transporter Name</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Product/Material</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Product/Material Type</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Supplier/Customer</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Supplier/Customer Address</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Transaction Type</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Download</th>
               </tr>
             </thead>
             <tbody>
@@ -290,32 +191,31 @@ function QualityCheck() {
                     <td>
                       <a
                         href="#"
-                        onClick={() => handleTicketClick(item.ticketNo, item.materialOrProduct)}
+                        onClick={() => handleTicketClick(item.ticketNo, item.materialName)}
                         className="text-primary"
                       >
                         {item.ticketNo}
                       </a>
                     </td>
-                    <td>{item.date}</td>
-                    <td>{item.vehicleNo}</td>
-                    <td>{item.in}</td>
-                    <td>{item.out}</td>
-                    <td>{item.transporterName}</td>
-                    <td>{item.materialOrProduct}</td>
-                    <td>{item.materialTypeOrProductType}</td>
-                    <td>{item.tpNo}</td>
-                    <td>{item.poNo}</td>
-                    <td>{item.challanNo}</td>
-                    <td>{item.supplierOrCustomerName}</td>
-                    <td>{item.supplierOrCustomerAddress}</td>
-                    <td>{item.transactionType}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.date}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.vehicleNo}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.in}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.out}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.transporterName}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.materialName}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.materialType}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.supplierOrCustomerName}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.supplierOrCustomerAddress}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.transactionType}</td>
                     <td>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() => handleDownload(item.ticketNo)}
-                      >
-                        <FontAwesomeIcon icon={faFileWord} />
-                      </button>
+                    <button
+    className="btn btn-success btn-sm"
+    onClick={() => handleDownload(item.ticketNo)}
+    disabled // add disabled attribute to disable the button
+>
+    <FontAwesomeIcon icon={faFileWord} />
+</button>
+
                     </td>
                   </tr>
                 ))}
