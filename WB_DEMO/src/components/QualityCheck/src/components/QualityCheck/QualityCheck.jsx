@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function QualityCheck() {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 5;
+  const itemsPerPage = 7;
   const navigate = useNavigate();
 
   const homeMainContentRef = useRef(null);
@@ -100,29 +100,10 @@ function QualityCheck() {
     if (!item) {
       console.error("Ticket not found. Unable to generate the document.");
       return;
-    }
-
-    const {
-      ticketNo,
-      date,
-      vehicleNo,
-      transporterName,
-      tpNo,
-      poNo,
-      challanNo,
-      supplierOrCustomerName,
-      supplierOrCustomerAddress,
-      materialName,
-      materialType,
-      transactionType,
-      "Moisture %": moisture,
-      "Vm %": vm,
-      "Ash %": ash,
-      "Fc %": fc,
-    } = item;
+    }    
 
     const content = `
-    <h>Pdf file here </h>
+    <div> <h1> Pdf here </h1></div>
         `;
     const blob = new Blob([content], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
@@ -165,11 +146,11 @@ function QualityCheck() {
   };
 
   return (
-    <div>
-      <SideBar3 />
-      <div className="container mt-0">
-        <div className="mb-3 text-center">
-          <h2 className="text-dark">Quality Dashboard</h2>
+    <div style={{ fontFamily: 'Arial', color: '#333' }}>
+    <SideBar3 />
+    <div className="container-fluid mt-0">
+      <div className="mb-3 text-center">
+        <h2 style={{ fontFamily: 'Arial', marginBottom: 0 }}>Quality Dashboard</h2>
           <input
             type="date"
             id="date"
@@ -182,24 +163,21 @@ function QualityCheck() {
         </div>
 
         <div className="table-responsive">
-          <table className="table table-bordered table-striped">
-            <thead className="thead-dark">
+        <table className="table table-bordered table-striped" style={{ fontFamily: 'Arial', borderRadius: '10px' }}>
+            <thead className="thead-light">
               <tr>
-                <th>Ticket No.</th>
-                <th>Date</th>
-                <th>Vehicle No.</th>
-                <th>In</th>
-                <th>Out</th>
-                <th>Transporter Name</th>
-                <th>Product/Material</th>
-                <th>Product/Material Type</th>
-                <th>TP No/Invoice No</th>
-                <th>Po No</th>
-                <th>Challan No</th>
-                <th>Supplier/Customer</th>
-                <th>Supplier/Customer Address</th>
-                <th>Transaction Type</th>
-                <th>Download</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Ticket No.</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Date</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Vehicle No.</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>In</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Out</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Transporter Name</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Product/Material</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Product/Material Type</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Supplier/Customer</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Supplier/Customer Address</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Transaction Type</th>
+                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Download</th>
               </tr>
             </thead>
             <tbody>
@@ -216,26 +194,25 @@ function QualityCheck() {
                         {item.ticketNo}
                       </a>
                     </td>
-                    <td>{item.date}</td>
-                    <td>{item.vehicleNo}</td>
-                    <td>{item.in}</td>
-                    <td>{item.out}</td>
-                    <td>{item.transporterName}</td>
-                    <td>{item.materialName}</td>
-                    <td>{item.materialType}</td>
-                    <td>{item.tpNo}</td>
-                    <td>{item.poNo}</td>
-                    <td>{item.challanNo}</td>
-                    <td>{item.supplierOrCustomerName}</td>
-                    <td>{item.supplierOrCustomerAddress}</td>
-                    <td>{item.transactionType}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.date}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.vehicleNo}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.in}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.out}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.transporterName}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.materialName}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.materialType}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.supplierOrCustomerName}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.supplierOrCustomerAddress}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{item.transactionType}</td>
                     <td>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() => handleDownload(item.ticketNo)}
-                      >
-                        <FontAwesomeIcon icon={faFileWord} />
-                      </button>
+                    <button
+    className="btn btn-success btn-sm"
+    onClick={() => handleDownload(item.ticketNo)}
+    disabled // add disabled attribute to disable the button
+>
+    <FontAwesomeIcon icon={faFileWord} />
+</button>
+
                     </td>
                   </tr>
                 ))}
