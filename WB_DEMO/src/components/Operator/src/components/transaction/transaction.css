@@ -52,14 +52,12 @@ margin-left: 0px;
   width: 90px;
 }
 
-
-
-
-input{
+.date input{
   border: none;
   outline: none;
   text-align: center;
-} 
+}  
+
 .Date1{
   width: 110px;
   background-color: rgb(194, 196, 203);

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import SideBar6 from '../SideBar/Sidebar6';
 import './HomePage6.css';
+
 
 const HomePage6 = () => {
   const [sales, setSales] = useState([]);
@@ -16,17 +17,20 @@ const HomePage6 = () => {
   }, []);
 
   const columns = [
-    {
-      title: 'Purchase Order No',
-      dataIndex: 'purchaseOrderNo',
-      key: 'purchaseOrderNo',
-      render: (text, record) => <a onClick={() => handleRowClick(record)}>{text}</a>,
-    },
+
     {
       title: 'Sale Order No',
       dataIndex: 'saleOrderNo',
       key: 'saleOrderNo',
+      render: (text, record) => <a onClick={() => handleRowClick(record)}>{text}</a>,
     },
+    {
+      title: 'Purchase Order No',
+      dataIndex: 'purchaseOrderNo',
+      key: 'purchaseOrderNo',
+   
+    },
+    
     {
       title: 'Customer Name',
       dataIndex: 'customerName',
@@ -50,15 +54,16 @@ const HomePage6 = () => {
   ];
 
   const handleRowClick = (record) => {
-    navigate('/ProcessOrder', { state: { purchaseOrderNo: record.purchaseOrderNo, productName: record.productName } });
+    navigate('/ProcessOrder', { state: { saleOrderNo: record.saleOrderNo, productName: record.productName } });
   };
 
   return (
     <SideBar6>
-      <div className='home-page-6'>
+      <div className='home-page-6 container-fluid'>
         <h2 className="text-center">Sales Dashboard</h2>
         <div>
-          <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo" />
+          <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo " 
+          className="user-table mt-3 custom-table" />
         </div>
       </div>
     </SideBar6>

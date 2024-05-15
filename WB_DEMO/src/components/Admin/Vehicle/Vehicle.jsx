@@ -222,7 +222,10 @@ function Vehicle() {
                       id="vehicleLoadCapacity"
                       placeholder="Enter Vehicle Load Capacity"
                       value={vehicleLoadCapacity}
-                      onChange={(e) => setVehicleLoadCapacity(e.target.value)}
+                      onChange={(e) => {
+                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        setVehicleLoadCapacity(newValue);
+                      }}
                       required
                     />
                   </div>
@@ -254,7 +257,6 @@ function Vehicle() {
                       value={vehicleWheelsNo}
                       onChange={(e) => setvehicleWheelsNo(e.target.value)}
                     >
-                      <option value="">0</option>
                       <option value="6">6</option>
                       <option value="8">8</option>
                       <option value="10">10</option>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./SalesOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
@@ -11,14 +11,35 @@ function SalesOrder() {
   const [purchaseOrderNo, setPurchaseOrderNo] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
-  const [customerContact, setCustomerContact] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
   const [productName, setProductName] = useState("");
   const [orderedQuantity, setOrderedQuantity] = useState("");
   const [brokerName, setBrokerName] = useState("");
   const [brokerAddress, setBrokerAddress] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
+  const [customerNames, setCustomerNames] = useState([]);
+  const [productNames, setProductNames] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/v1/customers/names")
+      .then((response) => response.json())
+      .then((data) => setCustomerNames(data))
+      .catch((error) => console.error("Error fetching customer names:", error));
+
+    fetch("http://localhost:8080/api/v1/materials/names")
+      .then((response) => response.json())
+      .then((data) => setProductNames(data))
+      .catch((error) => console.error("Error fetching product names:", error));
+  }, []);
+
+
+  const handleCustomerNameChange = (event) => {
+    const selectedCustomerName = event.target.value;
+    setCustomerName(selectedCustomerName);
+
+    fetch(`http://localhost:8080/api/v1/customers/get/${encodeURIComponent(selectedCustomerName)}`)
+      .then((response) => response.json())
+      .then((data) => setCustomerAddress(data[0]))
+      .catch((error) => console.error("Error fetching customer address:", error));
+  };
 
   const handleCancel = () => {
     setPurchaseOrderedDate("");
@@ -26,114 +47,10 @@ function SalesOrder() {
     setSaleOrderNo("");
     setCustomerName("");
     setCustomerAddress("");
-    setCustomerContact("");
-    setCustomerEmail("");
     setProductName("");
     setOrderedQuantity("");
     setBrokerName("");
     setBrokerAddress("");
-    setEmailError("");
-    setPhoneError("");
-  };
-
-  const handleSave = () => {
-    let emailIsValid = true;
-    let phoneIsValid = true;
-
-    if (
-      !purchaseOrderedDate ||
-      !customerName ||
-      !customerAddress ||
-      !productName ||
-      !purchaseOrderNo ||
-      !orderedQuantity
-    ) {
-      Swal.fire({
-        title: "Please fill in all the required fields.",
-        icon: "warning",
-        confirmButtonText: "OK",
-        customClass: {
-          confirmButton: "btn btn-warning",
-        },
-      });
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (customerEmail !== "" && !emailRegex.test(customerEmail)) {
-      setEmailError("Please enter a valid email address.");
-      emailIsValid = false;
-    } else {
-      setEmailError("");
-    }
-
-    const phoneRegex = /^\d{10}$/;
-    if (customerContact !== "" && !phoneRegex.test(customerContact)) {
-      setPhoneError("Please enter a valid 10-digit phone number.");
-      phoneIsValid = false;
-    } else {
-      setPhoneError("");
-    }
-
-    if (!emailIsValid || !phoneIsValid) {
-      return;
-    }
-
-    const salesOrderData = {
-      purchaseOrderedDate,
-      purchaseOrderNo,
-      saleOrderNo,
-      customerName,
-      customerAddress,
-      customerContact,
-      customerEmail,
-      productName,
-      orderedQuantity,
-      brokerName,
-      brokerAddress,
-    };
-
-    fetch("http://localhost:8080/api/v1/sales/add/salesdetail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(salesOrderData),
-      credentials: "include",
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.text();
-        } else {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
-        }
-      })
-      .then((data) => {
-        console.log("Response from the API:", data);
-        Swal.fire({
-          title: "Sales order added successfully",
-          icon: "success",
-          confirmButtonText: "OK",
-          customClass: {
-            confirmButton: "btn btn-success",
-          },
-        });
-        handleCancel();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        Swal.fire({
-          title: "Error",
-          text: error.message,
-          icon: "error",
-          confirmButtonText: "OK",
-          customClass: {
-            confirmButton: "btn btn-danger",
-          },
-        });
-      });
   };
 
   return (
@@ -141,7 +58,7 @@ function SalesOrder() {
       <div className="sales-order-management">
         <div className="sales-order-main-content">
           <h2 className="text-center">Sales Order Management</h2>
-          <div className="sales-order-card-container">
+          <div className="sales-order-card-container container-fluid">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -149,10 +66,7 @@ function SalesOrder() {
               <form>
                 <div className="row mb-2">
                   <div className="col-md-4">
-                    <label
-                      htmlFor="purchaseOrderedDate"
-                      className="form-label"
-                    >
+                    <label htmlFor="purchaseOrderedDate" className="form-label">
                       Purchase Ordered Date{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
@@ -186,7 +100,10 @@ function SalesOrder() {
                   </div>
                   <div className="col-md-4">
                     <label htmlFor="saleOrderNo" className="form-label">
-                      Sale Order No
+                      Sale Order No{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"
@@ -206,60 +123,21 @@ function SalesOrder() {
                         *
                       </span>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
+                    <select
+                      className="form-select"
                       id="customerName"
-                      placeholder="Enter Customer Name"
                       value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
-
-                    />
+                      onChange={handleCustomerNameChange}
+                    >
+                      <option value="">Select Customer Name</option>
+                      {customerNames.map((name) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="col-md-6">
-                    <label htmlFor="customerEmail" className="form-label">
-                      Customer Email{" "}
-                    </label>
-                    <input
-                      type="email"
-                      className={`form-control ${emailError ? "is-invalid" : ""
-                        }`}
-                      id="customerEmail"
-                      placeholder="Enter Customer Email"
-                      value={customerEmail}
-                      required
-                      onChange={(e) => setCustomerEmail(e.target.value)}
-                    />
-                    {emailError && (
-                      <div className="invalid-feedback">{emailError}</div>
-                    )}
-                  </div>
-                </div>
-                <div className="row mb-2">
-                  <div className="col-md-6">
-                    <label htmlFor="customerContact" className="form-label">
-                      Customer Contact{" "}
-                    </label>
-                    <input
-                      type="tel"
-                      className={`form-control ${phoneError ? "is-invalid" : ""
-                        }`}
-                      id="customerContact"
-                      placeholder="Enter Customer Contact"
-                      value={customerContact}
-                      onChange={(e) => setCustomerContact(e.target.value)}
-        
-                      pattern="\d{10}"
-                      title="Please enter 10 numbers"
-                      maxLength="10"
-                      onInput={(e) =>
-                        (e.target.value = e.target.value.replace(/\D/g, ""))
-                      }
-                    />
-                    {phoneError && (
-                      <div className="invalid-feedback">{phoneError}</div>
-                    )}
-                  </div>
+  
                   <div className="col-md-6">
                     <label htmlFor="customerAddress" className="form-label">
                       Customer Address{" "}
@@ -271,30 +149,34 @@ function SalesOrder() {
                       type="text"
                       className="form-control"
                       id="customerAddress"
-                      placeholder="Enter Customer Address"
+                      placeholder="Customer Address"
                       value={customerAddress}
-                      onChange={(e) => setCustomerAddress(e.target.value)}
-                      required
+                      readOnly
                     />
                   </div>
                 </div>
+  
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label htmlFor="productName" className="form-label">
+                   <label htmlFor="productName" className="form-label">
                       Product Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
+                    <select
+                      className="form-select"
                       id="productName"
-                      placeholder="Enter Product Name"
                       value={productName}
                       onChange={(e) => setProductName(e.target.value)}
-                      required
-                    />
+                    >
+                      <option value="">Select Product Name</option>
+                      {productNames.map((name) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="orderedQuantity" className="form-label">
@@ -310,7 +192,10 @@ function SalesOrder() {
                       placeholder="Enter Ordered Quantity"
                       value={orderedQuantity}
                       required
-                      onChange={(e) => setOrderedQuantity(e.target.value)}
+                      onChange={(e) => {
+                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        setOrderedQuantity(newValue);
+                      }}
                     />
                   </div>
                 </div>
@@ -351,7 +236,6 @@ function SalesOrder() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-
                       fontWeight: "600",
                     }}
                     onClick={handleCancel}
@@ -367,10 +251,9 @@ function SalesOrder() {
                       color: "black",
                       fontWeight: "600",
                       width: "100px",
-
                       border: "1px solid #cccccc",
                     }}
-                    onClick={handleSave}
+                    // onClick={handleSave}
                   >
                     <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save

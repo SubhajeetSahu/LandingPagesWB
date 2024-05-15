@@ -34,7 +34,7 @@ function QualityCheck() {
       const response = await fetch(
         `http://localhost:8080/api/v1/qualities/getAllTransaction`,
         {
-          credentials: "include", // Include credentials with the request
+          credentials: "include", 
         }
       );
       if (response.ok) {
@@ -100,9 +100,7 @@ function QualityCheck() {
     if (!item) {
       console.error("Ticket not found. Unable to generate the document.");
       return;
-    }
-
-    
+    }    
 
     const content = `
     <div> <h1> Pdf here </h1></div>
@@ -153,7 +151,6 @@ function QualityCheck() {
     <div className="container-fluid mt-0">
       <div className="mb-3 text-center">
         <h2 style={{ fontFamily: 'Arial', marginBottom: 0 }}>Quality Dashboard</h2>
-
           <input
             type="date"
             id="date"

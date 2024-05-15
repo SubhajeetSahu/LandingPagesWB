@@ -4,7 +4,6 @@ import {
   List,
   ListItemIcon,
   ListItemText,
-  Collapse,
   IconButton,
   ListItemButton,
   Typography,
@@ -15,64 +14,48 @@ import {
   Avatar,
 } from "@mui/material";
 import {
-  ExpandLess,
-  ExpandMore,
-  Person,
-  DirectionsCar,
   Dashboard as DashboardIcon,
   Menu as MenuIcon,
-  Home,
-  BusinessCenter,
-  Store,
-  Commute,
-  Group,
-  ExitToApp,
-  Build,
-  Handyman
+  Person,
+  Print,
+  Report,
+  Camera,
+  DirectionsCar,
+  ExitToApp
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./SideBar1.css";
- 
- 
-const Sidebar2 = ({ children }) => {
-  const [openUser, setOpenUser] = useState(false);
+import "./SideBar.css";
+
+const SideBarElements = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
- 
+
   const isLargeScreen = useMediaQuery("(min-width:600px)");
- 
-  const handleUserClick = () => {
-    setOpenUser(!openUser);
-    setSelectedItem(openUser ? null : "user");
-  };
- 
+
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
- 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
- 
+
   const handleUserProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
- 
+
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
+
   const userName = sessionStorage.getItem("userName");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const userId = sessionStorage.getItem("userId");
-  console.log(userName, roles, userId);
- 
+
   const open = Boolean(anchorEl);
- 
- 
- 
+
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -84,21 +67,11 @@ const Sidebar2 = ({ children }) => {
       confirmButtonText: "Yes, sign out",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Clear session storage
         sessionStorage.clear();
- 
-        // Clear browser history and redirect
         window.location.href = "/";
- 
-        // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
-          // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
- 
-          // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
- 
-          // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
           };
@@ -106,7 +79,7 @@ const Sidebar2 = ({ children }) => {
       }
     });
   };
- 
+
   return (
     <>
       <Box
@@ -173,7 +146,7 @@ const Sidebar2 = ({ children }) => {
               </Typography>
               <Divider sx={{ backgroundColor: "white", mb: 1 }} />
               <Typography sx={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
-                Roles: {roles.join(", ")}
+                Roles: {roles}
               </Typography>
             </Box>
           </Popover>
@@ -199,18 +172,16 @@ const Sidebar2 = ({ children }) => {
           <ListItemButton
             component={Link}
             to="/VehicleEntry"
-            onClick={() => handleItemClick("Dashboard")}
-            selected={selectedItem === "Dashboard"}
+            onClick={() => handleItemClick("dashboard")}
+            selected={selectedItem === "dashboard"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -219,142 +190,126 @@ const Sidebar2 = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItemButton>
-       
-          
+
           <ListItemButton
             component={Link}
             to="/VehicleEntryDetails"
-            onClick={() => handleItemClick("Inbound")}
             selected={selectedItem === "Inbound"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-   
               },
             }}
           >
             <ListItemIcon>
-              <BusinessCenter />
+              <DirectionsCar />
             </ListItemIcon>
             <ListItemText primary="Inbound" />
           </ListItemButton>
 
           <ListItemButton
             component={Link}
-            to=""
-            onClick={() => handleItemClick("Outbound")}
+            // to="/VehicleEntry-Outbound"
+            to="/Sales-Details"
             selected={selectedItem === "Outbound"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-           
               },
             }}
           >
             <ListItemIcon>
-              <Home />
+              < DirectionsCar />
             </ListItemIcon>
             <ListItemText primary="Outbound" />
           </ListItemButton>
 
           <ListItemButton
             component={Link}
-            to="/Report"
-            onClick={() => handleItemClick("Reports")}
-            selected={selectedItem === "Reports"}
+            to="/reports"
+            onClick={() => handleItemClick("report")}
+            selected={selectedItem === "report"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
             <ListItemIcon>
-              <DashboardIcon />
+              <Report />
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
 
           <ListItemButton
             component={Link}
-            to="/Print"
-            onClick={() => handleItemClick("Print")}
-            selected={selectedItem === "Print"}
+            to="/print"
+            onClick={() => handleItemClick("print")}
+            selected={selectedItem === "print"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
             <ListItemIcon>
-              <DashboardIcon />
+              <Print />
             </ListItemIcon>
             <ListItemText primary="Print" />
           </ListItemButton>
 
           <ListItemButton
             component={Link}
-            to="/Camera"
-            onClick={() => handleItemClick("Camera")}
-            selected={selectedItem === "Camera"}
+            to="/camera"
+            onClick={() => handleItemClick("camera")}
+            selected={selectedItem === "camera"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
             <ListItemIcon>
-              <DashboardIcon />
+              <Camera />
             </ListItemIcon>
             <ListItemText primary="Camera" />
           </ListItemButton>
 
           <ListItemButton
-            onClick={handleSignOut}  
+            onClick={handleSignOut}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
             }}
           >
@@ -377,4 +332,4 @@ const Sidebar2 = ({ children }) => {
     </>
   );
 };
-export default Sidebar2;
+export default SideBarElements;

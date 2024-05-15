@@ -19,23 +19,23 @@ const QualityInboundCoalDetails = () => {
   const [searchParams] = useSearchParams();
 
   const [formData, setFormData] = useState({
-    date: "",
-    inTime: "",
-    outTime: "",
-    vehicleNo: "",
-    transporterName: "",
-    transactionType: "",
-    ticketNo: "",
-    tpNo: "",
-    poNo: "",
-    challanNo: "",
-    supplierOrCustomerName: "",
-    supplierOrCustomerAddress: "",
-    materialOrProduct: "",
-    materialTypeOrProductType: "",
+    date: null,
+    inTime: null,
+    outTime: null,
+    vehicleNo: null,
+    transporterName: null,
+    transactionType: null,
+    ticketNo: null,
+    tpNo: null,
+    poNo: null,
+    challanNo: null,
+    supplierOrCustomerName: null,
+    supplierOrCustomerAddress: null,
+    materialName: null,
+    materialType: null,
   });
 
-  const [parameterRanges, setParameterRanges] = useState({});
+  const [parameters, setparameters] = useState({});
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -52,16 +52,16 @@ const QualityInboundCoalDetails = () => {
       challanNo: urlParams.get("challanNo"),
       supplierOrCustomerName: urlParams.get("supplierOrCustomerName"),
       supplierOrCustomerAddress: urlParams.get("supplierOrCustomerAddress"),
-      materialOrProduct: urlParams.get("materialOrProduct"),
-      materialTypeOrProductType: urlParams.get("materialTypeOrProductType"),
+      materialName: urlParams.get("materialName"),
+      materialType: urlParams.get("materialType"),
     };
 
     setFormData(urlData);
 
-    const fetchParameterRanges = async () => {
+    const fetchparameters = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/materials/${urlData.materialOrProduct}/parameters`
+          `http://localhost:8080/api/v1/materials/${urlData.materialName}/parameters`
         );
         const data = await response.json();
         if (data.length > 0 && data[0].parameters) {
@@ -72,15 +72,15 @@ const QualityInboundCoalDetails = () => {
             };
             return acc;
           }, {});
-          setParameterRanges(ranges);
+          setparameters(ranges);
         }
       } catch (error) {
         console.error("Error fetching parameter ranges:", error);
       }
     };
 
-    if (urlData.materialOrProduct && urlData.materialTypeOrProductType) {
-      fetchParameterRanges();
+    if (urlData.materialName && urlData.materialType) {
+      fetchparameters();
     }
   }, []);
 
@@ -96,8 +96,8 @@ const QualityInboundCoalDetails = () => {
       challanNo: formData.challanNo,
       supplierOrCustomerName: formData.supplierOrCustomerName,
       supplierOrCustomerAddress: formData.supplierOrCustomerAddress,
-      materialOrProduct: formData.materialOrProduct,
-      materialTypeOrProductType: formData.materialTypeOrProductType,
+      materialName: formData.materialName,
+      materialType: formData.materialType,
       moisture: formData.moisture || 0,
       vm: formData.vm || 0,
       ash: formData.ash || 0,
@@ -158,32 +158,33 @@ const QualityInboundCoalDetails = () => {
   }, [formData]);
 
   const generateFieldNameWithRange = (parameterName) => {
-    if (!parameterRanges[parameterName]) return parameterName;
-    const { rangeFrom, rangeTo } = parameterRanges[parameterName];
-    return `${parameterName} % (${rangeFrom}-${rangeTo})`;
+    const parameter = parameters[parameterName];
+    if (!parameter) return `${parameterName}*`;
+    const { rangeFrom, rangeTo } = parameter;
+    return `${parameterName}* % (${rangeFrom}-${rangeTo})`;
   };
-
   
 
-  const renderFieldWithBox = (fieldName, fieldValue, propertyName, onChange) => {
-    return (
-      <div className="col-md-3 mb-3">
-        <label htmlFor={propertyName} className="form-label">
-          {fieldName}:
-        </label>
-        <input
-          type="text"
-          name={propertyName}
-          autoComplete="off"
-          value={fieldValue || ""}
-          onChange={onChange}
-          required
-          className="form-control"
-          id={propertyName}
-        />
-      </div>
-    );
-  };
+const renderFieldWithBox = (fieldName, fieldValue, propertyName, onChange, isReadOnly = false) => {
+  return (
+    <div className="col-md-3 mb-3">
+      <label htmlFor={propertyName} className="form-label">
+        {fieldName}:
+      </label>
+      <input
+        type="text"
+        name={propertyName}
+        autoComplete="off"
+        value={fieldValue === null ? "" : fieldValue}
+        onChange={onChange}
+        required
+        readOnly={isReadOnly}
+        className="form-control"
+        id={propertyName}
+      />
+    </div>
+  );
+};
   
 
   return (
@@ -214,38 +215,37 @@ const QualityInboundCoalDetails = () => {
               <div className="card mb-3 p-3 border shadow-lg">
                   <div className="card-body">
                     <div className="row">
-                      {renderFieldWithBox("TicketNo", formData.ticketNo, "ticketNo", handleInputChange)}
-{renderFieldWithBox("Date", formData.date, "date", handleInputChange)}
-{renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange)}
-{renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange)}
-{renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange)}
-{renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange)}
-{renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange)}
-{renderFieldWithBox("Material", formData.materialOrProduct, "materialOrProduct", handleInputChange)}
-{renderFieldWithBox("Material Type", formData.materialTypeOrProductType, "materialTypeOrProductType", handleInputChange)}
-{renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange)}
-{renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange)}
-{renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange)}
+                    {renderFieldWithBox("TicketNo", formData.ticketNo, "ticketNo", handleInputChange, true)}
+{renderFieldWithBox("Date", formData.date, "date", handleInputChange, true)}
+{renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange, true)}
+{renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange, true)}
+{renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange, true)}
+{renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange, true)}
+{renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange, true)}
+{renderFieldWithBox("Material", formData.materialName, "materialName", handleInputChange, true)}
+{renderFieldWithBox("Material Type", formData.materialType, "materialType", handleInputChange, true)}
+{renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange, true)}
+{renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange, true)}
+{renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange, true)}
 </div>
 </div>
 </div>
 </div>
 </div>
 <div className="row">
-          <div className="col-lg-12">
-          <div className="card mb-3 p-3 border shadow-lg">
-              <div className="card-body">
-              <div className="row">
-  {renderFieldWithBox(generateFieldNameWithRange("Moisture"), formData.moisture, "moisture", handleInputChange)}
-  {renderFieldWithBox(generateFieldNameWithRange("Vm"), formData.vm, "vm", handleInputChange)}
-  {renderFieldWithBox(generateFieldNameWithRange("Ash"), formData.ash, "ash", handleInputChange)}
-  {renderFieldWithBox(generateFieldNameWithRange("Fc"), formData.fc, "fc", handleInputChange)}
-</div>
-
-              </div>
-            </div>
-          </div>
+  <div className="col-lg-12">
+    <div className="card mb-3 p-3 border shadow-lg">
+      <div className="card-body">
+        <div className="row">
+          {renderFieldWithBox(generateFieldNameWithRange("Moisture"), formData.moisture, "Moisture", handleInputChange)}
+          {renderFieldWithBox(generateFieldNameWithRange("Vm"), formData.vm, "Vm", handleInputChange)}
+          {renderFieldWithBox(generateFieldNameWithRange("Ash"), formData.ash, "Ash", handleInputChange)}
+          {renderFieldWithBox(generateFieldNameWithRange("Fc"), formData.fc, "Fc", handleInputChange)}
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
       </div>
     </div>

@@ -50,6 +50,9 @@
   /* margin-top: -5px; */
    margin-left: 15px; 
   width: 160px ;
+  border: none;
+  outline: none;
+  text-align: center;
   
 }
 
@@ -172,7 +175,9 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: #efefef;
   width: 100% !important;
-    
+  border: none;
+  outline: none;
+  text-align: center;
 } 
 /* .cnu{
   margin-top: 65px;
@@ -188,4 +193,7 @@
   height: 50px;
   background-color: #efefef;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: none;
+  outline: none;
+  text-align: center;
 } 
