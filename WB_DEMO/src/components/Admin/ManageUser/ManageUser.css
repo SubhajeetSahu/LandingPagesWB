@@ -27,7 +27,7 @@
 }
 
 .custom-table .ant-table-tbody > tr:hover {
-  background-color: #e6f7ff; /* Light blue */
+  background-color: #e6f7ff; 
 }
 
 /* Change color of the filter icon */

@@ -54,7 +54,8 @@ const ViewVehicle = () => {
       <div className='view-vehicle-page'>
         <h2 className="text-center">View Vehicles</h2>
         <div>
-          <Table dataSource={vehicles} columns={columns} rowKey="vehicleNo" />
+          <Table dataSource={vehicles} columns={columns} rowKey="vehicleNo" 
+          className="user-table mt-3 custom-table"/>
         </div>
       </div>
     </SideBar>

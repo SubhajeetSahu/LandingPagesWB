@@ -1,0 +1,27 @@
+/* .sales-table-container {
+  margin-left: auto; 
+  margin-right: auto; 
+} */
+
+/* .salesdetail {
+  margin-left: -20px;
+  
+} */
+
+
+.sales-table.table-bordered,
+.sales-table.table-bordered th,
+.sales-table.table-bordered td {
+  border-color: #dee2e6; /* Adjust the color here */
+}
+
+/* .sales-table-container {
+  overflow-x: auto;
+  padding-right: 40px; 
+} */
+
+.sales-table.table-bordered tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Slightly gray background */
+}
+
+

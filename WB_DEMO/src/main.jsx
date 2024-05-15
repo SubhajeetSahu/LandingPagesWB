@@ -34,8 +34,10 @@ import RoleManagement from "./components/Admin/RoleManagement/RoleManagement.jsx
 
 
 
-import VehicleEntry from "./components/GateUser/src/components/Vehicle Entry/VehicleEntry.jsx";
-import VehicleEntryDetails from "./components/GateUser/src/components/Vehicle Entry/VehicleEntryDetails.jsx";
+import VehicleEntry from "./components/GateUser/src/components/Vehicle_Entry/VehicleEntry.jsx";
+import VehicleEntryDetails from "./components/GateUser/src/components/Vehicle_Entry/VehicleEntryDetails.jsx";
+import VehicleOutboundDetails from "./components/GateUser/src/components/Vehicle_Entry/VehicleOutboundDetails.jsx";
+import SalesDetails from "./components/GateUser/src/components/Vehicle_Entry/SalesDetails.jsx";
 import Report from "./components/GateUser/src/components/Report/Report.jsx";
 import Print from "./components/GateUser/src/components/Print/Print.jsx";
 import Camera from "./components/GateUser/src/components/Camera/Camera.jsx";
@@ -96,25 +98,25 @@ const router = createBrowserRouter(
       <Route path="/material-management" element={<MaterialManagement />} />
       <Route path="/role-management" element={<RoleManagement />} />
 
-      
-
       <Route path="/VehicleEntry" element={<VehicleEntry />} />
       <Route path="/VehicleEntryDetails" element={<VehicleEntryDetails />} />
-      <Route path="/Report" element={<Report />} />
+      <Route path="/VehicleEntry-Outbound" element={<VehicleOutboundDetails />} />
+      <Route path="/Sales-Details" element={<SalesDetails />} />
+      <Route path="/reports" element={<Report />} />
       <Route path="/Print" element={<Print />} />
-      <Route path="/Camera" element={<Camera />} />
+      <Route path="/camera" element={<Camera />} />
       <Route path="/Capture" element={<Capture />} />
 
       <Route path="/QualityHomePage" element={<QualityHomePage />} />
       <Route path="/QualityCheck" element={<QualityCheck />} />
       <Route path="/QPrint" element={<QPrint />} />
       <Route path="/QReport" element={<QReport />} />
-      <Route path="/QualityOutboundDetails" element={<QualityOutboundDetails/>} />
-      <Route path="/QualityInboundDashboard" element={<QualityInboundDashboard/>} />
-      <Route path="/QualityOutboundDashboard" element={<QualityOutboundDashboard/>} />
-      <Route path="/QualityInboundIronOreDetails" element={<QualityInboundIronOreDetails/>} />
-      <Route path="/QualityInboundCoalDetails" element={<QualityInboundCoalDetails/>} />
-      <Route path="/QualityOutboundSpongeIronDetails" element={<QualityOutboundSpongeIronDetails/>} />
+      <Route path="/QualityOutboundDetails" element={<QualityOutboundDetails />} />
+      <Route path="/QualityInboundDashboard" element={<QualityInboundDashboard />} />
+      <Route path="/QualityOutboundDashboard" element={<QualityOutboundDashboard />} />
+      <Route path="/QualityInboundIronOreDetails" element={<QualityInboundIronOreDetails />} />
+      <Route path="/QualityInboundCoalDetails" element={<QualityInboundCoalDetails />} />
+      <Route path="/QualityOutboundSpongeIronDetails" element={<QualityOutboundSpongeIronDetails />} />
 
       <Route path="/ManagementHome" element={<ManagementHome />} />
       <Route path="/ManagementLocation" element={<ManagementLocation />} />

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import SideBar2 from "../SideBar/SideBar2";
-import VehicleEntry from "../GateUser/src/components/Vehicle Entry/VehicleEntry";
+import VehicleEntry from "../GateUser/src/components/Vehicle_Entry/VehicleEntry";
 
 function HomePage3() {
    

@@ -46,7 +46,7 @@ function TransactionFrom2() {
   console.log(ticketNumber);
 
   useEffect(() => {
-    // Fetch data from the API
+    
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
         withCredentials: true, // Include credentials
@@ -66,15 +66,11 @@ function TransactionFrom2() {
     console.log("Count changed:", netWeight);
   }, [grossWeight]);
 
-  const handleChange1 = (e) => {
+  const handleChange1 = (e, tareWeight) => {
     const newValue = e.target.value;
     setInputValue(newValue);
 
-    // if (!isGrossWeightEnabled) {
-    //   setTareWeight(newValue);
-    // } else {
-    //   setGrossWeight(newValue);
-    // }
+    iftare
   };
 
   // const handleSave = () => {
