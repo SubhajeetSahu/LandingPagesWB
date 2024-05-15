@@ -361,7 +361,22 @@ const SideBar = ({ children }) => {
               >
                 <ListItemText primary="View Transporter" />
               </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/view-vehicle"
+                onClick={() => handleItemClick("viewVehicle")}
+                selected={selectedItem === "viewVehicle"}
+                sx={{
+                  "&.Mui-selected, &:hover": {
+                    backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                }}
+              >
+                <ListItemText primary="View Vehicle" />
+              </ListItemButton>
             </List>
+            
           </Collapse>
           {/* End of New Dropdown */}
 

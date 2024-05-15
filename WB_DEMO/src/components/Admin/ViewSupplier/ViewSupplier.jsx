@@ -71,7 +71,8 @@ const ViewSupplier = () => {
       <div className='view-supplier-page'>
         <h2 className="text-center">View Supplier</h2>
         <div>
-          <Table dataSource={suppliers} columns={columns} rowKey="supplierId" />
+          <Table dataSource={suppliers} columns={columns} rowKey="supplierId" 
+          className="user-table mt-3 custom-table"/>
         </div>
       </div>
     </SideBar>

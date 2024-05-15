@@ -46,7 +46,8 @@ const ViewCompany = () => {
     <div className='view-company-page'>
     <h2 className="text-center">View Company</h2>
     <div>
-      <Table dataSource={companies} columns={columns} rowKey="companyId" />
+      <Table dataSource={companies} columns={columns} rowKey="companyId" 
+      className="user-table mt-3 custom-table"/>
     </div>
     </div>
     </SideBar>
