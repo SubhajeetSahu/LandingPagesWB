@@ -16,8 +16,8 @@ const ViewTransporter = () => {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'transporterId',
-      key: 'transporterId',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: 'Transporter Name',
@@ -26,8 +26,8 @@ const ViewTransporter = () => {
     },
     {
       title: 'Email',
-      dataIndex: 'transporterEmail',
-      key: 'transporterEmail',
+      dataIndex: 'transporterEmailId',
+      key: 'transporterEmailId',
     },
     {
       title: 'Contact No',
@@ -39,6 +39,11 @@ const ViewTransporter = () => {
       dataIndex: 'transporterAddress',
       key: 'transporterAddress',
     },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+    },
   ];
 
   return (
@@ -46,7 +51,7 @@ const ViewTransporter = () => {
       <div className='view-transporter-page container-fluid'>
         <h2 className="text-center">View Transporter</h2>
         <div className="table-responsive">
-          <Table dataSource={transporters} columns={columns} rowKey="transporterId" 
+          <Table dataSource={transporters} columns={columns} rowKey="id" 
           className="transporter-table mt-3 custom-table"/>
         </div>
       </div>
