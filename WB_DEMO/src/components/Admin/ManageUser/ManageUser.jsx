@@ -149,7 +149,7 @@ function ManageUser() {
       <div className="ViewUser">
         <div className="view-user-content">
           <h2 className="text-center">View User</h2>
-          <div className="maintain-user-container">
+          <div className="maintain-user-container container-fluid">
             <div className="filters">
               <Search
                 placeholder="Search User ID"

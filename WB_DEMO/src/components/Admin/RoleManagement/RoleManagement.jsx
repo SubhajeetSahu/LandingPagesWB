@@ -77,7 +77,7 @@ function RoleManagement() {
   return (
     <SideBar>
       <div className="role-management">
-        <div className="role-management-main-content">
+        <div className="role-management-main-content container-fluid">
           <h2 className="text-center">Role Management</h2>
           <div className="role-container d-flex justify-content-center">
             <div

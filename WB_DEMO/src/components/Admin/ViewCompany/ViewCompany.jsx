@@ -43,9 +43,9 @@ const ViewCompany = () => {
 
   return (
     <SideBar>
-    <div className='view-company-page'>
+    <div className='view-company-page container-fluid'>
     <h2 className="text-center">View Company</h2>
-    <div>
+    <div className="table-responsive">
       <Table dataSource={companies} columns={columns} rowKey="companyId" 
       className="user-table mt-3 custom-table"/>
     </div>

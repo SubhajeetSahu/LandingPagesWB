@@ -199,7 +199,7 @@ function CreateUser() {
   return (
     <SideBar>
       <div className="create-user">
-        <div className="create-main-content">
+        <div className="create-main-content container-fluid">
           {isLoading ? (
             <div className="spinner-container">
               <div className="spinner"></div>

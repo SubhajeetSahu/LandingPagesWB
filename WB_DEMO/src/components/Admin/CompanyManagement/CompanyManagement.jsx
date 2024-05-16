@@ -113,7 +113,7 @@ function CompanyManagement() {
   return (
     <SideBar>
       <div className="company-management">
-        <div className="company-main-content">
+        <div className="company-main-content container-fluid">
           <h2 className="text-center">Company Management</h2>
           <div className="company-card-container">
             <div

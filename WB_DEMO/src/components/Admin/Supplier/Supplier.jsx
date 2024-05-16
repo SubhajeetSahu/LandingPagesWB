@@ -175,7 +175,7 @@ function Supplier() {
   return (
     <SideBar>
       <div className="supplier-management">
-        <div className="supplier-main-content">
+        <div className="supplier-main-content container-fluid">
           <h2 className="text-center">Supplier Management</h2>
           <div className="supplier-card-container">
             <div

@@ -220,7 +220,7 @@ function MaterialManagement() {
   return (
     <SideBar>
       <div className="material-management">
-        <div className="material-management-main-content">
+        <div className="material-management-main-content container-fluid">
           <h2 className="text-center">Material Management</h2>
           <div className="material-card-container">
             <div

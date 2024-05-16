@@ -99,7 +99,7 @@ function SiteManagement() {
   return (
     <SideBar>
       <div className="site-management">
-        <div className="site-management-main-content">
+        <div className="site-management-main-content container-fluid">
           <h2 className="text-center">Site Management</h2>
           <div className="site-card-container d-flex justify-content-center">
             <div

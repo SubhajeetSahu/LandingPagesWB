@@ -61,7 +61,7 @@ const HomePage6 = () => {
     <SideBar6>
       <div className='home-page-6 container-fluid'>
         <h2 className="text-center">Sales Dashboard</h2>
-        <div>
+        <div className="table-responsive">
           <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo " 
           className="user-table mt-3 custom-table" />
         </div>

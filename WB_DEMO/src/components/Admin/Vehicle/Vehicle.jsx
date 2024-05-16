@@ -109,7 +109,7 @@ function Vehicle() {
   return (
     <SideBar>
       <div className="vehicle-register">
-        <div className="vehicle-content">
+        <div className="vehicle-content container-fluid">
           <h2 className="text-center">Vehicle Registration</h2>
           <div className="vehicle-user-container">
             <div
