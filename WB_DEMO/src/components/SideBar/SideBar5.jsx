@@ -34,7 +34,6 @@ import PrintIcon from '@mui/icons-material/Print';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./SideBar1.css";
 
 const SideBar5 = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
