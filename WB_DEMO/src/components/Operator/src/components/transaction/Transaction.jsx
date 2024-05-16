@@ -41,11 +41,11 @@ const OperatorTransaction = () => {
   ) => {
     if (transactionType === "Inbound") {
       navigate(
-        `/OperatorTransactionFromInbound/?ticketNumber=${ticketNo}&grossWeight=${grossWeight}&tareWeight=${tareWeight}`
+        `/OperatorTransactionFromInbound/?ticketNumber=${ticketNo}`
       );
     } else {
       navigate(
-        `/OperatorTransactionFromOutbound/?ticketNumber=${ticketNo} &grossWeight=${grossWeight}&tareWeight=${tareWeight}`
+        `/OperatorTransactionFromOutbound/?ticketNumber=${ticketNo}`
       );
     }
   };
@@ -173,12 +173,12 @@ const OperatorTransaction = () => {
             />
           </div>
         </div>  */}
-        <div className="backend">
-
+        <div className="backend" >
+          <div className="table-responsive" >
           <table className="table table-bordered">
             
             <thead className="text-center">
-              <tr>
+              <tr >
                 <th>Ticket No.</th>
                 <th>Transaction Type</th>
                 {/* <th>Weightment No.</th> */}
@@ -318,6 +318,7 @@ const OperatorTransaction = () => {
                 ))}
             </tbody>
           </table>
+          </div>
         </div>
         <br />
         </div>

@@ -222,3 +222,12 @@
   outline: none;
   text-align: center;
 } 
+
+@media only screen and (max-width:500px){
+  #z3 {
+    display: grid;
+    grid-template-columns: repeat(1, 0fr);
+    gap: 5px; 
+  }
+}
+} 
