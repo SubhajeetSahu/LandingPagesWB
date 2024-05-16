@@ -31,9 +31,9 @@ function ManageUser() {
       title: "Are you sure?",
       text: "You are about to inactive this user.",
       icon: "warning",
-      showCancelButton: true,
+      showClearButton: true,
       confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      ClearButtonColor: "#3085d6",
       confirmButtonText: "Yes, inactivate it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -68,9 +68,9 @@ function ManageUser() {
       title: "Are you sure?",
       text: "You are about to activate this user.",
       icon: "warning",
-      showCancelButton: true,
+      showClearButton: true,
       confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      ClearButtonColor: "#3085d6",
       confirmButtonText: "Yes, activate it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -122,6 +122,10 @@ function ManageUser() {
 
   const fetchUserById = async () => {
     try {
+      if (userIdFilter.trim() === "") {
+        fetchUserData(); // Fetch all users
+        return;
+      }
       const response = await fetch(
         `http://localhost:8080/api/v1/users/${userIdFilter}`
       );
@@ -134,6 +138,7 @@ function ManageUser() {
       console.error("Error fetching user by id:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchUserData();
@@ -149,7 +154,7 @@ function ManageUser() {
       <div className="ViewUser">
         <div className="view-user-content">
           <h2 className="text-center">View User</h2>
-          <div className="maintain-user-container">
+          <div className="maintain-user-container container-fluid">
             <div className="filters">
               <Search
                 placeholder="Search User ID"

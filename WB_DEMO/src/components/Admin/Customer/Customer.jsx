@@ -5,7 +5,7 @@ import Select from "react-select";
 import "./Customer.css";
 import SideBar from "../../SideBar/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 
 function Customer() {
   const [customerName, setCustomerName] = useState("");
@@ -54,7 +54,7 @@ function Customer() {
     setCities(cityData);
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setCustomerName("");
     setCustomerEmail("");
     setCustomerContactNo("");
@@ -151,7 +151,7 @@ function Customer() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -171,7 +171,7 @@ function Customer() {
   return (
     <SideBar>
       <div className="customer-management">
-        <div className="customer-main-content">
+        <div className="customer-main-content container-fluid">
           <h2 className="text-center">Customer Management</h2>
           <div className="customer-card-container">
             <div
@@ -369,12 +369,12 @@ function Customer() {
                       border: "1px solid #cccccc",
                       width: "100px",
 
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                       <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                       <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -382,7 +382,7 @@ function Customer() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       border: "1px solid #cccccc",

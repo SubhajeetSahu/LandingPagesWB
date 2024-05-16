@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faSave } from "@fortawesome/free-solid-svg-icons";
+import { faEraser, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./CreateUser.css";
 import SideBar from "../../SideBar/SideBar";
@@ -63,7 +63,7 @@ function CreateUser() {
       });
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setFirstName("");
     setMiddleName("");
     setLastName("");
@@ -162,7 +162,7 @@ function CreateUser() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -199,7 +199,7 @@ function CreateUser() {
   return (
     <SideBar>
       <div className="create-user">
-        <div className="create-main-content">
+        <div className="create-main-content container-fluid">
           {isLoading ? (
             <div className="spinner-container">
               <div className="spinner"></div>
@@ -381,7 +381,7 @@ function CreateUser() {
                                 >
                                   <span className="me-2">{r}</span>
                                   <FontAwesomeIcon
-                                    icon={faTimes}
+                                    icon={faEraser}
                                     className="cursor-pointer"
                                     onClick={() => handleRoleChange(r)}
                                   />
@@ -435,15 +435,12 @@ function CreateUser() {
                             backgroundColor: "white",
                             color: "black",
                             border: "1px solid #cccccc",
-                            fontWeight: "600",
                             width: "100px",
-
-                            // transition: "transform 0.3s ease-in-out",
                           }}
-                          onClick={handleCancel}
+                          onClick={handleClear}
                         >
-                          <FontAwesomeIcon icon={faTimes} className="me-1" />
-                          Cancel
+                          <FontAwesomeIcon icon={faEraser} className="me-1" />
+                          Clear
                         </button>
                         <button
                           type="button"
@@ -451,11 +448,8 @@ function CreateUser() {
                           style={{
                             backgroundColor: "white",
                             color: "black",
-                            fontWeight: "600",
                             border: "1px solid #cccccc",
                             width: "100px",
-
-                            // transition: "transform 0.3s ease-in-out",
                           }}
                           onClick={handleSave}
                         >

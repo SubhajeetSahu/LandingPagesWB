@@ -1,8 +1,7 @@
 
 .view-user-content {
   margin-top: 1rem;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -16,10 +15,14 @@
 
 
 
-/* ManageUser.css */
 .custom-table .ant-table-thead > tr > th {
   background-color: #0077b6; /* Navy blue */
   color: white;
+  padding: 8px;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  padding: 8px;
 }
 
 .custom-table .ant-table-tbody > tr:nth-child(even) {

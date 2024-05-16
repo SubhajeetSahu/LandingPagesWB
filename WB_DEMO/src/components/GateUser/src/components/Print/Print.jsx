@@ -23,7 +23,7 @@ function Print() {
     eWayBillNo: "",
   });
   const [printSuccess, setPrintSuccess] = useState(false);
-  const [printCancel, setPrintCancel] = useState(false);
+  const [printClear, setPrintClear] = useState(false);
 
    
   const chartRef = useRef(null);
@@ -69,11 +69,11 @@ function Print() {
     }, 3000);
   };
 
-  const handleCancel = () => {
-    setPrintCancel(true); // Set print cancel message to true
-    // Clear the cancel message after 3 seconds
+  const handleClear = () => {
+    setPrintClear(true); // Set print Clear message to true
+    // Clear the Clear message after 3 seconds
     setTimeout(() => {
-      setPrintCancel(false);
+      setPrintClear(false);
     }, 3000);
   };
 
@@ -303,13 +303,13 @@ function Print() {
                     Print Successfully Done!
                   </div>
                 )}
-                {printCancel && (
+                {printClear && (
                   <div className="alert alert-success" role="alert">
-                    Print Successfully Cancelled!
+                    Print Successfully Clearled!
                   </div>
                 )}
                 <button type="button" className="btn btn-primary mx-2" onClick={handlePrint}>Print</button>
-                <button type="button" className="btn btn-secondary mx-2" onClick={handleCancel}>Cancel</button>
+                <button type="button" className="btn btn-secondary mx-2" onClick={handleClear}>Clear</button>
               </div>
             </div>
           </div>

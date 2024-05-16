@@ -68,9 +68,9 @@ const ViewCustomer = () => {
 
   return (
     <SideBar>
-      <div className='view-customer-page'>
+      <div className='view-customer-page container-fluid'>
         <h2 className="text-center">View Customer</h2>
-        <div>
+        <div className="table-responsive">
           <Table dataSource={customers} columns={columns} rowKey="customerId" 
           className="user-table mt-3 custom-table"/>
         </div>

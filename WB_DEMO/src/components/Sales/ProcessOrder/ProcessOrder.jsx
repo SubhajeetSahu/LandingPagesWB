@@ -1,30 +1,58 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import "./ProcessOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ProcessOrder() {
   const location = useLocation();
   const { saleOrderNo, productName } = location.state || {};
-  const [formsaleOrderNo, setFormsaleOrderNo] = useState(saleOrderNo || '');
-  const [formProductName, setFormProductName] = useState(productName || '');
+  const [formsaleOrderNo, setFormsaleOrderNo] = useState(saleOrderNo || "");
+  const [formProductName, setFormProductName] = useState(productName || "");
   const [productType, setProductType] = useState("");
   const [vehicleNo, setVehicleNo] = useState("");
   const [transporterName, setTransporterName] = useState("");
   const [purchaseProcessDate, setPurchaseProcessDate] = useState("");
   const [consignmentWeight, setConsignmentWeight] = useState("");
   const [error, setError] = useState("");
+  const [vehicleNumbers, setVehicleNumbers] = useState([]);
+  const [transporters, setTransporters] = useState([]);
 
-  const handleCancel = () => {
-    setFormsaleOrderNo(saleOrderNo || '');
-    setFormProductName(productName || '');
+  useEffect(() => {
+    // Fetch vehicle numbers
+    fetch("http://localhost:8080/api/v1/vehicles")
+      .then((response) => response.json())
+      .then((data) => {
+        const numbers = data.map((vehicle) => vehicle.vehicleNo);
+        setVehicleNumbers(numbers);
+      })
+      .catch((error) => console.error("Error fetching vehicle numbers:", error));
+  }, []);
+
+  useEffect(() => {
+    if (vehicleNo) {
+      // Fetch transporter details when a vehicle number is selected
+      fetch(`http://localhost:8080/api/v1/vehicles/${vehicleNo}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setTransporters(data.transporter);
+        })
+        .catch((error) =>
+          console.error("Error fetching transporter details:", error)
+        );
+    }
+  }, [vehicleNo]);
+
+  const handleClear = () => {
+    setFormsaleOrderNo(saleOrderNo || "");
+    setFormProductName(productName || "");
     setProductType("");
     setVehicleNo("");
     setTransporterName("");
     setPurchaseProcessDate("");
+    setConsignmentWeight("");
     setError("");
   };
 
@@ -33,7 +61,7 @@ function ProcessOrder() {
       !formsaleOrderNo ||
       !vehicleNo ||
       !transporterName ||
-      !purchaseProcessDate 
+      !purchaseProcessDate
     ) {
       Swal.fire({
         title: "Please fill in all the required fields.",
@@ -83,7 +111,7 @@ function ProcessOrder() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -100,7 +128,6 @@ function ProcessOrder() {
       });
   };
 
-
   return (
     <SideBar6>
       <div className="sales-process-management">
@@ -116,7 +143,9 @@ function ProcessOrder() {
                   <div className="col-md-4">
                     <label htmlFor="purchaseOrderNo" className="form-label">
                       Sales Order No{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"
@@ -141,7 +170,7 @@ function ProcessOrder() {
                       onChange={(e) => setFormProductName(e.target.value)}
                     />
                   </div>
-                  
+
                   <div className="col-md-4">
                     <label htmlFor="productType" className="form-label">
                       Product Type
@@ -160,53 +189,83 @@ function ProcessOrder() {
                   <div className="col-md-6">
                     <label htmlFor="vehicleNo" className="form-label">
                       Vehicle No{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
+                    <select
+                      className="form-select"
                       id="vehicleNo"
-                      placeholder="Enter Vehicle No"
                       value={vehicleNo}
                       onChange={(e) => setVehicleNo(e.target.value)}
                       required
-                    />
+                    >
+                      <option value="">Select Vehicle No</option>
+                      {vehicleNumbers.map((number, index) => (
+                        <option key={index} value={number}>
+                          {number}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  
+
                   <div className="col-md-6">
-                    <label htmlFor="transporterName" className="form-label">
+                    <label
+                      htmlFor="transporterName"
+                      className="form-label"
+                    >
                       Transporter Name{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
+                    <button className="btn btn-sm border" style={{borderRadius: "5px", marginLeft: "5px", backgroundColor: "lightblue"}}>
+                    <a href="/SalesTransporter" style={{display: "block", textDecoration: "none", color:"black"}}>Add Transporter</a>
+                    </button>
+                    <select
+                      className="form-select"
                       id="transporterName"
-                      placeholder="Enter Transporter Name"
                       value={transporterName}
                       onChange={(e) => setTransporterName(e.target.value)}
                       required
-                    />
+                    >
+                      <option value="">Select Transporter Name</option>
+                      {transporters.map((transporter, index) => (
+                        <option key={index} value={transporter}>
+                          {transporter}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label htmlFor="purchaseProcessDate" className="form-label">
+                    <label
+                      htmlFor="purchaseProcessDate"
+                      className="form-label"
+                    >
                       Purchase Process Date{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="date"
                       className="form-control"
                       id="purchaseProcessDate"
                       value={purchaseProcessDate}
-                      onChange={(e) => setPurchaseProcessDate(e.target.value)}
+                      onChange={(e) =>
+                        setPurchaseProcessDate(e.target.value)
+                      }
                       required
                     />
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="consignmentWeight" className="form-label">
+                    <label
+                      htmlFor="consignmentWeight"
+                      className="form-label"
+                    >
                       Consignment Weight
                     </label>
                     <input
@@ -216,7 +275,10 @@ function ProcessOrder() {
                       placeholder="Enter Consignment Weight"
                       value={consignmentWeight}
                       onChange={(e) => {
-                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        const newValue = Math.max(
+                          0,
+                          parseInt(e.target.value, 10)
+                        );
                         setConsignmentWeight(newValue);
                       }}
                     />
@@ -231,12 +293,11 @@ function ProcessOrder() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                      fontWeight: "600",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -244,7 +305,6 @@ function ProcessOrder() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

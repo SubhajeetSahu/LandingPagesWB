@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTrashAlt, faPrint, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faTrashAlt, faPrint, faEraser } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
 
 import "./QualityOutboundDetails.css";
@@ -127,7 +127,7 @@ const QualityOutboundDetails = () => {
         >
           <div className="container-fluid trans-form-main-div overflow-hidden">
             <div className="close" onClick={closeForm}>
-              <FontAwesomeIcon icon={faTimes} />
+              <FontAwesomeIcon icon={faEraser} />
             </div>
             <div className="d-flex flex-column align-items-center mb-4">
               <div className="text-center mb-4">

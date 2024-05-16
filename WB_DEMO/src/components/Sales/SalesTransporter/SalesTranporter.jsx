@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
-import SideBar from "../../SideBar/SideBar";
-import "./Transporter.css";
+import "./SalesTransporter.css";
+import SideBar6 from "../../SideBar/Sidebar6";;
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-function Transporter() {
+function SalesTransporter() {
   const [transporterName, setTransporterName] = useState("");
   const [transporterContactNo, setTransporterContactNo] = useState("");
   const [transporterEmailId, setTransporterEmailId] = useState("");
@@ -116,7 +116,7 @@ function Transporter() {
   };
 
   return (
-    <SideBar>
+    <SideBar6>
       <div className="transporter-register">
         <div className="transporter-main-content container-fluid">
           <h2 className="text-center">Transporter Registration</h2>
@@ -255,8 +255,8 @@ function Transporter() {
           </div>
         </div>
       </div>
-    </SideBar>
+    </SideBar6>
   );
 }
 
-export default Transporter;
+export default SalesTransporter;

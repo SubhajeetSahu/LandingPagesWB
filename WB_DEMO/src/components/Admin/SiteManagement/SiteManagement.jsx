@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import SideBar from "../../SideBar/SideBar";
 import "./SiteManagement.css";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -14,7 +14,7 @@ function SiteManagement() {
   const [companies, setCompanies] = useState([]);
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setCompanyName("");
     setSiteName("");
     setSiteAddress("");
@@ -99,7 +99,7 @@ function SiteManagement() {
   return (
     <SideBar>
       <div className="site-management">
-        <div className="site-management-main-content">
+        <div className="site-management-main-content container-fluid">
           <h2 className="text-center">Site Management</h2>
           <div className="site-card-container d-flex justify-content-center">
             <div
@@ -177,15 +177,15 @@ function SiteManagement() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       // transition: "transform 0.3s ease-in-out",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -193,7 +193,7 @@ function SiteManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       border: "1px solid #cccccc",
                       width: "100px",
 

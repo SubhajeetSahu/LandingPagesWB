@@ -68,9 +68,9 @@ const ViewSupplier = () => {
 
   return (
     <SideBar>
-      <div className='view-supplier-page'>
+      <div className='view-supplier-page container-fluid'>
         <h2 className="text-center">View Supplier</h2>
-        <div>
+        <div className='table-responsive'>
           <Table dataSource={suppliers} columns={columns} rowKey="supplierId" 
           className="user-table mt-3 custom-table"/>
         </div>

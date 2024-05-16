@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import SideBar from "../../SideBar/SideBar";
 import './RoleManagement.css';
 
@@ -9,7 +9,7 @@ function RoleManagement() {
   const [roleName, setRoleName] = useState("");
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setRoleName("");
   };
 
@@ -77,7 +77,7 @@ function RoleManagement() {
   return (
     <SideBar>
       <div className="role-management">
-        <div className="role-management-main-content">
+        <div className="role-management-main-content container-fluid">
           <h2 className="text-center">Role Management</h2>
           <div className="role-container d-flex justify-content-center">
             <div
@@ -112,13 +112,13 @@ function RoleManagement() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                      fontWeight: "600",
+                       
                       width: "100px",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -126,7 +126,7 @@ function RoleManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       border: "1px solid #cccccc",
                       width: "100px",
                     }}

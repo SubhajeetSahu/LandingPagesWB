@@ -2,7 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import "./CompanyManagement.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import SideBar from "../../SideBar/SideBar";
 
 function CompanyManagement() {
@@ -14,7 +14,7 @@ function CompanyManagement() {
   const [phoneError, setPhoneError] = useState("");
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setCompanyName("");
     setCompanyEmail("");
     setCompanyContactNo("");
@@ -93,7 +93,7 @@ function CompanyManagement() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -113,7 +113,7 @@ function CompanyManagement() {
   return (
     <SideBar>
       <div className="company-management">
-        <div className="company-main-content">
+        <div className="company-main-content container-fluid">
           <h2 className="text-center">Company Management</h2>
           <div className="company-card-container">
             <div
@@ -212,12 +212,12 @@ function CompanyManagement() {
                       border: "1px solid #cccccc",
                       width: "100px",
 
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                      <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                      <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -225,7 +225,7 @@ function CompanyManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

@@ -579,7 +579,7 @@ function VehicleEntryDetails() {
       className="btn btn-success me-2" 
       style={{
         height: '40px',
-        minWidth: '120px',
+        minWidth: '120px;',
         width: 'auto',
         display: 'flex',
         alignItems: 'center',
@@ -595,7 +595,7 @@ function VehicleEntryDetails() {
       className="btn btn-secondary" 
       style={{
         height: '40px',
-        minWidth: '120px',
+        minWidth: '120px;',
         width: 'auto',
         display: 'flex',
         alignItems: 'center',

@@ -51,9 +51,9 @@ const ViewVehicle = () => {
 
   return (
     <SideBar>
-      <div className='view-vehicle-page'>
+      <div className='view-vehicle-page container-fluid'>
         <h2 className="text-center">View Vehicles</h2>
-        <div>
+        <div className="table-responsive">
           <Table dataSource={vehicles} columns={columns} rowKey="vehicleNo" 
           className="user-table mt-3 custom-table"/>
         </div>

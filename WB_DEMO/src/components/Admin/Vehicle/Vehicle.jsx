@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./Vehicle.css";
 import SideBar from "../../SideBar/SideBar";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -17,7 +17,7 @@ function Vehicle() {
   const [transporters, setTransporters] = useState([]);
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setVehicleNo("");
     setTransporter("");
     setVehicleType("");
@@ -39,7 +39,7 @@ function Vehicle() {
       vehicleNo.trim() === "" ||
       transporter.trim() === "" ||
       vehicleFitnessUpTo.trim() === "" ||
-      vehicleLoadCapacity.trim() === ""
+      vehicleLoadCapacity.toString().trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all required fields.",
@@ -89,7 +89,7 @@ function Vehicle() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -109,7 +109,7 @@ function Vehicle() {
   return (
     <SideBar>
       <div className="vehicle-register">
-        <div className="vehicle-content">
+        <div className="vehicle-content container-fluid">
           <h2 className="text-center">Vehicle Registration</h2>
           <div className="vehicle-user-container">
             <div
@@ -223,7 +223,7 @@ function Vehicle() {
                       placeholder="Enter Vehicle Load Capacity"
                       value={vehicleLoadCapacity}
                       onChange={(e) => {
-                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        const newValue = Math.max(0, parseFloat(e.target.value, 10));
                         setVehicleLoadCapacity(newValue);
                       }}
                       required
@@ -280,13 +280,12 @@ function Vehicle() {
                       border: "1px solid #cccccc",
                       width: "100px",
 
-                      fontWeight: "600",
-                      // transition: "transform 0.3s ease-in-out",
+                      
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -294,7 +293,7 @@ function Vehicle() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       border: "1px solid #cccccc",

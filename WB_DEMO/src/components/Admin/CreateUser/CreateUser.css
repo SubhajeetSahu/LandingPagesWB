@@ -4,10 +4,18 @@
   color: #fff !important;
 }
 
+
+
+.btn-success-1{
+  color: #008060 !important;
+}
+
+.btn-danger{
+  color: #d63031 !important;
+}
+
 .create-main-content {
   margin-top: 1rem;
-  margin-left: 3rem;
-  margin-right: 3rem;
   margin-bottom: 1rem;
 }
 

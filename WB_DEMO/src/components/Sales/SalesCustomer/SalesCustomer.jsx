@@ -2,19 +2,17 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { Country, State, City } from "country-state-city";
 import Select from "react-select";
-import "./Supplier.css";
-import SideBar from "../../SideBar/SideBar";
-import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
+import "./SalesCustomer.css";
+import SideBar6 from "../../SideBar/Sidebar6";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 
-
-function Supplier() {
-
-  const [supplierName, setSupplierName] = useState("");
-  const [supplierEmail, setSupplierEmail] = useState("");
-  const [supplierContactNo, setSupplierContactNo] = useState("");
-  const [supplierAddressLine1, setSupplierAddressLine1] = useState("");
-  const [supplierAddressLine2, setSupplierAddressLine2] = useState("");
+function SalesCustomer() {
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerContactNo, setCustomerContactNo] = useState("");
+  const [customerAddressLine1, setCustomerAddressLine1] = useState("");
+  const [customerAddressLine2, setCustomerAddressLine2] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -57,11 +55,11 @@ function Supplier() {
   };
 
   const handleClear = () => {
-    setSupplierName("");
-    setSupplierEmail("");
-    setSupplierContactNo("");
-    setSupplierAddressLine1("");
-    setSupplierAddressLine2("");
+    setCustomerName("");
+    setCustomerEmail("");
+    setCustomerContactNo("");
+    setCustomerAddressLine1("");
+    setCustomerAddressLine2("");
     setSelectedCountry(null);
     setSelectedState(null);
     setSelectedCity(null);
@@ -70,17 +68,15 @@ function Supplier() {
     setPhoneError("");
   };
 
-
-
   const handleSave = () => {
     let emailIsValid = true;
     let phoneIsValid = true;
 
     if (
-      supplierName.trim() === "" ||
-      supplierContactNo.trim() === "" ||
-      supplierEmail.trim() === "" ||
-      supplierAddressLine1.trim() === "" ||
+      customerName.trim() === "" ||
+      customerContactNo.trim() === "" ||
+      customerAddressLine1.trim() === "" ||
+      customerEmail.trim() === "" ||
       !selectedCountry ||
       !selectedState ||
       !selectedCity
@@ -97,7 +93,7 @@ function Supplier() {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (supplierEmail !== "" && !emailRegex.test(supplierEmail)) {
+    if (customerEmail !== "" && !emailRegex.test(customerEmail)) {
       setEmailError("Please enter a valid email address.");
       emailIsValid = false;
     } else {
@@ -105,7 +101,7 @@ function Supplier() {
     }
 
     const phoneRegex = /^\d{10}$/;
-    if (supplierContactNo !== "" && !phoneRegex.test(supplierContactNo)) {
+    if (customerContactNo !== "" && !phoneRegex.test(customerContactNo)) {
       setPhoneError("Please enter a valid 10-digit phone number.");
       phoneIsValid = false;
     } else {
@@ -116,24 +112,24 @@ function Supplier() {
       return;
     }
 
-    const supplierData = {
-      supplierName,
-      supplierEmail,
-      supplierContactNo,
-      supplierAddressLine1,
-      supplierAddressLine2,
+    const customerData = {
+      customerName,
+      customerEmail,
+      customerContactNo,
+      customerAddressLine1,
+      customerAddressLine2,
       city: selectedCity.value,
       state: selectedState.value,
       country: selectedCountry.value,
       zip,
     };
 
-    fetch("http://localhost:8080/api/v1/supplier", {
+    fetch("http://localhost:8080/api/v1/customers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(supplierData),
+      body: JSON.stringify(customerData),
       credentials: "include",
     })
       .then((response) => {
@@ -148,7 +144,7 @@ function Supplier() {
       .then((data) => {
         console.log("Response from the API:", data);
         Swal.fire({
-          title: "Supplier added successfully",
+          title: "Customer added successfully",
           icon: "success",
           confirmButtonText: "OK",
           customClass: {
@@ -173,11 +169,11 @@ function Supplier() {
   };
 
   return (
-    <SideBar>
-      <div className="supplier-management">
-        <div className="supplier-main-content container-fluid">
-          <h2 className="text-center">Supplier Management</h2>
-          <div className="supplier-card-container">
+    <SideBar6>
+      <div className="customer-management">
+        <div className="customer-main-content container-fluid">
+          <h2 className="text-center">Customer Management</h2>
+          <div className="customer-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -185,8 +181,8 @@ function Supplier() {
               <form>
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label htmlFor="supplierName" className="form-label">
-                      Supplier Name{" "}
+                    <label htmlFor="customerName" className="form-label">
+                      Customer Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
@@ -194,28 +190,29 @@ function Supplier() {
                     <input
                       type="text"
                       className="form-control"
-                      id="supplierName"
-                      placeholder="Enter Supplier Name"
-                      value={supplierName}
-                      onChange={(e) => setSupplierName(e.target.value)}
+                      id="customerName"
+                      placeholder="Enter Customer Name"
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
                       required
                     />
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="supplierEmail" className="form-label">
-                      Supplier Email
+                    <label htmlFor="customerEmail" className="form-label">
+                      Customer Email
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
                     {" "}*
-                    </span>
+                      </span>
                     <input
                       type="email"
-                      className={`form-control ${emailError ? "is-invalid" : ""
-                        }`}
-                      id="supplierEmail"
-                      placeholder="Enter Supplier Email"
-                      value={supplierEmail}
-                      onChange={(e) => setSupplierEmail(e.target.value)}
+                      className={`form-control ${
+                        emailError ? "is-invalid" : ""
+                      }`}
+                      id="customerEmail"
+                      placeholder="Enter Customer Email"
+                      value={customerEmail}
+                      onChange={(e) => setCustomerEmail(e.target.value)}
                       required
                     />
                     {emailError && (
@@ -225,7 +222,7 @@ function Supplier() {
                 </div>
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label htmlFor="supplierContactNo" className="form-label">
+                    <label htmlFor="customerContactNo" className="form-label">
                       Contact Number{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
@@ -233,12 +230,13 @@ function Supplier() {
                     </label>
                     <input
                       type="tel"
-                      className={`form-control ${phoneError ? "is-invalid" : ""
-                        }`}
-                      id="supplierContactNo"
+                      className={`form-control ${
+                        phoneError ? "is-invalid" : ""
+                      }`}
+                      id="customerContactNo"
                       placeholder="Enter Contact Number"
-                      value={supplierContactNo}
-                      onChange={(e) => setSupplierContactNo(e.target.value)}
+                      value={customerContactNo}
+                      onChange={(e) => setCustomerContactNo(e.target.value)}
                       required
                       pattern="\d{10}"
                       title="Please enter 10 numbers"
@@ -253,35 +251,33 @@ function Supplier() {
                   </div>
                   <div className="col-md-6">
                     <label
-                      htmlFor="supplierAddressLine1"
+                      htmlFor="customerAddressLine1"
                       className="form-label"
                     >
-
                       Address Line 1
                     </label>
                     <span style={{ color: "red", fontWeight: "bold" }}>
-                      {" "}*
-                    </span>
+                    {" "}*
+                      </span>
                     <input
                       type="text"
                       className="form-control"
-                      id="supplierAddressLine1"
+                      id="customerAddressLine1"
                       placeholder="Enter Address Line 1"
-                      value={supplierAddressLine1}
+                      value={customerAddressLine1}    
                       onChange={(e) => {
                         const onlyAlphabetsAndSpace = e.target.value.replace(/[^A-Za-z\s]/ig, '');
-                        setSupplierAddressLine1(onlyAlphabetsAndSpace);
+                        setCustomerAddressLine1(onlyAlphabetsAndSpace);
                       }}
                       required
                     />
-
-
+                    
                   </div>
                 </div>
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <label
-                      htmlFor="supplierAddressLine2"
+                      htmlFor="customerAddressLine2"
                       className="form-label"
                     >
                       Address Line 2
@@ -289,10 +285,10 @@ function Supplier() {
                     <input
                       type="text"
                       className="form-control"
-                      id="supplierAddressLine2"
+                      id="customerAddressLine2"
                       placeholder="Enter Address Line 2"
-                      value={supplierAddressLine2}
-                      onChange={(e) => setSupplierAddressLine2(e.target.value)}
+                      value={customerAddressLine2}
+                      onChange={(e) => setCustomerAddressLine2(e.target.value)}
                     />
                   </div>
                   <div className="col-md-6">
@@ -377,7 +373,7 @@ function Supplier() {
                     }}
                     onClick={handleClear}
                   >
-                    <FontAwesomeIcon icon={faEraser} className="me-1" />
+                       <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Clear
                   </button>
                   <button
@@ -393,7 +389,7 @@ function Supplier() {
                     }}
                     onClick={handleSave}
                   >
-                    <FontAwesomeIcon icon={faSave} className="me-1" />
+                       <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>
@@ -402,8 +398,8 @@ function Supplier() {
           </div>
         </div>
       </div>
-    </SideBar>
+    </SideBar6>
   );
 }
 
-export default Supplier;
+export default SalesCustomer;

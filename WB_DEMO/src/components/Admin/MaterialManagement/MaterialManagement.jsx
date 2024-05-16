@@ -5,7 +5,7 @@ import SideBar from "../../SideBar/SideBar";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 
 function MaterialManagement() {
   const [materialName, setMaterialName] = useState("");
@@ -79,7 +79,7 @@ function MaterialManagement() {
       });
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setMaterialName("");
     setMaterialTypeName("");
     setMaterialTypeNames([]); // Reset materialTypeNames state
@@ -150,7 +150,7 @@ function MaterialManagement() {
               confirmButton: "btn btn-success",
             },
           }).then(() => {
-            handleCancel();
+            handleClear();
             window.location.reload(); // Reload the page
           });
         } else {
@@ -220,7 +220,7 @@ function MaterialManagement() {
   return (
     <SideBar>
       <div className="material-management">
-        <div className="material-management-main-content">
+        <div className="material-management-main-content container-fluid">
           <h2 className="text-center">Material Management</h2>
           <div className="material-card-container">
             <div
@@ -392,12 +392,12 @@ function MaterialManagement() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
-                    Cancel
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -405,7 +405,7 @@ function MaterialManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}
