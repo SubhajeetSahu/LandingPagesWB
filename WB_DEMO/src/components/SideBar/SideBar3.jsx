@@ -30,9 +30,10 @@ import {
   Build,
   Handyman
 } from "@mui/icons-material";
+import PrintIcon from '@mui/icons-material/Print';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./SideBar1.css";
  
  
 const Sidebar3 = ({ children }) => {
@@ -129,11 +130,12 @@ const Sidebar3 = ({ children }) => {
             <MenuIcon sx={{ color: "white" }} />
           </IconButton>
           <Typography
-            variant={isLargeScreen ? "h6" : "h5"}
-            sx={{ color: "white" }}
-          >
-            Weighbridge Management System
-          </Typography>
+  variant={isLargeScreen ? "h6" : "h5"}
+  sx={{ color: "white", fontSize: "clamp(12px, 4vw, 32px)" }}
+>
+  Weighbridge Management System
+</Typography>
+
           <IconButton onClick={handleUserProfileClick}>
             <Person style={{ color: "white" }} />
           </IconButton>
@@ -217,31 +219,28 @@ const Sidebar3 = ({ children }) => {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="QualityCheck" />
+            <ListItemText primary="Quality Dashboard" />
           </ListItemButton>
        
           
           <ListItemButton
             component={Link}
-            to="/QReport"
+             to="/QReport"
             onClick={() => handleItemClick("Reports")}
             selected={selectedItem === "Reports"}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-   
               },
             }}
           >
             <ListItemIcon>
-              <BusinessCenter />
+              <SummarizeIcon  />
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
@@ -254,18 +253,15 @@ const Sidebar3 = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
-           
               },
             }}
           >
             <ListItemIcon>
-              <Home />
+              <PrintIcon />
             </ListItemIcon>
             <ListItemText primary="Print" />
           </ListItemButton>

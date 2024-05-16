@@ -25,9 +25,8 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./SideBar.css";
 
-const SideBarElements = ({ children }) => {
+const SideBar2 = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -332,4 +331,4 @@ const SideBarElements = ({ children }) => {
     </>
   );
 };
-export default SideBarElements;
+export default SideBar2;
