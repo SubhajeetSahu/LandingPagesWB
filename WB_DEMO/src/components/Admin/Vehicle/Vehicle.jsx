@@ -17,7 +17,7 @@ function Vehicle() {
   const [transporters, setTransporters] = useState([]);
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setVehicleNo("");
     setTransporter("");
     setVehicleType("");
@@ -89,7 +89,7 @@ function Vehicle() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -280,13 +280,13 @@ function Vehicle() {
                       border: "1px solid #cccccc",
                       width: "100px",
 
-                      fontWeight: "600",
+                       
                       // transition: "transform 0.3s ease-in-out",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -294,7 +294,7 @@ function Vehicle() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       border: "1px solid #cccccc",

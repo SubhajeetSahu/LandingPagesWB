@@ -79,7 +79,7 @@ function MaterialManagement() {
       });
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setMaterialName("");
     setMaterialTypeName("");
     setMaterialTypeNames([]); // Reset materialTypeNames state
@@ -150,7 +150,7 @@ function MaterialManagement() {
               confirmButton: "btn btn-success",
             },
           }).then(() => {
-            handleCancel();
+            handleClear();
             window.location.reload(); // Reload the page
           });
         } else {
@@ -392,12 +392,12 @@ function MaterialManagement() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -405,7 +405,7 @@ function MaterialManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

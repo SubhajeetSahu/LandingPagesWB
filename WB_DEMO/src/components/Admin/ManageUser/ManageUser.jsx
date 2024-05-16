@@ -31,9 +31,9 @@ function ManageUser() {
       title: "Are you sure?",
       text: "You are about to inactive this user.",
       icon: "warning",
-      showCancelButton: true,
+      showClearButton: true,
       confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      ClearButtonColor: "#3085d6",
       confirmButtonText: "Yes, inactivate it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -68,9 +68,9 @@ function ManageUser() {
       title: "Are you sure?",
       text: "You are about to activate this user.",
       icon: "warning",
-      showCancelButton: true,
+      showClearButton: true,
       confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      ClearButtonColor: "#3085d6",
       confirmButtonText: "Yes, activate it!",
     }).then(async (result) => {
       if (result.isConfirmed) {

@@ -14,7 +14,7 @@ function SiteManagement() {
   const [companies, setCompanies] = useState([]);
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setCompanyName("");
     setSiteName("");
     setSiteAddress("");
@@ -177,15 +177,15 @@ function SiteManagement() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       // transition: "transform 0.3s ease-in-out",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -193,7 +193,7 @@ function SiteManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       border: "1px solid #cccccc",
                       width: "100px",
 

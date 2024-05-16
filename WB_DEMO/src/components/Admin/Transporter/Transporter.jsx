@@ -12,7 +12,7 @@ function Transporter() {
   const [phoneError, setPhoneError] = useState("");
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setTransporterName("");
     setTransporterContactNo("");
     setTransporterEmailId("");
@@ -95,7 +95,7 @@ function Transporter() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -115,7 +115,7 @@ function Transporter() {
   return (
     <SideBar>
       <div className="transporter-register">
-        <div className="transporter-main-content">
+        <div className="transporter-main-content container-fluid">
           <h2 className="text-center">Transporter Registration</h2>
           <div className="create-user-container">
             <div
@@ -219,14 +219,14 @@ function Transporter() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       // transition: "transform 0.3s ease-in-out",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -234,7 +234,7 @@ function Transporter() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       border: "1px solid #cccccc",
                       width: "100px",
 

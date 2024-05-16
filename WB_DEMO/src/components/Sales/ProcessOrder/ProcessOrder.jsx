@@ -18,7 +18,7 @@ function ProcessOrder() {
   const [consignmentWeight, setConsignmentWeight] = useState("");
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setFormsaleOrderNo(saleOrderNo || '');
     setFormProductName(productName || '');
     setProductType("");
@@ -83,7 +83,7 @@ function ProcessOrder() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -231,12 +231,12 @@ function ProcessOrder() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -244,7 +244,7 @@ function ProcessOrder() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

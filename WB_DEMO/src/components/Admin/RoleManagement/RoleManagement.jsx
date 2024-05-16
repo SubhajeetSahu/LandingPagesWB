@@ -9,7 +9,7 @@ function RoleManagement() {
   const [roleName, setRoleName] = useState("");
   const [error, setError] = useState("");
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setRoleName("");
   };
 
@@ -112,13 +112,13 @@ function RoleManagement() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                      fontWeight: "600",
+                       
                       width: "100px",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -126,7 +126,7 @@ function RoleManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       border: "1px solid #cccccc",
                       width: "100px",
                     }}

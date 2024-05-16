@@ -1,10 +1,12 @@
 body {
-  font-family: nunito, sans-serif;
+  font-family: nunito, sans-serif !important;
 }
 
 
 label {
-  font-weight: bold !important;
   color: rgb(51, 65, 85) !important; 
 }
 
+.form-label{
+  font-weight: bold;
+}

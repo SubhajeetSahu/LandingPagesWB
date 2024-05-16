@@ -41,7 +41,7 @@ function SalesOrder() {
       .catch((error) => console.error("Error fetching customer address:", error));
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setPurchaseOrderedDate("");
     setPurchaseOrderNo("");
     setSaleOrderNo("");
@@ -236,12 +236,12 @@ function SalesOrder() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -249,7 +249,7 @@ function SalesOrder() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

@@ -56,7 +56,7 @@ function Supplier() {
     setCities(cityData);
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     setSupplierName("");
     setSupplierEmail("");
     setSupplierContactNo("");
@@ -155,7 +155,7 @@ function Supplier() {
             confirmButton: "btn btn-success",
           },
         });
-        handleCancel();
+        handleClear();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -373,12 +373,12 @@ function Supplier() {
                       border: "1px solid #cccccc",
                       width: "100px",
 
-                      fontWeight: "600",
+                       
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -386,7 +386,7 @@ function Supplier() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       border: "1px solid #cccccc",

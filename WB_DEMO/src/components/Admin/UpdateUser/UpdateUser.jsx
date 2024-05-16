@@ -79,7 +79,7 @@ function UpdateUser() {
     fetchSiteList(e.target.value);
   };
 
-  const handleCancel = () => {
+  const handleClear = () => {
     navigate("/manage-user");
   };
 
@@ -472,15 +472,15 @@ function UpdateUser() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                      fontWeight: "600",
+                       
                       width: "100px",
 
                       // transition: "transform 0.3s ease-in-out",
                     }}
-                    onClick={handleCancel}
+                    onClick={handleClear}
                   >
                     <FontAwesomeIcon icon={faEraser} className="me-1" />
-                    Cancel
+                    Clear
                   </button>
                   <button
                     type="button"
@@ -488,7 +488,7 @@ function UpdateUser() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                      fontWeight: "600",
+                       
                       border: "1px solid #cccccc",
                       width: "100px",
 

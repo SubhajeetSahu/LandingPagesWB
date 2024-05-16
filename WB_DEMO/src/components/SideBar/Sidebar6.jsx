@@ -58,9 +58,9 @@ const SideBar6 = ({ children }) => {
       title: "Are you sure?",
       text: "You are about to sign out.",
       icon: "warning",
-      showCancelButton: true,
+      showClearButton: true,
       confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      ClearButtonColor: "#3085d6",
       confirmButtonText: "Yes, sign out",
     }).then((result) => {
       if (result.isConfirmed) {
