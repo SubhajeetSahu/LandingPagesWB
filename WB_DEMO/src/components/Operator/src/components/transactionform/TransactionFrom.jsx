@@ -52,7 +52,7 @@ function TransactionFrom() {
   console.log(ticketNumber);
 
   useEffect(() => {
-    // Fetch data from the API
+    
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
         withCredentials: true, // Include credentials

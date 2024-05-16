@@ -70,6 +70,9 @@
   /* margin-top: -10px; */
    margin-left: 15px; 
   width: 160px ;
+  border: none;
+  outline: none;
+  text-align: center;
  
 }
 
@@ -200,6 +203,9 @@
   background-color: #efefef;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   width: 100% !important;
+  border: none;
+  outline: none;
+  text-align: center;
 } 
 
 /* #A9 input{
@@ -214,4 +220,7 @@
   height: 50px;
   background-color: #efefef;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: none;
+  outline: none;
+  text-align: center;
 } 

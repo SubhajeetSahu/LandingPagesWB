@@ -12,15 +12,15 @@ const Camera = () => {
   const [vehicleNo, setVehicleNo] = useState('');
   const [dateTime, setDateTime] = useState('');
 
-   
+
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
- 
- 
+
+
   useEffect(() => {
     Chart.register(ArcElement);
- 
+
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -31,11 +31,11 @@ const Camera = () => {
         chartRef2.current.chartInstance.resize();
       }
     });
- 
+
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
- 
+
     return () => {
       resizeObserver.disconnect();
     };
@@ -52,12 +52,8 @@ const Camera = () => {
 
   return (
     <>
-      
-
-<SideBar2
-  isSidebarExpanded={isSidebarExpanded}
-  toggleSidebar={toggleSidebar}
-/>
+      <SideBar2
+      />
 
       <div className="d-flex justify-content-center mt-5"> {/* Adjusted margin-top here */}
         <div style={{ marginTop: '30px' }} className="max-w-4xl">
