@@ -71,6 +71,8 @@ import SalesOrder from "./components/Sales/SalesOrder/SalesOrder.jsx";
 import ProcessOrder from "./components/Sales/ProcessOrder/ProcessOrder.jsx";
 import SideBar6 from "./components/SideBar/Sidebar6.jsx";
 import SalesDisplay from "./components/Sales/SalesDisplay/SalesDisplay.jsx";
+import SalesCustomer from "./components/Sales/SalesCustomer/SalesCustomer.jsx";
+import SalesTransporter from "./components/Sales/SalesTransporter/SalesTranporter.jsx";   
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -100,6 +102,15 @@ const router = createBrowserRouter(
       <Route path="/view-transporter" element={<ViewTransporter />} />
       <Route path="/material-management" element={<MaterialManagement />} />
       <Route path="/role-management" element={<RoleManagement />} />
+
+      <Route path="/SalesOrder" element={<SalesOrder />} />
+      <Route path="/ProcessOrder" element={<ProcessOrder />} />
+      <Route path="/Sidebar6" element={<SideBar6 />} />
+      <Route path="/SalesDisplay" element={<SalesDisplay />}/>
+      <Route path="/SalesCustomer" element={<SalesCustomer />}/>
+      <Route path="/SalesTransporter" element={<SalesTransporter />}/>
+
+
 
       <Route path="/VehicleEntry" element={<VehicleEntry />} />
       <Route path="/VehicleEntryDetails" element={<VehicleEntryDetails />} />
@@ -133,10 +144,6 @@ const router = createBrowserRouter(
       <Route path="/OperatorTransactionFromInbound" element={<OperatorTransactionFromInbound />} />
       <Route path="/OperatorTransactionFromOutbound" element={<OperatorTransactionFromOutbound />} />
 
-      <Route path="/SalesOrder" element={<SalesOrder />} />
-      <Route path="/ProcessOrder" element={<ProcessOrder />} />
-      <Route path="/Sidebar6" element={<SideBar6 />} />
-      <Route path="/SalesDisplay" element={<SalesDisplay />}/>
 
     </Route>
   )

@@ -219,6 +219,9 @@ function ProcessOrder() {
                         *
                       </span>
                     </label>
+                    <button className="btn btn-sm border" style={{borderRadius: "5px", marginLeft: "5px", backgroundColor: "lightblue"}}>
+                    <a href="/SalesTransporter" style={{display: "block", textDecoration: "none", color:"black"}}>Add Transporter</a>
+                    </button>
                     <select
                       className="form-select"
                       id="transporterName"

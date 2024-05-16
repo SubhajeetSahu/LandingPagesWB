@@ -188,12 +188,17 @@ function SalesOrder() {
                 </div>
                 <div className="row mb-2">
                   <div className="col-md-6">
+                    <div>
                     <label htmlFor="customerName" className="form-label">
                       Customer Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
                     </label>
+                    <button className="btn btn-sm border" style={{borderRadius: "5px", marginLeft: "5px", backgroundColor: "lightblue"}}>
+                    <a href="/SalesCustomer" style={{display: "block", textDecoration: "none", color:"black"}}>Add customer</a>
+                    </button>
+                    </div>
                     <select
                       className="form-select"
                       id="customerName"
