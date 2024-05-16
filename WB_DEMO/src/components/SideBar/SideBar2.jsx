@@ -168,7 +168,7 @@ const SideBarElements = ({ children }) => {
           },
         }}
       >
-        <List sx={{ marginTop: "80px" }}>
+      <List sx={{ marginTop: "65px" }}>   
           <ListItemButton
             component={Link}
             to="/VehicleEntry"

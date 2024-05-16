@@ -1,3 +1,4 @@
+// HomePage6.jsx
 import { useState, useEffect } from 'react';
 import { Table, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +63,7 @@ const HomePage6 = () => {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-        <Button type="primary" icon={<EyeOutlined />} onClick={() => handleViewClick(record)} />
+        <Button type="primary" icon={<EyeOutlined />} onClick={() => handleViewClick(record.saleOrderNo)} />
       ),
     },
   ];
@@ -71,9 +72,8 @@ const HomePage6 = () => {
     navigate('/ProcessOrder', { state: { saleOrderNo: record.saleOrderNo, productName: record.productName } });
   };
 
-  const handleViewClick = (record) => {
-    // Add your logic here for the view action
-    console.log('View clicked for record:', record);
+  const handleViewClick = (saleOrderNo) => {
+    navigate(`/SalesDisplay?saleOrderNo=${saleOrderNo}`);
   };
 
   return (

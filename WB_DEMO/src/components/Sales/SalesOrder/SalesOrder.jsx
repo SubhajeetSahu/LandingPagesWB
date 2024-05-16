@@ -12,7 +12,7 @@ function SalesOrder() {
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
   const [productName, setProductName] = useState("");
-  const [orderedQuantity, setOrderedQuantity] = useState("");
+  const [orderedQuantity, setOrderedQuantity] = useState(0);
   const [brokerName, setBrokerName] = useState("");
   const [brokerAddress, setBrokerAddress] = useState("");
   const [customerNames, setCustomerNames] = useState([]);
@@ -47,40 +47,83 @@ function SalesOrder() {
     setCustomerName("");
     setCustomerAddress("");
     setProductName("");
-    setOrderedQuantity("");
+    setOrderedQuantity(0);
     setBrokerName("");
     setBrokerAddress("");
   };
 
   const handleSave = () => {
-    const data = {
+    if (
+      purchaseOrderedDate.trim() === "" ||
+      purchaseOrderNo.trim() === "" ||
+      customerName.trim() === "" ||
+      customerAddress.trim() === "" ||
+      productName.trim() === "" ||
+      orderedQuantity === 0
+    ) {
+      Swal.fire({
+        title: "Please fill in all the required fields.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-warning",
+        },
+      });
+      return;
+    }
+
+    const salesData = {
       purchaseOrderedDate,
-      saleOrderNo,
       purchaseOrderNo,
+      saleOrderNo,
       customerName,
       customerAddress,
       productName,
-      orderedQuantity: parseInt(orderedQuantity),
+      orderedQuantity,
       brokerName,
-      brokerAddress
+      brokerAddress,
     };
 
     fetch("http://localhost:8080/api/v1/sales/add/salesdetail", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
-      credentials: "include"
+      body: JSON.stringify(salesData),
+      credentials: "include",
     })
-      .then((response) => response.json())
-      .then((result) => {
-        Swal.fire("Success!", "Sales order saved successfully!", "success");
+      .then((response) => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          return response.json().then((error) => {
+            throw new Error(error.message);
+          });
+        }
+      })
+      .then((data) => {
+        console.log("Response from the API:", data);
+        Swal.fire({
+          title: data,
+          icon: "success",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-success",
+          },
+        });
         handleClear();
       })
       .catch((error) => {
-        console.error("Error saving sales order:", error);
-        Swal.fire("Error!", "Failed to save sales order!", "error");
+        console.error("Error:", error);
+        Swal.fire({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-danger",
+          },
+        });
       });
   };
 
@@ -132,9 +175,6 @@ function SalesOrder() {
                   <div className="col-md-4">
                     <label htmlFor="saleOrderNo" className="form-label">
                       Sale Order No{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
                     </label>
                     <input
                       type="text"
@@ -189,7 +229,7 @@ function SalesOrder() {
 
                 <div className="row mb-2">
                   <div className="col-md-6">
-                   <label htmlFor="productName" className="form-label">
+                    <label htmlFor="productName" className="form-label">
                       Product Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
@@ -224,7 +264,7 @@ function SalesOrder() {
                       value={orderedQuantity}
                       required
                       onChange={(e) => {
-                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        const newValue = Math.max(0, parseFloat(e.target.value, 10));
                         setOrderedQuantity(newValue);
                       }}
                     />
@@ -264,7 +304,7 @@ function SalesOrder() {
                     className="btn btn-danger me-4 btn-hover"
                     style={{
                       backgroundColor: "white",
-                      color: "black",
+                      color: "#d63031",
                       border: "1px solid #cccccc",
                       width: "100px",
                     }}
@@ -278,7 +318,7 @@ function SalesOrder() {
                     className="btn btn-success-1 btn-hover"
                     style={{
                       backgroundColor: "white",
-                      color: "black",
+                      color: "#008060 ",
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

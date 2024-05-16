@@ -70,6 +70,7 @@ import OperatorTransactionFromOutbound from "./components/Operator/src/component
 import SalesOrder from "./components/Sales/SalesOrder/SalesOrder.jsx";
 import ProcessOrder from "./components/Sales/ProcessOrder/ProcessOrder.jsx";
 import SideBar6 from "./components/SideBar/Sidebar6.jsx";
+import SalesDisplay from "./components/Sales/SalesDisplay/SalesDisplay.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -135,6 +136,7 @@ const router = createBrowserRouter(
       <Route path="/SalesOrder" element={<SalesOrder />} />
       <Route path="/ProcessOrder" element={<ProcessOrder />} />
       <Route path="/Sidebar6" element={<SideBar6 />} />
+      <Route path="/SalesDisplay" element={<SalesDisplay />}/>
 
     </Route>
   )

@@ -211,7 +211,7 @@ function UpdateUser() {
   return (
     <SideBar>
       <div className="update-user">
-        <div className="update-main-content">
+        <div className="update-main-content container-fluid">
           <h2 className="text-center">Update User</h2>
           <div className="update-user-container">
             <div className="card update-user-form">

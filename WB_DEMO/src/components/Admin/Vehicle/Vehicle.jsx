@@ -223,7 +223,7 @@ function Vehicle() {
                       placeholder="Enter Vehicle Load Capacity"
                       value={vehicleLoadCapacity}
                       onChange={(e) => {
-                        const newValue = Math.max(0, parseInt(e.target.value, 10));
+                        const newValue = Math.max(0, parseFloat(e.target.value, 10));
                         setVehicleLoadCapacity(newValue);
                       }}
                       required
