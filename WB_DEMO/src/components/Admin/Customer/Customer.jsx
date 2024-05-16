@@ -5,7 +5,7 @@ import Select from "react-select";
 import "./Customer.css";
 import SideBar from "../../SideBar/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 
 function Customer() {
   const [customerName, setCustomerName] = useState("");
@@ -373,7 +373,7 @@ function Customer() {
                     }}
                     onClick={handleCancel}
                   >
-                       <FontAwesomeIcon icon={faTimes} className="me-1" />
+                       <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Cancel
                   </button>
                   <button

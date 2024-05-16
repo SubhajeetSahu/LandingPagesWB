@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./Vehicle.css";
 import SideBar from "../../SideBar/SideBar";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -285,7 +285,7 @@ function Vehicle() {
                     }}
                     onClick={handleCancel}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Cancel
                   </button>
                   <button

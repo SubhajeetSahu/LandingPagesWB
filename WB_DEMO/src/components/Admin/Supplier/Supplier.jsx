@@ -4,7 +4,7 @@ import { Country, State, City } from "country-state-city";
 import Select from "react-select";
 import "./Supplier.css";
 import SideBar from "../../SideBar/SideBar";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -377,7 +377,7 @@ function Supplier() {
                     }}
                     onClick={handleCancel}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Cancel
                   </button>
                   <button

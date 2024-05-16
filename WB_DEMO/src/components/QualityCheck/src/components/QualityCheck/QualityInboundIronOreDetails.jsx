@@ -5,7 +5,7 @@ import {
   faSave,
   faTrashAlt,
   faPrint,
-  faTimes,
+  faEraser,
 } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
 import { useMediaQuery } from "react-responsive";

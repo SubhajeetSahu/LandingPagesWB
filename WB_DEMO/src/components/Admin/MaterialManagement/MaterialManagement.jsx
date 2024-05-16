@@ -5,7 +5,7 @@ import SideBar from "../../SideBar/SideBar";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 
 function MaterialManagement() {
   const [materialName, setMaterialName] = useState("");
@@ -396,7 +396,7 @@ function MaterialManagement() {
                     }}
                     onClick={handleCancel}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Cancel
                   </button>
                   <button

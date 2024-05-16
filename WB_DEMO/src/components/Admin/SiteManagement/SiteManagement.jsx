@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import SideBar from "../../SideBar/SideBar";
 import "./SiteManagement.css";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -184,7 +184,7 @@ function SiteManagement() {
                     }}
                     onClick={handleCancel}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Cancel
                   </button>
                   <button

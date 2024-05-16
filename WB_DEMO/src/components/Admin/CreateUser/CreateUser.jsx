@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faSave } from "@fortawesome/free-solid-svg-icons";
+import { faEraser, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./CreateUser.css";
 import SideBar from "../../SideBar/SideBar";
@@ -381,7 +381,7 @@ function CreateUser() {
                                 >
                                   <span className="me-2">{r}</span>
                                   <FontAwesomeIcon
-                                    icon={faTimes}
+                                    icon={faEraser}
                                     className="cursor-pointer"
                                     onClick={() => handleRoleChange(r)}
                                   />
@@ -442,7 +442,7 @@ function CreateUser() {
                           }}
                           onClick={handleCancel}
                         >
-                          <FontAwesomeIcon icon={faTimes} className="me-1" />
+                          <FontAwesomeIcon icon={faEraser} className="me-1" />
                           Cancel
                         </button>
                         <button

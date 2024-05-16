@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { useLocation } from 'react-router-dom';
 import "./ProcessOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
-import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ProcessOrder() {
@@ -235,7 +235,7 @@ function ProcessOrder() {
                     }}
                     onClick={handleCancel}
                   >
-                    <FontAwesomeIcon icon={faTimes} className="me-1" />
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Cancel
                   </button>
                   <button
