@@ -122,6 +122,10 @@ function ManageUser() {
 
   const fetchUserById = async () => {
     try {
+      if (userIdFilter.trim() === "") {
+        fetchUserData(); // Fetch all users
+        return;
+      }
       const response = await fetch(
         `http://localhost:8080/api/v1/users/${userIdFilter}`
       );
@@ -134,6 +138,7 @@ function ManageUser() {
       console.error("Error fetching user by id:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchUserData();
