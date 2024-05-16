@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { EyeOutlined } from '@ant-design/icons';
 import SideBar6 from '../SideBar/Sidebar6';
 import './HomePage6.css';
-
 
 const HomePage6 = () => {
   const [sales, setSales] = useState([]);
@@ -17,7 +17,6 @@ const HomePage6 = () => {
   }, []);
 
   const columns = [
-
     {
       title: 'Sale Order No',
       dataIndex: 'saleOrderNo',
@@ -28,9 +27,7 @@ const HomePage6 = () => {
       title: 'Purchase Order No',
       dataIndex: 'purchaseOrderNo',
       key: 'purchaseOrderNo',
-   
     },
-    
     {
       title: 'Customer Name',
       dataIndex: 'customerName',
@@ -51,10 +48,32 @@ const HomePage6 = () => {
       dataIndex: 'orderedQty',
       key: 'orderedQty',
     },
+    {
+      title: 'Progressive Qty',
+      dataIndex: 'progressiveQty',
+      key: 'progressiveQty',
+    },
+    {
+      title: 'Balance Qty',
+      dataIndex: 'balanceQty',
+      key: 'balanceQty',
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Button type="primary" icon={<EyeOutlined />} onClick={() => handleViewClick(record)} />
+      ),
+    },
   ];
 
   const handleRowClick = (record) => {
     navigate('/ProcessOrder', { state: { saleOrderNo: record.saleOrderNo, productName: record.productName } });
+  };
+
+  const handleViewClick = (record) => {
+    // Add your logic here for the view action
+    console.log('View clicked for record:', record);
   };
 
   return (
@@ -62,8 +81,7 @@ const HomePage6 = () => {
       <div className='home-page-6 container-fluid'>
         <h2 className="text-center">Sales Dashboard</h2>
         <div className="table-responsive">
-          <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo " 
-          className="user-table mt-3 custom-table" />
+          <Table dataSource={sales} columns={columns} rowKey="purchaseOrderNo" className="user-table mt-3 custom-table" />
         </div>
       </div>
     </SideBar6>

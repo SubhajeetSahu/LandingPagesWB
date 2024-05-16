@@ -30,7 +30,6 @@ function SalesOrder() {
       .catch((error) => console.error("Error fetching product names:", error));
   }, []);
 
-
   const handleCustomerNameChange = (event) => {
     const selectedCustomerName = event.target.value;
     setCustomerName(selectedCustomerName);
@@ -51,6 +50,38 @@ function SalesOrder() {
     setOrderedQuantity("");
     setBrokerName("");
     setBrokerAddress("");
+  };
+
+  const handleSave = () => {
+    const data = {
+      purchaseOrderedDate,
+      saleOrderNo,
+      purchaseOrderNo,
+      customerName,
+      customerAddress,
+      productName,
+      orderedQuantity: parseInt(orderedQuantity),
+      brokerName,
+      brokerAddress
+    };
+
+    fetch("http://localhost:8080/api/v1/sales/add/salesdetail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+      credentials: "include"
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        Swal.fire("Success!", "Sales order saved successfully!", "success");
+        handleClear();
+      })
+      .catch((error) => {
+        console.error("Error saving sales order:", error);
+        Swal.fire("Error!", "Failed to save sales order!", "error");
+      });
   };
 
   return (
@@ -137,7 +168,7 @@ function SalesOrder() {
                       ))}
                     </select>
                   </div>
-  
+
                   <div className="col-md-6">
                     <label htmlFor="customerAddress" className="form-label">
                       Customer Address{" "}
@@ -155,7 +186,7 @@ function SalesOrder() {
                     />
                   </div>
                 </div>
-  
+
                 <div className="row mb-2">
                   <div className="col-md-6">
                    <label htmlFor="productName" className="form-label">
@@ -236,7 +267,6 @@ function SalesOrder() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                       
                     }}
                     onClick={handleClear}
                   >
@@ -249,11 +279,10 @@ function SalesOrder() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}
-                    // onClick={handleSave}
+                    onClick={handleSave}
                   >
                     <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save

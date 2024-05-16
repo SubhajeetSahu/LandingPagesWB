@@ -2,6 +2,9 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import SideBar from "../../SideBar/SideBar";
 import "./Transporter.css";
+import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 function Transporter() {
   const [transporterName, setTransporterName] = useState("");
@@ -226,6 +229,7 @@ function Transporter() {
                     }}
                     onClick={handleClear}
                   >
+                     <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Clear
                   </button>
                   <button
@@ -242,6 +246,7 @@ function Transporter() {
                     }}
                     onClick={handleSave}
                   >
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

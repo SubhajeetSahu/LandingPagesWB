@@ -39,7 +39,7 @@ function Vehicle() {
       vehicleNo.trim() === "" ||
       transporter.trim() === "" ||
       vehicleFitnessUpTo.trim() === "" ||
-      vehicleLoadCapacity.trim() === ""
+      vehicleLoadCapacity.toString().trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all required fields.",
@@ -280,8 +280,7 @@ function Vehicle() {
                       border: "1px solid #cccccc",
                       width: "100px",
 
-                       
-                      // transition: "transform 0.3s ease-in-out",
+                      
                     }}
                     onClick={handleClear}
                   >
