@@ -15,7 +15,7 @@ const ViewCompany = () => {
 
   const columns = [
     {
-      title: 'Company ID',
+      title: 'ID',
       dataIndex: 'companyId',
       key: 'companyId',
     },
@@ -25,31 +25,48 @@ const ViewCompany = () => {
       key: 'companyName',
     },
     {
-      title: 'Company Email',
+      title: 'Email',
       dataIndex: 'companyEmail',
       key: 'companyEmail',
     },
     {
-      title: 'Company Contact No',
+      title: 'Contact No',
       dataIndex: 'companyContactNo',
       key: 'companyContactNo',
     },
     {
-      title: 'Company Address',
+      title: 'Address',
       dataIndex: 'companyAddress',
       key: 'companyAddress',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'companyStatus',
+      key: 'companyStatus',
+    },
+    {
+      title: 'Sites',
+      dataIndex: 'sites',
+      key: 'sites',
+      render: sites => (
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
+          {sites.map(site => (
+            <li key={site.siteId}>{site.siteName} - {site.siteAddress}</li>
+          ))}
+        </ul>
+      ),
     },
   ];
 
   return (
     <SideBar>
-    <div className='view-company-page container-fluid'>
-    <h2 className="text-center">View Company</h2>
-    <div className="table-responsive">
-      <Table dataSource={companies} columns={columns} rowKey="companyId" 
-      className="user-table mt-3 custom-table"/>
-    </div>
-    </div>
+      <div className='view-company-page container-fluid'>
+        <h2 className="text-center">View Company</h2>
+        <div className="table-responsive">
+          <Table dataSource={companies} columns={columns} rowKey="companyId" 
+          className="company-table mt-3 custom-table"/>
+        </div>
+      </div>
     </SideBar>
   );
 };
