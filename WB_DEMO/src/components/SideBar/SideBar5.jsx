@@ -34,7 +34,6 @@ import PrintIcon from '@mui/icons-material/Print';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./SideBar1.css";
 
 const SideBar5 = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
@@ -77,26 +76,27 @@ const SideBar5 = ({ children }) => {
       title: "Are you sure?",
       text: "You are about to sign out.",
       icon: "warning",
-      showClearButton: true,
+      showCancelButton: true,
       confirmButtonColor: "#d33",
-      ClearButtonColor: "#3085d6",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, sign out",
+      cancelButtonText: "Cancel"
     }).then((result) => {
       if (result.isConfirmed) {
         // Clear session storage
         sessionStorage.clear();
-
+  
         // Clear browser history and redirect
         window.location.href = "/";
-
+  
         // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
           // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
-
+  
           // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
-
+  
           // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);

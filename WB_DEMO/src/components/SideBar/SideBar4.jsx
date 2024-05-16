@@ -7,7 +7,7 @@ import {
     faTruck,
     faSignOut,
   } from "@fortawesome/free-solid-svg-icons";import { Link } from "react-router-dom";
-import "./SideBar.css";
+
  
 const SideBar4 = ({ isSidebarExpanded, toggleSidebar }) => {
   const handleSidebarItemClick = () => {

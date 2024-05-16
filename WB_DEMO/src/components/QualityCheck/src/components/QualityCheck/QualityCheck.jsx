@@ -4,6 +4,7 @@ import SideBar3 from "../../../../SideBar/SideBar3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileWord } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Table, Tag, Button, Input } from "antd";
 
 function QualityCheck() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -34,7 +35,7 @@ function QualityCheck() {
       const response = await fetch(
         `http://localhost:8080/api/v1/qualities/getAllTransaction`,
         {
-          credentials: "include", 
+          credentials: "include",
         }
       );
       if (response.ok) {
@@ -90,7 +91,7 @@ function QualityCheck() {
   const [currentDate, setCurrentDate] = useState("");
   useEffect(() => {
     const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
+    const formattedDate = today.toISOString().split("T")[0];
     setCurrentDate(formattedDate);
   }, []);
 
@@ -100,7 +101,7 @@ function QualityCheck() {
     if (!item) {
       console.error("Ticket not found. Unable to generate the document.");
       return;
-    }    
+    }
 
     const content = `
     <div> <h1> Pdf here </h1></div>
@@ -122,19 +123,19 @@ function QualityCheck() {
       if (item) {
         const { moisture, vm, ash, fc, ...queryParams } = item;
         const queryString = new URLSearchParams(queryParams).toString();
-        navigate('/QualityInboundCoalDetails?' + queryString);
+        navigate("/QualityInboundCoalDetails?" + queryString);
       }
     } else if (productMaterial === "Iron Ore") {
       const item = data.find((item) => item.ticketNo === ticketNumber);
       if (item) {
         const queryString = new URLSearchParams(item).toString();
-        navigate('/QualityInboundIronOreDetails?' + queryString);
+        navigate("/QualityInboundIronOreDetails?" + queryString);
       }
     } else if (productMaterial === "Sponge Iron") {
       const item = data.find((item) => item.ticketNo === ticketNumber);
       if (item) {
         const queryString = new URLSearchParams(item).toString();
-        navigate('/QualityOutboundSpongeIronDetails?' + queryString);
+        navigate("/QualityOutboundSpongeIronDetails?" + queryString);
       }
     }
   };
@@ -146,128 +147,234 @@ function QualityCheck() {
   };
 
   return (
-    <div style={{ fontFamily: 'Arial', color: '#333' }}>
-    <SideBar3 />
-    <div className="container-fluid mt-0">
-      <div className="mb-3 text-center">
-        <h2 style={{ fontFamily: 'Arial', marginBottom: 0 }}>Quality Dashboard</h2>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            className="form-control form-control-sm"
-            style={{ width: "auto" }}
-            value={currentDate}
-            disabled // Disable user input
-          />
-        </div>
+    <SideBar3>
+      <div style={{ fontFamily: "Arial", color: "#333", "--table-border-radius": "30px" }}>
+        <div className="container-fluid mt-0">
+          <div className="mb-3 text-center">
+            <h2 style={{ fontFamily: "Arial", marginBottom: "0px !important" }}>
+              Quality Dashboard
+            </h2>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              className="form-control form-control-sm"
+              style={{ width: "auto" }}
+              value={currentDate}
+              disabled // Disable user input
+            />
+          </div>
 
-        <div className="table-responsive">
-        <table className="table table-bordered table-striped" style={{ fontFamily: 'Arial', borderRadius: '10px' }}>
-            <thead className="thead-light">
-              <tr>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Ticket No.</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Date</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Vehicle No.</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>In</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Out</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Transporter Name</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Product/Material</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Product/Material Type</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Supplier/Customer</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Supplier/Customer Address</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Transaction Type</th>
-                <th style={{ whiteSpace: 'nowrap', color: 'white', backgroundColor: '#0077b6' }}>Download</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data
-                .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-                .map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      <a
-                        href="#"
-                        onClick={() => handleTicketClick(item.ticketNo, item.materialName)}
-                        className="text-primary"
-                      >
-                        {item.ticketNo}
-                      </a>
-                    </td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.date}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.vehicleNo}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.in}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.out}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.transporterName}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.materialName}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.materialType}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.supplierOrCustomerName}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.supplierOrCustomerAddress}</td>
-                    <td style={{ whiteSpace: 'nowrap' }}>{item.transactionType}</td>
-                    <td>
-                    <button
-    className="btn btn-success btn-sm"
-    onClick={() => handleDownload(item.ticketNo)}
-    disabled // add disabled attribute to disable the button
+          <div className=" table-responsive" style={{ borderRadius: "10px" }}>
+            <div >
+              <table className=" ant-table table table-striped"
+              >
+
+                <thead className="ant-table-thead" >
+                  <tr className="ant-table-row">
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Ticket No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Date</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Vehicle No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>In</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Out</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Transporter Name</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Product/Material</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Product/Material Type</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Supplier/Customer</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Supplier/Customer Address</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Transaction Type</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6" }}>Download</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data
+                    .slice(
+                      currentPage * itemsPerPage,
+                      (currentPage + 1) * itemsPerPage
+                    )
+                    .map((item, index) => (
+                      <tr key={index}>
+                        <td className="ant-table-cell">
+                          <Button
+                             
+                            onClick={() =>
+                              handleTicketClick(item.ticketNo, item.materialName)
+                            }
+                            style={{background: "#88CCFA",}}
+                          >
+                            {item.ticketNo}
+                          </Button>
+
+
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.date}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.vehicleNo}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.in}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.out}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.transporterName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.materialName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.materialType}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.supplierOrCustomerName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.supplierOrCustomerAddress}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.transactionType}
+                        </td>
+                        <td className="ant-table-cell">
+                          <button
+                            className="btn btn-success btn-sm"
+                            onClick={() => handleDownload(item.ticketNo)}
+                            disabled // add disabled attribute to disable the button
+                          >
+                            <FontAwesomeIcon icon={faFileWord} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pagination */}
+          <div className="d-flex justify-content-between align-items-center mt-3 ml-2">
+            <span>
+              Showing {currentPage * itemsPerPage + 1} to{" "}
+              {Math.min((currentPage + 1) * itemsPerPage, data.length)} of{" "}
+              {data.length} entries
+            </span>
+            <div className="ml-auto">
+<button
+  className="btn btn-outline-primary btn-sm me-2"
+  style={{
+    color: '#0077B6',
+    borderColor: '#0077B6',
+    marginRight: '2px',
+  }}
+  onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}
+  disabled={currentPage === 0}
 >
-    <FontAwesomeIcon icon={faFileWord} />
+  &lt;&lt;
+</button>
+<button
+  className="btn btn-outline-primary btn-sm me-2"
+  style={{
+    color: '#0077B6',
+    borderColor: '#0077B6',
+    marginRight: '2px',
+  }}
+  onClick={() => setCurrentPage(currentPage - 1)}
+  disabled={currentPage === 0}
+>
+  &lt;
+</button>
+{Array.from(Array(Math.min(pageCount, 3)), (_, index) => (
+  <button
+    key={index}
+    className={`btn btn-outline-primary btn-sm me-2 ${currentPage === index ? 'active' : ''}`}
+    style={{
+      color: currentPage === index ? '#fff' : '#0077B6',
+      backgroundColor: currentPage === index ? '#0077B6' : 'transparent',
+      borderColor: '#0077B6',
+      marginRight: '2px',
+    }}
+    onClick={() => setCurrentPage(index)}
+  >
+    {index + 1}
+  </button>
+))}
+{currentPage + 3 < pageCount && <span>...</span>}
+<button
+  className={`btn btn-outline-primary btn-sm me-2 ${currentPage === pageCount - 1 ? 'active' : ''}`}
+  style={{
+    color: currentPage === pageCount - 1 ? '#fff' : '#0077B6',
+    backgroundColor: currentPage === pageCount - 1 ? '#0077B6' : 'transparent',
+    borderColor: '#0077B6',
+    marginRight: '2px',
+  }}
+  onClick={() => setCurrentPage(pageCount - 1)}
+>
+  {pageCount}
+</button>
+<button
+  className="btn btn-outline-primary btn-sm me-2"
+  style={{
+    color: '#0077B6',
+    borderColor: '#0077B6',
+    marginRight: '2px',
+  }}
+  onClick={() => setCurrentPage(currentPage + 1)}
+  disabled={currentPage === pageCount - 1}
+>
+  &gt;
+</button>
+<button
+  className="btn btn-outline-primary btn-sm"
+  style={{
+    color: '#0077B6',
+    borderColor: '#0077B6',
+    marginRight: '2px',
+  }}
+  onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}
+  disabled={currentPage === pageCount - 1}
+>
+  &gt;&gt;
 </button>
 
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination */}
-        <div className="d-flex justify-content-between align-items-center mt-3 ml-2">
-          <span>
-            Showing {currentPage * itemsPerPage + 1} to{" "}
-            {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries
-          </span>
-          <div className="ml-auto">
-            <button
-              className="btn btn-outline-primary btn-sm me-2"
-              onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}
-              disabled={currentPage === 0}
-            >
-              &lt;&lt;
-            </button>
-            <button
-              className="btn btn-outline-primary btn-sm me-2"
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 0}
-            >
-              &lt;
-            </button>
-            {[...Array(pageCount)].map((_, index) => (
-              <button
-                key={index}
-                className={`btn btn-${currentPage === index ? "primary" : "outline-primary"} btn-sm me-2`}
-                onClick={() => setCurrentPage(index)}
-              >
-                {index + 1}
-              </button>
-            ))}
-            <button
-              className="btn btn-outline-primary btn-sm me-2"
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === pageCount - 1}
-            >
-              &gt;
-            </button>
-            <button
-              className="btn btn-outline-primary btn-sm"
-              onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}
-              disabled={currentPage === pageCount - 1}
-            >
-              &gt;&gt;
-            </button>
+            </div>
           </div>
+
         </div>
       </div>
-    </div>
+    </SideBar3>
   );
 }
+
 export default QualityCheck;

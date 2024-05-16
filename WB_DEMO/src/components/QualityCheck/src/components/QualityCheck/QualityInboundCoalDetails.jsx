@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSave,
-  faTrashAlt,
+  faEraser,
   faPrint,
   faEraser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -113,7 +113,7 @@ const QualityInboundCoalDetails = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-          credentials:"include"
+          credentials: "include"
         }
       );
 
@@ -152,6 +152,7 @@ const QualityInboundCoalDetails = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  
   useEffect(() => {
     // Any side effect code can be placed here
     // console.log("Updated state:", formData);
@@ -159,98 +160,119 @@ const QualityInboundCoalDetails = () => {
 
   const generateFieldNameWithRange = (parameterName) => {
     const parameter = parameters[parameterName];
-    if (!parameter) return `${parameterName}*`;
+    if (!parameter) return `${parameterName}`;
     const { rangeFrom, rangeTo } = parameter;
-    return `${parameterName}* % (${rangeFrom}-${rangeTo})`;
+    return `${parameterName} % (${rangeFrom}-${rangeTo})`;
+  };
+
+
+  const handleKeyPress = (event) => {
+    // Allow only numeric characters and certain special characters like dot (.) and minus (-)
+    const allowedCharacters = /[0-9.-]/;
+    if (!allowedCharacters.test(event.key)) {
+      event.preventDefault();
+    }
+  };
+  
+  const renderFieldWithBox = (fieldName, fieldValue, propertyName, onChange, isReadOnly = false, isRequired = false) => {
+    const inputStyle = isReadOnly ? { borderColor: '#ced4da', backgroundColor: 'rgb(239, 239, 239)' } : {};
+    const asteriskStyle = isRequired ? { color: 'red' } : {};
+  
+    return (
+      <div className="col-md-3 mb-3">
+        <label htmlFor={propertyName} className="form-label">
+          {fieldName}:
+          {isRequired && <span style={asteriskStyle}>*</span>}
+        </label>
+        <input
+          type="text"
+          name={propertyName}
+          autoComplete="off"
+          value={fieldValue === null ? "" : fieldValue}
+          onChange={onChange}
+          onKeyPress={handleKeyPress} // Attach onKeyPress event handler
+          required={isRequired}
+          readOnly={isReadOnly}
+          style={inputStyle}
+          className="form-control"
+          id={propertyName}
+        />
+      </div>
+    );
   };
   
 
-const renderFieldWithBox = (fieldName, fieldValue, propertyName, onChange, isReadOnly = false) => {
-  return (
-    <div className="col-md-3 mb-3">
-      <label htmlFor={propertyName} className="form-label">
-        {fieldName}:
-      </label>
-      <input
-        type="text"
-        name={propertyName}
-        autoComplete="off"
-        value={fieldValue === null ? "" : fieldValue}
-        onChange={onChange}
-        required
-        readOnly={isReadOnly}
-        className="form-control"
-        id={propertyName}
-      />
-    </div>
-  );
-};
+  const handleClear = () => {
+    setFormData({
+      ...formData,
+      moisture: "",
+      vm: "",
+      ash: "",
+      fc: "",
+    });
+  };
+  
   
 
+
+
+
   return (
-    <div className="d-flex">
-      <div className="flex-grow-1">
-        <SideBar3 />
-        <h3 className="text-center p-3">Quality Check Inbound Coal Details</h3>
-        <div className="main-content mt-1 ms-md-3">
-          <div className="container-fluid trans-form-main-div overflow-hidden">
-          <div className="d-flex justify-content-between align-items-center mb-2 ml-6">
-  <div></div> {/* This empty div will push the buttons to the right */}
-  <div>
-    <button className="btn btn-primary mx-2" onClick={handleSave}>
-      <FontAwesomeIcon icon={faSave} />
-    </button>
-    <button className="btn btn-secondary mx-2">
-      <FontAwesomeIcon icon={faTrashAlt} />
-    </button>
-    <button className="btn btn-secondary mx-2">
-      <FontAwesomeIcon icon={faPrint} />
-    </button>
-  </div>
-</div>
-
-
-            <div className="row">
-              <div className="col-lg-12">
-              <div className="card mb-3 p-3 border shadow-lg">
-                  <div className="card-body">
-                    <div className="row">
-                    {renderFieldWithBox("TicketNo", formData.ticketNo, "ticketNo", handleInputChange, true)}
-{renderFieldWithBox("Date", formData.date, "date", handleInputChange, true)}
-{renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange, true)}
-{renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange, true)}
-{renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange, true)}
-{renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange, true)}
-{renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange, true)}
-{renderFieldWithBox("Material", formData.materialName, "materialName", handleInputChange, true)}
-{renderFieldWithBox("Material Type", formData.materialType, "materialType", handleInputChange, true)}
-{renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange, true)}
-{renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange, true)}
-{renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange, true)}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-  <div className="col-lg-12">
-    <div className="card mb-3 p-3 border shadow-lg">
-      <div className="card-body">
-        <div className="row">
-          {renderFieldWithBox(generateFieldNameWithRange("Moisture"), formData.moisture, "Moisture", handleInputChange)}
-          {renderFieldWithBox(generateFieldNameWithRange("Vm"), formData.vm, "Vm", handleInputChange)}
-          {renderFieldWithBox(generateFieldNameWithRange("Ash"), formData.ash, "Ash", handleInputChange)}
-          {renderFieldWithBox(generateFieldNameWithRange("Fc"), formData.fc, "Fc", handleInputChange)}
+    <SideBar3>
+      <div className="d-flex">
+        <div className="flex-grow-1">
+          <h2 className="text-center p-2" style={{ fontFamily: "Arial", fontSize: "clamp(12px, 4vw, 30px)" }}>Ticket Insights & Quality Inputs</h2>
+          <div className="main-content mt-0 ms-md-2">
+            <div className="container-fluid trans-form-main-div overflow-hidden">
+              <div className="d-flex justify-content-between align-items-center mb-2 ml-6">
+                <div></div> {/* This empty div will push the icons to the right */}
+                <div>
+                  <FontAwesomeIcon icon={faSave} className="btn-icon mx-3" onClick={handleSave} style={{ fontSize: '1.5em', color: '#008060' }} />
+                  <FontAwesomeIcon icon={faEraser} className="btn-icon mx-3" onClick={handleClear} style={{ fontSize: '1.5em', color: "#d63031" }} />
+                  <FontAwesomeIcon icon={faPrint} className="btn-icon mx-3" style={{ fontSize: '1.5em', color: '#3e8ee6' }} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="card mb-3 p-3 border shadow-lg">
+                    <div className="card-body">
+                      <div className="row">
+                        {renderFieldWithBox("TicketNo", formData.ticketNo, "ticketNo", handleInputChange, true)}
+                        {renderFieldWithBox("Date", formData.date, "date", handleInputChange, true)}
+                        {renderFieldWithBox("Vehicle Number", formData.vehicleNo, "vehicleNo", handleInputChange, true)}
+                        {renderFieldWithBox("Transporter", formData.transporterName, "transporterName", handleInputChange, true)}
+                        {renderFieldWithBox("Tp No", formData.tpNo, "tpNo", handleInputChange, true)}
+                        {renderFieldWithBox("Po No", formData.poNo, "poNo", handleInputChange, true)}
+                        {renderFieldWithBox("Challan No", formData.challanNo, "challanNo", handleInputChange, true)}
+                        {renderFieldWithBox("Material", formData.materialName, "materialName", handleInputChange, true)}
+                        {renderFieldWithBox("Material Type", formData.materialType, "materialType", handleInputChange, true)}
+                        {renderFieldWithBox("Supplier", formData.supplierOrCustomerName, "supplierOrCustomerName", handleInputChange, true)}
+                        {renderFieldWithBox("Supplier Address", formData.supplierOrCustomerAddress, "supplierOrCustomerAddress", handleInputChange, true)}
+                        {renderFieldWithBox("Transaction Type", formData.transactionType, "transactionType", handleInputChange, true)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="card mb-3 p-3 border shadow-lg">
+                    <div className="card-body">
+                      <div className="row">
+                        {renderFieldWithBox(generateFieldNameWithRange("Moisture"), formData.moisture, "Moisture", handleInputChange, false, true)}
+                        {renderFieldWithBox(generateFieldNameWithRange("Vm"), formData.vm, "Vm", handleInputChange, false, true)}
+                        {renderFieldWithBox(generateFieldNameWithRange("Ash"), formData.ash, "Ash", handleInputChange, false, true)}
+                        {renderFieldWithBox(generateFieldNameWithRange("Fc"), formData.fc, "Fc", handleInputChange, false, true)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-      </div>
-    </div>
-  </div>
-</div>
-);
+    </SideBar3>
+  );
 };
 export default QualityInboundCoalDetails;
