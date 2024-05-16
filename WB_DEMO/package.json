@@ -16,7 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
-    "antd": "^5.16.5",
+    "antd": "^5.17.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "country-state-city": "^3.2.1",
