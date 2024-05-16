@@ -179,7 +179,7 @@ const SideBar6 = ({ children }) => {
           },
         }}
       >
-        <List sx={{ marginTop: "120px" }}>
+        <List sx={{ marginTop: "80px" }}>
           <ListItemButton
             component={Link}
             to="/home6"
