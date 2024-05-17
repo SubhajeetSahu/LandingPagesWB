@@ -4,6 +4,7 @@ import { faEraser, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "./UpdateUser.css";
 import SideBar from "../../SideBar/SideBar";
+import Select from 'react-select';
 
 
 
@@ -18,7 +19,9 @@ function UpdateUser() {
   const [firstName, setFirstName] = useState(user.firstName);
   const [middleName, setMiddleName] = useState(user.middleName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [role, setRole] = useState(user.role);
+  const [role, setRole] = useState(
+    user.role.map((r) => ({ value: r, label: r }))
+  );
   const [emailId, setemailId] = useState(user.emailId);
   const [emailError, setEmailError] = useState("");
   const [contactNoError, setContactNoError] = useState("");
@@ -133,7 +136,7 @@ function UpdateUser() {
       company,
       emailId,
       contactNo,
-      role,
+      role: role.map((r) => r.value), 
       firstName,
       middleName,
       lastName,
@@ -192,21 +195,21 @@ function UpdateUser() {
       });
   };
 
-  const handleRoleChange = (selectedRole) => {
-    if (role.includes(selectedRole)) {
-      setRole(role.filter((r) => r !== selectedRole));
-    } else {
-      setRole([...role, selectedRole]);
-    }
-  };
+  // const handleRoleChange = (selectedRole) => {
+  //   if (role.includes(selectedRole)) {
+  //     setRole(role.filter((r) => r !== selectedRole));
+  //   } else {
+  //     setRole([...role, selectedRole]);
+  //   }
+  // };
 
-  const handleSelectAllRoles = () => {
-    if (role.length === roles.length) {
-      setRole([]);
-    } else {
-      setRole([...roles]);
-    }
-  };
+  // const handleSelectAllRoles = () => {
+  //   if (role.length === roles.length) {
+  //     setRole([]);
+  //   } else {
+  //     setRole([...roles]);
+  //   }
+  // };
 
   return (
     <SideBar>
@@ -257,63 +260,15 @@ function UpdateUser() {
                     <div className="col-md-6">
                       <label htmlFor="role" className="form-label">
                         Role
+                        <span style={{ color: "red", fontWeight: "bold" }}> *</span>
                       </label>
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
-                      </span>
-                      <div className="d-flex gap-2">
-                        <div className="d-flex flex-wrap gap-2">
-                          {role.map((r, index) => (
-                            <div
-                              key={index}
-                              className="d-flex align-items-center bg-secondary text-white px-2 py-1 rounded"
-                            >
-                              <span className="me-2">{r}</span>
-                              <FontAwesomeIcon
-                                icon={faEraser}
-                                className="cursor-pointer"
-                                onClick={() => handleRoleChange(r)}
-                              />
-                            </div>
-                          ))}
-                          <button
-                            className="btn btn-secondary dropdown-toggle"
-                            type="button"
-                            id="dropdownRole"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            Select Roles
-                          </button>
-                          <ul className="dropdown-menu" aria-labelledby="dropdownRole">
-                            {roles.map((r, index) => (
-                              <li key={index}>
-                                <label className="dropdown-item">
-                                  <input
-                                    type="checkbox"
-                                    onChange={() => handleRoleChange(r)}
-                                    checked={role.includes(r)}
-                                  />
-                                  {r}
-                                </label>
-                              </li>
-                            ))}
-                            <li>
-                              <hr className="dropdown-divider" />
-                            </li>
-                            <li>
-                              <label className="dropdown-item">
-                                <input
-                                  type="checkbox"
-                                  onChange={handleSelectAllRoles}
-                                  checked={role.length === roles.length}
-                                />
-                                Select All Roles
-                              </label>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                      <Select
+                        isMulti
+                        value={role}
+                        onChange={(selectedOptions) => setRole(selectedOptions)}
+                        options={roles.map((r) => ({ value: r, label: r }))}
+                        isSearchable
+                      />
                     </div>
                   </div>
                   <div className="row mb-3">
@@ -322,7 +277,7 @@ function UpdateUser() {
                         First Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
+                        {" "}*
                       </span>
                       <input
                         type="text"
@@ -351,7 +306,7 @@ function UpdateUser() {
                         Last Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
+                        {" "}*
                       </span>
                       <input
                         type="text"
@@ -370,7 +325,7 @@ function UpdateUser() {
                         Email Id
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
+                        {" "}*
                       </span>
                       <input
                         type="emailId"
@@ -390,7 +345,7 @@ function UpdateUser() {
                         Mobile Number
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
+                        {" "}*
                       </span>
                       <input
                         type="tel"
@@ -420,7 +375,7 @@ function UpdateUser() {
                         Company Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
+                        {" "}*
                       </span>
                       <select
                         className="form-select"
@@ -443,7 +398,7 @@ function UpdateUser() {
                         Site Name
                       </label>
                       <span style={{ color: "red", fontWeight: "bold" }}>
-                     {" "}*
+                        {" "}*
                       </span>
                       <select
                         className="form-select"
@@ -472,7 +427,7 @@ function UpdateUser() {
                       backgroundColor: "white",
                       color: "black",
                       border: "1px solid #cccccc",
-                       
+
                       width: "100px",
 
                       // transition: "transform 0.3s ease-in-out",
@@ -488,7 +443,7 @@ function UpdateUser() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
+
                       border: "1px solid #cccccc",
                       width: "100px",
 

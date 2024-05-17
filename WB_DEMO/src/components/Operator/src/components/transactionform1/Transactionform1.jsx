@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +18,7 @@ import {
   faPrint,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-
+ 
 function TransactionFrom2() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
@@ -27,26 +26,21 @@ function TransactionFrom2() {
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
   const queryParams = new URLSearchParams(window.location.search);
-  const [currentDate, setCurrentDate] = useState(getFormattedDate());
-  const [currentTime, setCurrentTime] = useState(getFormattedTime());
+ 
   const [inputValue, setInputValue] = useState(0);
-  const [grossWeight, setGrossWeight] = useState(
-    queryParams.get("grossWeight").split("/")[0]
-  );
-  const [tareWeight, setTareWeight] = useState(
-    queryParams.get("tareWeight").split("/")[0]
-  );
+  
+  const [grossWeight, setGrossWeight] = useState(0);
+  const [tareWeight, setTareWeight] = useState(0);
   const [netWeight, setNetWeight] = useState(0);
   const [isGrossWeightEnabled, setIsGrossWeightEnabled] = useState(false);
-
+ 
   const [ticket, setTicket] = useState([]);
-
+ 
   const ticketNumber = queryParams.get("ticketNumber");
-
+ 
   console.log(ticketNumber);
-
+ 
   useEffect(() => {
-    
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
         withCredentials: true, // Include credentials
@@ -55,52 +49,48 @@ function TransactionFrom2() {
         // Update state with the fetched data
         setTicket(response.data);
         console.log(response.data); // Log fetched data
+        setGrossWeight(response.data.grossWeight);
+        setTareWeight(response.data.tareWeight);
+        setNetWeight(response.data.netWeight);
       })
       .catch((error) => {
         console.error("Error fetching weighments:", error);
       });
   }, []);
 
+
   useEffect(() => {
-    setNetWeight(inputValue - tareWeight);
+    setNetWeight(grossWeight - inputValue);
     console.log("Count changed:", netWeight);
-  }, [grossWeight]);
+  }, [tareWeight]);
 
   const handleChange1 = (e, tareWeight) => {
     const newValue = e.target.value;
     setInputValue(newValue);
 
-    iftare
+    if (ticket.tareWeight === 0) {
+      setTareWeight(newValue);
+    // } else if (newValue < ticket.tareWeight) {
+    //   alert("The Gross Weight should be greater than Tare Weight");
+    //   setInputValue(0);
+    } else {
+      setGrossWeight(newValue);
+    }
   };
 
-  // const handleSave = () => {
-  //   if (!isGrossWeightEnabled) {
-  //     setTareWeight(inputValue);
-  //     setInputValue();
-  //     setIsGrossWeightEnabled(true);
-  //   } else {
-  //     setGrossWeight(inputValue);
-  //   }
-  // };
-
-  // const handleClear = () => {
-  //   setGrossWeight(0);
-  //   setTareWeight(0);
-  //   setNetWeight(0);
-  //   setInputValue(0);
-  // };
-
-  const handleSave = (tareWeight) => {
-    if (tareWeight === 0) {
-      setTareWeight(inputValue);
-      setInputValue();
-      //setIsTareWeightEnabled(true);
+  const handleSave = () => {
+    if (grossWeight == 0) {
+      alert("Tare Weight saved to the database");
     } else {
-      setGrossWeight(inputValue);
+      alert("Gross Weight saved to the database");
     }
+    window.location.reload();
+
+    setInputValue("");
+
     const payload = {
       machineId: "1",
-      ticketNo: ticketNumber, // Replace with your ticket number
+      ticketNo: ticketNumber,
       weight: inputValue,
     };
 
@@ -110,37 +100,18 @@ function TransactionFrom2() {
       })
       .then((response) => {
         console.log("Measurement saved:", response.data);
-        // Handle response as needed
       })
       .catch((error) => {
         console.error("Error saving measurement:", error);
-        // Handle error as needed
       });
   };
+ 
+ 
 
-  function getFormattedDate() {
-    const date = new Date();
-    const year = date.getFullYear();
-    let month = (1 + date.getMonth()).toString().padStart(2, "0");
-    let day = date.getDate().toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  }
-  function getFormattedTime() {
-    const date = new Date();
-    let hours = date.getHours().toString().padStart(2, "0");
-    let minutes = date.getMinutes().toString().padStart(2, "0");
-    let seconds = date.getSeconds().toString().padStart(2, "0");
-
-    return `${hours}:${minutes}:${seconds}`;
-  }
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
-
+ 
   useEffect(() => {
     Chart.register(ArcElement);
-
+ 
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -151,16 +122,16 @@ function TransactionFrom2() {
         chartRef2.current.chartInstance.resize();
       }
     });
-
+ 
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
-
+ 
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
-
+ 
   const [formData, setFormData] = useState({
     date: "",
     inTime: "",
@@ -182,14 +153,14 @@ function TransactionFrom2() {
     tpNetWeight: "",
     rcFitnessUpto: "",
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-
+ 
     if (name === "poNo" || name === "challanNo") {
       setFormData((prevData) => ({
         ...prevData,
@@ -199,7 +170,7 @@ function TransactionFrom2() {
       }));
     }
   };
-
+ 
   return (
     <SideBar5>
       <div>
@@ -260,7 +231,7 @@ function TransactionFrom2() {
                 />
               </div>
             </div>
-
+ 
             {/* Challan No */}
             <div className="col-md-3 mb-3 " >
               <label htmlFor="challanNo" className="form-label ">
@@ -317,26 +288,22 @@ function TransactionFrom2() {
                       // border: "0px solid ",
                     }}
                     value={inputValue}
-                    onChange={handleChange1}
+                    onChange={(e) => handleChange1(e)}
                     // oninput="reflectInput(this.value, 'grossWeight')"
                   />
                   <div className="icons-group">
-                    <div>
-                      <FontAwesomeIcon
-                        icon={faFloppyDisk}
-                        onClick={() => {
-                          handleSave(ticket.tareWeight);
-                        }}
-                        className="icons"
-                      />
-                    </div>
-                    {/* <div>
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    // onClick={handleClear}
-                    className="icons"
-                  />
-                </div> */}
+                  <div>
+                        {ticket.grossWeight === 0 && ticket.netWeight === 0 ? (
+                          <FontAwesomeIcon
+                            icon={faFloppyDisk}
+                            onClick={() =>
+                              handleSave(inputValue, ticket.grossWeight)
+                            }
+                            className="icons"
+                          />
+                        ) : null}
+                      </div>
+                   
                     <div>
                       <FontAwesomeIcon icon={faPrint} className="icons" />
                     </div>
@@ -355,28 +322,20 @@ function TransactionFrom2() {
                     <input
                       type="text"
                       autoComplete="off"
-                      value={grossWeight}
+                      value={`${grossWeight} kg`}
                       className="abcx"
                       readOnly
                     />
-                    <input
-                      type="date"
-                      value={currentDate}
-                      onChange={(e) => setCurrentDate(e.target.value)}
-                      className="abcx"
-                      readOnly
-                    />
-                    <input
-                      type="time"
-                      value={currentTime}
-                      onChange={(e) => setCurrentTime(e.target.value)}
+                   <input
+                      type="text"
+                      value={ticket.grossWeightTime}
                       className="abcx"
                       readOnly
                     />
                   </div>
                 </div>
               </div>
-
+ 
               <div className="row mb-3">
                 <div className="pqr">
                 <div className="col-2 mt-2">
@@ -388,22 +347,14 @@ function TransactionFrom2() {
                     <input
                       type="text"
                       autoComplete="off"
-                      value={tareWeight}
+                      value={`${tareWeight} kg`}
                       required={isGrossWeightEnabled}
                       className="abcx"
                       readOnly
                     />
-                    <input
-                      type="date"
-                      value={currentDate}
-                      onChange={(e) => setCurrentDate(e.target.value)}
-                      className="abcx"
-                      readOnly
-                    />
-                    <input
-                      type="time"
-                      value={currentTime}
-                      onChange={(e) => setCurrentTime(e.target.value)}
+                   <input
+                      type="text"
+                      value={ticket.tareWeightTime}
                       className="abcx"
                       readOnly
                     />
@@ -421,22 +372,14 @@ function TransactionFrom2() {
                     <input
                       type="text"
                       autoComplete="off"
-                      value={netWeight}
+                      value={`${ticket.netWeight} kg`}
                       // required={isGrossWeightEnabled}
                       className="abcx"
                       readOnly
                     />
-                    <input
-                      type="date"
-                      value={currentDate}
-                      onChange={(e) => setCurrentDate(e.target.value)}
-                      className="abcx"
-                      readOnly
-                    />
-                    <input
-                      type="time"
-                      value={currentTime}
-                      onChange={(e) => setCurrentTime(e.target.value)}
+                   <input
+                      type="text"
+                      value={ticket.grossWeightTime}
                       className="abcx"
                       readOnly
                     />
@@ -538,7 +481,7 @@ function TransactionFrom2() {
                   readOnly
                 />
               </div>
-              <div className="grid-item-op">
+              {/* <div className="grid-item-op">
                 <label htmlFor="department" className="form-label">
                   Department:
                 </label>
@@ -551,7 +494,7 @@ function TransactionFrom2() {
                   className="abcv"
                   readOnly
                 />
-              </div>
+              </div> */}
               <div className="grid-item-op">
                 <label htmlFor="driverDL" className="form-label">
                   Driver DL No:
@@ -601,6 +544,6 @@ function TransactionFrom2() {
     </SideBar5>
   );
 }
-
+ 
 // eslint-disable-next-line no-undef
 export default TransactionFrom2;

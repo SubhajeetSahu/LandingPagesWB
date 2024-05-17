@@ -30,6 +30,7 @@ import {
   Build,
   Handyman,
   Visibility,
+  ProductionQuantityLimits,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -215,6 +216,10 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -233,6 +238,10 @@ const SideBar = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -259,6 +268,10 @@ const SideBar = ({ children }) => {
                     backgroundColor: "#3e8ee6",
                     color: "white",
                   },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "white",
+                  },
                 }}
               >
                 <ListItemText primary="Create User" />
@@ -271,6 +284,10 @@ const SideBar = ({ children }) => {
                 sx={{
                   "&.Mui-selected, &:hover": {
                     backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
                     color: "white",
                   },
                 }}
@@ -291,6 +308,10 @@ const SideBar = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -317,6 +338,10 @@ const SideBar = ({ children }) => {
                     backgroundColor: "#3e8ee6",
                     color: "white",
                   },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "white",
+                  },
                 }}
               >
                 <ListItemText primary="View Company" />
@@ -329,6 +354,10 @@ const SideBar = ({ children }) => {
                 sx={{
                   "&.Mui-selected, &:hover": {
                     backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
                     color: "white",
                   },
                 }}
@@ -345,6 +374,10 @@ const SideBar = ({ children }) => {
                     backgroundColor: "#3e8ee6",
                     color: "white",
                   },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "white",
+                  },
                 }}
               >
                 <ListItemText primary="View Customer" />
@@ -359,6 +392,10 @@ const SideBar = ({ children }) => {
                     backgroundColor: "#3e8ee6",
                     color: "white",
                   },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "white",
+                  },
                 }}
               >
                 <ListItemText primary="View Transporter" />
@@ -371,6 +408,10 @@ const SideBar = ({ children }) => {
                 sx={{
                   "&.Mui-selected, &:hover": {
                     backgroundColor: "#3e8ee6",
+                    color: "white",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
                     color: "white",
                   },
                 }}
@@ -395,6 +436,10 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -414,6 +459,10 @@ const SideBar = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -437,6 +486,10 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -456,6 +509,10 @@ const SideBar = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -479,6 +536,10 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -498,6 +559,10 @@ const SideBar = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -521,6 +586,10 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -542,12 +611,42 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
               <Handyman/>
             </ListItemIcon>
             <ListItemText primary="Material Management" />
+          </ListItemButton>
+          
+          <ListItemButton
+            component={Link}
+            to="/product-management"
+            onClick={() => handleItemClick("productManagement")}
+            selected={selectedItem === "productManagement"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
+            }}
+          >
+            <ListItemIcon>
+              <ProductionQuantityLimits/>
+            </ListItemIcon>
+            <ListItemText primary="Product Management" />
           </ListItemButton>
           <ListItemButton
             onClick={handleSignOut}   
@@ -560,6 +659,11 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
+              
             }}
           >
             <ListItemIcon>

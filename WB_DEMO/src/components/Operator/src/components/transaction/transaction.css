@@ -1,14 +1,4 @@
-/* .content{
-  overflow-x: hidden;
-  
-} */
-/* .content .row{
-   
-  margin-left: 70px; 
-}    */
-/* .row .date{
-margin-left: 0px;
-} */
+
 .tr_dash1{
  font-size: 35px;
   color: black;
@@ -38,10 +28,10 @@ margin-left: 0px;
 .content1 p{
   padding: 18px;
 }
- .backend .table{
+/* .backend .table{
   margin-top: -10px;
-  /* margin-left: 70px; */
-}   
+ 
+}    */
 
 
 .back{
@@ -52,19 +42,18 @@ margin-left: 0px;
   width: 90px;
 }
 
+
 .date input{
   border: none;
   outline: none;
   text-align: center;
 }  
-
 .Date1{
   width: 110px;
   background-color: rgb(194, 196, 203);
   text-align: center;
   justify-content: center;
   align-items: center;
-}
 
 
 

@@ -17,6 +17,7 @@ function SalesOrder() {
   const [brokerAddress, setBrokerAddress] = useState("");
   const [customerNames, setCustomerNames] = useState([]);
   const [productNames, setProductNames] = useState([]);
+  
 
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/customers/names")

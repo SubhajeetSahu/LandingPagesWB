@@ -5,6 +5,7 @@ import {
   faUsers,
   faUsersSlash,
   faTruck,
+  faTruckMoving,
   faUser,
   faUserTie,
   faUserFriends,
@@ -29,7 +30,6 @@ function HomePage1() {
  
   useEffect(() => {
 
-    // Fetch all users
     fetch("http://localhost:8080/api/v1/home/all-users")
       .then((response) => response.json())
       .then((data) => setAllUsers(data))
@@ -120,7 +120,7 @@ function HomePage1() {
             <div className="col-md-3 mb-4">
               <div className="card card-gradient-transporters card-gradient">
                 <div className="card-body-home">
-                  <FontAwesomeIcon icon={faTruck} size="3x" />
+                  <FontAwesomeIcon icon={faTruckMoving} size="3x" />
                   <h5 className="card-title-home admin">Transporters</h5>
                   <p className="card-text-home">{transporters}</p> {/* Placeholder data */}
                 </div>

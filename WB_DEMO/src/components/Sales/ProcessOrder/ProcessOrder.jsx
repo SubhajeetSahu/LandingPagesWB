@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
+import Select from "react-select";
 import "./ProcessOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +26,10 @@ function ProcessOrder() {
     fetch("http://localhost:8080/api/v1/vehicles")
       .then((response) => response.json())
       .then((data) => {
-        const numbers = data.map((vehicle) => vehicle.vehicleNo);
+        const numbers = data.map((vehicle) => ({
+          value: vehicle.vehicleNo,
+          label: vehicle.vehicleNo
+        }));
         setVehicleNumbers(numbers);
       })
       .catch((error) => console.error("Error fetching vehicle numbers:", error));
@@ -34,7 +38,7 @@ function ProcessOrder() {
   useEffect(() => {
     if (vehicleNo) {
       // Fetch transporter details when a vehicle number is selected
-      fetch(`http://localhost:8080/api/v1/vehicles/${vehicleNo}`)
+      fetch(`http://localhost:8080/api/v1/vehicles/${vehicleNo.value}`)
         .then((response) => response.json())
         .then((data) => {
           setTransporters(data.transporter);
@@ -46,8 +50,8 @@ function ProcessOrder() {
   }, [vehicleNo]);
 
   const handleClear = () => {
-    setFormsaleOrderNo(saleOrderNo || "");
-    setFormProductName(productName || "");
+    setFormsaleOrderNo("");
+    setFormProductName("");
     setProductType("");
     setVehicleNo("");
     setTransporterName("");
@@ -78,7 +82,7 @@ function ProcessOrder() {
       saleOrderNo: formsaleOrderNo,
       productName: formProductName,
       productType,
-      vehicleNo,
+      vehicleNo: vehicleNo.value,
       transporterName,
       purchaseProcessDate,
       consignmentWeight,
@@ -193,20 +197,15 @@ function ProcessOrder() {
                         *
                       </span>
                     </label>
-                    <select
-                      className="form-select"
-                      id="vehicleNo"
+                    <Select
+                      options={vehicleNumbers}
                       value={vehicleNo}
-                      onChange={(e) => setVehicleNo(e.target.value)}
+                      onChange={setVehicleNo}
+                      id="vehicleNo"
+                      placeholder="Select Vehicle No"
+                      isSearchable
                       required
-                    >
-                      <option value="">Select Vehicle No</option>
-                      {vehicleNumbers.map((number, index) => (
-                        <option key={index} value={number}>
-                          {number}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
 
                   <div className="col-md-6">
@@ -277,7 +276,7 @@ function ProcessOrder() {
                       onChange={(e) => {
                         const newValue = Math.max(
                           0,
-                          parseInt(e.target.value, 10)
+                          parseFloat(e.target.value, 10)
                         );
                         setConsignmentWeight(newValue);
                       }}

@@ -30,6 +30,7 @@ import ViewSupplier from "./components/Admin/ViewSupplier/ViewSupplier.jsx";
 import ViewVehicle from "./components/Admin/ViewVehicle/ViewVehicle.jsx";
 import ViewCustomer from "./components/Admin/ViewCustomer/ViewCustomer.jsx";
 import MaterialManagement from "./components/Admin/MaterialManagement/MaterialManagement.jsx";
+import ProductManagement from "./components/Admin/ProductManagement/ProductManagement.jsx";
 import RoleManagement from "./components/Admin/RoleManagement/RoleManagement.jsx";
 import ViewTransporter from "./components/Admin/ViewTranporter/ViewTransporter.jsx";
 
@@ -101,6 +102,7 @@ const router = createBrowserRouter(
       <Route path="/view-customer" element={<ViewCustomer />} />
       <Route path="/view-transporter" element={<ViewTransporter />} />
       <Route path="/material-management" element={<MaterialManagement />} />
+      <Route path="/product-management" element={<ProductManagement />} />  
       <Route path="/role-management" element={<RoleManagement />} />
 
       <Route path="/SalesOrder" element={<SalesOrder />} />
