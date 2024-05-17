@@ -17,8 +17,9 @@ import {
   faFloppyDisk,
   faPrint,
   faTrash,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
- 
+
 function TransactionFrom2() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
@@ -26,29 +27,28 @@ function TransactionFrom2() {
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
   const queryParams = new URLSearchParams(window.location.search);
- 
+
   const [inputValue, setInputValue] = useState(0);
-  
+
   const [grossWeight, setGrossWeight] = useState(0);
   const [tareWeight, setTareWeight] = useState(0);
   const [netWeight, setNetWeight] = useState(0);
   const [isGrossWeightEnabled, setIsGrossWeightEnabled] = useState(false);
- 
+
   const [ticket, setTicket] = useState([]);
- 
+
   const ticketNumber = queryParams.get("ticketNumber");
- 
+
   console.log(ticketNumber);
- 
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
-        withCredentials: true, // Include credentials
+        withCredentials: true, 
       })
       .then((response) => {
-        // Update state with the fetched data
         setTicket(response.data);
-        console.log(response.data); // Log fetched data
+        console.log(response.data); 
         setGrossWeight(response.data.grossWeight);
         setTareWeight(response.data.tareWeight);
         setNetWeight(response.data.netWeight);
@@ -58,21 +58,17 @@ function TransactionFrom2() {
       });
   }, []);
 
-
   useEffect(() => {
     setNetWeight(grossWeight - inputValue);
     console.log("Count changed:", netWeight);
   }, [tareWeight]);
 
-  const handleChange1 = (e, tareWeight) => {
+  const handleChange1 = (e) => {
     const newValue = e.target.value;
     setInputValue(newValue);
 
     if (ticket.tareWeight === 0) {
       setTareWeight(newValue);
-    // } else if (newValue < ticket.tareWeight) {
-    //   alert("The Gross Weight should be greater than Tare Weight");
-    //   setInputValue(0);
     } else {
       setGrossWeight(newValue);
     }
@@ -105,13 +101,10 @@ function TransactionFrom2() {
         console.error("Error saving measurement:", error);
       });
   };
- 
- 
 
- 
   useEffect(() => {
     Chart.register(ArcElement);
- 
+
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -122,16 +115,16 @@ function TransactionFrom2() {
         chartRef2.current.chartInstance.resize();
       }
     });
- 
+
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
- 
+
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
- 
+
   const [formData, setFormData] = useState({
     date: "",
     inTime: "",
@@ -153,14 +146,14 @@ function TransactionFrom2() {
     tpNetWeight: "",
     rcFitnessUpto: "",
   });
- 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
- 
+
     if (name === "poNo" || name === "challanNo") {
       setFormData((prevData) => ({
         ...prevData,
@@ -170,17 +163,24 @@ function TransactionFrom2() {
       }));
     }
   };
- 
+
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <SideBar5>
       <div>
         <div
           className="container-fluid"
-          // style={{ marginTop: "50px", marginRight: "140px" }}
         >
+           <button className="close-button" onClick={goBack}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
           <h2 className="text-center mb-2">Outbound Transaction Form</h2>
           <div className="row">
-            <div className="col-md-3 mb-3" >
+            <div className="col-md-3 mb-3">
               <input
                 type="text"
                 id="ticketNo"
@@ -194,29 +194,29 @@ function TransactionFrom2() {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-3 mb-3" >
+            <div className="col-md-3 mb-3">
               <label htmlFor="poNo" className="form-label ">
                 PO No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
-              <input
-                type="text"
-                id="poNo"
-                name="poNo"
-                value={ticket.poNo}
-                onChange={handleChange}
-                required
-                className="abcv"
-                readOnly
-              />
+                <input
+                  type="text"
+                  id="poNo"
+                  name="poNo"
+                  value={ticket.poNo}
+                  onChange={handleChange}
+                  required
+                  className="abcv"
+                  readOnly
+                />
               </div>
             </div>
             {/* TP No */}
-            <div className="col-md-3 mb-3" >
+            <div className="col-md-3 mb-3">
               <label htmlFor="tpNo" className="form-label ">
                 TP No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -231,12 +231,12 @@ function TransactionFrom2() {
                 />
               </div>
             </div>
- 
+
             {/* Challan No */}
-            <div className="col-md-3 mb-3 " >
+            <div className="col-md-3 mb-3 ">
               <label htmlFor="challanNo" className="form-label ">
                 Challan No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <input
                 type="text"
@@ -250,10 +250,10 @@ function TransactionFrom2() {
               />
             </div>
             {/* Vehicle No */}
-            <div className="col-md-3 mb-3 " >
+            <div className="col-md-3 mb-3 ">
               <label htmlFor="vehicleNo" className="form-label ">
                 Vehicle No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -270,29 +270,33 @@ function TransactionFrom2() {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-7" >
+            <div className="col-md-7">
               {/* Input fields */}
               <h5>Weighment Details:</h5>
               <div className="row">
-              <div className="col-md-6">
-                <div className="sub">
-                  <input
-                    type="text"
-                    className="abcv"
-                    style={{
-                      // backgroundColor: "rgb(116 165 217)",
-                      backgroundColor: "#919295",
-                      color: "white",
-                      width: "260px",
-                      height: "50px",
-                      // border: "0px solid ",
-                    }}
-                    value={inputValue}
-                    onChange={(e) => handleChange1(e)}
-                    // oninput="reflectInput(this.value, 'grossWeight')"
-                  />
-                  <div className="icons-group">
-                  <div>
+                <div className="col-md-6">
+                  <div className="sub">
+                    <input
+                      type="number"
+                      className="abcv"
+                      style={{
+                        // backgroundColor: "rgb(116 165 217)",
+                        backgroundColor: "#919295",
+                        color: "white",
+                        width: "260px",
+                        height: "50px",
+                        appearance: "textfield",
+                        WebkitAppearance: "none", 
+                        MozAppearance: "textfield",
+                        
+                      }}
+                      min="0"
+                      value={inputValue}
+                      onChange={(e) => handleChange1(e)}
+                      inputMode="numeric"
+                    />
+                    <div className="icons-group">
+                      <div>
                         {ticket.grossWeight === 0 && ticket.netWeight === 0 ? (
                           <FontAwesomeIcon
                             icon={faFloppyDisk}
@@ -303,20 +307,20 @@ function TransactionFrom2() {
                           />
                         ) : null}
                       </div>
-                   
-                    <div>
-                      <FontAwesomeIcon icon={faPrint} className="icons" />
+
+                      <div>
+                        <FontAwesomeIcon icon={faPrint} className="icons" />
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </div>
               </div>
               <div className="row mb-3">
                 <div className="mno">
-                <div className="col-2 mt-2">
-                  <label htmlFor="vehicleType" className="form-label">
-                    Gross Weight:
-                  </label>
+                  <div className="col-2 mt-2">
+                    <label htmlFor="vehicleType" className="form-label">
+                      Gross Weight:
+                    </label>
                   </div>
                   <div style={{ display: "flex" }}>
                     <input
@@ -326,7 +330,7 @@ function TransactionFrom2() {
                       className="abcx"
                       readOnly
                     />
-                   <input
+                    <input
                       type="text"
                       value={ticket.grossWeightTime}
                       className="abcx"
@@ -335,13 +339,13 @@ function TransactionFrom2() {
                   </div>
                 </div>
               </div>
- 
+
               <div className="row mb-3">
                 <div className="pqr">
-                <div className="col-2 mt-2">
-                  <label htmlFor="vehicleType" className="form-label">
-                    Tare Weight:
-                  </label>
+                  <div className="col-2 mt-2">
+                    <label htmlFor="vehicleType" className="form-label">
+                      Tare Weight:
+                    </label>
                   </div>
                   <div style={{ display: "flex" }}>
                     <input
@@ -352,7 +356,7 @@ function TransactionFrom2() {
                       className="abcx"
                       readOnly
                     />
-                   <input
+                    <input
                       type="text"
                       value={ticket.tareWeightTime}
                       className="abcx"
@@ -363,10 +367,10 @@ function TransactionFrom2() {
               </div>
               <div className="row mb-3">
                 <div className="stu">
-                <div className="col-2 mt-2">
-                  <label htmlFor="vehicleType" className="form-label">
-                    Net Weight:
-                  </label>
+                  <div className="col-2 mt-2">
+                    <label htmlFor="vehicleType" className="form-label">
+                      Net Weight:
+                    </label>
                   </div>
                   <div style={{ display: "flex" }}>
                     <input
@@ -377,7 +381,7 @@ function TransactionFrom2() {
                       className="abcx"
                       readOnly
                     />
-                   <input
+                    <input
                       type="text"
                       value={ticket.grossWeightTime}
                       className="abcx"
@@ -389,55 +393,55 @@ function TransactionFrom2() {
             </div>
             <div className="col-md-5" style={{ marginTop: "20px" }}>
               <div className="grid-container" id="z3">
-                <div className="grid-item" >
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-1</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
+                <div className="grid-item">
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Cam-1</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div className="grid-item">
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-2</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Cam-2</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div className="grid-item">
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-3</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Cam-3</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div className="grid-item">
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-4</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Cam-4</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="row">
-            <h5 >Transaction Details:</h5>
+            <h5>Transaction Details:</h5>
             <div className="grid-container-op">
               <div className="grid-item-2">
                 <label htmlFor="supplier" className="form-label">
@@ -544,6 +548,6 @@ function TransactionFrom2() {
     </SideBar5>
   );
 }
- 
+
 // eslint-disable-next-line no-undef
 export default TransactionFrom2;
