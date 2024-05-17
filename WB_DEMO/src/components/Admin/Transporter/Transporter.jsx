@@ -27,7 +27,7 @@ function Transporter() {
   const handleSave = () => {
     let emailIsValid = true;
     let phoneIsValid = true;
-
+  
     if (
       transporterName.trim() === "" ||
       transporterAddress.trim() === "" ||
@@ -43,15 +43,16 @@ function Transporter() {
       });
       return;
     }
-
+  
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(transporterEmailId)) {
+    // Check if email field is not empty before validating
+    if (transporterEmailId.trim() !== "" && !emailRegex.test(transporterEmailId)) {
       setEmailError("Please enter a valid email address.");
       emailIsValid = false;
     } else {
       setEmailError("");
     }
-
+  
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(transporterContactNo)) {
       setPhoneError("Please enter a valid 10-digit phone number.");
@@ -59,7 +60,7 @@ function Transporter() {
     } else {
       setPhoneError("");
     }
-
+  
     if (!emailIsValid || !phoneIsValid) {
       return;
     }
