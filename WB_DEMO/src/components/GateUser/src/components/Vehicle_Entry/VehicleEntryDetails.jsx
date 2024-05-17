@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
+import Select from "react-select";
 
 function VehicleEntryDetails() {
   // const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -33,9 +34,7 @@ function VehicleEntryDetails() {
 
 
 
-  // const toggleSidebar = () => {
-  //   setIsSidebarExpanded(!isSidebarExpanded);
-  // };
+
 
   // Get API for Supplier
   useEffect(() => {
@@ -91,7 +90,7 @@ function VehicleEntryDetails() {
 
 
 
-  // Get API for MAterial:
+  // Get API for Material:
 
   useEffect(() => {
     const fetchMaterialList = async () => {
@@ -159,10 +158,34 @@ function VehicleEntryDetails() {
 
   // Get API Vehicle No.
 
-  const handleVehicleNoKeyPress = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault(); // Prevent form submission
-      // Call API with the entered vehicle number
+  // const handleVehicleNoKeyPress = (e) => {
+  //   if (e.key === "Enter") {
+  //     e.preventDefault(); // Prevent form submission
+  //     // Call API with the entered vehicle number
+  //     fetch(`http://localhost:8080/api/v1/vehicles/vehicle/${formData.vehicleNo}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+
+  //         // Set transporter state with the data from the API response
+  //         setTransporter(data.transporter);
+  //         // Update other form data fields with the received data
+  //         setFormData((prevData) => ({
+  //           ...prevData,
+  //           vehicleNo: data.vehicleNo,
+  //           noOfWheels: data.vehicleWheelsNo,
+  //           vehicleType: data.vehicleType,
+  //           transporter: data.transporter,
+  //           rcFitnessUpto: data.vehicleFitnessUpTo
+  //         }));
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching supplier Address:", error);
+  //       });
+  //   }
+  // };
+
+  const handleVehicleNoBlur = async () => {
+    try {
       fetch(`http://localhost:8080/api/v1/vehicles/vehicle/${formData.vehicleNo}`)
         .then((response) => response.json())
         .then((data) => {
@@ -182,11 +205,10 @@ function VehicleEntryDetails() {
         .catch((error) => {
           console.error("Error fetching supplier Address:", error);
         });
+    } catch (error) {
+      console.error('Error fetching vehicle data:', error);
     }
   };
-
-
-
 
 
   useEffect(() => {
@@ -295,6 +317,7 @@ function VehicleEntryDetails() {
       tpNo: formData.tpNo,
       challanNo: formData.challanNo,
       ewayBillNo: formData.eWayBillNo,
+      // department: formData.department,
       transactionType: formData.transactionType
     };
 
@@ -338,7 +361,7 @@ function VehicleEntryDetails() {
             driverName: "",
             tpNetWeight: "",
             rcFitnessUpto: "",
-            department: "",
+            // department: "",
             eWayBillNo: "",
             transactionType: "Inbound"
           });
@@ -372,7 +395,7 @@ function VehicleEntryDetails() {
       driverName: "",
       tpNetWeight: "",
       rcFitnessUpto: "",
-      department: "",
+      // department: "",
       eWayBillNo: "",
       transactionType: "Inbound "
     });
@@ -420,13 +443,27 @@ function VehicleEntryDetails() {
                 className="form-control"
               />
             </div>
-          </div>
-          <div className="row move-left">
-            {/* Input fields */}
+            {/* Challan No */}
+            <div className="col-md-3 mb-3">
+              <label htmlFor="challanNo" className="user-form-label ">
+                Challan No:
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
+              </label>
+              <input
+                type="text"
+                id="challanNo"
+                name="challanNo"
+                value={formData.challanNo}
+                onChange={handleChange}
+                required
+                className="form-control"
+              />
+            </div>
             {/* PO No */}
             <div className="col-md-3 mb-3">
               <label htmlFor="poNo" className="user-form-label ">
-                PO No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                PO No:
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <input
                 type="text"
@@ -439,10 +476,10 @@ function VehicleEntryDetails() {
                 disabled={!!formData.tpNo} // Disable if tpNo has a value
               />
             </div>
-            {/* TP No */}
             <div className="col-md-3 mb-3 position-relative">
               <label htmlFor="tpNo" className="user-form-label ">
-                TP No:<span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                TP No:
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -470,23 +507,9 @@ function VehicleEntryDetails() {
                 </button>
               </div>
             </div>
+          </div>
 
-            {/* Challan No */}
-            <div className="col-md-3 mb-3">
-              <label htmlFor="challanNo" className="user-form-label ">
-                Challan No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
-              </label>
-              <input
-                type="text"
-                id="challanNo"
-                name="challanNo"
-                value={formData.challanNo}
-                onChange={handleChange}
-                required
-                className="form-control"
-              />
-            </div>
+          <div className="row move-left">
 
             {/* Vehicle No */}
             <div className="col-md-3 mb-3 position-relative">
@@ -503,8 +526,19 @@ function VehicleEntryDetails() {
                   onChange={handleChange}
                   required
                   className="form-control tpscanner"
-                  onKeyDown={handleVehicleNoKeyPress}
+                  // onKeyDown={handleVehicleNoKeyPress}
+                  onBlur={handleVehicleNoBlur}
                 />
+                {/* <Select
+                  options={vehicleNo}
+                  value={formData.vehicleNo}
+                  onChange={setVehicleNo}
+                  id="vehicleNo"
+                  placeholder="Select Vehicle No"
+                  isSearchable
+                  required
+                /> */}
+
                 {/* Replace "Scan" button with FaCamera icon */}
                 <button
                   className="scanner_button2"
@@ -520,10 +554,81 @@ function VehicleEntryDetails() {
                 </button>
               </div>
             </div>
+            {/* Material */}
+            <div className="col-md-3 mb-3 position-relative">
+              <label htmlFor="material" className="user-form-label">
+                Material:
+              </label>
+              <select
+                id="material"
+                name="material"
+                value={formData.material}
+                onChange={fetchMaterialType}
+                className="form-select"
+              >
+                <option value="">Select material</option>
+                {materials.map((m, index) => (
+                  <option key={index} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* Material Type */}
+            <div className="col-md-3 mb-3 position-relative">
+              <label htmlFor="materialType" className="user-form-label">
+                Material Type:
+              </label>
+              <select
+                id="materialType"
+                name="materialType"
+                value={formData.materialType}
+                onChange={handleChange}
+                className="form-select"
+              >
+                <option value="">Select material Type</option>
+                {materialType.map((materialType, index) => (
+                  <option key={index} value={materialType}>
+                    {materialType}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* E-way Bill No */}
+            <div className="col-md-3 mb-3 position-relative ">
+              <label htmlFor="eWayBillNo" className="user-form-label">
+                E-way Bill No:
+              </label>
+              <div className="input-group">
+                <input
+                  type="text"
+                  id="eWayBillNo"
+                  name="eWayBillNo"
+                  value={formData.eWayBillNo}
+                  onChange={handleChange}
+                  // required
+                  className="form-control tpscanner"
+                />
+                {/* Replace "Scan" button with FaCamera icon */}
+                <button
+
+                  className="scanner_button4"
+                  style={{ marginLeft: "2px" }}
+                  onClick={() => alert("Scan E-WayBill No")}
+                >
+                  {/* Use the imported scanner image */}
+                  <img
+                    src={scanner}
+                    alt="Scanner"
+                  // style={{ width: "25px", height: "25px" }}
+                  />
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="row move-left">
+          {/* <div className="row move-left">
             <h4 className="userdetail">Fill up the user details:</h4>
-          </div>
+          </div> */}
           <div className="row move-left">
             <div className="col-md-6 ">
               {/* Input fields */}
@@ -544,7 +649,7 @@ function VehicleEntryDetails() {
                     style={{ backgroundColor: '#efefef', color: '#818181' }}
                   />
                 </div>
-                <div className="col-md-6 inputbox-padding ">
+                <div className="col-md-6 position-relative inputbox1-padding">
                   <label htmlFor="noOfWheels" className="user-form-label">
                     No of Wheels:
                   </label>
@@ -559,6 +664,44 @@ function VehicleEntryDetails() {
                     style={{ backgroundColor: '#efefef', color: '#818181' }}
                   />
                 </div>
+              </div>
+              <div className="row mb-3 move-left">
+                {/* Transporter */}
+                <div className="col-md-6 inputbox-padding">
+                  <label htmlFor="transporter" className="user-form-label ">
+                    Transporter:
+                  </label>
+                  <input
+                    type="text"
+                    id="transporter"
+                    name="transporter"
+                    value={formData.transporter}
+                    onChange={handleChange}
+                    className="form-control"
+                    // placeholder="Enter Transporter"
+                    disabled={!formData.vehicleNo}
+                    style={{ backgroundColor: '#efefef', color: '#818181' }}
+                  />
+                </div>
+                {/* Rc fitness upto */}
+                <div className="col-md-6 position-relative inputbox1-padding">
+                  <label htmlFor="rcFitnessUpto" className="user-form-label">
+                    RC Fitness Upto:
+                    {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
+                  </label>
+                  <input
+                    type="text"
+                    id="rcFitnessUpto"
+                    name="rcFitnessUpto"
+                    value={formData.rcFitnessUpto}
+                    onChange={handleChange}
+                    // required
+                    className="form-control"
+                    disabled={!formData.vehicleNo}
+                    style={{ backgroundColor: '#efefef', color: '#818181' }}
+                  />
+                </div>
+
               </div>
               <div className="row mb-3 move-left">
                 {/* Supplier dropdown */}
@@ -582,8 +725,7 @@ function VehicleEntryDetails() {
                     ))}
                   </select>
                 </div>
-
-                <div className="col-md-6 inputbox-padding">
+                <div className="col-md-6 position-relative inputbox1-padding">
                   <label htmlFor="supplierContactNo" className="user-form-label">
                     Supplier's Address:
                   </label>
@@ -594,65 +736,12 @@ function VehicleEntryDetails() {
                     value={formData.supplierAddressLine1}
                     onChange={handleChange}
                     className="form-control"
-                    style={{ backgroundColor: '#efefef', color: '#818181' }}
-                  />
-                </div>
-              </div>
-              <div className="row mb-3 move-left">
-                {/* Transporter */}
-                <div className="col-md-6 inputbox-padding">
-                  <label htmlFor="transporter" className="user-form-label ">
-                    Transporter:
-                  </label>
-                  {/* <select
-                  id="transporter"
-                  name="transporter"
-                  value={formData.transporter}
-                  onChange={handleChange}
-                  className="form-select"
-                >
-                  <option value="">Select Transporter</option>
-                 
-                  {transporter.map((t, index) => (
-                    <option key={index} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select> */}
-
-                  <input
-                    type="text"
-                    id="transporter"
-                    name="transporter"
-                    value={formData.transporter}
-                    onChange={handleChange}
-                    className="form-control"
-                    // placeholder="Enter Transporter"
-                    disabled={!formData.vehicleNo}
+                    disabled={!formData.supplier}
                     style={{ backgroundColor: '#efefef', color: '#818181' }}
                   />
                 </div>
 
-                {/* Material dropdown */}
-                <div className="col-md-6 inputbox-padding">
-                  <label htmlFor="material" className="user-form-label">
-                    Material:
-                  </label>
-                  <select
-                    id="material"
-                    name="material"
-                    value={formData.material}
-                    onChange={fetchMaterialType}
-                    className="form-select"
-                  >
-                    <option value="">Select material</option>
-                    {materials.map((m, index) => (
-                      <option key={index} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+
               </div>
               <div className="row mb-3 move-left">
                 <div className="col-md-6 inputbox-padding">
@@ -671,7 +760,6 @@ function VehicleEntryDetails() {
                       className="form-control tpscanner"
                     />
                     <button
-                      // className="btn btn-outline-primary"
                       className="scanner_button3"
                       style={{ marginLeft: "2px" }} // Adjust the margin-left to create space between the input box and the button
                       onClick={() => alert("Scan Driver DL No")}
@@ -686,7 +774,7 @@ function VehicleEntryDetails() {
                   </div>
                 </div>
 
-                <div className="col-md-6 inputbox-padding">
+                <div className="col-md-6 position-relative inputbox1-padding">
                   <label htmlFor="driverName" className="user-form-label">
                     Driver Name:
                     <span style={{ color: "red", fontWeight: "bold" }}>*</span>
@@ -703,6 +791,7 @@ function VehicleEntryDetails() {
                 </div>
               </div>
               <div className="row mb-3 move-left">
+                {/* TP Net weight */}
                 <div className="col-md-6 inputbox-padding">
                   <label htmlFor="tpNetWeight" className="user-form-label">
                     TP Net Weight:
@@ -716,99 +805,30 @@ function VehicleEntryDetails() {
                     className="form-control"
                   />
                 </div>
-                <div className="col-md-6 inputbox-padding">
-                  <label htmlFor="rcFitnessUpto" className="user-form-label">
-                    RC Fitness Upto:
-                    <span style={{ color: "red", fontWeight: "bold" }}>*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="rcFitnessUpto"
-                    name="rcFitnessUpto"
-                    value={formData.rcFitnessUpto}
-                    onChange={handleChange}
-                    required
-                    className="form-control"
-                    disabled={!formData.vehicleNo}
-                    style={{ backgroundColor: '#efefef', color: '#818181' }}
-                  />
-                </div>
-              </div>
-              {/* Department dropdown */}
-              <div className="row mb-3 move-left">
-                {/* <div className="col-md-6">
-                <label htmlFor="department" className="form-label ">
-                  Department:
-                </label>
-                <select
-                  id="department"
-                  name="department"
-                  value={formData.department}
-                  onChange={handleChange}
-                  className="form-select"
-                >
-                  <option value="">Select Department</option>
-                  {departmentOptions.map((department, index) => (
-                    <option key={index} value={department}>
-                      {department}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
-                {/* Material Type dropdown */}
-                <div className="col-md-6 inputbox-padding">
-                  <label htmlFor="materialType" className="user-form-label">
-                    Material Type:
+                {/* Department dropdown */}
+                {/* <div className="col-md-6 position-relative inputbox1-padding">
+                  <label htmlFor="department" className="user-form-label">
+                    Department:
                   </label>
                   <select
-                    id="materialType"
-                    name="materialType"
-                    value={formData.materialType}
+                    id="department"
+                    name="department"
+                    value={formData.department}
                     onChange={handleChange}
                     className="form-select"
                   >
-                    <option value="">Select material Type</option>
-                    {materialType.map((materialType, index) => (
-                      <option key={index} value={materialType}>
-                        {materialType}
+                    <option value="">Select Department</option>
+                    {departmentOptions.map((department, index) => (
+                      <option key={index} value={department}>
+                        {department}
                       </option>
                     ))}
                   </select>
-                </div>
-                <div className="col-md-6 inputbox-padding ">
-                  <label htmlFor="eWayBillNo" className="user-form-label">
-                    E-way Bill No:
-                  </label>
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      id="eWayBillNo"
-                      name="eWayBillNo"
-                      value={formData.eWayBillNo}
-                      onChange={handleChange}
-                      // required
-                      className="form-control tpscanner"
-                    />
-                    {/* Replace "Scan" button with FaCamera icon */}
-                    <button
-
-                      className="scanner_button4"
-                      style={{ marginLeft: "2px" }}
-                      onClick={() => alert("Scan E-WayBill No")}
-                    >
-                      {/* Use the imported scanner image */}
-                      <img
-                        src={scanner}
-                        alt="Scanner"
-                      // style={{ width: "25px", height: "25px" }}
-                      />
-                    </button>
-                  </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-6 ">
               {/* Camera view */}
               <table className=" camview1 table">
                 <tbody>
@@ -928,11 +948,33 @@ function VehicleEntryDetails() {
               {/* Save and Clear buttons */}
               <div className="row justify-content-end mt-6 mb-2">
                 <div className="col-md-6 col-sm-12 d-flex justify-content-center">
-                  <button onClick={handleSave} className="mysave-btn btn-success me-md-2 me-sm-1 my-btn-save">
-                    Save <FontAwesomeIcon icon={faSave} className="ms-1 d-none d-md-inline" />
+                  <button
+                    type="button"
+                    className="btn btn-danger me-4 btn-hover"
+                    style={{
+                      backgroundColor: "white",
+                      color: "#d63031",
+                      border: "1px solid #cccccc",
+                      width: "100px",
+                    }}
+                    onClick={handleClear}
+                  // className="myclear-btn btn-secondary me-md-2 me-sm-1 my-btn-clear"
+                  >
+                    <FontAwesomeIcon icon={faEraser} className="me-1" /> Clear
                   </button>
-                  <button onClick={handleClear} className="myclear-btn btn-secondary me-md-2 me-sm-1 my-btn-clear">
-                    Clear <FontAwesomeIcon icon={faEraser} className="ms-1 d-none d-md-inline" />
+                  <button
+                    type="button"
+                    className="btn btn-success-1 btn-hover"
+                    style={{
+                      backgroundColor: "white",
+                      color: "#008060 ",
+                      width: "100px",
+                      border: "1px solid #cccccc",
+                    }}
+                    onClick={handleSave}
+                  // onClick={handleSave} className="mysave-btn btn-success me-md-2 me-sm-1 my-btn-save"
+                  >
+                    <FontAwesomeIcon icon={faSave} className="me-1" /> Save
                   </button>
                 </div>
               </div>
