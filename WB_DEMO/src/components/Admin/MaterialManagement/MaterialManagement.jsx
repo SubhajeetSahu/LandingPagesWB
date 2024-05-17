@@ -58,6 +58,43 @@ function MaterialManagement() {
       });
   };
 
+  // Inside your MaterialManagement component
+
+const fetchSupplierAddress = (supplierName) => {
+  fetch(`http://localhost:8080/api/v1/supplier/get/${supplierName}`)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Failed to fetch supplier address.");
+      }
+    })
+    .then((data) => {
+      setSupplierAddress(data[0]); // Assuming the address is the first item in the response array
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      setError(error.message);
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-danger",
+        },
+      });
+    });
+};
+
+// Call fetchSupplierAddress whenever the supplierName changes
+useEffect(() => {
+  if (supplierName) {
+    fetchSupplierAddress(supplierName);
+  }
+}, [supplierName]);
+
+
   const fetchMaterialTypeNames = (name) => {
     fetch(`http://localhost:8080/api/v1/materials/${name}/types`)
       .then((response) => {
