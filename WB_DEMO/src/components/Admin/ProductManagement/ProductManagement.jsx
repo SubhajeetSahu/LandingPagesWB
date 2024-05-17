@@ -143,7 +143,7 @@ function ProductManagement() {
       .then((response) => {
         if (response.ok) {
           Swal.fire({
-            title: "product saved successfully.",
+            title: "Product saved successfully.",
             icon: "success",
             confirmButtonText: "OK",
             customClass: {
