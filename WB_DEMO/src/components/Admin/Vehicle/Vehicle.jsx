@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./Vehicle.css";
 import SideBar from "../../SideBar/SideBar";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Select from "react-select";
 
 function Vehicle() {
   const [vehicleNo, setVehicleNo] = useState("");
@@ -142,70 +142,67 @@ function Vehicle() {
                         *
                       </span>
                     </label>
-                    <select
-                      className="form-select"
-                      id="transporter"
-                      value={transporter}
-                      onChange={(e) => setTransporter(e.target.value)}
+                    <Select
+                      options={transporters.map((transporter) => ({
+                        value: transporter,
+                        label: transporter,
+                      }))}
+                      value={{ value: transporter, label: transporter }}
+                      onChange={(selectedOption) =>
+                        setTransporter(selectedOption.value)
+                      }
+                      placeholder="Select Transporter"
+                      isSearchable
                       required
-                    >
-                      <option value="">Select Transporter</option>
-                      {transporters.map((transporter, index) => (
-                        <option key={index} value={transporter}>
-                          {transporter}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
                 </div>
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <label htmlFor="vehicleType" className="form-label">
                       Vehicle Type{" "}
-                      {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </                      span>
                     </label>
-                    <select
-                      className="form-select"
-                      id="vehicleType"
-                      value={vehicleType}
-                      onChange={(e) => setVehicleType(e.target.value)}
-                      // required
-                    >
-                      <option value="">Select Vehicle Type</option>
-                      <option value="mini-truck">Mini Truck</option>
-                      <option value="large-truck">Large Truck</option>
-                      <option value="others">Others</option>
-                    </select>
+                    <Select
+                      options={[
+                        { value: "mini-truck", label: "Mini Truck" },
+                        { value: "large-truck", label: "Large Truck" },
+                        { value: "others", label: "Others" },
+                      ]}
+                      value={{ value: vehicleType, label: vehicleType }}
+                      onChange={(selectedOption) =>
+                        setVehicleType(selectedOption.value)
+                      }
+                      placeholder="Select Vehicle Type"
+                      isSearchable
+                      required
+                    />
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="vehicleManufacturer" className="form-label">
                       Vehicle Manufacturer
                     </label>
-                    <select
-                      className="form-select"
-                      id="vehicleManufacturer"
-                      value={vehicleManufacturer}
-                      onChange={(e) => setVehicleManufacturer(e.target.value)}
-                    >
-                      <option value="">Select Manufacturer</option>
-                      <option value="Tata Motors">Tata Motors</option>
-                      <option value="Ashok Leyland Limited">
-                        Ashok Leyland Limited
-                      </option>
-                      <option value="VE Commercial Vehicles Limited">
-                        VE Commercial Vehicles Limited
-                      </option>
-                      <option value="Mahindra & Mahindra Limited">
-                        Mahindra & Mahindra Limited
-                      </option>
-                      <option value="Piaggio India">Piaggio India</option>
-                      <option value="Scania Commercial Vehicle India Pvt Ltd">
-                        Scania Commercial Vehicle India Pvt Ltd
-                      </option>
-                      <option value="Force Motors">Force Motors</option>
-                      <option value="Bharat Benz">Bharat Benz</option>
-                      <option value="others">Others</option>
-                    </select>
+                    <Select
+                      options={[
+                        { value: "Tata Motors", label: "Tata Motors" },
+                        { value: "Ashok Leyland Limited", label: "Ashok Leyland Limited" },
+                        { value: "VE Commercial Vehicles Limited", label: "VE Commercial Vehicles Limited" },
+                        { value: "Mahindra & Mahindra Limited", label: "Mahindra & Mahindra Limited" },
+                        { value: "Piaggio India", label: "Piaggio India" },
+                        { value: "Scania Commercial Vehicle India Pvt Ltd", label: "Scania Commercial Vehicle India Pvt Ltd" },
+                        { value: "Force Motors", label: "Force Motors" },
+                        { value: "Bharat Benz", label: "Bharat Benz" },
+                        { value: "others", label: "Others" },
+                      ]}
+                      value={{ value: vehicleManufacturer, label: vehicleManufacturer }}
+                      onChange={(selectedOption) =>
+                        setVehicleManufacturer(selectedOption.value)
+                      }
+                      placeholder="Select Manufacturer"
+                      isSearchable
+                    />
                   </div>
                 </div>
                 <div className="row mb-2">
@@ -245,11 +242,9 @@ function Vehicle() {
                       required
                     />
                   </div>
-
                   <div className="col-md-3">
                     <label htmlFor="vehicleWheelsNo" className="form-label">
-                      Wheels{" "}
-                      {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
+                      Wheels
                     </label>
                     <select
                       className="form-select vehicle-select"
@@ -257,19 +252,14 @@ function Vehicle() {
                       value={vehicleWheelsNo}
                       onChange={(e) => setvehicleWheelsNo(e.target.value)}
                     >
-                      <option value="6">6</option>
-                      <option value="8">8</option>
-                      <option value="10">10</option>
-                      <option value="12">12</option>
-                      <option value="14">14</option>
-                      <option value="16">16</option>
-                      <option value="18">18</option>
-                      <option value="20">20</option>
-                      <option value="22">22</option>
+                      {[6, 8, 10, 12, 14, 16, 18, 20, 22].map((wheel) => (
+                        <option key={wheel} value={wheel}>
+                          {wheel}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
-
                 <div className="d-flex justify-content-end mt-3">
                   <button
                     type="button"
@@ -279,8 +269,6 @@ function Vehicle() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-
-                      
                     }}
                     onClick={handleClear}
                   >
@@ -293,11 +281,8 @@ function Vehicle() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
                       width: "100px",
-
                       border: "1px solid #cccccc",
-                      // transition: "transform 0.3s ease-in-out",
                     }}
                     onClick={handleSave}
                   >
@@ -315,3 +300,4 @@ function Vehicle() {
 }
 
 export default Vehicle;
+

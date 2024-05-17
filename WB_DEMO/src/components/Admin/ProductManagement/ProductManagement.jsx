@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import "./MaterialManagement.css";
+import "./ProductManagement.css";
 import SideBar from "../../SideBar/SideBar";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
-import Select from 'react-select';
 
-
-function MaterialManagement() {
-  const [supplierName, setSupplierName] = useState("");
-  const [supplierAddress, setSupplierAddress] = useState("");
-  const [supplierNames, setSupplierNames] = useState([]);
-  const [materialName, setMaterialName] = useState("");
-  const [materialTypeName, setMaterialTypeName] = useState("");
-  const [materialNames, setMaterialNames] = useState([]);
-  const [materialTypeNames, setMaterialTypeNames] = useState([]);
+function ProductManagement() {
+  const [productName, setproductName] = useState("");
+  const [productTypeName, setproductTypeName] = useState("");
+  const [productNames, setproductNames] = useState([]);
+  const [productTypeNames, setproductTypeNames] = useState([]);
   const [error, setError] = useState("");
   const [showNameInput, setShowNameInput] = useState(false);
   const [showTypeInput, setShowTypeInput] = useState(false);
@@ -27,21 +22,20 @@ function MaterialManagement() {
   ]);
 
   useEffect(() => {
-    fetchMaterialNames();
-    fetchSupplierNames("");
+    fetchproductNames();
   }, []);
 
-  const fetchMaterialNames = () => {
-    fetch("http://localhost:8080/api/v1/materials/names")
+  const fetchproductNames = () => {
+    fetch("http://localhost:8080/api/v1/products/names")
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("Failed to fetch material names.");
+          throw new Error("Failed to fetch product names.");
         }
       })
       .then((data) => {
-        setMaterialNames(data);
+        setproductNames(data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -58,44 +52,17 @@ function MaterialManagement() {
       });
   };
 
-  const fetchMaterialTypeNames = (name) => {
-    fetch(`http://localhost:8080/api/v1/materials/${name}/types`)
+  const fetchproductTypeNames = (name) => {
+    fetch(`http://localhost:8080/api/v1/products/${name}/types`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("Failed to fetch material types.");
+          throw new Error("Failed to fetch product types.");
         }
       })
       .then((data) => {
-        setMaterialTypeNames(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError(error.message);
-        Swal.fire({
-          title: "Error",
-          text: error.message,
-          icon: "error",
-          confirmButtonText: "OK",
-          customClass: {
-            confirmButton: "btn btn-danger",
-          },
-        });
-      });
-  };
-
-  const fetchSupplierNames = () => {
-    fetch("http://localhost:8080/api/v1/supplier/get/list")
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Failed to fetch supplier names.");
-        }
-      })
-      .then((data) => {
-        setSupplierNames(data);
+        setproductTypeNames(data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -113,11 +80,9 @@ function MaterialManagement() {
   };
 
   const handleClear = () => {
-    setSupplierName("");
-    setSupplierAddress("");
-    setMaterialName("");
-    setMaterialTypeName("");
-    setMaterialTypeNames([]); // Reset materialTypeNames state
+    setproductName("");
+    setproductTypeName("");
+    setproductTypeNames([]); // Reset productTypeNames state
     setShowNameInput(false);
     setShowTypeInput(false);
     setUserInputName("");
@@ -126,15 +91,13 @@ function MaterialManagement() {
   };
 
   const handleSave = () => {
-    let finalMaterialName = materialName;
-    let finalMaterialTypeName;
+    let finalproductName = productName;
+    let finalproductTypeName;
 
     if (showNameInput && userInputName.trim() !== "") {
-      finalMaterialName = userInputName.trim();
+      finalproductName = userInputName.trim();
     } else if (
-      supplierName.trim() === "" ||
-      supplierAddress.trim() === "" ||
-      materialName.trim() === "" ||
+      productName.trim() === "" ||
       parameters.some(
         (param) =>
           param.parameterName.trim() === "" ||
@@ -154,16 +117,14 @@ function MaterialManagement() {
     }
 
     if (showTypeInput && userInputType.trim() !== "") {
-      finalMaterialTypeName = userInputType.trim();
-    } else if (!showTypeInput && materialTypeName.trim() !== "") {
-      finalMaterialTypeName = materialTypeName.trim();
+      finalproductTypeName = userInputType.trim();
+    } else if (!showTypeInput && productTypeName.trim() !== "") {
+      finalproductTypeName = productTypeName.trim();
     }
 
-    const materialData = {
-      supplierName: supplierName.trim(),
-      supplierAddress: supplierAddress.trim(),
-      materialName: finalMaterialName,
-      materialTypeName: finalMaterialTypeName,
+    const productData = {
+      productName: finalproductName,
+      productTypeName: finalproductTypeName,
       parameters: parameters.map((param) => ({
         parameterName: param.parameterName.trim(),
         rangeFrom: parseFloat(param.rangeFrom.trim()),
@@ -171,18 +132,18 @@ function MaterialManagement() {
       })),
     };
 
-    fetch("http://localhost:8080/api/v1/materials", {
+    fetch("http://localhost:8080/api/v1/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(materialData),
+      body: JSON.stringify(productData),
       credentials: "include",
     })
       .then((response) => {
         if (response.ok) {
           Swal.fire({
-            title: "Material saved successfully.",
+            title: "product saved successfully.",
             icon: "success",
             confirmButtonText: "OK",
             customClass: {
@@ -193,14 +154,14 @@ function MaterialManagement() {
             window.location.reload(); // Reload the page
           });
         } else {
-          throw new Error("Failed to save material.");
+          throw new Error("Failed to save product.");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
         Swal.fire({
           title: "Error",
-          text: "Failed to save material.",
+          text: "Failed to save product.",
           icon: "error",
           confirmButtonText: "OK",
           customClass: {
@@ -209,22 +170,21 @@ function MaterialManagement() {
         });
       });
   };
-
   const handleSelectChange = (event) => {
     const { value } = event.target;
-    setMaterialName(value);
-    setShowNameInput(value === "add a material");
-    if (value !== "add a material") {
-      fetchMaterialTypeNames(value);
+    setproductName(value);
+    setShowNameInput(value === "add a product");
+    if (value !== "add a product") {
+      fetchproductTypeNames(value);
     } else {
-      setMaterialTypeNames([]); // Reset materialTypeNames state
-      setMaterialTypeName(""); // Reset materialTypeName state
+      setproductTypeNames([]); // Reset productTypeNames state
+      setproductTypeName(""); // Reset productTypeName state
     }
   };
 
   const handleTypeSelectChange = (event) => {
     const { value } = event.target;
-    setMaterialTypeName(value);
+    setproductTypeName(value);
     setShowTypeInput(value === "add a type");
   };
 
@@ -234,7 +194,7 @@ function MaterialManagement() {
 
   const handleTypeInputChange = (event) => {
     setUserInputType(event.target.value);
-    setMaterialTypeName(event.target.value);
+    setproductTypeName(event.target.value);
   };
 
   const handleParameterChange = (index, event) => {
@@ -259,10 +219,10 @@ function MaterialManagement() {
 
   return (
     <SideBar>
-      <div className="material-management">
-        <div className="material-management-main-content container-fluid">
-          <h2 className="text-center">Material Management</h2>
-          <div className="material-card-container">
+      <div className="product-management">
+        <div className="product-management-main-content container-fluid">
+          <h2 className="text-center">Product Management</h2>
+          <div className="product-card-container">
             <div
               className="card-body p-4"
               style={{ backgroundColor: "rgb(243,244,247)" }}
@@ -270,40 +230,8 @@ function MaterialManagement() {
               <form>
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label htmlFor="supplierName" className="form-label">
-                      Supplier Name <span style={{ color: "red", fontWeight: "bold" }}>*</span>
-                    </label>
-                    <Select
-                      id="supplierName"
-                      value={{ value: supplierName, label: supplierName }} // ensure correct format
-                      onChange={(selectedOption) => setSupplierName(selectedOption.label)} // use label
-                      options={supplierNames.map((name) => ({ value: name, label: name }))}
-                      isSearchable
-                      isRequired
-                    />
-
-                  </div>
-                  <div className="col-md-6">
-                    <label htmlFor="supplierAddressLine1" className="form-label">
-                      Supplier Address{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="supplierAddressLine1"
-                      value={supplierAddress}
-                      onChange={(e) => setSupplierAddress(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="row mb-2">
-                  <div className="col-md-6">
-                    <label htmlFor="materialName" className="form-label">
-                      Material Name{" "}
+                    <label htmlFor="productName" className="form-label">
+                      Product Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
@@ -312,7 +240,7 @@ function MaterialManagement() {
                       <input
                         type="text"
                         className="form-control"
-                        id="materialName"
+                        id="productName"
                         value={userInputName}
                         onChange={handleNameInputChange}
                         required
@@ -320,44 +248,44 @@ function MaterialManagement() {
                     ) : (
                       <select
                         className="form-select"
-                        id="materialName"
-                        value={materialName}
+                        id="productName"
+                        value={productName}
                         onChange={handleSelectChange}
                         required
                       >
-                        <option value="">Select Material Name</option>
-                        {materialNames.map((name, index) => (
+                        <option value="">Select product Name</option>
+                        {productNames.map((name, index) => (
                           <option key={index} value={name}>
                             {name}
                           </option>
                         ))}
-                        <option value="add a material">Add Material</option>
+                        <option value="add a product">Add product</option>
                       </select>
                     )}
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="materialTypeName" className="form-label">
-                      Material Type{" "}
+                    <label htmlFor="productTypeName" className="form-label">
+                      Product Type{" "}
                     </label>
                     {showTypeInput ? (
                       <input
                         type="text"
                         className="form-control"
-                        id="materialTypeName"
+                        id="productTypeName"
                         value={userInputType}
                         onChange={handleTypeInputChange}
                       />
                     ) : (
                       <div>
-                        {materialTypeNames.length > 0 ? (
+                        {productTypeNames.length > 0 ? (
                           <select
                             className="form-select"
-                            id="materialTypeName"
-                            value={materialTypeName}
+                            id="productTypeName"
+                            value={productTypeName}
                             onChange={handleTypeSelectChange}
                           >
-                            <option value="">Select Material Type</option>
-                            {materialTypeNames.map((type, index) => (
+                            <option value="">Select product Type</option>
+                            {productTypeNames.map((type, index) => (
                               <option key={index} value={type}>
                                 {type}
                               </option>
@@ -368,7 +296,7 @@ function MaterialManagement() {
                           <input
                             type="text"
                             className="form-control"
-                            id="materialTypeName"
+                            id="productTypeName"
                             value={userInputType}
                             onChange={handleTypeInputChange}
                           />
@@ -454,6 +382,7 @@ function MaterialManagement() {
                     </div>
                   </div>
                 ))}
+
                 <div className="d-flex justify-content-end mt-3">
                   <button
                     type="button"
@@ -463,6 +392,7 @@ function MaterialManagement() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
+                       
                     }}
                     onClick={handleClear}
                   >
@@ -475,6 +405,7 @@ function MaterialManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
+                       
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}
@@ -493,8 +424,4 @@ function MaterialManagement() {
   );
 }
 
-export default MaterialManagement;
-
-
-
-
+export default ProductManagement;
