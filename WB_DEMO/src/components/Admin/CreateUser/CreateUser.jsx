@@ -366,6 +366,7 @@ function CreateUser() {
                             value={role}
                             onChange={(selectedOptions) => setRole(selectedOptions)}
                             options={roles}
+                            isSearchable
                           />
                         </div>
                       </div>

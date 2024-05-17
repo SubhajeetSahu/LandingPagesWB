@@ -276,7 +276,7 @@ function ProcessOrder() {
                       onChange={(e) => {
                         const newValue = Math.max(
                           0,
-                          parseInt(e.target.value, 10)
+                          parseFloat(e.target.value, 10)
                         );
                         setConsignmentWeight(newValue);
                       }}
