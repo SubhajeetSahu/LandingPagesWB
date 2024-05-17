@@ -236,11 +236,11 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                     <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
                     <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>In Time/Date</th>
                     <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Out Time/Date</th>
-                    <th scope="col" style={{ width: '7%', padding: '5px', margin: '5px' }}>Vehicle Type</th>
-                    <th scope="col" style={{ width: '7%', padding: '5px', margin: '5px' }}>No. of Wheels</th>
+                    {/* <th scope="col" style={{ width: '7%', padding: '5px', margin: '5px' }}>Vehicle Type</th> */}
+                    {/* <th scope="col" style={{ width: '7%', padding: '5px', margin: '5px' }}>No. of Wheels</th> */}
                     <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Transporter</th>
-                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Supplier</th>
-                    <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Supplier's Address</th>
+                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Supplier/Customer</th>
+                    <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Supplier's /Customer's Address</th>
                     <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Material</th>
                     <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>TP No.</th>
                     <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>TP Net weight</th>
@@ -259,11 +259,17 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                       <td>{entry.vehicleNo}</td>
                       <td>{entry.vehicleIn}</td>
                       <td>{entry.vehicleOut}</td>
-                      <td>{entry.vehicleType}</td>
-                      <td>{entry.vehicleWheelsNo}</td>
+                      {/* <td>{entry.vehicleType}</td> */}
+                      {/* <td>{entry.vehicleWheelsNo}</td> */}
                       <td>{entry.transporter}</td>
-                      <td>{entry.supplier}</td>
-                      <td>{entry.supplierAddress}</td>
+                      <td>
+                        {/* Conditionally render supplier or customer */}
+                        {entry.transactionType === 'Inbound' ? entry.supplier : entry.customer}
+                      </td>
+                      <td>
+                        {/* Conditionally render supplier or customer */}
+                        {entry.transactionType === 'Inbound' ? entry.supplierAddress : entry.customerAddress}
+                      </td>
                       <td>{entry.material}</td>
                       <td>{entry.tpNo}</td>
                       <td>{entry.tpNetWeight}</td>
@@ -293,7 +299,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                   <span style={{ color: 'blue' }}>{entriesCount}</span> entries
                 </p>
               </div>
-              <div className="col-auto" style={{ margin: '0', padding: '0' }}>
+              <div className="pagination-button" style={{ margin: '0', padding: '0' }}>
                 <div className="pagination" style={{ margin: '0', padding: '0' }}>
                   <button
                     className={`backword-double-button ${currentPage === 1 ? 'disabled' : ''}`}
