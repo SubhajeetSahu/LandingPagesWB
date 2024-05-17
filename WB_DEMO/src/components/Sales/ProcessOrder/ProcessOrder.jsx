@@ -50,8 +50,8 @@ function ProcessOrder() {
   }, [vehicleNo]);
 
   const handleClear = () => {
-    setFormsaleOrderNo(saleOrderNo || "");
-    setFormProductName(productName || "");
+    setFormsaleOrderNo("");
+    setFormProductName("");
     setProductType("");
     setVehicleNo("");
     setTransporterName("");
