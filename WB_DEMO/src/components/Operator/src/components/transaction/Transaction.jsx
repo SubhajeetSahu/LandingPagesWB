@@ -2,42 +2,29 @@ import React, { useState, useEffect, useRef } from "react";
 import "./transaction.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faRectangleXmark,
-  faGreaterThan,
-  faLessThan,
-  faDownload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileWord } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Chart, ArcElement } from "chart.js/auto";
-// import Header from "../../../../Header/Header";
 import SideBar5 from "../../../../SideBar/SideBar5";
 import { useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-
+import { Button } from "antd";
+ 
 const OperatorTransaction = () => {
   const [currentDate, setCurrentDate] = useState(getFormattedDate());
-  /* const [curPage, setCurPage] = useState(1);
-  let totPage = 5; */
   const navigate = useNavigate();
-
+ 
   function getFormattedDate() {
     const date = new Date();
     const year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, "0");
     let day = date.getDate().toString().padStart(2, "0");
-
+ 
     return `${year}-${month}-${day}`;
   }
-
-  const closeForm = () => {
-    navigate("/home");
-  };
   const goToTransForm = (
     ticketNo,
     transactionType,
-    grossWeight,
-    tareWeight
   ) => {
     if (transactionType === "Inbound") {
       navigate(
@@ -49,28 +36,23 @@ const OperatorTransaction = () => {
       );
     }
   };
-
-  // const goToTransForm1 = () => {
-  //   navigate("/OperatorTransactionFromOutbound");
-  // };
-
+ 
+ 
   const handleQualityReportDownload = () => {
-    // Implement download functionality here
-
+ 
     alert("Downloading quality report...");
   };
-
+ 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
   const [weighments, setWeighments] = useState([]);
-  const [ticket, setTicket] = useState(null);
   const [pageNumber, setPageNumber] = useState(0);
   const weighmentsPerPage = 5;
   const pagesVisited = pageNumber * weighmentsPerPage;
   const { ticketNo } = useParams();
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,15 +60,15 @@ const OperatorTransaction = () => {
           `http://localhost:8080/api/v1/weighment/get/{ticketNo}`
         );
         setTicket(response.data);
-      
+ 
       } catch (error) {
         console.error("Error fetching ticket details:", error);
       }
     };
-
+ 
     fetchData();
   }, [ticketNo]);
-
+ 
   useEffect(() => {
     // Fetch data from the API
     axios
@@ -102,14 +84,12 @@ const OperatorTransaction = () => {
         console.error("Error fetching weighments:", error);
       });
   }, []);
-
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
-
+ 
+ 
+ 
   useEffect(() => {
     Chart.register(ArcElement);
-
+ 
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -120,223 +100,173 @@ const OperatorTransaction = () => {
         chartRef2.current.chartInstance.resize();
       }
     });
-
+ 
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
-
+ 
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
-
+ 
   const pageCount = Math.ceil(weighments.length / weighmentsPerPage);
-
+ 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-
+ 
   return (
     <SideBar5>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-
-      <div className="container-fluid">
-        <div className="row">
-          <h2 className="tr_dash1">Transaction Dashboard</h2>
-          <div className="date">
+      <div style={{ fontFamily: "Arial", color: "#333", "--table-border-radius": "30px" }}>
+        <div className="container-fluid mt-0">
+          <div className="mb-3 text-center">
+            <h2 style={{ fontFamily: "Arial", marginBottom: "0px !important" }}>
+              Transaction Dashboard
+            </h2>
             <input
               type="date"
-              id="trDate"
+              id="date"
+              name="date"
+              className="form-control form-control-sm"
+              style={{ width: "auto" }}
               value={currentDate}
-              onChange={(e) => setCurrentDate(e.target.value)}
-              className="Date1"
-              readOnly
-            />
-            <br />
-            <br />
-          </div>
-        </div>
-        {/* <div className="row mt-4">
-          <div className="col-12">
-            <h1 className="tr_dash1">Transaction Dashboard</h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-6">
-            <label htmlFor="trDate">Date:-</label>
-            <input
-              type="date"
-              id="trDate"
-              value="{currentDate}"
-              className="form-control Date1"
-              readOnly
+              disabled
             />
           </div>
-        </div>  */}
-        <div className="backend" >
-          <div className="table-responsive" >
-          <table className="table table-bordered">
-            
-            <thead className="text-center">
-              <tr >
-                <th>Ticket No.</th>
-                <th>Transaction Type</th>
-                {/* <th>Weightment No.</th> */}
-                <th>Vehicle No.</th>
-                {/* <th>In Time/ Date</th> */}
-                <th>Transporter</th>
-                <th>Supplier/ Customer</th>
-                <th>Gross wt./ Time</th>
-                <th>Tare wt./ Time</th>
-                <th>Net wt./ Time</th>
-                <th>Material/Product</th>
-                {/* <th>Fitness Upto</th> */}
-
-                {/* <th>Status</th> */}
-                <th>Quality Report</th>
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              {weighments
-                .slice(pagesVisited, pagesVisited + weighmentsPerPage)
-                .map((weighment) => (
-                  <tr key={weighment.id}>
-                    <td>
-                      <input
-                        value={weighment.ticketNo}
-                        style={{
-                          justifyContent: "center",
-                          textAlign: "center",
-                          backgroundColor: "#89CFF0",
-                          width: "80px",
-                          cursor: "pointer",
-                        }}
-                        // className="form-control back"
-                        className="input-celll"
-                        onClick={() => {
-                          goToTransForm(
-                            weighment.ticketNo,
-                            weighment.transactionType,
-                            weighment.grossWeight,
-                            weighment.tareWeight
-                          );
-                        }}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={weighment.transactionType}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    {/* <td>
-                      <input
-                        value={weighment.weighmentNo}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td> */}
-                    <td>
-                      <input
-                        value={weighment.vehicleNo}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    {/* <td>
-                      <input
-                        value={weighment.inTime}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td> */}
-                    <td>
-                      <input
-                        value={weighment.transporterName}
-                        style={{ width: "150px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={weighment.supplierName}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={weighment.grossWeight}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={weighment.tareWeight}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={weighment.netWeight}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={weighment.materialName}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td>
-                    {/* <td>
-                      <input
-                        value={weighment.vehicleFitnessUpTo}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td> */}
-
-                    {/* <td>
-                      <input
-                        value={weighment.status}
-                        style={{ width: "90px" }}
-                        className="input-celll"
-                      />
-                    </td> */}
-                    <td className="icon-celll">
-                      <FontAwesomeIcon
-                        icon={faDownload}
-                        onClick={handleQualityReportDownload}
-                      />
-                    </td>
+ 
+          <div className=" table-responsive" style={{ borderRadius: "10px" }}>
+            <div >
+              <table className=" ant-table table table-striped"
+              >
+ 
+                <thead className="ant-table-thead" >
+                  <tr className="ant-table-row">
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Ticket No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Transaction Type</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Vehicle No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>&nbsp;&nbsp;&nbsp;Transporter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Supplier/Customer</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Gross Wt.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Tare Wt.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Net Wt.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Material/Product</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Quality Report</th>
                   </tr>
-                ))}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {weighments
+                    .slice(pagesVisited, pagesVisited + weighmentsPerPage)
+                    .map((weighment) => (
+                      <tr key={weighment.id}>
+                        <td className="ant-table-cell" style={{ textAlign: "center" }}>
+                          <Button
+ 
+                            onClick={() => {
+                              goToTransForm(
+                                weighment.ticketNo,
+                                weighment.transactionType,
+                                weighment.grossWeight,
+                                weighment.tareWeight
+                              );
+                            }}
+                            style={{ background: "#88CCFA" }}
+                          >
+                            {weighment.ticketNo}
+                          </Button>
+ 
+ 
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.transactionType}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.vehicleNo}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.transporterName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.supplierName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.grossWeight.split('/')[0]}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.tareWeight.split('/')[0]}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.netWeight.split('/')[0]}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}
+                        >
+                          {weighment.materialName}
+                        </td>
+ 
+ 
+                        <td className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap", textAlign: "center" }}>
+                          <button
+                            className="btn btn-success btn-sm"
+                            style={{padding:"3px 6px"}}
+                            onClick={handleQualityReportDownload}
+                            disabled // add disabled attribute to disable the button
+                          >
+                            <FontAwesomeIcon icon={faFileWord} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+          <ReactPaginate
+            previousLabel={"<<"}
+            previousLabel1={"<"}
+
+            nextLabel1={">"}
+            nextLabel={">>"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBtns"}
+            previousLinkClassName={"previousBtn"}
+            nextLinkClassName={"nextBtn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+            pageLinkClassName={"paginationLink"}
+          /> 
+
+
+
+          
         </div>
-        <br />
-        </div>
-        <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
-          pageCount={pageCount}
-          onPageChange={changePage}
-          containerClassName={"paginationBtns"}
-          previousLinkClassName={"previousBtn"}
-          nextLinkClassName={"nextBtn"}
-          disabledClassName={"paginationDisabled"}
-          activeClassName={"paginationActive"}
-          pageLinkClassName={"paginationLink"}
-        />
-     
+      </div>
     </SideBar5>
   );
-};
-
+}
+ 
 export default OperatorTransaction;
