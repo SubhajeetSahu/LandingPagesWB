@@ -5,13 +5,12 @@ import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
-import { Link } from "react-router-dom";
-// import Header from "../../../../Header/Header";
+
 import SideBar5 from "../../../../SideBar/SideBar5";
 // eslint-disable-next-line no-unused-vars
 import camView from "../../assets/weighbridge.webp";
 import "./transactionform.css";
-// import ScannerImg1 from "../../assets/ScannerImg1.png";
+
 import Camera_Icon from "../../assets/Camera_Icon.png";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +20,7 @@ import {
   faPrint,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { DisabledByDefault } from "@mui/icons-material";
 
 function TransactionFrom() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -30,37 +30,29 @@ function TransactionFrom() {
   const homeMainContentRef = useRef(null);
   const queryParams = new URLSearchParams(window.location.search);
 
-  const [currentDate, setCurrentDate] = useState(getFormattedDate());
-  const [currentTime, setCurrentTime] = useState(getFormattedTime());
-  const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
-  const [inputValue, setInputValue] = useState(0);
-  const [grossWeight, setGrossWeight] = useState(
-    queryParams.get("grossWeight").split("/")[0]
-  );
-  const [tareWeight, setTareWeight] = useState(
-    queryParams.get("tareWeight").split("/")[0]
-  );
+  const [inputValue, setInputValue] = useState();
+
+  const [grossWeight, setGrossWeight] = useState(0);
+  const [tareWeight, setTareWeight] = useState(0);
   const [netWeight, setNetWeight] = useState(0);
 
-  const [isGrossWeightMode, setIsGrossWeightMode] = useState(true);
   const [ticket, setTicket] = useState([]);
 
   const ticketNumber = queryParams.get("ticketNumber");
-  // const grossWt = queryParams.get('grossWeight');
-  // const tareWt = queryParams.get('tareWeight');
 
   console.log(ticketNumber);
 
   useEffect(() => {
-    
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
-        withCredentials: true, // Include credentials
+        withCredentials: true,
       })
       .then((response) => {
-        // Update state with the fetched data
         setTicket(response.data);
-        console.log(response.data); // Log fetched data
+        console.log(response.data);
+        setGrossWeight(response.data.grossWeight);
+        setTareWeight(response.data.tareWeight);
+        setNetWeight(response.data.netWeight);
       })
       .catch((error) => {
         console.error("Error fetching weighments:", error);
@@ -72,46 +64,30 @@ function TransactionFrom() {
     console.log("Count changed:", netWeight);
   }, [tareWeight]);
 
-  const handleChange1 = (e, grossWeight) => {
+  const handleChange1 = (e) => {
     const newValue = e.target.value;
     setInputValue(newValue);
 
-    if (grossWeight === 0) {
+    if (ticket.grossWeight === 0) {
       setGrossWeight(newValue);
+    } else if (newValue > ticket.grossWeight) {
+      alert("The Tare Weight should be lesser than Gross Weight");
+      setInputValue(0);
     } else {
       setTareWeight(newValue);
     }
   };
 
-  // const handleSave = () => {
-  // if (!isTareWeightEnabled) {
-  //   setGrossWeight(inputValue);
-  //   setInputValue();
-  //   setIsTareWeightEnabled(true);
-  // const handleSave = (inputValue,grossWeight) => {
   const handleSave = () => {
-    // if (grossWeight === 0) {
-    //   setGrossWeight(inputValue);
-
-    //   alert("Gross Weight saved to the database");
-    //   setInputValue();
-    //   setSaveButtonDisabled(true);
-
-    // } else {
-    //   setTareWeight(inputValue);
-    //   alert("Tare Weight saved to the database");
-    //   setSaveButtonDisabled(true);
-    // }
-    if (isGrossWeightMode) {
-      setGrossWeight(inputValue);
+    if (tareWeight == 0) {
       alert("Gross Weight saved to the database");
     } else {
-      setTareWeight(inputValue);
       alert("Tare Weight saved to the database");
     }
+    window.location.reload();
 
-    setInputValue(""); // Clear input field
-    setSaveButtonDisabled(true); // Disable save button
+    setInputValue("");
+
     const payload = {
       machineId: "1",
       ticketNo: ticketNumber,
@@ -124,39 +100,10 @@ function TransactionFrom() {
       })
       .then((response) => {
         console.log("Measurement saved:", response.data);
-        // Handle response as needed
       })
       .catch((error) => {
         console.error("Error saving measurement:", error);
-        // Handle error as needed
       });
-  };
-
-  // const handleClear = () => {
-  //   setGrossWeight(0);
-  //   setTareWeight(0);
-  //   setNetWeight(0);
-  //   setInputValue(0);
-  // };
-
-  function getFormattedDate() {
-    const date = new Date();
-    const year = date.getFullYear();
-    let month = (1 + date.getMonth()).toString().padStart(2, "0");
-    let day = date.getDate().toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  }
-  function getFormattedTime() {
-    const date = new Date();
-    let hours = date.getHours().toString().padStart(2, "0");
-    let minutes = date.getMinutes().toString().padStart(2, "0");
-    let seconds = date.getSeconds().toString().padStart(2, "0");
-
-    return `${hours}:${minutes}:${seconds}`;
-  }
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
   };
 
   useEffect(() => {
@@ -224,12 +171,7 @@ function TransactionFrom() {
   return (
     <SideBar5>
       <div>
-        {/* <Header toggleSidebar={toggleSidebar} /> */}
-
-        <div
-          className="container-fluid"
-          // style={{ marginTop: "50px", marginRight: "140px" }}
-        >
+        <div className="container-fluid">
           <h2 className="text-center mb-2">Inbound Transaction Form</h2>
           <div className="row">
             <div className="col-md-3 mb-3">
@@ -303,7 +245,7 @@ function TransactionFrom() {
                 />
               </div>
             </div>
-            {/* Vehicle No */}
+
             <div className="col-md-3 mb-3">
               <label htmlFor="vehicleNo" className="form-label ">
                 Vehicle No:
@@ -330,39 +272,32 @@ function TransactionFrom() {
                 <div className="col-md-6">
                   <div className="sub">
                     <input
-                      type="text"
+                      type="number"
                       className="abcv"
+                      placeholder="0"
                       style={{
-                        // backgroundColor: "rgb(116 165 217)",
                         backgroundColor: "#919295",
                         color: "white",
                         width: "260px",
                         height: "50px",
-                        // border: "0px solid ",
                       }}
+                      min="0"
                       value={inputValue}
                       onChange={(e) => handleChange1(e, ticket.grossWeight)}
-
-                      // oninput="reflectInput(this.value, 'grossWeight')"
                     />
                     <div className="icons-group">
                       <div>
-                        <FontAwesomeIcon
-                          icon={faFloppyDisk}
-                          onClick={() =>
-                            handleSave(inputValue, ticket.grossWeight)
-                          }
-                          disabled={saveButtonDisabled}
-                          className="icons"
-                        />
+                        {ticket.tareWeight === 0 && ticket.netWeight === 0 ? (
+                          <FontAwesomeIcon
+                            icon={faFloppyDisk}
+                            onClick={() =>
+                              handleSave(inputValue, ticket.grossWeight)
+                            }
+                            className="icons"
+                          />
+                        ) : null}
                       </div>
-                      {/* <div>
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    // onClick={handleClear}
-                    className="icons"
-                  />
-                </div> */}
+
                       <div>
                         <FontAwesomeIcon icon={faPrint} className="icons" />
                       </div>
@@ -387,16 +322,8 @@ function TransactionFrom() {
                       readOnly
                     />
                     <input
-                      type="date"
-                      value={currentDate}
-                      onChange={(e) => setCurrentDate(e.target.value)}
-                      className="abcx"
-                      readOnly
-                    />
-                    <input
-                      type="time"
-                      value={currentTime}
-                      onChange={(e) => setCurrentTime(e.target.value)}
+                      type="text"
+                      value={ticket.grossWeightTime}
                       className="abcx"
                       readOnly
                     />
@@ -416,21 +343,12 @@ function TransactionFrom() {
                       type="text"
                       autoComplete="off"
                       value={`${tareWeight} kg`}
-                      //required={isTareWeightEnabled}
                       className="abcx"
                       readOnly
                     />
                     <input
-                      type="date"
-                      value={currentDate}
-                      onChange={(e) => setCurrentDate(e.target.value)}
-                      className="abcx"
-                      readOnly
-                    />
-                    <input
-                      type="time"
-                      value={currentTime}
-                      onChange={(e) => setCurrentTime(e.target.value)}
+                      type="text"
+                      value={ticket.tareWeightTime}
                       className="abcx"
                       readOnly
                     />
@@ -448,22 +366,14 @@ function TransactionFrom() {
                     <input
                       type="text"
                       autoComplete="off"
-                      value={`${netWeight} kg`}
-                      // required={isTareWeightEnabled}
+                      value={`${ticket.netWeight} kg`}
                       className="abcx"
                       readOnly
                     />
+
                     <input
-                      type="date"
-                      value={currentDate}
-                      onChange={(e) => setCurrentDate(e.target.value)}
-                      className="abcx"
-                      readOnly
-                    />
-                    <input
-                      type="time"
-                      value={currentTime}
-                      onChange={(e) => setCurrentTime(e.target.value)}
+                      type="text"
+                      value={ticket.tareWeightTime}
                       className="abcx"
                       readOnly
                     />
@@ -475,47 +385,47 @@ function TransactionFrom() {
               <div className="grid-container" id="z3">
                 <div className="grid-item">
                   <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-1</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
-                  </div>
-                  </div>
-                </div>
-                <div className="grid-item">
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-2</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
-                  </div>
-                </div>
-                </div>
-                <div className="grid-item">
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-3</span>
-                    <button className="ct-btn ">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
-                  </div>
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Top-view</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="grid-item">
-                <div className="mnc">
-                  <img src={camView} />
-                  <div className="overlay">
-                    <span>Cam-4</span>
-                    <button className="ct-btn">
-                      <img src={Camera_Icon} alt="Captured" />
-                    </button>
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Front-view</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
                   </div>
                 </div>
+                <div className="grid-item">
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Rear-view</span>
+                      <button className="ct-btn ">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid-item">
+                  <div className="mnc">
+                    <img src={camView} />
+                    <div className="overlay">
+                      <span>Side-view</span>
+                      <button className="ct-btn">
+                        <img src={Camera_Icon} alt="Captured" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -565,7 +475,7 @@ function TransactionFrom() {
                   readOnly
                 />
               </div>
-              <div className="grid-item-op">
+              {/* <div className="grid-item-op">
                 <label htmlFor="department" className="form-label">
                   Department:
                 </label>
@@ -578,7 +488,7 @@ function TransactionFrom() {
                   className="abcv"
                   readOnly
                 />
-              </div>
+              </div> */}
               <div className="grid-item-op">
                 <label htmlFor="driverDL" className="form-label">
                   Driver DL No:
