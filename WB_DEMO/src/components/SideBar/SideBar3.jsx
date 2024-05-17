@@ -214,6 +214,10 @@ const Sidebar3 = ({ children }) => {
                 color: "white",
                  
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -237,6 +241,10 @@ const Sidebar3 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -258,6 +266,10 @@ const Sidebar3 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
             }}
           >
             <ListItemIcon>
@@ -277,6 +289,10 @@ const Sidebar3 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
                  
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
               },
             }}
           >

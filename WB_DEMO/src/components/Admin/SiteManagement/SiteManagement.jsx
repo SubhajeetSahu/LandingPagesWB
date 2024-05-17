@@ -4,6 +4,7 @@ import SideBar from "../../SideBar/SideBar";
 import "./SiteManagement.css";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Select from "react-select";
 
 
 
@@ -115,20 +116,19 @@ function SiteManagement() {
                         *
                       </span>
                     </label>
-                    <select
-                      className="form-select"
-                      id="companyName"
-                      value={companyName}
-                      onChange={(e) => setCompanyName(e.target.value)}
+                    <Select
+                      options={companies.map((company) => ({
+                        value: company.companyName,
+                        label: company.companyName,
+                      }))}
+                      value={{ value: companyName, label: companyName }}
+                      onChange={(selectedOption) =>
+                        setCompanyName(selectedOption.value)
+                      }
+                      placeholder="Select a company"
+                      isSearchable
                       required
-                    >
-                      <option value="">Select a company</option>
-                      {companies.map((company) => (
-                        <option key={company.id} value={company.companyName}>
-                          {company.companyName}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
                 </div>
                 <div className="row mb-3 justify-content-center">

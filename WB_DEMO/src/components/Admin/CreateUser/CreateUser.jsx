@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import Select from 'react-select';
 import "./CreateUser.css";
 import SideBar from "../../SideBar/SideBar";
-
 
 function CreateUser() {
   const [firstName, setFirstName] = useState("");
@@ -40,12 +40,13 @@ function CreateUser() {
       .then((data) => {
         console.log("Roles List:", data);
         const filteredRoles = data.filter((role) => role !== "ADMIN");
-        setRoles(filteredRoles);
+        setRoles(filteredRoles.map(r => ({ value: r, label: r })));
       })
       .catch((error) => {
         console.error("Error fetching roles list:", error);
       });
   }, []);
+
   const handleCompanyChange = (e) => {
     setCompany(e.target.value);
 
@@ -128,7 +129,7 @@ function CreateUser() {
       company,
       emailId,
       contactNo,
-      role,
+      role: role.map(r => r.value),
     };
 
     setIsLoading(true);
@@ -181,21 +182,6 @@ function CreateUser() {
       });
   };
 
-  const handleRoleChange = (selectedRole) => {
-    if (role.includes(selectedRole)) {
-      setRole(role.filter((r) => r !== selectedRole));
-    } else {
-      setRole([...role, selectedRole]);
-    }
-  };
-
-  const handleSelectAllRoles = () => {
-    if (role.length === roles.length) {
-      setRole([]);
-    } else {
-      setRole([...roles]);
-    }
-  };
   return (
     <SideBar>
       <div className="create-user">
@@ -219,7 +205,7 @@ function CreateUser() {
                           <label htmlFor="firstName" className="form-label">
                             First Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                          {" "}*
+                              {" "}*
                             </span>
                           </label>
                           <input
@@ -249,7 +235,7 @@ function CreateUser() {
                           <label htmlFor="lastName" className="form-label">
                             Last Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                          {" "}*
+                              {" "}*
                             </span>
                           </label>
                           <input
@@ -267,10 +253,10 @@ function CreateUser() {
                         <div className="col-md-6">
                           <label htmlFor="emailId" className="form-label">
                             Email Id
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                              {" "}*
+                            </span>
                           </label>
-                          <span style={{ color: "red", fontWeight: "bold" }}>
-                            {" "}*
-                          </span>
                           <input
                             type="email"
                             className={`form-control ${emailError ? "is-invalid" : ""
@@ -288,34 +274,37 @@ function CreateUser() {
                         <div className="col-md-6">
                           <label htmlFor="contactNo" className="form-label">
                             Mobile Number
-                            <span style={{ color: "red", fontWeight: "bold" }}>
-                          {" "}*
+                            <span style={{
+                              color: "red",
+                              fontWeight: "bold"
+                            }}>
+                              {" "}*
                             </span>
                           </label>
-                          <input
-                            type="tel"
-                            className={`form-control ${contactNoError ? "is-invalid" : ""
-                              }`}
-                            id="contactNo"
-                            placeholder="Enter Mobile Number"
-                            value={contactNo}
-                            onChange={(e) => setContactNo(e.target.value)}
-                            required
-                            pattern="\d{10}"
-                            onInput={(e) =>
-                            (e.target.value = e.target.value.replace(
-                              /\D/g,
-                              ""
-                            ))
-                            }
-                            title="Please enter 10 numbers"
-                            maxLength="10"
-                          />
-                          {contactNoError && (
-                            <div className="invalid-feedback">
-                              {contactNoError}
-                            </div>
-                          )}
+                            <input
+                              type="tel"
+                              className={`form-control ${contactNoError ? "is-invalid" : ""
+                                }`}
+                              id="contactNo"
+                              placeholder="Enter Mobile Number"
+                              value={contactNo}
+                              onChange={(e) => setContactNo(e.target.value)}
+                              required
+                              pattern="\d{10}"
+                              onInput={(e) =>
+                              (e.target.value = e.target.value.replace(
+                                /\D/g,
+                                ""
+                              ))
+                              }
+                              title="Please enter 10 numbers"
+                              maxLength="10"
+                            />
+                            {contactNoError && (
+                              <div className="invalid-feedback">
+                                {contactNoError}
+                              </div>
+                            )}
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -323,7 +312,7 @@ function CreateUser() {
                           <label htmlFor="company" className="form-label">
                             Company Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                          {" "}*
+                              {" "}*
                             </span>
                           </label>
                           <select
@@ -345,7 +334,7 @@ function CreateUser() {
                           <label htmlFor="site" className="form-label">
                             Site Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                          {" "}*
+                              {" "}*
                             </span>
                           </label>
                           <select
@@ -369,62 +358,16 @@ function CreateUser() {
                           <label htmlFor="role" className="form-label">
                             Role
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                          {" "}*
+                              {" "}*
                             </span>
                           </label>
-                          <div className="d-flex gap-2">
-                            <div className="d-flex flex-wrap gap-2">
-                              {role.map((r, index) => (
-                                <div
-                                  key={index}
-                                  className="d-flex align-items-center bg-secondary text-white px-2 py-1 rounded"
-                                >
-                                  <span className="me-2">{r}</span>
-                                  <FontAwesomeIcon
-                                    icon={faEraser}
-                                    className="cursor-pointer"
-                                    onClick={() => handleRoleChange(r)}
-                                  />
-                                </div>
-                              ))}
-                              <button
-                                className="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownRole"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                              >
-                                Select Roles
-                              </button>
-                              <ul className="dropdown-menu" aria-labelledby="dropdownRole">
-                                {roles.map((r, index) => (
-                                  <li key={index}>
-                                    <label className="dropdown-item">
-                                      <input
-                                        type="checkbox"
-                                        onChange={() => handleRoleChange(r)}
-                                        checked={role.includes(r)}
-                                      />
-                                      {r}
-                                    </label>
-                                  </li>
-                                ))}
-                                <li>
-                                  <hr className="dropdown-divider" />
-                                </li>
-                                <li>
-                                  <label className="dropdown-item">
-                                    <input
-                                      type="checkbox"
-                                      onChange={handleSelectAllRoles}
-                                      checked={role.length === roles.length}
-                                    />
-                                    Select All Roles
-                                  </label>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                          <Select
+                            isMulti
+                            value={role}
+                            onChange={(selectedOptions) => setRole(selectedOptions)}
+                            options={roles}
+                            isSearchable
+                          />
                         </div>
                       </div>
                       <div className="d-flex justify-content-end mt-3">
@@ -470,3 +413,4 @@ function CreateUser() {
 }
 
 export default CreateUser;
+

@@ -22,7 +22,7 @@ const HomePage6 = () => {
       title: 'Sale Order No',
       dataIndex: 'saleOrderNo',
       key: 'saleOrderNo',
-      render: (text, record) => <Button onClick={() => handleRowClick(record)}>{text}</Button>,
+      render: (text, record) => <Button onClick={() => handleRowClick(record)} style={{backgroundColor:"#88CCFA"}}>{text}</Button>,
     },
     {
       title: 'Purchase Order No',
