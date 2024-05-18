@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./Vehicle.css";
 import SideBar from "../../SideBar/SideBar";
@@ -163,7 +163,7 @@ function Vehicle() {
                       Vehicle Type{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
-                      </                      span>
+                      </span>
                     </label>
                     <Select
                       options={[
@@ -187,16 +187,31 @@ function Vehicle() {
                     <Select
                       options={[
                         { value: "Tata Motors", label: "Tata Motors" },
-                        { value: "Ashok Leyland Limited", label: "Ashok Leyland Limited" },
-                        { value: "VE Commercial Vehicles Limited", label: "VE Commercial Vehicles Limited" },
-                        { value: "Mahindra & Mahindra Limited", label: "Mahindra & Mahindra Limited" },
+                        {
+                          value: "Ashok Leyland Limited",
+                          label: "Ashok Leyland Limited",
+                        },
+                        {
+                          value: "VE Commercial Vehicles Limited",
+                          label: "VE Commercial Vehicles Limited",
+                        },
+                        {
+                          value: "Mahindra & Mahindra Limited",
+                          label: "Mahindra & Mahindra Limited",
+                        },
                         { value: "Piaggio India", label: "Piaggio India" },
-                        { value: "Scania Commercial Vehicle India Pvt Ltd", label: "Scania Commercial Vehicle India Pvt Ltd" },
+                        {
+                          value: "Scania Commercial Vehicle India Pvt Ltd",
+                          label: "Scania Commercial Vehicle India Pvt Ltd",
+                        },
                         { value: "Force Motors", label: "Force Motors" },
                         { value: "Bharat Benz", label: "Bharat Benz" },
                         { value: "others", label: "Others" },
                       ]}
-                      value={{ value: vehicleManufacturer, label: vehicleManufacturer }}
+                      value={{
+                        value: vehicleManufacturer,
+                        label: vehicleManufacturer,
+                      }}
                       onChange={(selectedOption) =>
                         setVehicleManufacturer(selectedOption.value)
                       }
@@ -219,11 +234,9 @@ function Vehicle() {
                       id="vehicleLoadCapacity"
                       placeholder="Enter Vehicle Load Capacity"
                       value={vehicleLoadCapacity}
-                      onChange={(e) => {
-                        const newValue = Math.max(0, parseFloat(e.target.value, 10));
-                        setVehicleLoadCapacity(newValue);
-                      }}
+                      onChange={(e) => setVehicleLoadCapacity(e.target.value)}
                       required
+                      min={0}
                     />
                   </div>
                   <div className="col-md-3">
@@ -300,4 +313,3 @@ function Vehicle() {
 }
 
 export default Vehicle;
-

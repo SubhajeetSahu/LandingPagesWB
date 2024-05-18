@@ -6,8 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
-import Select from 'react-select';
-
+import Select from "react-select";
 
 function MaterialManagement() {
   const [supplierName, setSupplierName] = useState("");
@@ -60,40 +59,39 @@ function MaterialManagement() {
 
   // Inside your MaterialManagement component
 
-const fetchSupplierAddress = (supplierName) => {
-  fetch(`http://localhost:8080/api/v1/supplier/get/${supplierName}`)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Failed to fetch supplier address.");
-      }
-    })
-    .then((data) => {
-      setSupplierAddress(data[0]); // Assuming the address is the first item in the response array
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      setError(error.message);
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "OK",
-        customClass: {
-          confirmButton: "btn btn-danger",
-        },
+  const fetchSupplierAddress = (supplierName) => {
+    fetch(`http://localhost:8080/api/v1/supplier/get/${supplierName}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch supplier address.");
+        }
+      })
+      .then((data) => {
+        setSupplierAddress(data[0]); // Assuming the address is the first item in the response array
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError(error.message);
+        Swal.fire({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-danger",
+          },
+        });
       });
-    });
-};
+  };
 
-// Call fetchSupplierAddress whenever the supplierName changes
-useEffect(() => {
-  if (supplierName) {
-    fetchSupplierAddress(supplierName);
-  }
-}, [supplierName]);
-
+  // Call fetchSupplierAddress whenever the supplierName changes
+  useEffect(() => {
+    if (supplierName) {
+      fetchSupplierAddress(supplierName);
+    }
+  }, [supplierName]);
 
   const fetchMaterialTypeNames = (name) => {
     fetch(`http://localhost:8080/api/v1/materials/${name}/types`)
@@ -308,20 +306,30 @@ useEffect(() => {
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <label htmlFor="supplierName" className="form-label">
-                      Supplier Name <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                      Supplier Name{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       id="supplierName"
                       value={{ value: supplierName, label: supplierName }} // ensure correct format
-                      onChange={(selectedOption) => setSupplierName(selectedOption.label)} // use label
-                      options={supplierNames.map((name) => ({ value: name, label: name }))}
+                      onChange={(selectedOption) =>
+                        setSupplierName(selectedOption.label)
+                      } // use label
+                      options={supplierNames.map((name) => ({
+                        value: name,
+                        label: name,
+                      }))}
                       isSearchable
                       isRequired
                     />
-
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="supplierAddressLine1" className="form-label">
+                    <label
+                      htmlFor="supplierAddressLine1"
+                      className="form-label"
+                    >
                       Supplier Address{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
@@ -454,6 +462,7 @@ useEffect(() => {
                         value={parameter.rangeFrom}
                         onChange={(e) => handleParameterChange(index, e)}
                         required
+                        min={0}
                       />
                     </div>
                     <div className="col-md-3">
@@ -471,6 +480,7 @@ useEffect(() => {
                         value={parameter.rangeTo}
                         onChange={(e) => handleParameterChange(index, e)}
                         required
+                        min={0}
                       />
                     </div>
                     <div className="col-md-1 d-flex align-items-center">
@@ -531,7 +541,3 @@ useEffect(() => {
 }
 
 export default MaterialManagement;
-
-
-
-
