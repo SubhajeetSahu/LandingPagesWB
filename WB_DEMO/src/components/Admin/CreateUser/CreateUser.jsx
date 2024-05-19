@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser, faSave } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import Select from 'react-select';
+import Select from "react-select";
 import "./CreateUser.css";
 import SideBar from "../../SideBar/SideBar";
 
@@ -40,7 +40,7 @@ function CreateUser() {
       .then((data) => {
         console.log("Roles List:", data);
         const filteredRoles = data.filter((role) => role !== "ADMIN");
-        setRoles(filteredRoles.map(r => ({ value: r, label: r })));
+        setRoles(filteredRoles.map((r) => ({ value: r, label: r })));
       })
       .catch((error) => {
         console.error("Error fetching roles list:", error);
@@ -129,7 +129,7 @@ function CreateUser() {
       company,
       emailId,
       contactNo,
-      role: role.map(r => r.value),
+      role: role.map((r) => r.value),
     };
 
     setIsLoading(true);
@@ -205,7 +205,8 @@ function CreateUser() {
                           <label htmlFor="firstName" className="form-label">
                             First Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}*
+                              {" "}
+                              *
                             </span>
                           </label>
                           <input
@@ -235,7 +236,8 @@ function CreateUser() {
                           <label htmlFor="lastName" className="form-label">
                             Last Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}*
+                              {" "}
+                              *
                             </span>
                           </label>
                           <input
@@ -254,13 +256,15 @@ function CreateUser() {
                           <label htmlFor="emailId" className="form-label">
                             Email Id
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}*
+                              {" "}
+                              *
                             </span>
                           </label>
                           <input
                             type="email"
-                            className={`form-control ${emailError ? "is-invalid" : ""
-                              }`}
+                            className={`form-control ${
+                              emailError ? "is-invalid" : ""
+                            }`}
                             id="emailId"
                             placeholder="Enter email address"
                             value={emailId}
@@ -274,37 +278,41 @@ function CreateUser() {
                         <div className="col-md-6">
                           <label htmlFor="contactNo" className="form-label">
                             Mobile Number
-                            <span style={{
-                              color: "red",
-                              fontWeight: "bold"
-                            }}>
-                              {" "}*
+                            <span
+                              style={{
+                                color: "red",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {" "}
+                              *
                             </span>
                           </label>
-                            <input
-                              type="tel"
-                              className={`form-control ${contactNoError ? "is-invalid" : ""
-                                }`}
-                              id="contactNo"
-                              placeholder="Enter Mobile Number"
-                              value={contactNo}
-                              onChange={(e) => setContactNo(e.target.value)}
-                              required
-                              pattern="\d{10}"
-                              onInput={(e) =>
+                          <input
+                            type="tel"
+                            className={`form-control ${
+                              contactNoError ? "is-invalid" : ""
+                            }`}
+                            id="contactNo"
+                            placeholder="Enter Mobile Number"
+                            value={contactNo}
+                            onChange={(e) => setContactNo(e.target.value)}
+                            required
+                            pattern="\d{10}"
+                            onInput={(e) =>
                               (e.target.value = e.target.value.replace(
                                 /\D/g,
                                 ""
                               ))
-                              }
-                              title="Please enter 10 numbers"
-                              maxLength="10"
-                            />
-                            {contactNoError && (
-                              <div className="invalid-feedback">
-                                {contactNoError}
-                              </div>
-                            )}
+                            }
+                            title="Please enter 10 numbers"
+                            maxLength="10"
+                          />
+                          {contactNoError && (
+                            <div className="invalid-feedback">
+                              {contactNoError}
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="row mb-3">
@@ -312,7 +320,8 @@ function CreateUser() {
                           <label htmlFor="company" className="form-label">
                             Company Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}*
+                              {" "}
+                              *
                             </span>
                           </label>
                           <select
@@ -334,7 +343,8 @@ function CreateUser() {
                           <label htmlFor="site" className="form-label">
                             Site Name
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}*
+                              {" "}
+                              *
                             </span>
                           </label>
                           <select
@@ -358,13 +368,17 @@ function CreateUser() {
                           <label htmlFor="role" className="form-label">
                             Role
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                              {" "}*
+                              {" "}
+                              *
                             </span>
                           </label>
+
                           <Select
                             isMulti
                             value={role}
-                            onChange={(selectedOptions) => setRole(selectedOptions)}
+                            onChange={(selectedOptions) =>
+                              setRole(selectedOptions)
+                            }
                             options={roles}
                             isSearchable
                           />
@@ -413,4 +427,3 @@ function CreateUser() {
 }
 
 export default CreateUser;
-
