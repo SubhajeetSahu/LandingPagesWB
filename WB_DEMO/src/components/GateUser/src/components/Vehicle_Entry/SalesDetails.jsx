@@ -16,7 +16,7 @@ const SalesDetails = ({ onConfirmTicket = () => { } }) => {
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/v1/gate", {
+        fetch("http://localhost:8080/api/v1/sales/getAllVehicleDetails", {
             credentials: "include"
         })
             .then(response => {
@@ -33,9 +33,9 @@ const SalesDetails = ({ onConfirmTicket = () => { } }) => {
             });
     }, []);
 
-    const handleVehicleClick = () => {
+    const handleVehicleClick = (salePassNo) => {
         // Navigate to VehicleEntry-Outbound page
-        navigate('/VehicleEntry-Outbound');
+        navigate(`/VehicleEntry-Outbound/?sales=${salePassNo}`);
     };
 
     const indexOfLastEntry = currentPage * entriesPerPage;
@@ -54,13 +54,17 @@ const SalesDetails = ({ onConfirmTicket = () => { } }) => {
                             <table className="sales-table table-bordered table-striped" style={{ marginBottom: '10px', marginRight: '50px' }}>
                                 <thead className="text-center">
                                     <tr>
-                                        <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
-                                        <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>PO No.</th>
-                                        <th scope="col" style={{ width: '20%', padding: '5px', margin: '5px' }}>PurchasePass No </th>
-                                        <th scope="col" style={{ width: '20%', padding: '5px', margin: '5px' }}>Transporter Name </th>
-                                        <th scope="col" style={{ width: '20%', padding: '5px', margin: '5px' }}>Customer Name </th>
-                                        <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>Product Name</th>
-                                        <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>Product Type</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>PO No.</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Sale Order No.</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Sale Pass No.</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Transporter Name </th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Customer Name </th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Customer Address </th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Product Name</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Product Type</th>
+                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Quantity (MT)</th>
+
                                     </tr>
                                 </thead>
                                 <tbody className="text-center">
@@ -68,14 +72,18 @@ const SalesDetails = ({ onConfirmTicket = () => { } }) => {
                                         <tr key={entry.id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
                                             <td>
                                                 {/* Use anchor tag for navigation */}
-                                                <a href="/VehicleEntry-Outbound" onClick={handleVehicleClick}>{entry.vehicleNo}</a>
+                                                <button onClick={() => handleVehicleClick(entry.salePassNo)}>{entry.vehicleNo}</button>
                                             </td>
-                                            <td>{entry.poNo}</td>
-                                            <td>{entry.purchasePassNo}</td>
-                                            <td>{entry.transporter}</td>
+                                            <td>{entry.purchaseOrderNo}</td>
+                                            <td>{entry.saleOrderNo}</td>
+                                            <td>{entry.salePassNo}</td>
+                                            <td>{entry.transporterName}</td>
                                             <td>{entry.customerName}</td>
+                                            <td>{entry.customerAddress}</td>
                                             <td>{entry.productName}</td>
                                             <td>{entry.productType}</td>
+                                            <td>{entry.consignmentWeight}</td>
+
                                         </tr>
                                     ))}
                                 </tbody>

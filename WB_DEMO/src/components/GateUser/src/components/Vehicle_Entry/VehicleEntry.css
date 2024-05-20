@@ -61,7 +61,8 @@
 
 .vehicle-table th {
   white-space: nowrap; /* Prevent wrapping of header cells */
-  background-color: #c2c4cb; /* Add a background color for visibility */
+  background-color: #0077b6; /* Add a background color for visibility */
+  color: white;
   height: 60px;
 }
 
@@ -89,53 +90,66 @@
 
 /* Pagination button */
 
+.pagination-button {
+  /* flex: 0 0 auto; */
+  width: 350px;
+}
+
 .page-number-button {
-  background-color: #c2c4cb;
+  background-color: #0077b6;
   padding: 8px 12px;
+  color: white;
 }
 
 /* Hover */
 .page-number-button:hover {
-  background-color: #448cf1; /* Change to desired hover background color */
+  background-color: #69c0ef;
   cursor: pointer;
 }
 
 .forward-button {
-  background-color: #c2c4cb;
+  /* background-color: #c2c4cb; */
+  background-color: #0077b6;
   padding: 8px 12px;
+  color: white;
 }
 
 .forward-button:hover {
-  background-color: #448cf1; /* Change to desired hover background color */
+  background-color: #69c0ef;
   cursor: pointer;
 }
 
 .forward-double-button {
-  background-color: #c2c4cb;
+  background-color: #0077b6;
   padding: 8px 12px;
+  color: white;
 }
 
 .forward-double-button:hover {
-  background-color: #448cf1; /* Change to desired hover background color */
+  background-color: #69c0ef;
   cursor: pointer;
 }
 
 .backword-button {
-  background-color: #c2c4cb;
+  /* background-color: #c2c4cb; */
+  background-color: #0077b6;
   padding: 8px 12px;
+  color: white;
 }
 .backword-button:hover {
-  background-color: #448cf1; /* Change to desired hover background color */
+  background-color: #69c0ef;
   cursor: pointer;
 }
 
 .backword-double-button {
-  background-color: #c2c4cb;
+  /* background-color: #c2c4cb; */
+  background-color: #0077b6;
   padding: 8px 12px;
+  color: white;
 }
 
 .backword-double-button:hover {
-  background-color: #448cf1; /* Change to desired hover background color */
+  background-color: #69c0ef;
   cursor: pointer;
 }
 

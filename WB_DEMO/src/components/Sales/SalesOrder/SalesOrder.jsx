@@ -17,7 +17,6 @@ function SalesOrder() {
   const [brokerAddress, setBrokerAddress] = useState("");
   const [customerNames, setCustomerNames] = useState([]);
   const [productNames, setProductNames] = useState([]);
-  
 
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/customers/names")
@@ -35,10 +34,16 @@ function SalesOrder() {
     const selectedCustomerName = event.target.value;
     setCustomerName(selectedCustomerName);
 
-    fetch(`http://localhost:8080/api/v1/customers/get/${encodeURIComponent(selectedCustomerName)}`)
+    fetch(
+      `http://localhost:8080/api/v1/customers/get/${encodeURIComponent(
+        selectedCustomerName
+      )}`
+    )
       .then((response) => response.json())
       .then((data) => setCustomerAddress(data[0]))
-      .catch((error) => console.error("Error fetching customer address:", error));
+      .catch((error) =>
+        console.error("Error fetching customer address:", error)
+      );
   };
 
   const handleClear = () => {
@@ -190,15 +195,31 @@ function SalesOrder() {
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <div>
-                    <label htmlFor="customerName" className="form-label">
-                      Customer Name{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
-                    </label>
-                    <button className="btn btn-sm border" style={{borderRadius: "5px", marginLeft: "5px", backgroundColor: "lightblue"}}>
-                    <a href="/SalesCustomer" style={{display: "block", textDecoration: "none", color:"black"}}>Add customer</a>
-                    </button>
+                      <label htmlFor="customerName" className="form-label">
+                        Customer Name{" "}
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          *
+                        </span>
+                      </label>
+                      <button
+                        className="btn btn-sm border"
+                        style={{
+                          borderRadius: "5px",
+                          marginLeft: "5px",
+                          backgroundColor: "lightblue",
+                        }}
+                      >
+                        <a
+                          href="/SalesCustomer"
+                          style={{
+                            display: "block",
+                            textDecoration: "none",
+                            color: "black",
+                          }}
+                        >
+                          Add customer
+                        </a>
+                      </button>
                     </div>
                     <select
                       className="form-select"
@@ -269,10 +290,8 @@ function SalesOrder() {
                       placeholder="Enter Ordered Quantity"
                       value={orderedQuantity}
                       required
-                      onChange={(e) => {
-                        const newValue = Math.max(0, parseFloat(e.target.value, 10));
-                        setOrderedQuantity(newValue);
-                      }}
+                      onChange={(e) => setOrderedQuantity(e.target.value)}
+                      min={0}
                     />
                   </div>
                 </div>

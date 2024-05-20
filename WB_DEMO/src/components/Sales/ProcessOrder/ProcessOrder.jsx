@@ -28,11 +28,13 @@ function ProcessOrder() {
       .then((data) => {
         const numbers = data.map((vehicle) => ({
           value: vehicle.vehicleNo,
-          label: vehicle.vehicleNo
+          label: vehicle.vehicleNo,
         }));
         setVehicleNumbers(numbers);
       })
-      .catch((error) => console.error("Error fetching vehicle numbers:", error));
+      .catch((error) =>
+        console.error("Error fetching vehicle numbers:", error)
+      );
   }, []);
 
   useEffect(() => {
@@ -209,17 +211,30 @@ function ProcessOrder() {
                   </div>
 
                   <div className="col-md-6">
-                    <label
-                      htmlFor="transporterName"
-                      className="form-label"
-                    >
+                    <label htmlFor="transporterName" className="form-label">
                       Transporter Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
                     </label>
-                    <button className="btn btn-sm border" style={{borderRadius: "5px", marginLeft: "5px", backgroundColor: "lightblue"}}>
-                    <a href="/SalesTransporter" style={{display: "block", textDecoration: "none", color:"black"}}>Add Transporter</a>
+                    <button
+                      className="btn btn-sm border"
+                      style={{
+                        borderRadius: "5px",
+                        marginLeft: "5px",
+                        backgroundColor: "lightblue",
+                      }}
+                    >
+                      <a
+                        href="/SalesTransporter"
+                        style={{
+                          display: "block",
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
+                        Add Transporter
+                      </a>
                     </button>
                     <select
                       className="form-select"
@@ -240,10 +255,7 @@ function ProcessOrder() {
 
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label
-                      htmlFor="purchaseProcessDate"
-                      className="form-label"
-                    >
+                    <label htmlFor="purchaseProcessDate" className="form-label">
                       Purchase Process Date{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
@@ -254,17 +266,12 @@ function ProcessOrder() {
                       className="form-control"
                       id="purchaseProcessDate"
                       value={purchaseProcessDate}
-                      onChange={(e) =>
-                        setPurchaseProcessDate(e.target.value)
-                      }
+                      onChange={(e) => setPurchaseProcessDate(e.target.value)}
                       required
                     />
                   </div>
                   <div className="col-md-6">
-                    <label
-                      htmlFor="consignmentWeight"
-                      className="form-label"
-                    >
+                    <label htmlFor="consignmentWeight" className="form-label">
                       Consignment Weight
                     </label>
                     <input
@@ -273,13 +280,8 @@ function ProcessOrder() {
                       id="consignmentWeight"
                       placeholder="Enter Consignment Weight"
                       value={consignmentWeight}
-                      onChange={(e) => {
-                        const newValue = Math.max(
-                          0,
-                          parseFloat(e.target.value, 10)
-                        );
-                        setConsignmentWeight(newValue);
-                      }}
+                      onChange={(e) => setConsignmentWeight(e.target.value)}
+                      min={0}
                     />
                   </div>
                 </div>

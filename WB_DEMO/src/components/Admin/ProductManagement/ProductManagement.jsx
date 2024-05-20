@@ -345,6 +345,7 @@ function ProductManagement() {
                         value={parameter.rangeFrom}
                         onChange={(e) => handleParameterChange(index, e)}
                         required
+                        min={0}
                       />
                     </div>
                     <div className="col-md-3">
@@ -362,6 +363,7 @@ function ProductManagement() {
                         value={parameter.rangeTo}
                         onChange={(e) => handleParameterChange(index, e)}
                         required
+                        min={0}
                       />
                     </div>
                     <div className="col-md-1 d-flex align-items-center">
@@ -392,7 +394,6 @@ function ProductManagement() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                       
                     }}
                     onClick={handleClear}
                   >
@@ -405,7 +406,7 @@ function ProductManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
+
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}
