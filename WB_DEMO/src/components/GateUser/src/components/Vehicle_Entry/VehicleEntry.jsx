@@ -8,7 +8,7 @@ import { Chart, ArcElement } from "chart.js/auto";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import "./VehicleEntry.css";
 import Swal from 'sweetalert2';
-
+ 
 const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
@@ -18,12 +18,12 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(5); // Number of entries per page
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
     setSelectedDate(today);
   }, []);
-
+ 
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/gate", {
       credentials: "include"
@@ -41,14 +41,14 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         console.error('Error fetching vehicle entry details:', error);
       });
   }, []);
-
+ 
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
-
+ 
   useEffect(() => {
     Chart.register(ArcElement);
-
+ 
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -59,32 +59,32 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         chartRef2.current.chartInstance.resize();
       }
     });
-
+ 
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
-
+ 
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
-
+ 
   const openPopup = () => {
     setShowPopup(true);
   };
-
+ 
   const closePopup = () => {
     setShowPopup(false);
   };
-
+ 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
+ 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
-
+ 
   const handleConfirm = () => {
     const details = {
       ticketType: selectedOption,
@@ -92,37 +92,37 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       outTimeDate: selectedDate // Assuming both in and out time/date are same for now
     };
     onConfirmTicket(details);
-
+ 
     if (selectedOption === 'inbound') {
       navigate('/VehicleEntryDetails');
     }
-
+ 
     setSelectedOption('');
     setSelectedDate('');
     closePopup();
   };
-
+ 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
   const currentEntries = vehicleEntryDetails.slice(indexOfFirstEntry, indexOfLastEntry);
-
+ 
   const paginateBackwardDouble = () => {
     setCurrentPage(1); // Set current page to 1 when "<<"" button is clicked
   };
-
+ 
   const paginateBackward = () => {
     setCurrentPage(currentPage - 1);
   };
   const paginateForward = () => {
     setCurrentPage(currentPage + 1);
   };
-
+ 
   const paginateForwardDouble = () => {
     setCurrentPage(totalPages); // Set current page to the total number of pages when ">>"" button is clicked
   };
-
+ 
   // API for Vehicle Out
-
+ 
   const handleVehicleExit = async (ticketNo) => {
     console.log(`handleVehicleExit called with ticketNo: ${ticketNo}`); // Log the ticket number to ensure the function is called
     try {
@@ -135,7 +135,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         // body: JSON.stringify({ someKey: someValue }),
         credentials: 'include'
       });
-
+ 
       let data;
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
@@ -144,8 +144,8 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         data = await response.text();
       }
       console.log("API response:", data);
-
-
+ 
+ 
       if (response.ok) {
         // Display the API response using SweetAlert
         Swal.fire({
@@ -165,7 +165,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       }
     } catch (error) {
       console.error("Fetch error:", error); // Log the error for debugging
-
+ 
       // Display a generic error message if the API response is not available
       Swal.fire({
         icon: 'error',
@@ -175,19 +175,19 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       });
     }
   };
-
+ 
   const entriesCount = vehicleEntryDetails.length;
   const showingFrom = indexOfFirstEntry + 1;
   const showingTo = Math.min(indexOfLastEntry, entriesCount);
-
+ 
   const totalPages = Math.ceil(vehicleEntryDetails.length / entriesPerPage);
-
+ 
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const totalPagesToShow = 3; // Number of page numbers to show
     const startPage = Math.max(currentPage - 1, 1);
     const endPage = Math.min(startPage + totalPagesToShow - 1, totalPages);
-
+ 
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <span key={i} style={{ margin: '0 5px' }}>
@@ -201,14 +201,14 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         </span>
       );
     }
-
+ 
     if (totalPages > totalPagesToShow && currentPage < totalPages - 1) {
       pageNumbers.push(
         <span key="ellipsis" style={{ margin: '0 5px' }}>
           ...
         </span>
       );
-
+ 
       pageNumbers.push(
         <span key={totalPages} style={{ margin: '0 5px' }}>
           <button
@@ -221,10 +221,10 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         </span>
       );
     }
-
+ 
     return pageNumbers;
   };
-
+ 
   return (
     <SideBar2>
       <div className="vehicleEntry-main">
@@ -340,5 +340,5 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
     </SideBar2>
   );
 };
-
+ 
 export default VehicleEntry;
