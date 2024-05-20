@@ -4,15 +4,15 @@ import {
   List,
   ListItemIcon,
   ListItemText,
+  Popover,
+  Divider,
+  Avatar,
   Collapse,
   IconButton,
   ListItemButton,
   Typography,
   Box,
   useMediaQuery,
-  Popover,
-  Divider,
-  Avatar,
 } from "@mui/material";
 import {
   ExpandLess,
@@ -32,48 +32,50 @@ import {
 } from "@mui/icons-material";
 import PrintIcon from '@mui/icons-material/Print';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import FireTruckIcon from '@mui/icons-material/FireTruck';
+import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
- 
- 
+
 const Sidebar3 = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
- 
+
   const isLargeScreen = useMediaQuery("(min-width:600px)");
- 
+
   const handleUserClick = () => {
     setOpenUser(!openUser);
     setSelectedItem(openUser ? null : "user");
   };
- 
+
+  const ReversedFireTruckIcon = styled(FireTruckIcon)({
+    transform: 'scaleX(-1)',
+  });
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
- 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
- 
+
   const handleUserProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
- 
+
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
+
   const userName = sessionStorage.getItem("userName");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const userId = sessionStorage.getItem("userId");
   console.log(userName, roles, userId);
- 
+
   const open = Boolean(anchorEl);
- 
- 
- 
+
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -86,21 +88,11 @@ const Sidebar3 = ({ children }) => {
       cancelButtonText: "Cancel"
     }).then((result) => {
       if (result.isConfirmed) {
-        // Clear session storage
         sessionStorage.clear();
-  
-        // Clear browser history and redirect
         window.location.href = "/";
-  
-        // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
-          // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
-  
-          // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
-  
-          // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
           };
@@ -108,6 +100,7 @@ const Sidebar3 = ({ children }) => {
       }
     });
   };
+
   return (
     <>
       <Box
@@ -130,12 +123,11 @@ const Sidebar3 = ({ children }) => {
             <MenuIcon sx={{ color: "white" }} />
           </IconButton>
           <Typography
-  variant={isLargeScreen ? "h6" : "h5"}
-  sx={{ color: "white", fontSize: "clamp(12px, 4vw, 32px)" }}
->
-  Weighbridge Management System
-</Typography>
-
+            variant={isLargeScreen ? "h6" : "h5"}
+            sx={{ color: "white", fontSize: "clamp(12px, 4vw, 32px)" }}
+          >
+            Weighbridge Management System
+          </Typography>
           <IconButton onClick={handleUserProfileClick}>
             <Person style={{ color: "white" }} />
           </IconButton>
@@ -207,15 +199,13 @@ const Sidebar3 = ({ children }) => {
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                backgroundColor: "#2c74d1",
                 color: "white",
               },
             }}
@@ -225,11 +215,59 @@ const Sidebar3 = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Quality Dashboard" />
           </ListItemButton>
-       
-          
           <ListItemButton
             component={Link}
-             to="/QReport"
+            to="/QualityInboundDashboard"
+            onClick={() => handleItemClick("Inbound")}
+            selected={selectedItem === "Inbound"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1",
+                color: "white",
+              },
+            }}
+          >
+            <ListItemIcon>
+              <FireTruckIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inbound" />
+          </ListItemButton>
+          <ListItemButton
+  component={Link}
+  to="/QualityOutboundDashboard"
+  onClick={() => handleItemClick("Outbound")}
+  selected={selectedItem === "Outbound"}
+  sx={{
+    "&.Mui-selected": {
+      backgroundColor: "#3e8ee6",
+      color: "white",
+    },
+    "&:hover": {
+      backgroundColor: "#3e8ee6",
+      color: "white",
+    },
+    "&.Mui-selected:hover": {
+      backgroundColor: "#2c74d1",
+      color: "white",
+    },
+  }}
+>
+  <ListItemIcon>
+    <ReversedFireTruckIcon />
+  </ListItemIcon>
+  <ListItemText primary="Outbound" />
+</ListItemButton>
+          <ListItemButton
+            component={Link}
+            to="/QReport"
             onClick={() => handleItemClick("Reports")}
             selected={selectedItem === "Reports"}
             sx={{
@@ -242,13 +280,13 @@ const Sidebar3 = ({ children }) => {
                 color: "white",
               },
               "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                backgroundColor: "#2c74d1",
                 color: "white",
               },
             }}
           >
             <ListItemIcon>
-              <SummarizeIcon  />
+              <SummarizeIcon />
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
@@ -263,11 +301,11 @@ const Sidebar3 = ({ children }) => {
                 color: "white",
               },
               "&:hover": {
-                backgroundColor: "#3e8ee6",
+                backgroundColor: "#3                8ee6",
                 color: "white",
               },
               "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                backgroundColor: "#2c74d1",
                 color: "white",
               },
             }}
@@ -278,20 +316,18 @@ const Sidebar3 = ({ children }) => {
             <ListItemText primary="Print" />
           </ListItemButton>
           <ListItemButton
-            onClick={handleSignOut}  
+            onClick={handleSignOut}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
                 color: "white",
-                 
               },
               "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                backgroundColor: "#2c74d1",
                 color: "white",
               },
             }}
@@ -315,4 +351,5 @@ const Sidebar3 = ({ children }) => {
     </>
   );
 };
+
 export default Sidebar3;
