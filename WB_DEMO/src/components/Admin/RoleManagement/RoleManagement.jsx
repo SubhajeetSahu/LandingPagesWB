@@ -81,8 +81,8 @@ function RoleManagement() {
           <h2 className="text-center">Role Management</h2>
           <div className="role-container d-flex justify-content-center">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)", maxWidth: "600px" }}
+              className="card-body p-4 shadow-lg"
+              style={{maxWidth: "600px" }}
             >
               <form>
                 <div className="row mb-3 justify-content-center">

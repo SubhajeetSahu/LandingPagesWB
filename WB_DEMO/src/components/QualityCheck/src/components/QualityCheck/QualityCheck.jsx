@@ -46,8 +46,6 @@ function QualityCheck() {
             ticketNo: item.ticketNo,
             date: item.date,
             vehicleNo: item.vehicleNo,
-            in: item.in,
-            out: item.out,
             transporterName: item.transporterName,
             materialName: item.materialName,
             materialType: item.materialType,
@@ -66,8 +64,6 @@ function QualityCheck() {
               ticketNo: data.ticketNo,
               date: data.date,
               vehicleNo: data.vehicleNo,
-              in: data.in,
-              out: data.out,
               transporterName: data.transporterName,
               materialName: data.materialName,
               materialType: data.materialType,
@@ -106,19 +102,19 @@ function QualityCheck() {
       if (item) {
         const { moisture, vm, ash, fc, ...queryParams } = item;
         const queryString = new URLSearchParams(queryParams).toString();
-        navigate("/QualityInboundCoalDetails?" + queryString);
+        navigate("/QualityInboundDetails?" + queryString);
       }
     } else if (productMaterial === "Iron Ore") {
       const item = data.find((item) => item.ticketNo === ticketNumber);
       if (item) {
         const queryString = new URLSearchParams(item).toString();
-        navigate("/QualityInboundCoalDetails?" + queryString);
+        navigate("/QualityInboundDetails?" + queryString);
       }
     } else if (productMaterial === "Sponge Iron") {
       const item = data.find((item) => item.ticketNo === ticketNumber);
       if (item) {
         const queryString = new URLSearchParams(item).toString();
-        navigate("/QualityInboundCoalDetails?" + queryString);
+        navigate("/QualityOutboundDetails?" + queryString);
       }
     }
   };
@@ -141,26 +137,25 @@ function QualityCheck() {
         }}
       >
         <div className="container-fluid mt-0">
-          <div className="mb-3 text-center">
-            <h2
-              style={{ fontFamily: "Arial", marginBottom: "0px !important" }}
-            >
-              Quality Dashboard
-            </h2>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              className="form-control form-control-sm"
-              style={{ width: "auto" }}
-              value={currentDate}
-              onChange={handleDateChange}
-            />
-          </div>
+        <div className="text-center" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+  <h2 style={{ fontFamily: "Arial", marginBottom: "0px" }}>
+    Quality Dashboard
+  </h2>
+  <input
+    type="date"
+    id="date"
+    name="date"
+    className="form-control form-control-sm"
+    style={{ width: "auto" }}
+    value={currentDate}
+    onChange={handleDateChange}
+  />
+</div>
 
-          <div className=" table-responsive" style={{ borderRadius: "10px" }}>
+
+          <div className="table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
             <div>
-              <table className=" ant-table table table-striped">
+              <table className="ant-table table table-striped" style={{ width: "100%" }}>
                 <thead className="ant-table-thead">
                   <tr className="ant-table-row">
                     <th
@@ -172,9 +167,9 @@ function QualityCheck() {
                         borderRight: "1px solid white",
                       }}
                     >
-                      Ticket No.
+                      Ticket No
                     </th>
-                    <th
+                    {/* <th
                       className="ant-table-cell"
                       style={{
                         whiteSpace: "nowrap",
@@ -184,7 +179,7 @@ function QualityCheck() {
                       }}
                     >
                       Date
-                    </th>
+                    </th> */}
                     <th
                       className="ant-table-cell"
                       style={{
@@ -194,29 +189,7 @@ function QualityCheck() {
                         borderRight: "1px solid white",
                       }}
                     >
-                      Vehicle No.
-                    </th>
-                    <th
-                      className="ant-table-cell"
-                      style={{
-                        whiteSpace: "nowrap",
-                        color: "white",
-                        backgroundColor: "#0077b6",
-                        borderRight: "1px solid white",
-                      }}
-                    >
-                      In
-                    </th>
-                    <th
-                      className="ant-table-cell"
-                      style={{
-                        whiteSpace: "nowrap",
-                        color: "white",
-                        backgroundColor: "#0077b6",
-                        borderRight: "1px solid white",
-                      }}
-                    >
-                      Out
+                      Vehicle No
                     </th>
                     <th
                       className="ant-table-cell"
@@ -249,7 +222,7 @@ function QualityCheck() {
                         borderRight: "1px solid white",
                       }}
                     >
-                      Product/Material Type
+                      Product/MaterialType
                     </th>
                     <th
                       className="ant-table-cell"
@@ -299,35 +272,30 @@ function QualityCheck() {
                             onClick={() =>
                               handleTicketClick(item.ticketNo, item.materialName)
                             }
-                            style={{ background: "#88CCFA" }}
+                            style={{
+                              background: "#88CCFA",
+                              minWidth: "70px", // Adjust the minimum width as needed
+                              width: `${Math.max(80, item.ticketNo.length * 10)}px`, // Adjust the multiplier as needed
+                              whiteSpace: "nowrap", // Prevent text wrapping
+                            }}
                           >
                             {item.ticketNo}
                           </Button>
+
                         </td>
-                        <td
+                        {/* <td
                           className="ant-table-cell"
                           style={{ whiteSpace: "nowrap" }}
                         >
                           {item.date}
-                        </td>
+                        </td> */}
                         <td
                           className="ant-table-cell"
                           style={{ whiteSpace: "nowrap" }}
                         >
                           {item.vehicleNo}
                         </td>
-                        <td
-                          className="ant-table-cell"
-                          style={{ whiteSpace: "nowrap" }}
-                        >
-                          {item.in}
-                        </td>
-                        <td
-                          className="ant-table-cell"
-                          style={{ whiteSpace: "nowrap" }}
-                        >
-                          {item.out}
-                        </td>
+
                         <td
                           className="ant-table-cell"
                           style={{ whiteSpace: "nowrap" }}

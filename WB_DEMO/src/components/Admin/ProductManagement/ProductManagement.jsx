@@ -153,15 +153,15 @@ function ProductManagement() {
             handleClear();
             window.location.reload(); // Reload the page
           });
-        } else {
-          throw new Error("Failed to save product.");
-        }
+        } return response.json().then((error) => {
+          throw new Error(error.message);
+        });
       })
       .catch((error) => {
         console.error("Error:", error);
         Swal.fire({
           title: "Error",
-          text: "Failed to save product.",
+          text: error.message,
           icon: "error",
           confirmButtonText: "OK",
           customClass: {
@@ -224,8 +224,8 @@ function ProductManagement() {
           <h2 className="text-center">Product Management</h2>
           <div className="product-card-container">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
+              className="card-body p-4 shadow-lg"
+              
             >
               <form>
                 <div className="row mb-2">
@@ -345,6 +345,7 @@ function ProductManagement() {
                         value={parameter.rangeFrom}
                         onChange={(e) => handleParameterChange(index, e)}
                         required
+                        min={0}
                       />
                     </div>
                     <div className="col-md-3">
@@ -362,6 +363,7 @@ function ProductManagement() {
                         value={parameter.rangeTo}
                         onChange={(e) => handleParameterChange(index, e)}
                         required
+                        min={0}
                       />
                     </div>
                     <div className="col-md-1 d-flex align-items-center">
@@ -392,7 +394,6 @@ function ProductManagement() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-                       
                     }}
                     onClick={handleClear}
                   >
@@ -405,7 +406,7 @@ function ProductManagement() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
+
                       width: "100px",
                       border: "1px solid #cccccc",
                     }}

@@ -7,9 +7,7 @@ import SideBar from "../../SideBar/SideBar";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 function Supplier() {
-
   const [supplierName, setSupplierName] = useState("");
   const [supplierEmail, setSupplierEmail] = useState("");
   const [supplierContactNo, setSupplierContactNo] = useState("");
@@ -69,8 +67,6 @@ function Supplier() {
     setEmailError("");
     setPhoneError("");
   };
-
-
 
   const handleSave = () => {
     let emailIsValid = true;
@@ -179,8 +175,8 @@ function Supplier() {
           <h2 className="text-center">Supplier Management</h2>
           <div className="supplier-card-container">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
+              className="card-body p-4 shadow-lg"
+              
             >
               <form>
                 <div className="row mb-2">
@@ -205,13 +201,12 @@ function Supplier() {
                     <label htmlFor="supplierEmail" className="form-label">
                       Supplier Email
                     </label>
-                    <span style={{ color: "red", fontWeight: "bold" }}>
-                    {" "}*
-                    </span>
+                    <span style={{ color: "red", fontWeight: "bold" }}> *</span>
                     <input
                       type="email"
-                      className={`form-control ${emailError ? "is-invalid" : ""
-                        }`}
+                      className={`form-control ${
+                        emailError ? "is-invalid" : ""
+                      }`}
                       id="supplierEmail"
                       placeholder="Enter Supplier Email"
                       value={supplierEmail}
@@ -233,8 +228,9 @@ function Supplier() {
                     </label>
                     <input
                       type="tel"
-                      className={`form-control ${phoneError ? "is-invalid" : ""
-                        }`}
+                      className={`form-control ${
+                        phoneError ? "is-invalid" : ""
+                      }`}
                       id="supplierContactNo"
                       placeholder="Enter Contact Number"
                       value={supplierContactNo}
@@ -256,12 +252,9 @@ function Supplier() {
                       htmlFor="supplierAddressLine1"
                       className="form-label"
                     >
-
                       Address Line 1
                     </label>
-                    <span style={{ color: "red", fontWeight: "bold" }}>
-                      {" "}*
-                    </span>
+                    <span style={{ color: "red", fontWeight: "bold" }}> *</span>
                     <input
                       type="text"
                       className="form-control"
@@ -269,13 +262,14 @@ function Supplier() {
                       placeholder="Enter Address Line 1"
                       value={supplierAddressLine1}
                       onChange={(e) => {
-                        const onlyAlphabetsAndSpace = e.target.value.replace(/[^A-Za-z\s]/ig, '');
+                        const onlyAlphabetsAndSpace = e.target.value.replace(
+                          /[^A-Za-z\s]/gi,
+                          ""
+                        );
                         setSupplierAddressLine1(onlyAlphabetsAndSpace);
                       }}
                       required
                     />
-
-
                   </div>
                 </div>
                 <div className="row mb-2">
@@ -310,6 +304,7 @@ function Supplier() {
                         setCities([]);
                         fetchStates(selectedOption.value);
                       }}
+                      placeholder="Select Country"
                     />
                   </div>
                 </div>
@@ -330,6 +325,7 @@ function Supplier() {
                           selectedOption.value
                         );
                       }}
+                      placeholder="Select State"
                     />
                   </div>
                   <div className="col-md-6">
@@ -342,6 +338,7 @@ function Supplier() {
                       onChange={(selectedOption) =>
                         setSelectedCity(selectedOption)
                       }
+                      placeholder="Select City"
                     />
                   </div>
                 </div>
@@ -372,8 +369,6 @@ function Supplier() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-
-                       
                     }}
                     onClick={handleClear}
                   >
@@ -386,7 +381,7 @@ function Supplier() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
+
                       width: "100px",
 
                       border: "1px solid #cccccc",

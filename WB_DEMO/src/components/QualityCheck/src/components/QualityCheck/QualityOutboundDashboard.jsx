@@ -1,75 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import ReactPaginate from "react-paginate";
-
+import { useNavigate } from "react-router-dom";
 import SideBar3 from "../../../../SideBar/SideBar3";
-import "./QualityOutboundDashboard.css";
-import * as XLSX from "xlsx";
-import { Link } from "react-router-dom";
-import { Chart, ArcElement } from "chart.js/auto";
-import { useMediaQuery } from 'react-responsive';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileArrowDown, faBackwardStep, faForwardStep, faBackwardFast, faForwardFast } from '@fortawesome/free-solid-svg-icons';
-import QualityOutboundDetails from "./QualityOutboundDetails";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Table, Tag, Button, Input } from "antd";
 
 function QualityOutboundDashboard() {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 4;
-  const [selectedDate, setSelectedDate] = useState("");
+  const [startPageNumber, setStartPageNumber] = useState(1);
+  const itemsPerPage = 7;
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const receiveOutboundData = (data) => {
-    // Update the data state with the received data
-    const updatedData = [...data];
-    setData(updatedData);
-  };
-
-  // Parse query parameters from URL
-  const queryParams = new URLSearchParams(location.search);
-  
-  const [isDownloadDisabled, setIsDownloadDisabled] = useState(false); // Set to false to enable the download button
-
-  const handleDownload = () => {
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, `quality_inbound_data_${new Date().toISOString().slice(0, 10)}.xlsx`);
-  };
-
-  // ... (rest of the code remains the same)
-  const receiveInboundData = (data) => {
-    // Update the data state with the received data
-    const updatedData = [...data];
-    setData(updatedData);
-  };
-
-   
-  const chartRef = useRef(null);
-  const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
 
-
   useEffect(() => {
-    Chart.register(ArcElement);
-
-    const resizeObserver = new ResizeObserver(() => {
-      if (
-        homeMainContentRef.current &&
-        chartRef.current?.chartInstance &&
-        chartRef2.current?.chartInstance
-      ) {
-        chartRef.current.chartInstance.resize();
-        chartRef2.current.chartInstance.resize();
-      }
-    });
-
-    if (homeMainContentRef.current) {
-      resizeObserver.observe(homeMainContentRef.current);
-    }
-
+    document.body.style.overflow = "hidden"; // Disable body scroll
     return () => {
-      resizeObserver.disconnect();
+      document.body.style.overflow = ""; // Re-enable body scroll
     };
   }, []);
 
@@ -77,204 +25,420 @@ function QualityOutboundDashboard() {
     navigate("/home");
   };
 
-  const [data, setData] = useState([
-    {
-      "Ticket No.": 2,
-      Date: "2024-04-30",
-      "Vehicle No.": "HR38Z1951",
-      In: "16:30",
-      Out: "21:45",
-      "Transporter Name": "MAA SHERAWALI TRANSPORT",
-      "Product": "SPONGE IRON",
-      "Product Type": "LUMPS",
-      "Document No": "VPL/23-24/S1304",
-      "PO No": "97/3",
-      "Challan No": " ",
-      "Customer": "SAMRIDHI TRADES",
-      "Customer Address": "MUZAFFARNAGAR",
-      "Transaction Type": "Outbound",
-    },
-  ]);
-
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-    setCurrentPage(0);
-  };
-
-  const getCurrentDate = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    setSelectedDate(getCurrentDate());
+    fetchData();
   }, []);
 
-  const filteredData = selectedDate
-    ? data.filter((item) => item.Date === selectedDate)
-    : data;
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/qualities/getAllTransaction`,
+        {
+          credentials: "include",
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          const filteredData = data.filter(item => item.transactionType === "Outbound");
+          const formattedData = filteredData.map((item) => ({
+            ticketNo: item.ticketNo,
+            date: item.date,
+            vehicleNo: item.vehicleNo,
+            transporterName: item.transporterName,
+            materialName: item.materialName,
+            materialType: item.materialType,
+            tpNo: item.tpNo,
+            poNo: item.poNo,
+            challanNo: item.challanNo,
+            supplierOrCustomerName: item.supplierOrCustomerName,
+            supplierOrCustomerAddress: item.supplierOrCustomerAddress,
+            transactionType: item.transactionType,
+          }));
+          setData(formattedData);
+        } else {
+          // Handling for single object response
+          const formattedData = [
+            {
+              ticketNo: data.ticketNo,
+              date: data.date,
+              vehicleNo: data.vehicleNo,
+              transporterName: data.transporterName,
+              materialName: data.materialName,
+              materialType: data.materialType,
+              tpNo: data.tpNo,
+              poNo: data.poNo,
+              challanNo: data.challanNo,
+              supplierOrCustomerName: data.supplierOrCustomerName,
+              supplierOrCustomerAddress: data.supplierOrCustomerAddress,
+              transactionType: data.transactionType,
+            },
+          ];
+          setData(formattedData);
+        }
+      } else {
+        console.error("Error fetching data:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-  const offset = currentPage * itemsPerPage;
-  const currentItems = filteredData.slice(offset, offset + itemsPerPage);
+  const [currentDate, setCurrentDate] = useState("");
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split("T")[0];
+    setCurrentDate(formattedDate);
+  }, []);
 
-  const pageCount = Math.ceil(filteredData.length / itemsPerPage) || 1;
+  const handleDateChange = (e) => {
+    setCurrentDate(e.target.value);
+  };
+
+  const handleTicketClick = (ticketNumber, productMaterial) => {
+    if (productMaterial === "Coal") {
+      const item = data.find((item) => item.ticketNo === ticketNumber);
+      if (item) {
+        const { moisture, vm, ash, fc, ...queryParams } = item;
+        const queryString = new URLSearchParams(queryParams).toString();
+        navigate("/QualityInboundDetails?" + queryString);
+      }
+    } else if (productMaterial === "Iron Ore") {
+      const item = data.find((item) => item.ticketNo === ticketNumber);
+      if (item) {
+        const queryString = new URLSearchParams(item).toString();
+        navigate("/QualityInboundDetails?" + queryString);
+      }
+    } else if (productMaterial === "Sponge Iron") {
+      const item = data.find((item) => item.ticketNo === ticketNumber);
+      if (item) {
+        const queryString = new URLSearchParams(item).toString();
+        navigate("/QualityOutboundDetails?" + queryString);
+      }
+    }
+  };
+
+  const pageCount = Math.ceil(data.length / itemsPerPage) || 1;
 
   const handlePageChange = ({ selected }) => {
+    const newStartPage = Math.max(1, selected * 3 - 2);
     setCurrentPage(selected);
+    setStartPageNumber(newStartPage);
   };
-
-
-  const tableContainerRef = useRef(null);
-
-  useEffect(() => {
-    if (tableContainerRef.current) {
-      tableContainerRef.current.scrollLeft = 70;
-    }
-  }, [data]);
-
-  const handleInTime = (index) => {
-    const currentTime = new Date().toLocaleTimeString();
-    const updatedData = [...data];
-    updatedData[index].In = currentTime;
-    setData(updatedData);
-  };
-
-  const handleOutTime = (index) => {
-    const currentTime = new Date().toLocaleTimeString();
-    const updatedData = [...data];
-    updatedData[index].Out = currentTime;
-    setData(updatedData);
-  };
-
-  const handleTransactionTypeChange = (index, transactionType) => {
-    const updatedData = [...data];
-    updatedData[index]["Transaction Type"] = transactionType;
-    setData(updatedData);
-  };
-
-  const handleTicketClick = (ticketNumber, index) => {
-    const transactionType = data[index]["Transaction Type"];
-    if (transactionType === "Inbound") {
-      navigate(`/QualityInboundDetails?ticketNumber=${ticketNumber}`);
-    } else if (transactionType === "Outbound") {
-      navigate(`/QualityOutboundDetails?ticketNumber=${ticketNumber}`);
-    }
-  };
-
 
   return (
-    <div>
-      
+    <SideBar3>
+      <div
+        style={{
+          fontFamily: "Arial",
+          color: "#333",
+          "--table-border-radius": "30px",
+        }}
+      >
+        <div className="container-fluid mt-0">
+          <div className="text-center" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+            <h2 style={{ fontFamily: "Arial", marginBottom: "0px" }}>
+              Quality Outbound Dashboard
+            </h2>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              className="form-control form-control-sm"
+              style={{ width: "auto" }}
+              value={currentDate}
+              onChange={handleDateChange}
+            />
+          </div>
 
-      <SideBar3 
-      />
-      <div className="quality-outbound-dashboard-main-content">
-        <div className="quality-outbound-dashboard-date d-flex">
-          <label htmlFor="date" className="mt-1">
-            &nbsp;Date:&nbsp;
-          </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            className="form-control w-auto"
-            value={selectedDate}
-            onChange={handleDateChange}
-            max={getCurrentDate()}
-          />
-          <h3 className="quality-outbound-dashboard-header">Quality Outbound Dashboard</h3>
-        </div>
-
-        <div className="quality-outbound-dashboard-table-container" ref={tableContainerRef}>
-          <div className="quality-outbound-dashboard-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Ticket No.</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Vehicle No.</th>
-                  <th scope="col">In</th>
-                  <th scope="col">Out</th>
-                  <th scope="col">Transporter Name</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Product Type</th>
-                  <th scope="col">Invoice No</th>
-                  <th scope="col">PO No</th>
-                  <th scope="col">Challan No</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Customer Address</th>
-                  <th scope="col">Transaction Type</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      <span
-                        style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
-                        onClick={() => handleTicketClick(item["Ticket No."], offset + index)}
-                      >
-                        {item["Ticket No."]}
-                      </span>
-                    </td>
-                    <td>{item.Date}</td>
-                    <td>{item["Vehicle No."]}</td>
-                    <td>
-                      {item.In}
-                    </td>
-                    <td>
-                      {item.Out}
-                    </td>
-                    <td>{item["Transporter Name"]}</td>
-                    <td>{item["Product"]}</td>
-                    <td>{item["Product Type"]}</td>
-                    <td>{item["Document No"]}</td>
-                    <td>{item["PO No"]}</td>
-                    <td>{item["Challan No"]}</td>
-                    <td>{item["Customer"]}</td>
-                    <td>{item["Customer Address"]}</td>
-                    <td>{item["Transaction Type"]}</td>
-                    <td>
-                    <button
-  className={`btn btn-success download-btn ${isDownloadDisabled ? 'disabled' : ''}`}
-  onClick={handleDownload}
-  disabled={isDownloadDisabled}
->
-  <FontAwesomeIcon icon={faFileArrowDown} />
-</button>
-
-                    </td>
+          <div className="table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
+            <div>
+              <table className="ant-table table table-striped" style={{ width: "100%" }}>
+                <thead className="ant-table-thead">
+                  <tr className="ant-table-row">
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Ticket No.
+                    </th>
+                    {/* <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Date
+                    </th> */}
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Vehicle No.
+                    </th>
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Transporter Name
+                    </th>
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Product
+                    </th>
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Product Type
+                    </th>
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Customer
+                    </th>
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Customer Address
+                    </th>
+                    <th
+                      className="ant-table-cell"
+                      style={{
+                        whiteSpace: "nowrap",
+                        color: "white",
+                        backgroundColor: "#0077b6",
+                        borderRight: "1px solid white",
+                      }}
+                    >
+                      Transaction Type
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="quality-outbound-dashboard-pagination-container">
-          <span className="pagination-text">Showing {currentPage * itemsPerPage + 1} to {Math.min((currentPage + 1) * itemsPerPage, data.length)} of {data.length} entries</span>
-          <div className="pagination-buttons">
-            <button onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
-            {[...Array(pageCount)].map((_, index) => (
-              <button
-                key={index}
-                className={currentPage === index ? "active" : ""}
-                onClick={() => setCurrentPage(index)}
-              >
-                {index + 1}
-              </button>
-            ))}
-            <button onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
-          </div>
-        </div>
+                </thead>
+                <tbody>
+                  {data
+                    .slice(
+                      currentPage * itemsPerPage,
+                      (currentPage + 1) * itemsPerPage
+                    )
+                    .map((item, index) => (
+                      <tr key={index}>
+                        <td className="ant-table-cell">
+                          <Button
+                            onClick={() =>
+                              handleTicketClick(item.ticketNo, item.materialName)
+                            }
+                            style={{
+                              background: "#88CCFA",
+                              minWidth: "70px", // Adjust the minimum width as needed
+                              width: `${Math.max(80, item.ticketNo.length * 10)}px`, // Adjust the multiplier as needed
+                              whiteSpace: "nowrap", // Prevent text wrapping
+                            }}
+                          >
+                            {item.ticketNo}
+                          </Button>
+                        </td>
+                        {/* <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.date}
+                        </td> */}
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.vehicleNo}
+                        </td>
 
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.transporterName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.materialName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.materialType}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.supplierOrCustomerName}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.supplierOrCustomerAddress}
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          {item.transactionType}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pagination */}
+          <div className="d-flex justify-content-between align-items-center mt-3 ml-2">
+            <span>
+              Showing {currentPage * itemsPerPage + 1} to{" "}
+              {Math.min((currentPage + 1) * itemsPerPage, data.length)} of{" "}
+              {data.length} entries
+            </span>
+            <div className="ml-auto">
+              <button
+                className="btn btn-outline-primary btn-sm me-2"
+                style={{
+                  color: "#0077B6",
+                  borderColor: "#0077B6",
+                  marginRight: "2px",
+                }}
+                onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}
+                disabled={currentPage === 0}
+              >
+                &lt;&lt;
+              </button>
+              <button
+                className="btn btn-outline-primary btn-sm me-2"
+                style={{
+                  color: "#0077B6",
+                  borderColor: "#0077B6",
+                  marginRight: "2px",
+                }}
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 0}
+              >
+                &lt;
+              </button>
+
+              {Array.from({ length: 3 }, (_, index) => {
+                const pageNumber = currentPage + index;
+                if (pageNumber >= pageCount) return null;
+                return (
+                  <button
+                    key={pageNumber}
+                    className={`btn btn-outline-primary btn-sm me-2 ${currentPage === pageNumber ? "active" : ""
+                      }`}
+                    style={{
+                      color: currentPage === pageNumber ? "#fff" : "#0077B6",
+                      backgroundColor:
+                        currentPage === pageNumber ? "#0077B6" : "transparent",
+                      borderColor: "#0077B6",
+                      marginRight: "2px",
+                    }}
+                    onClick={() => setCurrentPage(pageNumber)}
+                  >
+                    {pageNumber + 1}
+                  </button>
+                );
+              })}
+              {currentPage + 3 < pageCount && <span>...</span>}
+              {currentPage + 3 < pageCount && (
+                <button
+                  className={`btn btn-outline-primary btn-sm me-2 ${currentPage === pageCount - 1 ? "active" : ""
+                    }`}
+                  style={{
+                    color: currentPage === pageCount - 1 ? "#fff" : "#0077B6",
+                    backgroundColor:
+                      currentPage === pageCount - 1 ? "#0077B6" : "transparent",
+                    borderColor: "#0077B6",
+                    marginRight: "2px",
+                  }}
+                  onClick={() => setCurrentPage(pageCount - 1)}
+                >
+                  {pageCount}
+                </button>
+              )}
+              <button
+                className="btn btn-outline-primary btn-sm me-2"
+                style={{
+                  color: "#0077B6",
+                  borderColor: "#0077B6",
+                  marginRight: "2px",
+                }}
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === pageCount - 1}
+              >
+                &gt;
+              </button>
+              <button
+                className="btn btn-outline-primary btn-sm"
+                style={{
+                  color: "#0077B6",
+                  borderColor: "#0077B6",
+                  marginRight: "2px",
+                }}
+                onClick={() => setCurrentPage(Math.min(pageCount - 1, currentPage + 5))}
+                disabled={currentPage === pageCount - 1}
+              >
+                &gt;&gt;
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </SideBar3>
   );
 }
 
 export default QualityOutboundDashboard;
-

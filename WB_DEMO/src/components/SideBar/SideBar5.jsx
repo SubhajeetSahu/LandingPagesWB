@@ -34,43 +34,43 @@ import PrintIcon from '@mui/icons-material/Print';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-
+ 
 const SideBar5 = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-
+ 
   const isLargeScreen = useMediaQuery("(min-width:600px)");
-
+ 
   const handleUserClick = () => {
     setOpenUser(!openUser);
     setSelectedItem(openUser ? null : "user");
   };
-
+ 
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
-
+ 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
+ 
   const handleUserProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+ 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+ 
   const userName = sessionStorage.getItem("userName");
   const roles = JSON.parse(sessionStorage.getItem("roles"));
   const userId = sessionStorage.getItem("userId");
   console.log(userName, roles, userId);
-
+ 
   const open = Boolean(anchorEl);
-
+ 
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -80,23 +80,22 @@ const SideBar5 = ({ children }) => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, sign out",
-      cancelButtonText: "Cancel"
     }).then((result) => {
       if (result.isConfirmed) {
         // Clear session storage
         sessionStorage.clear();
-  
+ 
         // Clear browser history and redirect
         window.location.href = "/";
-  
+ 
         // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
           // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
-  
+ 
           // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
-  
+ 
           // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
@@ -105,7 +104,7 @@ const SideBar5 = ({ children }) => {
       }
     });
   };
-
+ 
   return (
     <>
       <Box
@@ -203,7 +202,7 @@ const SideBar5 = ({ children }) => {
           },
         }}
       >
-        <List sx={{ marginTop: "80px" }}>
+        <List sx={{ marginTop: "120px" }}>
           <ListItemButton
             component={Link}
             to="/OperatorTransaction"
@@ -218,10 +217,6 @@ const SideBar5 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                color: "white",
-              },
             }}
           >
             <ListItemIcon>
@@ -229,7 +224,7 @@ const SideBar5 = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Transactions" />
           </ListItemButton>
-
+ 
           <ListItemButton
             component={Link}
             // to="/print"
@@ -242,10 +237,6 @@ const SideBar5 = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
-                color: "white",
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -269,10 +260,6 @@ const SideBar5 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                color: "white",
-              },
             }}
           >
             <ListItemIcon>
@@ -280,7 +267,7 @@ const SideBar5 = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
-          
+         
           <ListItemButton
             onClick={handleSignOut}
             sx={{
@@ -290,10 +277,6 @@ const SideBar5 = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
-                color: "white",
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}

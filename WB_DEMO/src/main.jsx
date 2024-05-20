@@ -55,6 +55,7 @@ import QualityInboundIronOreDetails from "./components/QualityCheck/src/componen
 import QualityInboundCoalDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundCoalDetails.jsx";
 import QualityHomePage from "./components/QualityCheck/src/components/QHome/QualityHomePage.jsx";
 import QualityOutboundSpongeIronDetails from "./components/QualityCheck/src/components/QualityCheck/QualityOutboundSpongeIronDetails.jsx";
+import QualityInboundDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundDetails.jsx";
 
 import ManagementHome from "./components/Management/src/components/Home/ManagementHome.jsx";
 import ManagementLocation from "./components/Management/src/components/Location/Location.jsx";
@@ -74,6 +75,7 @@ import SideBar6 from "./components/SideBar/Sidebar6.jsx";
 import SalesDisplay from "./components/Sales/SalesDisplay/SalesDisplay.jsx";
 import SalesCustomer from "./components/Sales/SalesCustomer/SalesCustomer.jsx";
 import SalesTransporter from "./components/Sales/SalesTransporter/SalesTranporter.jsx";   
+import SalesVehicle from "./components/Sales/SalesVehicle/SalesVehicle.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -111,6 +113,8 @@ const router = createBrowserRouter(
       <Route path="/SalesDisplay" element={<SalesDisplay />}/>
       <Route path="/SalesCustomer" element={<SalesCustomer />}/>
       <Route path="/SalesTransporter" element={<SalesTransporter />}/>
+      <Route path="/SalesVehicle" element={<SalesVehicle />}/>
+
 
 
 
@@ -127,6 +131,7 @@ const router = createBrowserRouter(
       <Route path="/QualityCheck" element={<QualityCheck />} />
       <Route path="/QPrint" element={<QPrint />} />
       <Route path="/QReport" element={<QReport />} />
+      <Route path="/QualityInboundDetails" element={<QualityInboundDetails />} />
       <Route path="/QualityOutboundDetails" element={<QualityOutboundDetails />} />
       <Route path="/QualityInboundDashboard" element={<QualityInboundDashboard />} />
       <Route path="/QualityOutboundDashboard" element={<QualityOutboundDashboard />} />

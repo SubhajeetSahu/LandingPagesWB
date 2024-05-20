@@ -175,8 +175,8 @@ function Customer() {
           <h2 className="text-center">Customer Management</h2>
           <div className="customer-card-container">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
+              className="card-body p-4 shadow-lg"
+              
             >
               <form>
                 <div className="row mb-2">
@@ -201,9 +201,7 @@ function Customer() {
                     <label htmlFor="customerEmail" className="form-label">
                       Customer Email
                     </label>
-                    <span style={{ color: "red", fontWeight: "bold" }}>
-                    {" "}*
-                      </span>
+                    <span style={{ color: "red", fontWeight: "bold" }}> *</span>
                     <input
                       type="email"
                       className={`form-control ${
@@ -256,22 +254,22 @@ function Customer() {
                     >
                       Address Line 1
                     </label>
-                    <span style={{ color: "red", fontWeight: "bold" }}>
-                    {" "}*
-                      </span>
+                    <span style={{ color: "red", fontWeight: "bold" }}> *</span>
                     <input
                       type="text"
                       className="form-control"
                       id="customerAddressLine1"
                       placeholder="Enter Address Line 1"
-                      value={customerAddressLine1}    
+                      value={customerAddressLine1}
                       onChange={(e) => {
-                        const onlyAlphabetsAndSpace = e.target.value.replace(/[^A-Za-z\s]/ig, '');
+                        const onlyAlphabetsAndSpace = e.target.value.replace(
+                          /[^A-Za-z\s]/gi,
+                          ""
+                        );
                         setCustomerAddressLine1(onlyAlphabetsAndSpace);
                       }}
                       required
                     />
-                    
                   </div>
                 </div>
                 <div className="row mb-2">
@@ -306,6 +304,7 @@ function Customer() {
                         setCities([]);
                         fetchStates(selectedOption.value);
                       }}
+                      placeholder="Select Country"
                     />
                   </div>
                 </div>
@@ -326,6 +325,7 @@ function Customer() {
                           selectedOption.value
                         );
                       }}
+                      placeholder="Select State"
                     />
                   </div>
                   <div className="col-md-6">
@@ -338,6 +338,7 @@ function Customer() {
                       onChange={(selectedOption) =>
                         setSelectedCity(selectedOption)
                       }
+                      placeholder="Select City"
                     />
                   </div>
                 </div>
@@ -368,12 +369,10 @@ function Customer() {
                       color: "black",
                       border: "1px solid #cccccc",
                       width: "100px",
-
-                       
                     }}
                     onClick={handleClear}
                   >
-                       <FontAwesomeIcon icon={faEraser} className="me-1" />
+                    <FontAwesomeIcon icon={faEraser} className="me-1" />
                     Clear
                   </button>
                   <button
@@ -382,14 +381,14 @@ function Customer() {
                     style={{
                       backgroundColor: "white",
                       color: "black",
-                       
+
                       width: "100px",
 
                       border: "1px solid #cccccc",
                     }}
                     onClick={handleSave}
                   >
-                       <FontAwesomeIcon icon={faSave} className="me-1" />
+                    <FontAwesomeIcon icon={faSave} className="me-1" />
                     Save
                   </button>
                 </div>

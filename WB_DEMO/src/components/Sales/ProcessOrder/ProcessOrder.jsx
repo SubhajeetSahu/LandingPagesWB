@@ -6,6 +6,7 @@ import "./ProcessOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 function ProcessOrder() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function ProcessOrder() {
   const [formsaleOrderNo, setFormsaleOrderNo] = useState(saleOrderNo || "");
   const [formProductName, setFormProductName] = useState(productName || "");
   const [productType, setProductType] = useState("");
+  const [productTypes, setProductTypes] = useState([]);
   const [vehicleNo, setVehicleNo] = useState("");
   const [transporterName, setTransporterName] = useState("");
   const [purchaseProcessDate, setPurchaseProcessDate] = useState("");
@@ -21,6 +23,8 @@ function ProcessOrder() {
   const [vehicleNumbers, setVehicleNumbers] = useState([]);
   const [transporters, setTransporters] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Fetch vehicle numbers
     fetch("http://localhost:8080/api/v1/vehicles")
@@ -28,11 +32,13 @@ function ProcessOrder() {
       .then((data) => {
         const numbers = data.map((vehicle) => ({
           value: vehicle.vehicleNo,
-          label: vehicle.vehicleNo
+          label: vehicle.vehicleNo,
         }));
         setVehicleNumbers(numbers);
       })
-      .catch((error) => console.error("Error fetching vehicle numbers:", error));
+      .catch((error) =>
+        console.error("Error fetching vehicle numbers:", error)
+      );
   }, []);
 
   useEffect(() => {
@@ -49,6 +55,22 @@ function ProcessOrder() {
     }
   }, [vehicleNo]);
 
+  useEffect(() => {
+    if (formProductName) {
+      // Fetch product types based on product name
+      fetch(`http://localhost:8080/api/v1/products/${encodeURIComponent(formProductName)}/types`)
+        .then((response) => response.json())
+        .then((data) => {
+          setProductTypes(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching product types:", error)
+        );
+    } else {
+      setProductTypes([]);
+    }
+  }, [formProductName]);
+
   const handleClear = () => {
     setFormsaleOrderNo("");
     setFormProductName("");
@@ -58,6 +80,14 @@ function ProcessOrder() {
     setPurchaseProcessDate("");
     setConsignmentWeight("");
     setError("");
+  };
+
+  const handleAddTransporter = () => {
+    navigate("/SalesTransporter");
+  };
+
+  const handleAddVehicle = () => {
+    navigate("/SalesVehicle");
   };
 
   const handleSave = () => {
@@ -138,10 +168,7 @@ function ProcessOrder() {
         <div className="sales-process-main-content">
           <h2 className="text-center">Sales Process Management</h2>
           <div className="sales-process-card-container container-fluid">
-            <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
-            >
+            <div className="card-body p-4 shadow-lg">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-4">
@@ -179,14 +206,20 @@ function ProcessOrder() {
                     <label htmlFor="productType" className="form-label">
                       Product Type
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
+                    <select
+                      className="form-select"
                       id="productType"
-                      placeholder="Enter Product Type"
                       value={productType}
                       onChange={(e) => setProductType(e.target.value)}
-                    />
+                      disabled={!productTypes.length}
+                    >
+                      <option value="">Select Product Type</option>
+                      {productTypes.map((type, index) => (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className="row mb-2">
@@ -197,6 +230,25 @@ function ProcessOrder() {
                         *
                       </span>
                     </label>
+                    <button
+                      className="btn btn-sm border"
+                      style={{
+                        borderRadius: "5px",
+                        marginLeft: "5px",
+                        backgroundColor: "lightblue",
+                      }}
+                    >
+                      <div
+                        onClick={handleAddVehicle}
+                        style={{
+                          display: "block",
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
+                        Add Vehicle
+                      </div>
+                    </button>
                     <Select
                       options={vehicleNumbers}
                       value={vehicleNo}
@@ -209,17 +261,30 @@ function ProcessOrder() {
                   </div>
 
                   <div className="col-md-6">
-                    <label
-                      htmlFor="transporterName"
-                      className="form-label"
-                    >
+                    <label htmlFor="transporterName" className="form-label">
                       Transporter Name{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
                     </label>
-                    <button className="btn btn-sm border" style={{borderRadius: "5px", marginLeft: "5px", backgroundColor: "lightblue"}}>
-                    <a href="/SalesTransporter" style={{display: "block", textDecoration: "none", color:"black"}}>Add Transporter</a>
+                    <button
+                      className="btn btn-sm border"
+                      style={{
+                        borderRadius: "5px",
+                        marginLeft: "5px",
+                        backgroundColor: "lightblue",
+                      }}
+                    >
+                      <div
+                        onClick={handleAddTransporter}
+                        style={{
+                          display: "block",
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
+                        Add Transporter
+                      </div>
                     </button>
                     <select
                       className="form-select"
@@ -240,10 +305,7 @@ function ProcessOrder() {
 
                 <div className="row mb-2">
                   <div className="col-md-6">
-                    <label
-                      htmlFor="purchaseProcessDate"
-                      className="form-label"
-                    >
+                    <label htmlFor="purchaseProcessDate" className="form-label">
                       Purchase Process Date{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
@@ -254,17 +316,12 @@ function ProcessOrder() {
                       className="form-control"
                       id="purchaseProcessDate"
                       value={purchaseProcessDate}
-                      onChange={(e) =>
-                        setPurchaseProcessDate(e.target.value)
-                      }
+                      onChange={(e) => setPurchaseProcessDate(e.target.value)}
                       required
                     />
                   </div>
                   <div className="col-md-6">
-                    <label
-                      htmlFor="consignmentWeight"
-                      className="form-label"
-                    >
+                    <label htmlFor="consignmentWeight" className="form-label">
                       Consignment Weight
                     </label>
                     <input
@@ -273,13 +330,8 @@ function ProcessOrder() {
                       id="consignmentWeight"
                       placeholder="Enter Consignment Weight"
                       value={consignmentWeight}
-                      onChange={(e) => {
-                        const newValue = Math.max(
-                          0,
-                          parseFloat(e.target.value, 10)
-                        );
-                        setConsignmentWeight(newValue);
-                      }}
+                      onChange={(e) => setConsignmentWeight(e.target.value)}
+                      min={0}
                     />
                   </div>
                 </div>

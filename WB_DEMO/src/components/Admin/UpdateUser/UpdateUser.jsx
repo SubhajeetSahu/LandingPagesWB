@@ -53,8 +53,7 @@ function UpdateUser() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Roles List:", data);
-        const filteredRoles = data.filter((role) => role !== "ADMIN");
-        setRoles(filteredRoles);
+        setRoles(data.map(r => ({ value: r, label: r })));
       })
       .catch((error) => {
         console.error("Error fetching roles list:", error);
@@ -136,7 +135,7 @@ function UpdateUser() {
       company,
       emailId,
       contactNo,
-      role: role.map((r) => r.value), 
+      role: role.map((r) => r.value),
       firstName,
       middleName,
       lastName,
@@ -220,7 +219,7 @@ function UpdateUser() {
             <div className="card update-user-form">
               <div
                 className="card-body"
-                style={{ backgroundColor: "rgb(243,244,247)" }}
+                
               >
                 <form>
                   <div className="row mb-3">
@@ -266,7 +265,7 @@ function UpdateUser() {
                         isMulti
                         value={role}
                         onChange={(selectedOptions) => setRole(selectedOptions)}
-                        options={roles.map((r) => ({ value: r, label: r }))}
+                        options={roles}
                         isSearchable
                       />
                     </div>

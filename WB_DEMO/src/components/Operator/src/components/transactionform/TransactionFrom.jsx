@@ -10,6 +10,7 @@ import SideBar5 from "../../../../SideBar/SideBar5";
 // eslint-disable-next-line no-unused-vars
 import camView from "../../assets/weighbridge.webp";
 import "./transactionform.css";
+// import Swal from 'sweetalert2';
 
 import Camera_Icon from "../../assets/Camera_Icon.png";
 import axios from "axios";
@@ -19,11 +20,12 @@ import {
   faFloppyDisk,
   faPrint,
   faTrash,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { DisabledByDefault } from "@mui/icons-material";
 
 function TransactionFrom() {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  // const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
@@ -168,10 +170,17 @@ function TransactionFrom() {
     }
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <SideBar5>
       <div>
         <div className="container-fluid">
+          <button className="close-button" onClick={goBack}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
           <h2 className="text-center mb-2">Inbound Transaction Form</h2>
           <div className="row">
             <div className="col-md-3 mb-3">
@@ -191,7 +200,7 @@ function TransactionFrom() {
             <div className="col-md-3 mb-3">
               <label htmlFor="poNo" className="form-label ">
                 PO No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -210,7 +219,7 @@ function TransactionFrom() {
             <div className="col-md-3 mb-3 ">
               <label htmlFor="tpNo" className="form-label ">
                 TP No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -230,7 +239,7 @@ function TransactionFrom() {
             <div className="col-md-3 mb-3">
               <label htmlFor="challanNo" className="form-label ">
                 Challan No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -249,7 +258,7 @@ function TransactionFrom() {
             <div className="col-md-3 mb-3">
               <label htmlFor="vehicleNo" className="form-label ">
                 Vehicle No:
-                <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                {/* <span style={{ color: "red", fontWeight: "bold" }}>*</span> */}
               </label>
               <div className="input-group">
                 <input
@@ -280,10 +289,14 @@ function TransactionFrom() {
                         color: "white",
                         width: "260px",
                         height: "50px",
+                        appearance: "textfield",
+                        WebkitAppearance: "none",
+                        MozAppearance: "textfield",
                       }}
                       min="0"
                       value={inputValue}
                       onChange={(e) => handleChange1(e, ticket.grossWeight)}
+                      inputMode="numeric"
                     />
                     <div className="icons-group">
                       <div>

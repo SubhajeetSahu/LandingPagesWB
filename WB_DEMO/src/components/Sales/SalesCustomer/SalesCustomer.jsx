@@ -6,6 +6,7 @@ import "./SalesCustomer.css";
 import SideBar6 from "../../SideBar/Sidebar6";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function SalesCustomer() {
   const [customerName, setCustomerName] = useState("");
@@ -23,6 +24,7 @@ function SalesCustomer() {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCountries();
@@ -53,6 +55,8 @@ function SalesCustomer() {
     );
     setCities(cityData);
   };
+
+  
 
   const handleClear = () => {
     setCustomerName("");
@@ -152,6 +156,7 @@ function SalesCustomer() {
           },
         });
         handleClear();
+        navigate("/SalesOrder");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -175,8 +180,8 @@ function SalesCustomer() {
           <h2 className="text-center">Customer Management</h2>
           <div className="customer-card-container">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
+              className="card-body p-4 shadow-lg"
+              
             >
               <form>
                 <div className="row mb-2">

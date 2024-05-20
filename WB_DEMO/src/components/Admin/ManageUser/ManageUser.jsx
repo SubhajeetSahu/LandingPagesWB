@@ -130,15 +130,18 @@ function ManageUser() {
         `http://localhost:8080/api/v1/users/${userIdFilter}`
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch user data");
+        const errorResponse = await response.json();
+        throw new Error(
+          errorResponse.message || "Failed to fetch user data"
+        );
       }
       const userData = await response.json();
       setUsers([userData]); // Update users state with fetched user data
     } catch (error) {
-      console.error("Error fetching user by id:", error);
+      Swal.fire("Error", error.message, "error");
     }
   };
-  
+
 
   useEffect(() => {
     fetchUserData();
@@ -245,47 +248,47 @@ function ManageUser() {
                   )}
                 />
                 <Column
-  title="Action"
-  key="action"
-  render={(text, record) => (
-    <>
-      {/* Check if the user's role is not "ADMIN" */}
-      {!record.role.includes("ADMIN") && (
-        <div className="action-buttons">
-          {record.status === "ACTIVE" ? (
-            <>
-              <Button
-                onClick={() => handleDelete(record.userId)}
-                style={{ marginRight: "8px" }} // Adjusted margin to separate buttons
-              >
-                <FontAwesomeIcon
-                  icon={faUserXmark}
-                  style={{ color: "red" }}
-                  className="action-icon delete-icon"
+                  title="Action"
+                  key="action"
+                  render={(text, record) => (
+                    <>
+                      {/* Check if the user's role is not "ADMIN" */}
+                      {!record.role.includes("ADMIN") && (
+                        <div className="action-buttons">
+                          {record.status === "ACTIVE" ? (
+                            <>
+                              <Button
+                                onClick={() => handleDelete(record.userId)}
+                                style={{ marginRight: "8px" }} // Adjusted margin to separate buttons
+                              >
+                                <FontAwesomeIcon
+                                  icon={faUserXmark}
+                                  style={{ color: "red" }}
+                                  className="action-icon delete-icon"
+                                />
+                              </Button>
+                              <Button onClick={() => handleEdit(record)}>
+                                <FontAwesomeIcon
+                                  icon={faPencilAlt}
+                                  style={{ color: "orange" }}
+                                  className="action-icon activate-icon"
+                                />
+                              </Button>
+                            </>
+                          ) : (
+                            <Button onClick={() => handleActivate(record.userId)}>
+                              <FontAwesomeIcon
+                                icon={faUserCheck}
+                                style={{ color: "green" }}
+                                className="action-icon activate-icon"
+                              />
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
                 />
-              </Button>
-              <Button onClick={() => handleEdit(record)}>
-                <FontAwesomeIcon
-                  icon={faPencilAlt}
-                  style={{ color: "orange" }}
-                  className="action-icon activate-icon"
-                />
-              </Button>
-            </>
-          ) : (
-            <Button onClick={() => handleActivate(record.userId)}>
-              <FontAwesomeIcon
-                icon={faUserCheck}
-                style={{ color: "green" }}
-                className="action-icon activate-icon"
-              />
-            </Button>
-          )}
-        </div>
-      )}
-    </>
-  )}
-/>
 
               </Table>
             </div>

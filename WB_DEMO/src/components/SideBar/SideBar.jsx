@@ -35,7 +35,6 @@ import {
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const SideBar = ({ children }) => {
   const [openUser, setOpenUser] = useState(false);
   const [openView, setOpenView] = useState(false);
@@ -86,23 +85,23 @@ const SideBar = ({ children }) => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, sign out",
-      cancelButtonText: "Cancel"
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         // Clear session storage
         sessionStorage.clear();
-  
+
         // Clear browser history and redirect
         window.location.href = "/";
-  
+
         // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
           // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
-  
+
           // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
-  
+
           // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
@@ -111,7 +110,6 @@ const SideBar = ({ children }) => {
       }
     });
   };
-  
 
   return (
     <>
@@ -174,11 +172,20 @@ const SideBar = ({ children }) => {
               >
                 {userName}
               </Typography>
-              <Typography sx={{ color: "white", textAlign: "center", mb: 1, fontWeight: "bold" }}>
+              <Typography
+                sx={{
+                  color: "white",
+                  textAlign: "center",
+                  mb: 1,
+                  fontWeight: "bold",
+                }}
+              >
                 User ID: {userId}
               </Typography>
               <Divider sx={{ backgroundColor: "white", mb: 1 }} />
-              <Typography sx={{ color: "white", textAlign: "center", fontWeight: "bold" }}>
+              <Typography
+                sx={{ color: "white", textAlign: "center", fontWeight: "bold" }}
+              >
                 Roles: {roles.join(", ")}
               </Typography>
             </Box>
@@ -227,7 +234,7 @@ const SideBar = ({ children }) => {
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItemButton>
-        
+
           <ListItemButton
             onClick={handleUserClick}
             selected={selectedItem === "user"}
@@ -419,7 +426,6 @@ const SideBar = ({ children }) => {
                 <ListItemText primary="View Vehicle" />
               </ListItemButton>
             </List>
-            
           </Collapse>
           {/* End of New Dropdown */}
 
@@ -618,11 +624,11 @@ const SideBar = ({ children }) => {
             }}
           >
             <ListItemIcon>
-              <Handyman/>
+              <Handyman />
             </ListItemIcon>
             <ListItemText primary="Material Management" />
           </ListItemButton>
-          
+
           <ListItemButton
             component={Link}
             to="/product-management"
@@ -644,12 +650,12 @@ const SideBar = ({ children }) => {
             }}
           >
             <ListItemIcon>
-              <ProductionQuantityLimits/>
+              <ProductionQuantityLimits />
             </ListItemIcon>
             <ListItemText primary="Product Management" />
           </ListItemButton>
           <ListItemButton
-            onClick={handleSignOut}   
+            onClick={handleSignOut}
             sx={{
               "&.Mui-selected": {
                 backgroundColor: "#3e8ee6",
@@ -663,7 +669,6 @@ const SideBar = ({ children }) => {
                 backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
-              
             }}
           >
             <ListItemIcon>

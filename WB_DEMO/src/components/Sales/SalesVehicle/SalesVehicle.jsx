@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import "./Vehicle.css";
-import SideBar from "../../SideBar/SideBar";
+import "./SalesVehicle.css";
+import SideBar6 from "../../SideBar/Sidebar6";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
-function Vehicle() {
+function SalesVehicle() {
   const [vehicleNo, setVehicleNo] = useState("");
   const [transporter, setTransporter] = useState("");
   const [vehicleType, setVehicleType] = useState("");
@@ -16,6 +17,8 @@ function Vehicle() {
   const [vehicleLoadCapacity, setVehicleLoadCapacity] = useState("");
   const [transporters, setTransporters] = useState([]);
   const [error, setError] = useState("");
+  
+  const navigate = useNavigate();
 
   const handleClear = () => {
     setVehicleNo("");
@@ -90,6 +93,7 @@ function Vehicle() {
           },
         });
         handleClear();
+        navigate("/ProcessOrder");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -107,7 +111,7 @@ function Vehicle() {
   };
 
   return (
-    <SideBar>
+    <SideBar6>
       <div className="vehicle-register">
         <div className="vehicle-content container-fluid">
           <h2 className="text-center">Vehicle Registration</h2>
@@ -308,8 +312,8 @@ function Vehicle() {
           </div>
         </div>
       </div>
-    </SideBar>
+    </SideBar6>
   );
 }
 
-export default Vehicle;
+export default SalesVehicle;

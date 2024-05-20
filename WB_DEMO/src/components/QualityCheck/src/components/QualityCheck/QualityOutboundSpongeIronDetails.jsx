@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SideBar3 from "../../../../SideBar/SideBar3";
 
-import "./QualityOutboundSpongeIronDetails.css";
 import { useMediaQuery } from "react-responsive";
 import { Chart, ArcElement } from "chart.js/auto";
 
