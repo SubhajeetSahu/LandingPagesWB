@@ -26,12 +26,16 @@ const TransFormMainDiv = styled.div`
 `;
 
 const StyledButton = styled.button`
-  background-color: transparent;
   border: none;
+  background: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    color: #333; /* Change to desired hover color */
+  }
 `;
 
-const QualityOutboundDetails = () => {
+const QualityInboundDetails = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -72,9 +76,9 @@ const QualityOutboundDetails = () => {
       materialName: urlParams.get("materialName"),
       materialType: urlParams.get("materialType"),
     };
-  
+
     setFormData(urlData);
-  
+
     const fetchParameters = async () => {
       try {
         let response;
@@ -84,7 +88,7 @@ const QualityOutboundDetails = () => {
           );
         } else {
           response = await fetch(
-            `http://localhost:8080/api/v1/products/parameters?productName=${urlData.materialName}&customerName=${urlData.supplierOrCustomerName}&customerAddress=${urlData.supplierOrCustomerAddress}`
+            `http://localhost:8080/api/v1/products/parameters?productName=${urlData.materialName}`
           );
         }
         const data = await response.json();
@@ -102,12 +106,12 @@ const QualityOutboundDetails = () => {
         console.error("Error fetching parameter ranges:", error);
       }
     };
-  
+
     if (urlData.materialName && urlData.materialType) {
       fetchParameters();
     }
   }, []);
-  
+
 
   const handleSave = async () => {
     const data = {
@@ -178,7 +182,7 @@ const QualityOutboundDetails = () => {
       [name]: value === "" ? null : value,
     }));
   };
-  
+
 
   useEffect(() => {
     // Any side effect code can be placed here
@@ -200,139 +204,140 @@ const QualityOutboundDetails = () => {
     }
   };
 
- const renderFieldWithBox = (
-  fieldName,
-  propertyName,
-  isReadOnly = false,
-  isRequired = false
-) => {
-  const inputStyle = isReadOnly
-    ? { borderColor: "#ced4da", backgroundColor: "rgb(239 239, 239)" }
-    : {};
+  const renderFieldWithBox = (
+    fieldName,
+    propertyName,
+    isReadOnly = false,
+    isRequired = false
+  ) => {
+    const inputStyle = isReadOnly
+      ? { borderColor: "#ced4da", backgroundColor: "rgb(239, 239, 239)" }
+      : {};
     const asteriskStyle = isRequired ? { color: "red" } : {};
     const value = formData[propertyName] !== null ? formData[propertyName] : "-";
-    
+
     return (
-    <div className="col-md-3 mb-3">
-    <label htmlFor={propertyName} className="form-label">
-    {fieldName}:
-    {isRequired && <span style={asteriskStyle}>*</span>}
-    </label>
-    <input
-         type="text"
-         name={propertyName}
-         autoComplete="off"
-         value={value}
-         onChange={handleInputChange}
-         onKeyPress={handleKeyPress}
-         required={isRequired}
-         readOnly={isReadOnly}
-         style={inputStyle}
-         className="form-control"
-         id={propertyName}
-       />
-    </div>
+      <div className="col-md-3 mb-3">
+        <label htmlFor={propertyName} className="form-label">
+          {fieldName}:
+          {isRequired && <span style={asteriskStyle}>*</span>}
+        </label>
+        <input
+          type="text"
+          name={propertyName}
+          autoComplete="off"
+          value={value}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+          required={isRequired}
+          readOnly={isReadOnly}
+          style={inputStyle}
+          className="form-control"
+          id={propertyName}
+        />
+      </div>
     );
-    };
-    
-    const handleClear = () => {
+  };
+
+  const handleClear = () => {
     setFormData({
-    ...formData,
-    ...Object.keys(parameters).reduce((acc, parameterName) => {
-    acc[parameterName] = "";
-    return acc;
-    }, {}),
+      ...formData,
+      ...Object.keys(parameters).reduce((acc, parameterName) => {
+        acc[parameterName] = "";
+        return acc;
+      }, {}),
     });
-    };
-    
-    return (
+  };
+
+  return (
     <SideBar3>
-    <div className="d-flex">
-    <div className="flex-grow-1" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-    <h2
-    className="text-center p-2"
-    style={{ fontFamily: "Arial", fontSize: "clamp(12px, 4vw, 30px)" }}
-    >
-    Quality Outbound Transaction Details
-    </h2>
-    <MainContent>
-    <TransFormMainDiv>
-    <div className="container-fluid overflow-hidden">
-    <div className="d-flex justify-content-between align-items-center mb-2 ml-6">
-    <div></div>
-    <div>
-    <StyledButton onClick={handleSave}>
-    <FontAwesomeIcon
-    icon={faSave}
-    className="btn-icon mx-3"
-    style={{ fontSize: "1.5em", color: "#008060" }}
-    />
-    </StyledButton>
-    <StyledButton onClick={handleClear}>
-    <FontAwesomeIcon
-    icon={faEraser}
-    className="btn-icon mx-3"
-    style={{ fontSize: "1.5em", color: "#d63031" }}
-    />
-    </StyledButton>
-    <StyledButton>
-    <FontAwesomeIcon
-    icon={faPrint}
-    className="btn-icon mx-3"
-    style={{ fontSize: "1.5em", color: "#3e8ee6" }}
-    />
-    </StyledButton>
-    </div>
-    </div>
-    <div className="row">
-    <div className="col-lg-12">
-    <div className="card mb-3 p-2 border shadow-lg">
-    <div className="card-body">
-    <div className="row">
-    {renderFieldWithBox("TicketNo", "ticketNo", true)}
-    {renderFieldWithBox("Date", "date", true)}
-    {renderFieldWithBox("Vehicle Number", "vehicleNo", true)}
-    {renderFieldWithBox("Transporter", "transporterName", true)}
-    {renderFieldWithBox("Tp No", "tpNo", true)}
-    {renderFieldWithBox("Po No", "poNo", true)}
-    {renderFieldWithBox("Challan No", "challanNo", true)}
-    {renderFieldWithBox("Product", "materialName", true)}
-    {renderFieldWithBox("Product Type", "materialType", true)}
-    {renderFieldWithBox("Customer", "supplierOrCustomerName", true)}
-    {renderFieldWithBox("Customer Address", "supplierOrCustomerAddress", true)}
-    {renderFieldWithBox("Transaction Type", "transactionType", true)}
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div className="row">
-    <div className="col-lg-12">
-    <div className="card mb-3 p-2 border shadow-lg">
-    <div className="card-body">
-    <div className="row">
-    {Object.keys(parameters).map((parameterName) => (
-    <React.Fragment key={parameterName}>
-    {renderFieldWithBox(
-    generateFieldNameWithRange(parameterName),
-    parameterName,
-    false,
-    true
-    )}
-    </React.Fragment>
-    ))}
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </TransFormMainDiv>
-    </MainContent>
-    </div>
-    </div>
+      <div className="d-flex">
+        <div className="flex-grow-1"style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+          <h2
+            className="text-center p-2"
+            style={{ fontFamily: "Arial", fontSize: "clamp(12px, 4vw, 30px)" }}
+          >
+            Quality Inbound Transaction Details
+          </h2>
+          <MainContent>
+            <TransFormMainDiv>
+              <div className="container-fluid overflow-hidden">
+                <div className="d-flex justify-content-between align-items-center mb-2 ml-6">
+                  <div></div>
+                  <div>
+                    <StyledButton onClick={handleSave}>
+                      <FontAwesomeIcon
+                        icon={faSave}
+                        className="btn-icon mx-3"
+                        style={{ fontSize: "1.5em", color: "#008060" }}
+                      />
+                    </StyledButton>
+                    <StyledButton onClick={handleClear}>
+                      <FontAwesomeIcon
+                        icon={faEraser}
+                        className="btn-icon mx-3"
+                        style={{ fontSize: "1.5em", color: "#d63031" }}
+                      />
+                    </StyledButton>
+                    {/* You can uncomment this part if needed /}
+  {/ <StyledButton>
+  <FontAwesomeIcon
+  icon={faPrint}
+  className="btn-icon mx-3"
+  style={{ fontSize: "1.5em", color: "#3e8ee6" }}
+  />
+  </StyledButton> */}
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="card mb-3 p-2 border shadow-lg">
+                      <div className="card-body">
+                        <div className="row">
+                          {renderFieldWithBox("TicketNo", "ticketNo", true)}
+                          {renderFieldWithBox("Date", "date", true)}
+                          {renderFieldWithBox("Vehicle Number", "vehicleNo", true)}
+                          {renderFieldWithBox("Transporter", "transporterName", true)}
+                          {renderFieldWithBox("Tp No", "tpNo", true)}
+                          {renderFieldWithBox("Po No", "poNo", true)}
+                          {renderFieldWithBox("Challan No", "challanNo", true)}
+                          {renderFieldWithBox("Material", "materialName", true)}
+                          {renderFieldWithBox("Material Type", "materialType", true)}
+                          {renderFieldWithBox("Supplier", "supplierOrCustomerName", true)}
+                          {renderFieldWithBox("Supplier Address", "supplierOrCustomerAddress", true)}
+                          {renderFieldWithBox("Transaction Type", "transactionType", true)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="card mb-3 p-2 border shadow-lg">
+                      <div className="card-body">
+                        <div className="row">
+                          {Object.keys(parameters).map((parameterName) => (
+                            <React.Fragment key={parameterName}>
+                              {renderFieldWithBox(
+                                generateFieldNameWithRange(parameterName),
+                                parameterName,
+                                false,
+                                true
+                              )}
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TransFormMainDiv>
+          </MainContent>
+        </div>
+      </div>
     </SideBar3>
-    );
-    };
-    
-    export default QualityOutboundDetails;
+  );
+};
+
+export default QualityInboundDetails;
