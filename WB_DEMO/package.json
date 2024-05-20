@@ -23,13 +23,11 @@
     "antd": "^5.17.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.3",
     "country-state-city": "^3.2.1",
     "docx": "^8.5.0",
-
-    "pdfjs-dist": "^3.4.120",
-
     "framer-motion": "^11.2.4",
-
+    "pdfjs-dist": "^3.4.120",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",

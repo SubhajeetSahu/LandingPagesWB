@@ -39,12 +39,7 @@ function CreateUser() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Roles List:", data);
-<<<<<<< HEAD
         setRoles(data.map(r => ({ value: r, label: r })));
-=======
-        const filteredRoles = data.filter((role) => role !== "ADMIN");
-        setRoles(filteredRoles.map((r) => ({ value: r, label: r })));
->>>>>>> 80c0460c56ceba7ea4bb4828dc2a970fd15c8cb0
       })
       .catch((error) => {
         console.error("Error fetching roles list:", error);
@@ -294,14 +289,9 @@ function CreateUser() {
                           </label>
                           <input
                             type="tel"
-<<<<<<< HEAD
-                            className={`form-control ${contactNoError ? "is-invalid" : ""
-                              }`}
-=======
                             className={`form-control ${
                               contactNoError ? "is-invalid" : ""
                             }`}
->>>>>>> 80c0460c56ceba7ea4bb4828dc2a970fd15c8cb0
                             id="contactNo"
                             placeholder="Enter Mobile Number"
                             value={contactNo}
@@ -309,17 +299,10 @@ function CreateUser() {
                             required
                             pattern="\d{10}"
                             onInput={(e) =>
-<<<<<<< HEAD
                             (e.target.value = e.target.value.replace(
                               /\D/g,
                               ""
                             ))
-=======
-                              (e.target.value = e.target.value.replace(
-                                /\D/g,
-                                ""
-                              ))
->>>>>>> 80c0460c56ceba7ea4bb4828dc2a970fd15c8cb0
                             }
                             title="Please enter 10 numbers"
                             maxLength="10"
