@@ -55,6 +55,7 @@ import QualityInboundIronOreDetails from "./components/QualityCheck/src/componen
 import QualityInboundCoalDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundCoalDetails.jsx";
 import QualityHomePage from "./components/QualityCheck/src/components/QHome/QualityHomePage.jsx";
 import QualityOutboundSpongeIronDetails from "./components/QualityCheck/src/components/QualityCheck/QualityOutboundSpongeIronDetails.jsx";
+import QualityInboundDetails from "./components/QualityCheck/src/components/QualityCheck/QualityInboundDetails.jsx";
 
 import ManagementHome from "./components/Management/src/components/Home/ManagementHome.jsx";
 import ManagementLocation from "./components/Management/src/components/Location/Location.jsx";
@@ -130,6 +131,7 @@ const router = createBrowserRouter(
       <Route path="/QualityCheck" element={<QualityCheck />} />
       <Route path="/QPrint" element={<QPrint />} />
       <Route path="/QReport" element={<QReport />} />
+      <Route path="/QualityInboundDetails" element={<QualityInboundDetails />} />
       <Route path="/QualityOutboundDetails" element={<QualityOutboundDetails />} />
       <Route path="/QualityInboundDashboard" element={<QualityInboundDashboard />} />
       <Route path="/QualityOutboundDashboard" element={<QualityOutboundDashboard />} />
