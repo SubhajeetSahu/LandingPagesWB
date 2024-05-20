@@ -152,7 +152,7 @@ function SalesOrder() {
                 <div className="row mb-2">
                   <div className="col-md-4">
                     <label htmlFor="purchaseOrderedDate" className="form-label">
-                      Purchase Ordered Date{" "}
+                      Sales Order Date{" "}
                       <span style={{ color: "red", fontWeight: "bold" }}>
                         *
                       </span>
@@ -163,23 +163,6 @@ function SalesOrder() {
                       id="purchaseOrderedDate"
                       value={purchaseOrderedDate}
                       onChange={(e) => setPurchaseOrderedDate(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <label htmlFor="purchaseOrderNo" className="form-label">
-                      Purchase Order No{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="purchaseOrderNo"
-                      placeholder="Enter Purchase Order No"
-                      value={purchaseOrderNo}
-                      onChange={(e) => setPurchaseOrderNo(e.target.value)}
                       required
                     />
                   </div>
@@ -200,6 +183,24 @@ function SalesOrder() {
                       required
                     />
                   </div>
+                  <div className="col-md-4">
+                    <label htmlFor="purchaseOrderNo" className="form-label">
+                      Purchase Order No{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="purchaseOrderNo"
+                      placeholder="Enter Purchase Order No"
+                      value={purchaseOrderNo}
+                      onChange={(e) => setPurchaseOrderNo(e.target.value)}
+                      required
+                    />
+                  </div>
+              
                 </div>
                 <div className="row mb-2">
                   <div className="col-md-6">
