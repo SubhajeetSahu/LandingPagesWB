@@ -128,6 +128,7 @@ const Sidebar3 = ({ children }) => {
           >
             Weighbridge Management System
           </Typography>
+
           <IconButton onClick={handleUserProfileClick}>
             <Person style={{ color: "white" }} />
           </IconButton>
