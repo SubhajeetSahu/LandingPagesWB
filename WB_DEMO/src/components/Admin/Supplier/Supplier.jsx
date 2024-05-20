@@ -175,8 +175,8 @@ function Supplier() {
           <h2 className="text-center">Supplier Management</h2>
           <div className="supplier-card-container">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
+              className="card-body p-4 shadow-lg"
+              
             >
               <form>
                 <div className="row mb-2">

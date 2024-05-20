@@ -195,8 +195,8 @@ function CreateUser() {
               <div className="create-user-container">
                 <div className="card create-user-form mt-3">
                   <div
-                    className="card-body"
-                    style={{ backgroundColor: "rgb(243,244,247)" }}
+                    className="card-body shadow-lg"
+                    // 
                   >
                     <form>
                       <div className="row mb-3">

@@ -219,7 +219,7 @@ function UpdateUser() {
             <div className="card update-user-form">
               <div
                 className="card-body"
-                style={{ backgroundColor: "rgb(243,244,247)" }}
+                
               >
                 <form>
                   <div className="row mb-3">

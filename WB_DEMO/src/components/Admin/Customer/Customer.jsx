@@ -175,8 +175,8 @@ function Customer() {
           <h2 className="text-center">Customer Management</h2>
           <div className="customer-card-container">
             <div
-              className="card-body p-4"
-              style={{ backgroundColor: "rgb(243,244,247)" }}
+              className="card-body p-4 shadow-lg"
+              
             >
               <form>
                 <div className="row mb-2">
