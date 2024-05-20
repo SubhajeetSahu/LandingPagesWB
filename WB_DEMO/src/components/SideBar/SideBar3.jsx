@@ -124,7 +124,7 @@ const Sidebar3 = ({ children }) => {
           </IconButton>
           <Typography
             variant={isLargeScreen ? "h6" : "h5"}
-            sx={{ color: "white", fontSize: "clamp(12px, 4vw, 32px)" }}
+            sx={{ color: "white" }}
           >
             Weighbridge Management System
           </Typography>
