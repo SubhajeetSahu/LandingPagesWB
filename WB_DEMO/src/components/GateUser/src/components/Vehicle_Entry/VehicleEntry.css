@@ -1,11 +1,13 @@
 .vehicle-table-container {
   margin-left: auto; /* Align to the right side of the page */
   margin-right: auto; /* Add some right margin for spacing */
+
 }
 
 .VehicleEntrytable {
   margin-left: -20px;
   /* margin-top: -20px; */
+  
 }
 
 /* Vehicle InTimeImage */
@@ -72,6 +74,7 @@
   margin-left: auto;
 } */
 
+
 .vehicle-table.table-bordered,
 .vehicle-table.table-bordered th,
 .vehicle-table.table-bordered td {
@@ -80,12 +83,13 @@
 
 .vehicle-table-container {
   /* margin-left: auto; */
-  overflow-x: auto;
+  /* overflow-x: auto; */
   padding-right: 40px; /* Adjust the padding here */
 }
 
 .vehicle-table.table-bordered tbody tr:nth-child(even) {
   background-color: #f2f2f2; /* Slightly gray background */
+
 }
 
 /* Pagination button */
