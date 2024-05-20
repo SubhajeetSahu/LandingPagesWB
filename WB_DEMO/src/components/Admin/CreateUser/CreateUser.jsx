@@ -39,8 +39,7 @@ function CreateUser() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Roles List:", data);
-        const filteredRoles = data.filter((role) => role !== "ADMIN");
-        setRoles(filteredRoles.map(r => ({ value: r, label: r })));
+        setRoles(data.map(r => ({ value: r, label: r })));
       })
       .catch((error) => {
         console.error("Error fetching roles list:", error);
@@ -281,30 +280,30 @@ function CreateUser() {
                               {" "}*
                             </span>
                           </label>
-                            <input
-                              type="tel"
-                              className={`form-control ${contactNoError ? "is-invalid" : ""
-                                }`}
-                              id="contactNo"
-                              placeholder="Enter Mobile Number"
-                              value={contactNo}
-                              onChange={(e) => setContactNo(e.target.value)}
-                              required
-                              pattern="\d{10}"
-                              onInput={(e) =>
-                              (e.target.value = e.target.value.replace(
-                                /\D/g,
-                                ""
-                              ))
-                              }
-                              title="Please enter 10 numbers"
-                              maxLength="10"
-                            />
-                            {contactNoError && (
-                              <div className="invalid-feedback">
-                                {contactNoError}
-                              </div>
-                            )}
+                          <input
+                            type="tel"
+                            className={`form-control ${contactNoError ? "is-invalid" : ""
+                              }`}
+                            id="contactNo"
+                            placeholder="Enter Mobile Number"
+                            value={contactNo}
+                            onChange={(e) => setContactNo(e.target.value)}
+                            required
+                            pattern="\d{10}"
+                            onInput={(e) =>
+                            (e.target.value = e.target.value.replace(
+                              /\D/g,
+                              ""
+                            ))
+                            }
+                            title="Please enter 10 numbers"
+                            maxLength="10"
+                          />
+                          {contactNoError && (
+                            <div className="invalid-feedback">
+                              {contactNoError}
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="row mb-3">
