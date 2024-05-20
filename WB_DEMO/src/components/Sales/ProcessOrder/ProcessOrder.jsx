@@ -86,6 +86,10 @@ function ProcessOrder() {
     navigate("/SalesTransporter");
   };
 
+  const handleAddVehicle = () => {
+    navigate("/SalesVehicle");
+  };
+
   const handleSave = () => {
     if (
       !formsaleOrderNo ||
@@ -226,6 +230,25 @@ function ProcessOrder() {
                         *
                       </span>
                     </label>
+                    <button
+                      className="btn btn-sm border"
+                      style={{
+                        borderRadius: "5px",
+                        marginLeft: "5px",
+                        backgroundColor: "lightblue",
+                      }}
+                    >
+                      <div
+                        onClick={handleAddVehicle}
+                        style={{
+                          display: "block",
+                          textDecoration: "none",
+                          color: "black",
+                        }}
+                      >
+                        Add Vehicle
+                      </div>
+                    </button>
                     <Select
                       options={vehicleNumbers}
                       value={vehicleNo}

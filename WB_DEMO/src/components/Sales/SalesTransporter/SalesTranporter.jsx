@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import "./SalesTransporter.css";
-import SideBar6 from "../../SideBar/Sidebar6";;
+import SideBar6 from "../../SideBar/Sidebar6";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";

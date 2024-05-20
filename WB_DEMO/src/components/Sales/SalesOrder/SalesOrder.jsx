@@ -33,9 +33,9 @@ function SalesOrder() {
       .catch((error) => console.error("Error fetching product names:", error));
   }, []);
 
-  const handleAddCustomer = () =>{
+  const handleAddCustomer = () => {
     navigate("/SalesCustomer");
-  }
+  };
 
   const handleCustomerNameChange = (event) => {
     const selectedCustomerName = event.target.value;
@@ -72,7 +72,8 @@ function SalesOrder() {
       customerName.trim() === "" ||
       customerAddress.trim() === "" ||
       productName.trim() === "" ||
-      orderedQuantity === 0
+      orderedQuantity === 0 ||
+      saleOrderNo.trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all the required fields.",
@@ -146,10 +147,7 @@ function SalesOrder() {
         <div className="sales-order-main-content">
           <h2 className="text-center">Sales Order Management</h2>
           <div className="sales-order-card-container container-fluid">
-            <div
-              className="card-body p-4 shadow-lg"
-              
-            >
+            <div className="card-body p-4 shadow-lg">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-4">
@@ -188,6 +186,9 @@ function SalesOrder() {
                   <div className="col-md-4">
                     <label htmlFor="saleOrderNo" className="form-label">
                       Sale Order No{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"
@@ -196,6 +197,7 @@ function SalesOrder() {
                       placeholder="Enter Sale Order No"
                       value={saleOrderNo}
                       onChange={(e) => setSaleOrderNo(e.target.value)}
+                      required
                     />
                   </div>
                 </div>

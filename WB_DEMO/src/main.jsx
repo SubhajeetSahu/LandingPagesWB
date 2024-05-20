@@ -74,6 +74,7 @@ import SideBar6 from "./components/SideBar/Sidebar6.jsx";
 import SalesDisplay from "./components/Sales/SalesDisplay/SalesDisplay.jsx";
 import SalesCustomer from "./components/Sales/SalesCustomer/SalesCustomer.jsx";
 import SalesTransporter from "./components/Sales/SalesTransporter/SalesTranporter.jsx";   
+import SalesVehicle from "./components/Sales/SalesVehicle/SalesVehicle.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -111,6 +112,8 @@ const router = createBrowserRouter(
       <Route path="/SalesDisplay" element={<SalesDisplay />}/>
       <Route path="/SalesCustomer" element={<SalesCustomer />}/>
       <Route path="/SalesTransporter" element={<SalesTransporter />}/>
+      <Route path="/SalesVehicle" element={<SalesVehicle />}/>
+
 
 
 
