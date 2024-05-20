@@ -227,15 +227,15 @@ function MaterialManagement() {
             handleClear();
             window.location.reload(); // Reload the page
           });
-        } else {
-          throw new Error("Failed to save material.");
-        }
+        } return response.json().then((error) => {
+          throw new Error(error.message);
+        });
       })
       .catch((error) => {
         console.error("Error:", error);
         Swal.fire({
           title: "Error",
-          text: "Failed to save material.",
+          text: error.message, 
           icon: "error",
           confirmButtonText: "OK",
           customClass: {
