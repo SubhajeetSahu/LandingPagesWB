@@ -86,7 +86,7 @@ const LoginUser = () => {
               navigate("/home4", { state: { userId: data.userId } });
             });
           } 
-          else if (data.roles.includes("SALES")) {
+          else if (data.roles.includes("SALES_USER")) {
             Swal.fire({
               title: "Login Successful!",
               text: "Welcome, Sales User!",
