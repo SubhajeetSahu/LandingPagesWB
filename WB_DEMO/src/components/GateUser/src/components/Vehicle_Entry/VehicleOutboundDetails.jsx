@@ -279,6 +279,7 @@ function VehicleOutboundDetails() {
 
     const gateData = {
       // userId,
+      // saleOrderDate: saleDetails.saleOrderDate,
       customer: saleDetails.customerName,
       customerAddressLine: saleDetails.customerAddress,
       transporter: saleDetails.transporterName,
@@ -319,7 +320,7 @@ function VehicleOutboundDetails() {
           title: "Success!",
           text: `Transaction with id ${data} created Successfully!`,
         });
-        
+
 
         // Reset form data after 3 seconds and navigate to VehicleEntry page
         setTimeout(() => {
@@ -427,12 +428,14 @@ function VehicleOutboundDetails() {
                 Sale Order Date:
               </label>
               <input
-                type="date"
+                type="text"
                 id="saleOrderDate"
                 name="saleOrderDate"
-                value={formData.saleOrderDate}
+                value={saleDetails.saleOrderDate}
                 onChange={handleChange}
-                required
+                // required
+                readOnly
+                disabled
                 className="form-control"
               />
             </div>
@@ -449,6 +452,8 @@ function VehicleOutboundDetails() {
                 value={saleDetails.saleOrderNo}
                 onChange={handleChange}
                 // required
+                readOnly
+                disabled
                 className="form-control"
               />
             </div>
@@ -465,8 +470,9 @@ function VehicleOutboundDetails() {
                 value={saleDetails.purchaseOrderNo}
                 onChange={handleChange}
                 // required
+                readOnly
                 className="form-control"
-                disabled={!!formData.salePassNo} // Disable if salePassNo has a value
+                disabled
               />
             </div>
             <div className="col-md-3 mb-3 position-relative">
@@ -482,8 +488,9 @@ function VehicleOutboundDetails() {
                   value={saleDetails.salePassNo}
                   onChange={handleChange}
                   // required
+                  readOnly
                   className="form-control tpscanner"
-                  disabled={!!formData.salePassNo} // Disable if poNo has a value
+                  disabled
                 />
                 {/* <button
                   className="scanner_button1"
@@ -517,7 +524,9 @@ function VehicleOutboundDetails() {
                   name="vehicleNo"
                   value={saleDetails.vehicleNo}
                   onChange={handleChange}
-                  required
+                  // required
+                  readOnly
+                  disabled
                   className="form-control tpscanner"
                   // onKeyDown={handleVehicleNoKeyPress}
                   onBlur={handleVehicleNoBlur}
@@ -557,6 +566,8 @@ function VehicleOutboundDetails() {
                 name="Product"
                 value={saleDetails.productName}
                 onChange={handleChange}
+                readOnly
+                disabled
                 className="form-control"
               />
             </div>
@@ -571,6 +582,8 @@ function VehicleOutboundDetails() {
                 name="ProductType"
                 value={saleDetails.productType}
                 onChange={handleChange}
+                readOnly
+                disabled
                 className="form-control"
               />
             </div>
@@ -608,7 +621,7 @@ function VehicleOutboundDetails() {
             {/* TP Net weight */}
             <div className="col-md-3 mb-3 position-relative inputbox-padding">
               <label htmlFor="quantity" className="outbound-form-label">
-                Quantity (MT)
+                Quantity (MT):
               </label>
               <input
                 type="text"
@@ -616,6 +629,8 @@ function VehicleOutboundDetails() {
                 name="quantity"
                 value={saleDetails.consignmentWeight}
                 onChange={handleChange}
+                readOnly
+                disabled
                 className="form-control"
               />
             </div>

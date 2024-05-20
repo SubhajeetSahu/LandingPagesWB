@@ -1,20 +1,13 @@
-
-// vehicle Entry.jsx for in bound
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import Rough from '../Rough/Rough';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import OutTime_truck from "../../assets/OutTime_truck.png";
 import { Link } from "react-router-dom";
 import { Chart, ArcElement } from "chart.js/auto";
-// import Header from "../../../../Header/Header";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import "./VehicleEntry.css";
 import Swal from 'sweetalert2';
-
 
 const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -25,8 +18,6 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(5); // Number of entries per page
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -51,14 +42,9 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       });
   }, []);
 
-  // const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
-
-  // const toggleSidebar = () => {
-  //   setIsSidebarExpanded(!isSidebarExpanded);
-  // };
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -116,12 +102,9 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
     closePopup();
   };
 
-
-
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
   const currentEntries = vehicleEntryDetails.slice(indexOfFirstEntry, indexOfLastEntry);
-
 
   const paginateBackwardDouble = () => {
     setCurrentPage(1); // Set current page to 1 when "<<"" button is clicked
@@ -138,19 +121,59 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
     setCurrentPage(totalPages); // Set current page to the total number of pages when ">>"" button is clicked
   };
 
+  // API for Vehicle Out
 
-  // const getSystemOutTime = () => {
+  const handleVehicleExit = async (ticketNo) => {
+    console.log(`handleVehicleExit called with ticketNo: ${ticketNo}`); // Log the ticket number to ensure the function is called
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/gate/out/${ticketNo}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // Add body if needed
+        // body: JSON.stringify({ someKey: someValue }),
+        credentials: 'include'
+      });
 
-  // };
+      let data;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+      console.log("API response:", data);
 
-  const handleVehicleExit = () => {
-    // Display message in a Swal modal
-    Swal.fire({
-      icon: 'error',
-      title: 'Vehicle cannot exit until TareWeight is measured',
-      showConfirmButton: false,
-      timer: 3000 // Auto close after 3 seconds
-    });
+
+      if (response.ok) {
+        // Display the API response using SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Vehicle Exit Status',
+          text: data.message || JSON.stringify(data), // Assuming the response body is the message you want to display
+          showConfirmButton: true
+        });
+      } else {
+        // Display the error message from the API response using SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Vehicle Exit Status',
+          text: data.message || 'An error occurred', // Assuming the response body contains the message you want to display
+          showConfirmButton: true
+        });
+      }
+    } catch (error) {
+      console.error("Fetch error:", error); // Log the error for debugging
+
+      // Display a generic error message if the API response is not available
+      Swal.fire({
+        icon: 'error',
+        title: 'Error checking vehicle status',
+        text: 'Please try again later',
+        showConfirmButton: true
+      });
+    }
   };
 
   const entriesCount = vehicleEntryDetails.length;
@@ -162,8 +185,10 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const totalPagesToShow = 3; // Number of page numbers to show
-    // Render first three page numbers
-    for (let i = 1; i <= Math.min(totalPagesToShow, totalPages); i++) {
+    const startPage = Math.max(currentPage - 1, 1);
+    const endPage = Math.min(startPage + totalPagesToShow - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <span key={i} style={{ margin: '0 5px' }}>
           <button
@@ -177,11 +202,22 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       );
     }
 
-    // If there are more pages, add "..." as a placeholder
-    if (totalPages > totalPagesToShow) {
+    if (totalPages > totalPagesToShow && currentPage < totalPages - 1) {
       pageNumbers.push(
         <span key="ellipsis" style={{ margin: '0 5px' }}>
           ...
+        </span>
+      );
+
+      pageNumbers.push(
+        <span key={totalPages} style={{ margin: '0 5px' }}>
+          <button
+            onClick={() => setCurrentPage(totalPages)}
+            className={`page-number-button ${currentPage === totalPages ? "active" : ""}`}
+            style={{ borderRadius: '5px', borderWidth: '1px' }}
+          >
+            {totalPages}
+          </button>
         </span>
       );
     }
@@ -189,55 +225,31 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
     return pageNumbers;
   };
 
-
   return (
-
     <SideBar2>
       <div className="vehicleEntry-main">
-        {/* <Header toggleSidebar={toggleSidebar} />
-        <FontAwesomeIcon icon={faPlus} />
-
-        <SideBar2
-          isSidebarExpanded={isSidebarExpanded}
-          toggleSidebar={toggleSidebar}
-        /> */}
-
-        <div className="container-fluid" >
+        <div className="container-fluid">
           <div className="container mx-auto px-4 py-8" style={{ marginTop: '20px', marginLeft: '20px' }}>
             <h2 className="text-center mb-6"> Gate User Transaction Details </h2>
           </div>
-          <div className=" d-flex align-items-center mb-3">
-            {/* <label htmlFor="datePicker"> Date:</label> */}
-            {/* <input
-            type="date"
-            id="datePicker"
-            value={selectedDate}
-            onChange={handleDateChange}
-            className="form-control mb-3"
-            style={{ width: '150px' }}
-          /> */}
-            {/* Show current time instead of date picker */}
+          <div className="d-flex align-items-center mb-3">
             <input
               type="text"
               value={selectedDate}
               readOnly // Make input read-only
-              className="form-control "
+              className="form-control"
               style={{ width: '110px', marginLeft: '20px' }}
             />
           </div>
-          <div className=" container-fluid vehicle-table-container mx-auto px-4 py-8"  > {/* Add overflowX style for horizontal scrollbar */}
-            <div className="vehicle-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3 VehicleEntrytable ">
-              <table className="vehicle-table table-bordered table-striped" style={{ marginBottom: '10px', marginRight: '50px' }}> {/* Add margin bottom to the table */}
+          <div className="container-fluid vehicle-table-container mx-auto px-4 py-8">
+            <div className="vehicle-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3 VehicleEntrytable">
+              <table className="vehicle-table table-bordered table-striped" style={{ marginBottom: '10px', marginRight: '50px' }}>
                 <thead className="text-center">
-                  {/* Table headers */}
-
                   <tr>
                     <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px ' }}>Ticket No.</th>
                     <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
                     <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>In Time/Date</th>
                     <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Out Time/Date</th>
-                    {/* <th scope="col" style={{ width: '7%', padding: '5px', margin: '5px' }}>Vehicle Type</th> */}
-                    {/* <th scope="col" style={{ width: '7%', padding: '5px', margin: '5px' }}>No. of Wheels</th> */}
                     <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Transporter</th>
                     <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Supplier/Customer</th>
                     <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Supplier's /Customer's Address</th>
@@ -251,25 +263,15 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                   </tr>
                 </thead>
                 <tbody className="text-center">
-                  {/* Render current entries with alternate row background */}
                   {currentEntries.map((entry, index) => (
                     <tr key={entry.id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-                      {/* Render table rows */}
                       <td>{entry.ticketNo}</td>
                       <td>{entry.vehicleNo}</td>
                       <td>{entry.vehicleIn}</td>
                       <td>{entry.vehicleOut}</td>
-                      {/* <td>{entry.vehicleType}</td> */}
-                      {/* <td>{entry.vehicleWheelsNo}</td> */}
                       <td>{entry.transporter}</td>
-                      <td>
-                        {/* Conditionally render supplier or customer */}
-                        {entry.transactionType === 'Inbound' ? entry.supplier : entry.customer}
-                      </td>
-                      <td>
-                        {/* Conditionally render supplier or customer */}
-                        {entry.transactionType === 'Inbound' ? entry.supplierAddress : entry.customerAddress}
-                      </td>
+                      <td>{entry.transactionType === 'Inbound' ? entry.supplier : entry.customer}</td>
+                      <td>{entry.transactionType === 'Inbound' ? entry.supplierAddress : entry.customerAddress}</td>
                       <td>{entry.material}</td>
                       <td>{entry.tpNo}</td>
                       <td>{entry.tpNetWeight}</td>
@@ -277,8 +279,8 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
                       <td>{entry.challanNo}</td>
                       <td>{entry.transactionType}</td>
                       <td>
-                        <button className="image-button" onClick={handleVehicleExit}>
-                          <div className="image-container" style={{ border: 'none' }} >
+                        <button className="image-button" onClick={() => handleVehicleExit(entry.ticketNo)}>
+                          <div className="image-container" style={{ border: 'none' }}>
                             <img src={OutTime_truck} alt="Out" className="time-image" />
                           </div>
                         </button>
@@ -289,7 +291,6 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
               </table>
             </div>
           </div>
-          {/* Add some space between the table and pagination section */}
           <div style={{ marginTop: '10px', marginRight: '30px', marginLeft: '20px' }}>
             <div className="row justify-content-between mb-2" style={{ margin: '0', padding: '0' }}>
               <div className="col-auto" style={{ margin: '0', padding: '0' }}>
@@ -339,16 +340,5 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
     </SideBar2>
   );
 };
-// const TicketInputBox = ({ placeholder, width }) => {
-//   return (
-//     <td>
-//       <input
-//         className="form-control"
-//         type="text"
-//         placeholder={placeholder}
-//         style={{ width: width }}
-//       />
-//     </td>
-//   );
-// };
+
 export default VehicleEntry;
