@@ -24,6 +24,9 @@ import {
   ExitToApp
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import FireTruckIcon from '@mui/icons-material/FireTruck';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import { styled } from '@mui/material/styles';
 import Swal from "sweetalert2";
 
 const SideBar2 = ({ children }) => {
@@ -32,6 +35,12 @@ const SideBar2 = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isLargeScreen = useMediaQuery("(min-width:600px)");
+
+
+
+  const ReversedFireTruckIcon = styled(FireTruckIcon)({
+    transform: 'scaleX(-1)',
+  });
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -64,24 +73,13 @@ const SideBar2 = ({ children }) => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, sign out",
-      cancelButtonText: "Cancel"
     }).then((result) => {
       if (result.isConfirmed) {
-        // Clear session storage
         sessionStorage.clear();
-  
-        // Clear browser history and redirect
         window.location.href = "/";
-  
-        // Additional history manipulation to prevent users from navigating back
         if (window.history && window.history.pushState) {
-          // Use replaceState to clear the existing history
           window.history.replaceState(null, null, "/");
-  
-          // Add a dummy entry to the history to replace current entry
           window.history.pushState(null, null, "/");
-  
-          // Prevent users from navigating back to the previous state
           window.onpopstate = function (event) {
             window.history.go(1);
           };
@@ -178,7 +176,7 @@ const SideBar2 = ({ children }) => {
           },
         }}
       >
-      <List sx={{ marginTop: "120px;" }}>   
+        <List sx={{ marginTop: "120px" }}>
           <ListItemButton
             component={Link}
             to="/VehicleEntry"
@@ -191,10 +189,6 @@ const SideBar2 = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
-                color: "white",
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -218,14 +212,10 @@ const SideBar2 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                color: "white",
-              },
             }}
           >
             <ListItemIcon>
-              <DirectionsCar />
+              <FireTruckIcon />
             </ListItemIcon>
             <ListItemText primary="Inbound" />
           </ListItemButton>
@@ -244,14 +234,10 @@ const SideBar2 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                color: "white",
-              },
             }}
           >
             <ListItemIcon>
-              < DirectionsCar />
+              < ReversedFireTruckIcon />
             </ListItemIcon>
             <ListItemText primary="Outbound" />
           </ListItemButton>
@@ -270,14 +256,10 @@ const SideBar2 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                color: "white",
-              },
             }}
           >
             <ListItemIcon>
-              <Report />
+              <SummarizeIcon />
             </ListItemIcon>
             <ListItemText primary="Reports" />
           </ListItemButton>
@@ -294,10 +276,6 @@ const SideBar2 = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
-                color: "white",
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
@@ -322,10 +300,6 @@ const SideBar2 = ({ children }) => {
                 backgroundColor: "#3e8ee6",
                 color: "white",
               },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                color: "white",
-              },
             }}
           >
             <ListItemIcon>
@@ -343,10 +317,6 @@ const SideBar2 = ({ children }) => {
               },
               "&:hover": {
                 backgroundColor: "#3e8ee6",
-                color: "white",
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#2c74d1", // Update the hover color for the selected state
                 color: "white",
               },
             }}
