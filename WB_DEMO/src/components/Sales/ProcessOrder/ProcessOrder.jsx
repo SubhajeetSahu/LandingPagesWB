@@ -6,6 +6,7 @@ import "./ProcessOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 function ProcessOrder() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function ProcessOrder() {
   const [formsaleOrderNo, setFormsaleOrderNo] = useState(saleOrderNo || "");
   const [formProductName, setFormProductName] = useState(productName || "");
   const [productType, setProductType] = useState("");
+  const [productTypes, setProductTypes] = useState([]);
   const [vehicleNo, setVehicleNo] = useState("");
   const [transporterName, setTransporterName] = useState("");
   const [purchaseProcessDate, setPurchaseProcessDate] = useState("");
@@ -20,6 +22,8 @@ function ProcessOrder() {
   const [error, setError] = useState("");
   const [vehicleNumbers, setVehicleNumbers] = useState([]);
   const [transporters, setTransporters] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch vehicle numbers
@@ -51,6 +55,22 @@ function ProcessOrder() {
     }
   }, [vehicleNo]);
 
+  useEffect(() => {
+    if (formProductName) {
+      // Fetch product types based on product name
+      fetch(`http://localhost:8080/api/v1/products/${encodeURIComponent(formProductName)}/types`)
+        .then((response) => response.json())
+        .then((data) => {
+          setProductTypes(data);
+        })
+        .catch((error) =>
+          console.error("Error fetching product types:", error)
+        );
+    } else {
+      setProductTypes([]);
+    }
+  }, [formProductName]);
+
   const handleClear = () => {
     setFormsaleOrderNo("");
     setFormProductName("");
@@ -60,6 +80,10 @@ function ProcessOrder() {
     setPurchaseProcessDate("");
     setConsignmentWeight("");
     setError("");
+  };
+
+  const handleAddTransporter = () => {
+    navigate("/SalesTransporter");
   };
 
   const handleSave = () => {
@@ -140,10 +164,7 @@ function ProcessOrder() {
         <div className="sales-process-main-content">
           <h2 className="text-center">Sales Process Management</h2>
           <div className="sales-process-card-container container-fluid">
-            <div
-              className="card-body p-4 shadow-lg"
-              
-            >
+            <div className="card-body p-4 shadow-lg">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-4">
@@ -181,14 +202,20 @@ function ProcessOrder() {
                     <label htmlFor="productType" className="form-label">
                       Product Type
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
+                    <select
+                      className="form-select"
                       id="productType"
-                      placeholder="Enter Product Type"
                       value={productType}
                       onChange={(e) => setProductType(e.target.value)}
-                    />
+                      disabled={!productTypes.length}
+                    >
+                      <option value="">Select Product Type</option>
+                      {productTypes.map((type, index) => (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className="row mb-2">
@@ -225,8 +252,8 @@ function ProcessOrder() {
                         backgroundColor: "lightblue",
                       }}
                     >
-                      <a
-                        href="/SalesTransporter"
+                      <div
+                        onClick={handleAddTransporter}
                         style={{
                           display: "block",
                           textDecoration: "none",
@@ -234,7 +261,7 @@ function ProcessOrder() {
                         }}
                       >
                         Add Transporter
-                      </a>
+                      </div>
                     </button>
                     <select
                       className="form-select"

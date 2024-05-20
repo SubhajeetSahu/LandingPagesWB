@@ -4,6 +4,7 @@ import "./SalesOrder.css";
 import SideBar6 from "../../SideBar/Sidebar6";
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 function SalesOrder() {
   const [purchaseOrderedDate, setPurchaseOrderedDate] = useState("");
@@ -18,17 +19,23 @@ function SalesOrder() {
   const [customerNames, setCustomerNames] = useState([]);
   const [productNames, setProductNames] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/customers/names")
       .then((response) => response.json())
       .then((data) => setCustomerNames(data))
       .catch((error) => console.error("Error fetching customer names:", error));
 
-    fetch("http://localhost:8080/api/v1/materials/names")
+    fetch("http://localhost:8080/api/v1/products/names")
       .then((response) => response.json())
       .then((data) => setProductNames(data))
       .catch((error) => console.error("Error fetching product names:", error));
   }, []);
+
+  const handleAddCustomer = () =>{
+    navigate("/SalesCustomer");
+  }
 
   const handleCustomerNameChange = (event) => {
     const selectedCustomerName = event.target.value;
@@ -209,8 +216,8 @@ function SalesOrder() {
                           backgroundColor: "lightblue",
                         }}
                       >
-                        <a
-                          href="/SalesCustomer"
+                        <div
+                          onClick={handleAddCustomer}
                           style={{
                             display: "block",
                             textDecoration: "none",
@@ -218,7 +225,7 @@ function SalesOrder() {
                           }}
                         >
                           Add customer
-                        </a>
+                        </div>
                       </button>
                     </div>
                     <select

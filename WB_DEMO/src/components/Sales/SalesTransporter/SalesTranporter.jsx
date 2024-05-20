@@ -4,6 +4,7 @@ import "./SalesTransporter.css";
 import SideBar6 from "../../SideBar/Sidebar6";;
 import { faSave, faEraser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 
 function SalesTransporter() {
@@ -14,6 +15,7 @@ function SalesTransporter() {
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleClear = () => {
     setTransporterName("");
@@ -43,9 +45,9 @@ function SalesTransporter() {
       });
       return;
     }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(transporterEmailId)) {
+    // Check if email field is not empty before validating
+    if (transporterEmailId.trim() !== "" && !emailRegex.test(transporterEmailId)) {
       setEmailError("Please enter a valid email address.");
       emailIsValid = false;
     } else {
@@ -99,6 +101,7 @@ function SalesTransporter() {
           },
         });
         handleClear();
+        navigate("/ProcessOrder");
       })
       .catch((error) => {
         console.error("Error:", error);
