@@ -27,7 +27,7 @@ function CompanyManagement() {
     let emailIsValid = true;
     let phoneIsValid = true;
 
-    if (companyName.trim() === "" || companyContactNo.trim() === "") {
+    if (companyName.trim() === "" || companyContactNo.trim() === "" || companyEmail.trim() === "") {
       Swal.fire({
         title: "Please fill in all the required fields.",
         icon: "warning",
@@ -141,7 +141,10 @@ function CompanyManagement() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="companyEmail" className="form-label">
-                      Company Email
+                      Company Email{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="email"
@@ -152,6 +155,7 @@ function CompanyManagement() {
                       placeholder="Enter Company Email"
                       value={companyEmail}
                       onChange={(e) => setCompanyEmail(e.target.value)}
+                      required
                     />
                     {emailError && (
                       <div className="invalid-feedback">{emailError}</div>

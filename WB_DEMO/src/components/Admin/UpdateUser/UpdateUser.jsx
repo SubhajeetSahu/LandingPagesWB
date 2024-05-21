@@ -149,20 +149,14 @@ function UpdateUser() {
       body: JSON.stringify(userData),
       credentials: "include",
     })
-      .then((response) => {
-        if (response.ok) {
-          // Check if the response is JSON or text
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
-            // If the response is JSON, parse it as JSON
-            return response.json();
-          } else {
-            // If the response is text, return the text
-            return response.text();
-          }
-        }
-        throw new Error("Network response was not ok.");
-      })
+    .then(async (response) => {
+      if (response.ok) {
+        return response.text(); // Assume the success response is text
+      } else {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+    })
       .then((data) => {
         // Determine the title for the SweetAlert modal
         const title =

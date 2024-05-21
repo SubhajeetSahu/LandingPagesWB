@@ -246,6 +246,8 @@ function ProductManagement() {
                         value={userInputName}
                         onChange={handleNameInputChange}
                         required
+                        placeholder="Enter product name"
+                        autoFocus
                       />
                     ) : (
                       <select
@@ -276,6 +278,8 @@ function ProductManagement() {
                         id="productTypeName"
                         value={userInputType}
                         onChange={handleTypeInputChange}
+                        autoFocus
+                        placeholder="Enter product Type"
                       />
                     ) : (
                       <div>

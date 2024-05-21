@@ -79,7 +79,8 @@ function Supplier() {
       supplierAddressLine1.trim() === "" ||
       !selectedCountry ||
       !selectedState ||
-      !selectedCity
+      !selectedCity||
+      zip.trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all the required fields.",
