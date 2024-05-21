@@ -2,9 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown, faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { Chart, ArcElement } from "chart.js/auto";
-
 import SideBar3 from "../../../../SideBar/SideBar3";
-import "./QReport.css";
+import styled from 'styled-components';
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
 
 const QualityReport = () => {
   const [ticketNumber, setTicketNumber] = useState("1");
@@ -36,11 +42,9 @@ const QualityReport = () => {
     }
   };
 
-   
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
-
 
   useEffect(() => {
     Chart.register(ArcElement);
@@ -66,123 +70,221 @@ const QualityReport = () => {
   }, []);
 
   return (
-    <div>
-      
-      <SideBar3 
-      />
-      <div className="quality-report-main-content" ref={homeMainContentRef}>
-        <h2 className="quality-report-heading">Quality Report</h2>
-        <div className="quality-report-table-responsive">
-          <table className="quality-report-table table table-bordered table-striped mt3">
-            <thead>
-              <tr>
-                <th>Ticket No</th>
-                <th>Truck No</th>
-                <th>In Time</th>
-                <th>Out Time</th>
-                <th>Product</th>
-                <th>PO No</th>
-                <th>Chalan No</th>
-                <th> </th>
-                <th> </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box ticket-number "
-                    value={ticketNumber}
-                    onChange={(e) => setTicketNumber(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box truck-number"
-                    value={truckNumber}
-                    onChange={(e) => setTruckNumber(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box"
-                    value={inTimeValue}
-                    onChange={(e) => setInTimeValue(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box"
-                    value={outTimeValue}
-                    onChange={(e) => setOutTimeValue(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box"
-                    value={productValue}
-                    onChange={(e) => setProductValue(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box"
-                    value={poNumber}
-                    onChange={(e) => setPoNumber(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="quality-report-input-box"
-                    value={chalanNumber}
-                    onChange={(e) => setChalanNumber(e.target.value)}
-                    readOnly
-                  />
-                </td>
-                <td >
-                  <button
-                    onClick={() => document.getElementById('fileInput').click()}
-                    className="quality-report-btn quality-report-upload-btn"
+    <SideBar3>
+      <div style={{ fontFamily: "Arial", color: "#333" }}>
+        <div className="quality-report-main-content" ref={homeMainContentRef}>
+          <h2 className="quality-report-heading" style={{ fontFamily: "Arial", textAlign: "center", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)" }}>Quality Report</h2>
+          <div className="quality-report-table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
+            <StyledTable className="quality-report-table table table-striped">
+              <thead className="ant-table-thead">
+                <tr className="ant-table-row">
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
                   >
-                    <FontAwesomeIcon icon={faFileArrowUp} />
-                  </button>
-                  <input
-                    type="file"
-                    id="fileInput"
-                    className="form-control-file"
-                    accept=".pdf"
-                    style={{ display: 'none' }}
-                    onChange={handleFileUpload}
-                  />
-                </td>
-                <td>
-                  <button
-                    onClick={handleFileDownload}
-                    disabled={!isFileInserted}
-                    className="quality-report-btn quality-report-download-btn"
+                    Ticket No
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
                   >
-                    <FontAwesomeIcon icon={faFileArrowDown} />
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    Truck No
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    In Time
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    Out Time
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    Product
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    PO No
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    Chalan No
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    Upload
+                  </th>
+                  <th
+                    className="ant-table-cell"
+                    style={{
+                      whiteSpace: "nowrap",
+                      color: "white",
+                      backgroundColor: "#0077b6",
+                      borderRight: "1px solid white",
+                    }}
+                  >
+                    Download
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box ticket-number"
+                      value={ticketNumber}
+                      onChange={(e) => setTicketNumber(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box truck-number"
+                      value={truckNumber}
+                      onChange={(e) => setTruckNumber(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box"
+                      value={inTimeValue}
+                      onChange={(e) => setInTimeValue(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box"
+                      value={outTimeValue}
+                      onChange={(e) => setOutTimeValue(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box"
+                      value={productValue}
+                      onChange={(e) => setProductValue(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box"
+                      value={poNumber}
+                      onChange={(e) => setPoNumber(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <input
+                      type="text"
+                      className="quality-report-input-box"
+                      value={chalanNumber}
+                      onChange={(e) => setChalanNumber(e.target.value)}
+                      readOnly
+                      style={{ width: "100%", border: "none", backgroundColor: "transparent" }}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <button
+                      onClick={() => document.getElementById('fileInput').click()}
+                      className="quality-report-btn quality-report-upload-btn"
+                      style={{ backgroundColor: "#88CCFA", border: "none", padding: "5px 10px" }}
+                    >
+                      <FontAwesomeIcon icon={faFileArrowUp} />
+                    </button>
+                    <input
+                      type="file"
+                      id="fileInput"
+                      className="form-control-file"
+                      accept=".pdf"
+                      style={{ display: 'none' }}
+                      onChange={handleFileUpload}
+                    />
+                  </td>
+                  <td className="ant-table-cell">
+                    <button
+                      onClick={handleFileDownload}
+                      disabled={!isFileInserted}
+                      className="quality-report-btn quality-report-download-btn"
+                      style={{ backgroundColor: "#88CCFA", border: "none", padding: "5px 10px" }}
+                    >
+                      <FontAwesomeIcon icon={faFileArrowDown} />
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </StyledTable>
+          </div>
         </div>
       </div>
-    </div>
+    </SideBar3>
   );
 };
 
