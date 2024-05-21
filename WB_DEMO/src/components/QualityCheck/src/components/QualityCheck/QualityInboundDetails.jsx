@@ -41,8 +41,8 @@ const QualityInboundDetails = () => {
 
   const [formData, setFormData] = useState({
     date: null,
-    in: null, // Changed from inTime
-    out: null, // Changed from outTime
+    in: null,
+    out: null,
     vehicleNo: null,
     transporterName: null,
     transactionType: null,
@@ -112,26 +112,26 @@ const QualityInboundDetails = () => {
     }
   }, []);
 
-
   const handleSave = async () => {
-    const data = {
-      ticketNo: formData.ticketNo,
-      date: formData.date,
-      vehicleNo: formData.vehicleNo,
-      transporterName: formData.transporterName,
-      transactionType: formData.transactionType,
-      tpNo: formData.tpNo,
-      poNo: formData.poNo,
-      challanNo: formData.challanNo,
-      supplierOrCustomerName: formData.supplierOrCustomerName,
-      supplierOrCustomerAddress: formData.supplierOrCustomerAddress,
-      materialName: formData.materialName,
-      materialType: formData.materialType,
-      ...formData,
-    };
-
-    console.log("Form data being sent:", data); // Added console log
-
+    let data;
+    if (formData.transactionType === "Inbound") {
+      data = {
+        ...Object.keys(parameters).reduce((acc, parameterName) => {
+          acc[parameterName] = formData[parameterName];
+          return acc;
+        }, {}),
+      };
+    } else {
+      data = {
+        ...Object.keys(parameters).reduce((acc, parameterName) => {
+          acc[parameterName] = formData[parameterName];
+          return acc;
+        }, {}),
+      };
+    }
+  
+    console.log("Form data being sent:", data);
+  
     try {
       const response = await fetch(
         `http://localhost:8080/api/v1/qualities/${formData.ticketNo}`,
@@ -144,7 +144,7 @@ const QualityInboundDetails = () => {
           credentials: "include",
         }
       );
-
+  
       if (response.ok) {
         console.log("Data saved successfully");
         const queryString = new URLSearchParams(data).toString();
@@ -183,7 +183,6 @@ const QualityInboundDetails = () => {
     }));
   };
 
-
   useEffect(() => {
     // Any side effect code can be placed here
     // console.log("Updated state:", formData);
@@ -202,20 +201,20 @@ const QualityInboundDetails = () => {
     if (!allowedCharacters.test(event.key)) {
       event.preventDefault();
     }
-  };
-
-  const renderFieldWithBox = (
+   };
+   
+   const renderFieldWithBox = (
     fieldName,
     propertyName,
     isReadOnly = false,
     isRequired = false
-  ) => {
+   ) => {
     const inputStyle = isReadOnly
       ? { borderColor: "#ced4da", backgroundColor: "rgb(239, 239, 239)" }
       : {};
     const asteriskStyle = isRequired ? { color: "red" } : {};
     const value = formData[propertyName] !== null ? formData[propertyName] : "-";
-
+   
     return (
       <div className="col-md-3 mb-3">
         <label htmlFor={propertyName} className="form-label">
@@ -237,9 +236,9 @@ const QualityInboundDetails = () => {
         />
       </div>
     );
-  };
-
-  const handleClear = () => {
+   };
+   
+   const handleClear = () => {
     setFormData({
       ...formData,
       ...Object.keys(parameters).reduce((acc, parameterName) => {
@@ -247,12 +246,12 @@ const QualityInboundDetails = () => {
         return acc;
       }, {}),
     });
-  };
-
-  return (
+   };
+   
+   return (
     <SideBar3>
       <div className="d-flex">
-        <div className="flex-grow-1"style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+        <div className="flex-grow-1" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
           <h2
             className="text-center p-2"
             style={{ fontFamily: "Arial", fontSize: "clamp(12px, 4vw, 30px)" }}
@@ -279,14 +278,14 @@ const QualityInboundDetails = () => {
                         style={{ fontSize: "1.5em", color: "#d63031" }}
                       />
                     </StyledButton>
-                    {/* You can uncomment this part if needed /}
-  {/ <StyledButton>
-  <FontAwesomeIcon
-  icon={faPrint}
-  className="btn-icon mx-3"
-  style={{ fontSize: "1.5em", color: "#3e8ee6" }}
-  />
-  </StyledButton> */}
+                    {/* You can uncomment this part if needed */}
+                    {/* <StyledButton>
+                      <FontAwesomeIcon
+                        icon={faPrint}
+                        className="btn-icon mx-3"
+                        style={{ fontSize: "1.5em", color: "#3e8ee6" }}
+                      />
+                    </StyledButton> */}
                   </div>
                 </div>
                 <div className="row">
@@ -303,8 +302,12 @@ const QualityInboundDetails = () => {
                           {renderFieldWithBox("Challan No", "challanNo", true)}
                           {renderFieldWithBox("Material", "materialName", true)}
                           {renderFieldWithBox("Material Type", "materialType", true)}
-                          {renderFieldWithBox("Supplier", "supplierOrCustomerName", true)}
-                          {renderFieldWithBox("Supplier Address", "supplierOrCustomerAddress", true)}
+                          {formData.transactionType === "Inbound" && (
+                            <>
+                              {renderFieldWithBox("Supplier", "supplierOrCustomerName", true)}
+                              {renderFieldWithBox("Supplier Address", "supplierOrCustomerAddress", true)}
+                            </>
+                          )}
                           {renderFieldWithBox("Transaction Type", "transactionType", true)}
                         </div>
                       </div>
@@ -337,7 +340,7 @@ const QualityInboundDetails = () => {
         </div>
       </div>
     </SideBar3>
-  );
-};
-
-export default QualityInboundDetails;
+   );
+   };
+   
+   export default QualityInboundDetails;
