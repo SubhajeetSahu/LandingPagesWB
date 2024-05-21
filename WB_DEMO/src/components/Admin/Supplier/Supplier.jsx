@@ -79,7 +79,8 @@ function Supplier() {
       supplierAddressLine1.trim() === "" ||
       !selectedCountry ||
       !selectedState ||
-      !selectedCity
+      !selectedCity||
+      zip.trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all the required fields.",
@@ -291,7 +292,10 @@ function Supplier() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="country" className="form-label">
-                      Country
+                      Country{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={countries}
@@ -311,7 +315,10 @@ function Supplier() {
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <label htmlFor="state" className="form-label">
-                      State
+                      State{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={states}
@@ -330,7 +337,10 @@ function Supplier() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="city" className="form-label">
-                      City
+                      City{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={cities}
@@ -346,6 +356,10 @@ function Supplier() {
                   <div className="col-md-6">
                     <label htmlFor="zip" className="form-label">
                       ZIP
+                      {" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"

@@ -79,7 +79,8 @@ function Customer() {
       customerEmail.trim() === "" ||
       !selectedCountry ||
       !selectedState ||
-      !selectedCity
+      !selectedCity ||
+      zip.trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all the required fields.",
@@ -132,13 +133,12 @@ function Customer() {
       body: JSON.stringify(customerData),
       credentials: "include",
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
           return response.text();
         } else {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
+          const error = await response.json();
+          throw new Error(error.message);
         }
       })
       .then((data) => {
@@ -291,7 +291,10 @@ function Customer() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="country" className="form-label">
-                      Country
+                      Country{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={countries}
@@ -311,7 +314,10 @@ function Customer() {
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <label htmlFor="state" className="form-label">
-                      State
+                      State{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={states}
@@ -330,7 +336,10 @@ function Customer() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="city" className="form-label">
-                      City
+                      City{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={cities}
@@ -346,6 +355,10 @@ function Customer() {
                   <div className="col-md-6">
                     <label htmlFor="zip" className="form-label">
                       ZIP
+                      {" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"

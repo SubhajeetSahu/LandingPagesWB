@@ -37,9 +37,9 @@ function Vehicle() {
   const handleSave = () => {
     if (
       vehicleNo.trim() === "" ||
-      transporter.trim() === "" ||
-      vehicleFitnessUpTo.trim() === "" ||
-      vehicleLoadCapacity.toString().trim() === ""
+      transporter.trim() === "" 
+      // vehicleFitnessUpTo.trim() === "" ||
+      // vehicleLoadCapacity.toString().trim() === ""
     ) {
       Swal.fire({
         title: "Please fill in all required fields.",
@@ -161,9 +161,9 @@ function Vehicle() {
                   <div className="col-md-6">
                     <label htmlFor="vehicleType" className="form-label">
                       Vehicle Type{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
+                      {/* <span style={{ color: "red", fontWeight: "bold" }}>
                         *
-                      </span>
+                      </span> */}
                     </label>
                     <Select
                       options={[
@@ -177,7 +177,6 @@ function Vehicle() {
                       }
                       placeholder="Select Vehicle Type"
                       isSearchable
-                      required
                     />
                   </div>
                   <div className="col-md-6">
@@ -224,9 +223,9 @@ function Vehicle() {
                   <div className="col-md-6">
                     <label htmlFor="vehicleLoadCapacity" className="form-label">
                       Vehicle Load Capacity{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
+                      {/* <span style={{ color: "red", fontWeight: "bold" }}>
                         *
-                      </span>
+                      </span> */}
                     </label>
                     <input
                       type="number"
@@ -235,16 +234,12 @@ function Vehicle() {
                       placeholder="Enter Vehicle Load Capacity"
                       value={vehicleLoadCapacity}
                       onChange={(e) => setVehicleLoadCapacity(e.target.value)}
-                      required
                       min={0}
                     />
                   </div>
                   <div className="col-md-3">
                     <label htmlFor="vehicleFitnessUpTo" className="form-label">
                       Fitness Upto{" "}
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        *
-                      </span>
                     </label>
                     <input
                       type="date"
@@ -252,7 +247,6 @@ function Vehicle() {
                       id="vehicleFitnessUpTo"
                       value={vehicleFitnessUpTo}
                       onChange={(e) => setvehicleFitnessUpTo(e.target.value)}
-                      required
                     />
                   </div>
                   <div className="col-md-3">
@@ -265,7 +259,7 @@ function Vehicle() {
                       value={vehicleWheelsNo}
                       onChange={(e) => setvehicleWheelsNo(e.target.value)}
                     >
-                      {[6, 8, 10, 12, 14, 16, 18, 20, 22].map((wheel) => (
+                      {[4, 6, 8, 10, 12, 14, 16, 18, 20, 22].map((wheel) => (
                         <option key={wheel} value={wheel}>
                           {wheel}
                         </option>
