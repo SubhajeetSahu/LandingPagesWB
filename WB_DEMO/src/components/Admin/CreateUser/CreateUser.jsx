@@ -39,7 +39,7 @@ function CreateUser() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Roles List:", data);
-        setRoles(data.map(r => ({ value: r, label: r })));
+        setRoles(data.map((r) => ({ value: r, label: r })));
       })
       .catch((error) => {
         console.error("Error fetching roles list:", error);
@@ -143,13 +143,12 @@ function CreateUser() {
       body: JSON.stringify(userData),
       credentials: "include",
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
           return response.text(); // Assume the success response is text
         } else {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
+          const error = await response.json();
+          throw new Error(error.message);
         }
       })
       .then((data) => {
@@ -196,7 +195,7 @@ function CreateUser() {
                 <div className="card create-user-form mt-3">
                   <div
                     className="card-body shadow-lg"
-                    // 
+                    //
                   >
                     <form>
                       <div className="row mb-3">
@@ -299,10 +298,10 @@ function CreateUser() {
                             required
                             pattern="\d{10}"
                             onInput={(e) =>
-                            (e.target.value = e.target.value.replace(
-                              /\D/g,
-                              ""
-                            ))
+                              (e.target.value = e.target.value.replace(
+                                /\D/g,
+                                ""
+                              ))
                             }
                             title="Please enter 10 numbers"
                             maxLength="10"

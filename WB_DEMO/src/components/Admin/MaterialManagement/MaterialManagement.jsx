@@ -214,28 +214,33 @@ function MaterialManagement() {
       body: JSON.stringify(materialData),
       credentials: "include",
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
-          Swal.fire({
-            title: "Material saved successfully.",
-            icon: "success",
-            confirmButtonText: "OK",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
-          }).then(() => {
-            handleClear();
-            window.location.reload(); // Reload the page
-          });
-        } return response.json().then((error) => {
+          return response.text(); // Assume the success response is text
+        } else {
+          const error = await response.json();
           throw new Error(error.message);
+        }
+      })
+      .then((data) => {
+        console.log("Response from the API:", data);
+        Swal.fire({
+          title: data,
+          icon: "success",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-success",
+          },
         });
+
+        handleClear();
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);
         Swal.fire({
           title: "Error",
-          text: error.message, 
+          text: error.message,
           icon: "error",
           confirmButtonText: "OK",
           customClass: {
@@ -298,10 +303,7 @@ function MaterialManagement() {
         <div className="material-management-main-content container-fluid">
           <h2 className="text-center">Material Management</h2>
           <div className="material-card-container">
-            <div
-              className="card-body p-4 shadow-lg"
-              
-            >
+            <div className="card-body p-4 shadow-lg">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-6">
