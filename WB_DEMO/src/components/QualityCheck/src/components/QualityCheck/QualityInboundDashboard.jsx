@@ -5,11 +5,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Tag, Button, Input } from "antd";
+import styled from 'styled-components';
 
+const StyledDateBox = styled.div`
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
 function QualityInboundDashboard() {
   const [currentPage, setCurrentPage] = useState(0);
   const [startPageNumber, setStartPageNumber] = useState(1);
-  const itemsPerPage = 7;
+  const itemsPerPage = 8;
   const navigate = useNavigate();
 
   const homeMainContentRef = useRef(null);
@@ -137,24 +155,18 @@ function QualityInboundDashboard() {
           "--table-border-radius": "30px",
         }}
       >
-        <div className="container-fluid mt-0">
-          <div className="text-center" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <h2 style={{ fontFamily: "Arial", marginBottom: "0px" }}>
+         <div className="container-fluid mt-0">
+  <div className="position-relative" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+    <StyledDateBox style={{ position: "absolute", left: 0 }}>
+      {currentDate}
+    </StyledDateBox>
+    <h2 style={{ fontFamily: "Arial", marginBottom: "0px", textAlign: "center", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"  }}>
               Quality Inbound Dashboard
             </h2>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              className="form-control form-control-sm"
-              style={{ width: "auto" }}
-              value={currentDate}
-              onChange={handleDateChange}
-            />
           </div>
           <div className="table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
             <div>
-              <table className="ant-table table table-striped" style={{ width: "100%" }}>
+            <StyledTable className="ant-table table table-striped">
                 <thead className="ant-table-thead">
                   <tr className="ant-table-row">
                     <th
@@ -333,7 +345,7 @@ function QualityInboundDashboard() {
                       </tr>
                     ))}
                 </tbody>
-              </table>
+                </StyledTable>
             </div>
           </div>
 
