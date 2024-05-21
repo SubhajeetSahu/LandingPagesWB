@@ -1,19 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-
+ 
 import { useState, useEffect, useRef } from "react";
 import { Chart, ArcElement } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
-
+ 
 import SideBar5 from "../../../../SideBar/SideBar5";
 // eslint-disable-next-line no-unused-vars
 import camView from "../../assets/weighbridge.webp";
 import "./transactionform.css";
 // import Swal from 'sweetalert2';
-
+ 
 import Camera_Icon from "../../assets/Camera_Icon.png";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRectangleXmark,
@@ -23,7 +24,8 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { DisabledByDefault } from "@mui/icons-material";
-
+import { Alert } from "antd";
+ 
 function TransactionFrom() {
   // const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
@@ -31,19 +33,19 @@ function TransactionFrom() {
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
   const queryParams = new URLSearchParams(window.location.search);
-
+ 
   const [inputValue, setInputValue] = useState();
-
+ 
   const [grossWeight, setGrossWeight] = useState(0);
   const [tareWeight, setTareWeight] = useState(0);
   const [netWeight, setNetWeight] = useState(0);
-
+ 
   const [ticket, setTicket] = useState([]);
-
+ 
   const ticketNumber = queryParams.get("ticketNumber");
-
+ 
   console.log(ticketNumber);
-
+ 
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
@@ -60,17 +62,34 @@ function TransactionFrom() {
         console.error("Error fetching weighments:", error);
       });
   }, []);
-
+ 
   useEffect(() => {
     setNetWeight(grossWeight - inputValue);
     console.log("Count changed:", netWeight);
   }, [tareWeight]);
-
+ 
+ 
+     
+ 
+ 
   const handleChange1 = (e) => {
     const newValue = e.target.value;
-    setInputValue(newValue);
-
-    if (ticket.grossWeight === 0) {
+    if (newValue === '-' || parseFloat(newValue) < 0) {
+      Swal.fire({
+        title: "Please enter a valid positive number",
+        icon: "warning",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-warning",
+        },
+      });
+      setInputValue('');
+      return;
+    }
+   
+    else{
+      setInputValue(newValue);
+       if (ticket.grossWeight === 0) {
       setGrossWeight(newValue);
     } else if (newValue > ticket.grossWeight) {
       alert("The Tare Weight should be lesser than Gross Weight");
@@ -78,24 +97,46 @@ function TransactionFrom() {
     } else {
       setTareWeight(newValue);
     }
+ 
+    }
+ 
+   
   };
-
-  const handleSave = () => {
+ 
+ 
+ 
+    const handleSave = () => {
     if (tareWeight == 0) {
-      alert("Gross Weight saved to the database");
-    } else {
-      alert("Tare Weight saved to the database");
+      Swal.fire({
+        title: "Gross weight saved to the database",
+        icon: "success",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-success",
+        },
+      });
+    }
+     else {
+      Swal.fire({
+        title: "Tare weight saved to the database",
+        icon: "success",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-success",
+        },
+      });
+ 
     }
     window.location.reload();
-
+ 
     setInputValue("");
-
+ 
     const payload = {
       machineId: "1",
       ticketNo: ticketNumber,
       weight: inputValue,
     };
-
+ 
     axios
       .post("http://localhost:8080/api/v1/weighment/measure", payload, {
         withCredentials: true,
@@ -107,10 +148,10 @@ function TransactionFrom() {
         console.error("Error saving measurement:", error);
       });
   };
-
+ 
   useEffect(() => {
     Chart.register(ArcElement);
-
+ 
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -121,16 +162,16 @@ function TransactionFrom() {
         chartRef2.current.chartInstance.resize();
       }
     });
-
+ 
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
-
+ 
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
-
+ 
   const [formData, setFormData] = useState({
     date: "",
     inTime: "",
@@ -152,14 +193,14 @@ function TransactionFrom() {
     tpNetWeight: "",
     rcFitnessUpto: "",
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-
+ 
     if (name === "poNo" || name === "challanNo") {
       setFormData((prevData) => ({
         ...prevData,
@@ -169,11 +210,11 @@ function TransactionFrom() {
       }));
     }
   };
-
+ 
   const goBack = () => {
     navigate(-1);
   };
-
+ 
   return (
     <SideBar5>
       <div>
@@ -182,7 +223,7 @@ function TransactionFrom() {
             <FontAwesomeIcon icon={faTimes} />
           </button>
           <h2 className="text-center mb-2">Inbound Transaction Form</h2>
-          <div className="row">
+          <div className="row ">
             <div className="col-md-3 mb-3">
               <input
                 type="text"
@@ -234,7 +275,7 @@ function TransactionFrom() {
                 />
               </div>
             </div>
-
+ 
             {/* Challan No */}
             <div className="col-md-3 mb-3">
               <label htmlFor="challanNo" className="form-label ">
@@ -254,7 +295,7 @@ function TransactionFrom() {
                 />
               </div>
             </div>
-
+ 
             <div className="col-md-3 mb-3">
               <label htmlFor="vehicleNo" className="form-label ">
                 Vehicle No:
@@ -310,7 +351,7 @@ function TransactionFrom() {
                           />
                         ) : null}
                       </div>
-
+ 
                       <div>
                         <FontAwesomeIcon icon={faPrint} className="icons" />
                       </div>
@@ -318,7 +359,7 @@ function TransactionFrom() {
                   </div>
                 </div>
               </div>
-
+ 
               <div className="row mb-3">
                 <div className="mno">
                   <div className="col-2 mt-2">
@@ -343,7 +384,7 @@ function TransactionFrom() {
                   </div>
                 </div>
               </div>
-
+ 
               <div className="row mb-3">
                 <div className="pqr">
                   <div className="col-2 mt-2">
@@ -383,7 +424,7 @@ function TransactionFrom() {
                       className="abcx"
                       readOnly
                     />
-
+ 
                     <input
                       type="text"
                       value={ticket.tareWeightTime}
@@ -551,6 +592,6 @@ function TransactionFrom() {
     </SideBar5>
   );
 }
-
+ 
 // eslint-disable-next-line no-undef
 export default TransactionFrom;

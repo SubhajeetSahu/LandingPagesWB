@@ -12,6 +12,7 @@ import "./transactionform1.css";
 // import ScannerImg1 from "../../assets/ScannerImg1.png";
 import Camera_Icon from "../../assets/Camera_Icon.png";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFloppyDisk,
@@ -19,7 +20,7 @@ import {
   faTrash,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-
+ 
 function TransactionFrom2() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const navigate = useNavigate();
@@ -27,28 +28,28 @@ function TransactionFrom2() {
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
   const queryParams = new URLSearchParams(window.location.search);
-
+ 
   const [inputValue, setInputValue] = useState(0);
-
+ 
   const [grossWeight, setGrossWeight] = useState(0);
   const [tareWeight, setTareWeight] = useState(0);
   const [netWeight, setNetWeight] = useState(0);
   const [isGrossWeightEnabled, setIsGrossWeightEnabled] = useState(false);
-
+ 
   const [ticket, setTicket] = useState([]);
-
+ 
   const ticketNumber = queryParams.get("ticketNumber");
-
+ 
   console.log(ticketNumber);
-
+ 
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/v1/weighment/get/${ticketNumber}`, {
-        withCredentials: true, 
+        withCredentials: true,
       })
       .then((response) => {
         setTicket(response.data);
-        console.log(response.data); 
+        console.log(response.data);
         setGrossWeight(response.data.grossWeight);
         setTareWeight(response.data.tareWeight);
         setNetWeight(response.data.netWeight);
@@ -57,39 +58,74 @@ function TransactionFrom2() {
         console.error("Error fetching weighments:", error);
       });
   }, []);
-
+ 
   useEffect(() => {
     setNetWeight(grossWeight - inputValue);
     console.log("Count changed:", netWeight);
   }, [tareWeight]);
-
+ 
   const handleChange1 = (e) => {
     const newValue = e.target.value;
-    setInputValue(newValue);
-
+    if (newValue === '-' || parseFloat(newValue) < 0) {
+      Swal.fire({
+        title: "Please enter a valid positive number",
+        icon: "warning",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-warning",
+        },
+      });
+      setInputValue('');
+      return;
+    }
+    else{
+      setInputValue(newValue);
+ 
     if (ticket.tareWeight === 0) {
       setTareWeight(newValue);
     } else {
       setGrossWeight(newValue);
     }
+    }
   };
-
+ 
+ 
+ 
+ 
+ 
+ 
   const handleSave = () => {
     if (grossWeight == 0) {
-      alert("Tare Weight saved to the database");
-    } else {
-      alert("Gross Weight saved to the database");
+      Swal.fire({
+        title: "Tare weight saved to the database",
+        icon: "success",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-success",
+        },
+      });
+    }
+     else {
+      Swal.fire({
+        title: "Gross weight saved to the database",
+        icon: "success",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-success",
+        },
+      });
+ 
     }
     window.location.reload();
-
+ 
     setInputValue("");
-
+ 
     const payload = {
       machineId: "1",
       ticketNo: ticketNumber,
       weight: inputValue,
     };
-
+ 
     axios
       .post("http://localhost:8080/api/v1/weighment/measure", payload, {
         withCredentials: true,
@@ -101,10 +137,10 @@ function TransactionFrom2() {
         console.error("Error saving measurement:", error);
       });
   };
-
+ 
   useEffect(() => {
     Chart.register(ArcElement);
-
+ 
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -115,16 +151,16 @@ function TransactionFrom2() {
         chartRef2.current.chartInstance.resize();
       }
     });
-
+ 
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
-
+ 
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
-
+ 
   const [formData, setFormData] = useState({
     date: "",
     inTime: "",
@@ -146,14 +182,14 @@ function TransactionFrom2() {
     tpNetWeight: "",
     rcFitnessUpto: "",
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-
+ 
     if (name === "poNo" || name === "challanNo") {
       setFormData((prevData) => ({
         ...prevData,
@@ -163,12 +199,12 @@ function TransactionFrom2() {
       }));
     }
   };
-
-
+ 
+ 
   const goBack = () => {
     navigate(-1);
   };
-
+ 
   return (
     <SideBar5>
       <div>
@@ -231,7 +267,7 @@ function TransactionFrom2() {
                 />
               </div>
             </div>
-
+ 
             {/* Challan No */}
             <div className="col-md-3 mb-3 ">
               <label htmlFor="challanNo" className="form-label ">
@@ -286,9 +322,9 @@ function TransactionFrom2() {
                         width: "260px",
                         height: "50px",
                         appearance: "textfield",
-                        WebkitAppearance: "none", 
+                        WebkitAppearance: "none",
                         MozAppearance: "textfield",
-                        
+                       
                       }}
                       min="0"
                       value={inputValue}
@@ -307,7 +343,7 @@ function TransactionFrom2() {
                           />
                         ) : null}
                       </div>
-
+ 
                       <div>
                         <FontAwesomeIcon icon={faPrint} className="icons" />
                       </div>
@@ -339,7 +375,7 @@ function TransactionFrom2() {
                   </div>
                 </div>
               </div>
-
+ 
               <div className="row mb-3">
                 <div className="pqr">
                   <div className="col-2 mt-2">
@@ -387,6 +423,25 @@ function TransactionFrom2() {
                       className="abcx"
                       readOnly
                     />
+                  </div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="mno">
+                  <div className="col-2 mt-2">
+                    <label htmlFor="vehicleType" className="form-label">
+                      Consignment Weight:
+                    </label>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      value={`${grossWeight} kg`}
+                      className="abcx"
+                      readOnly
+                    />
+                   
                   </div>
                 </div>
               </div>
@@ -548,6 +603,7 @@ function TransactionFrom2() {
     </SideBar5>
   );
 }
-
+ 
 // eslint-disable-next-line no-undef
 export default TransactionFrom2;
+ 
