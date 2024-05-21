@@ -363,6 +363,8 @@ function MaterialManagement() {
                         value={userInputName}
                         onChange={handleNameInputChange}
                         required
+                        placeholder="Enter Material Name"
+                        autoFocus
                       />
                     ) : (
                       <select
@@ -393,6 +395,8 @@ function MaterialManagement() {
                         id="materialTypeName"
                         value={userInputType}
                         onChange={handleTypeInputChange}
+                        autoFocus
+                        placeholder="Enter Material Type"
                       />
                     ) : (
                       <div>
