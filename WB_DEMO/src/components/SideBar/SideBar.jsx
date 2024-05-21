@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Drawer,
   List,
@@ -286,7 +287,7 @@ const SideBar = ({ children }) => {
             <List
               component="div"
               disablePadding
-              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+              sx={{ paddingLeft: "55px",  listStyleType: "disc" }}
             >
               <ListItemButton
                 component={Link}
@@ -295,16 +296,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "createUser"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Create User" />
+                <ListItemText primary="Add User" />
               </ListItemButton>
               <ListItemButton
                 component={Link}
@@ -313,16 +315,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "maintainUser"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Manage User" />
+                <ListItemText primary="View User" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -355,25 +358,25 @@ const SideBar = ({ children }) => {
             <List
               component="div"
               disablePadding
-              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+              sx={{ paddingLeft: "55px", listStyleType: "disc" }}
             >
               <ListItemButton
                 component={Link}
                 to="/company-management"
                 onClick={() => handleItemClick("createCompany")}
-                selected={selectedItem === "createCompany"}
-                sx={{
+                selected={selectedItem === "createCompany"}sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Create Company" />
+                <ListItemText primary="Add Company" />
               </ListItemButton>
               <ListItemButton
                 component={Link}
@@ -382,16 +385,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "maintainCompany"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Manage Company" />
+                <ListItemText primary="View Company" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -444,14 +448,14 @@ const SideBar = ({ children }) => {
             <ListItemIcon>
               <Commute />
             </ListItemIcon>
-            <ListItemText primary="Transport Management" />
+            <ListItemText primary="Transporter Management" />
             {openTransport ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openTransport} timeout="auto" unmountOnExit>
             <List
               component="div"
               disablePadding
-              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+              sx={{ paddingLeft: "55px", listStyleType: "disc" }}
             >
               <ListItemButton
                 component={Link}
@@ -460,16 +464,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "createTransport"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Create Transport" />
+                <ListItemText primary="Add Transporter" />
               </ListItemButton>
               <ListItemButton
                 component={Link}
@@ -478,16 +483,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "maintainTransport"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Manage Transport" />
+                <ListItemText primary="View Transporter" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -520,7 +526,7 @@ const SideBar = ({ children }) => {
             <List
               component="div"
               disablePadding
-              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+              sx={{ paddingLeft: "55px", listStyleType: "disc" }}
             >
               <ListItemButton
                 component={Link}
@@ -529,16 +535,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "createVehicle"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Create Vehicle" />
+                <ListItemText primary="Add Vehicle" />
               </ListItemButton>
               <ListItemButton
                 component={Link}
@@ -547,16 +554,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "maintainVehicle"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Manage Vehicle" />
+                <ListItemText primary="View Vehicle" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -589,7 +597,7 @@ const SideBar = ({ children }) => {
             <List
               component="div"
               disablePadding
-              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+              sx={{ paddingLeft: "55px", listStyleType: "disc" }}
             >
               <ListItemButton
                 component={Link}
@@ -598,16 +606,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "createSupplier"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Create Supplier" />
+                <ListItemText primary="Add Supplier" />
               </ListItemButton>
               <ListItemButton
                 component={Link}
@@ -616,16 +625,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "maintainSupplier"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Manage Supplier" />
+                <ListItemText primary="View Supplier" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -658,7 +668,7 @@ const SideBar = ({ children }) => {
             <List
               component="div"
               disablePadding
-              sx={{ paddingLeft: "55px", listStyleType: "none" }}
+              sx={{ paddingLeft: "55px", listStyleType: "disc" }}
             >
               <ListItemButton
                 component={Link}
@@ -667,16 +677,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "createCustomer"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Create Customer" />
+                <ListItemText primary="Add Customer" />
               </ListItemButton>
               <ListItemButton
                 component={Link}
@@ -685,16 +696,17 @@ const SideBar = ({ children }) => {
                 selected={selectedItem === "maintainCustomer"}
                 sx={{
                   "&.Mui-selected, &:hover": {
-                    backgroundColor: "#3e8ee6",
-                    color: "white",
+                    // backgroundColor: "#3e8ee6",
+                    color: "#3e8ee6",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#2c74d1", // Update the hover color for the selected state
-                    color: "white",
+                    // backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                    color: "#2c74d1",
                   },
+                  display: "list-item",
                 }}
               >
-                <ListItemText primary="Manage Customer" />
+                <ListItemText primary="View Customer" />
               </ListItemButton>
             </List>
           </Collapse>
