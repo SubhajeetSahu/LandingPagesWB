@@ -140,21 +140,26 @@ function ProductManagement() {
       body: JSON.stringify(productData),
       credentials: "include",
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
-          Swal.fire({
-            title: "Product saved successfully.",
-            icon: "success",
-            confirmButtonText: "OK",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
-          }).then(() => {
-            handleClear();
-            window.location.reload(); // Reload the page
-          });
-        } return response.json().then((error) => {
+          return response.text();
+        } else {
+          const error = await response.json();
           throw new Error(error.message);
+        }
+      })
+      .then((data) => {
+        console.log("Response from the API:", data);
+        Swal.fire({
+          title: data,
+          icon: "success",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-success",
+          },
+        }).then(() => {
+          handleClear();
+          window.location.reload();
         });
       })
       .catch((error) => {
@@ -223,10 +228,7 @@ function ProductManagement() {
         <div className="product-management-main-content container-fluid">
           <h2 className="text-center">Product Management</h2>
           <div className="product-card-container">
-            <div
-              className="card-body p-4 shadow-lg"
-              
-            >
+            <div className="card-body p-4 shadow-lg">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-6">

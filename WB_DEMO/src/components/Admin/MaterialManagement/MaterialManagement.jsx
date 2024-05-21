@@ -231,10 +231,10 @@ function MaterialManagement() {
           customClass: {
             confirmButton: "btn btn-success",
           },
+        }).then(() => {
+          handleClear();
+          window.location.reload();
         });
-
-        handleClear();
-        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);
