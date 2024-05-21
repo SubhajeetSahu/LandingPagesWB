@@ -9,9 +9,7 @@ import "./Print.css";
 
 const QPrint = () => {
   const navigate = useNavigate();
-  const closeForm = () => {
-    navigate("/transaction");
-  };
+ 
   const img = "https://example.com/your-image.jpg";
   const currentDateTime = new Date().toLocaleString();
 
@@ -45,21 +43,19 @@ const QPrint = () => {
   }, []);
 
   return (
-    <div className="d-flex">
-
-      <div className="flex-grow-1">
-        {/* Add the header */}
+  
         
 
-    <SideBar3
-      isSidebarExpanded={isSidebarExpanded}
-      toggleSidebar={toggleSidebar}
-    />
+    <SideBar3>
+        <div className="d-flex">
+
+<div className="flex-grow-1">
 
         <div className="trans_form_wrapper">
          </div>
      </div>
     </div>
+    </SideBar3>
   );
 };
 
