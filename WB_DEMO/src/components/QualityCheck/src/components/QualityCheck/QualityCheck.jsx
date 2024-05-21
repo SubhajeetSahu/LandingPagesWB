@@ -151,6 +151,7 @@ function QualityCheck() {
           "--table-border-radius": "30px",
         }}
       >
+
        <div className="container-fluid mt-0">
   <div className="position-relative" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
     <StyledDateBox style={{ position: "absolute", left: 0 }}>

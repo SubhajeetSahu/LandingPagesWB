@@ -44,45 +44,47 @@ const SalesDetails = ({ onConfirmTicket = () => { } }) => {
 
     return (
         <SideBar2>
-            <div className="salesdetail-main">
-                <div className="container-fluid">
-                    <div className="container mx-auto px-4 py-8">
-                        <h2 className="text-center mb-6"> Sales Details </h2>
+            <div style={{ fontFamily: "Arial", color: "#333", "--table-border-radius": "30px" }}>
+                <div className="container-fluid mt-0">
+                    <div className="mb-3 text-center">
+                        <h2 style={{ fontFamily: "Arial", marginBottom: "0px !important" }}>
+                            Sales Details
+                        </h2>
                     </div>
-                    <div className="container-fluid sales-table-container mx-auto px-4 py-8">
-                        <div className="sales-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3 VehicleEntrytable ">
-                            <table className="sales-table table-bordered table-striped" style={{ marginBottom: '10px', marginRight: '50px' }}>
-                                <thead className="text-center">
-                                    <tr>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>PO No.</th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Sale Order No.</th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Sale Pass No.</th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Transporter Name </th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Customer Name </th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Customer Address </th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Product Name</th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Product Type</th>
-                                        <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Quantity (MT)</th>
+                    <div className=" table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
+                        <div >
+                            <table className="ant-table table table-striped" style={{ width: "100%" }}>
+                                <thead className="ant-table-thead" >
+                                    <tr className="ant-table-row">
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Vehicle No. </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> PO No. </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Sale Order No. </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Sale Pass No. </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Transporter Name </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Customer Name </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Customer Address </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Product Name </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Product Type </th>
+                                        <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}> Quantity (MT) </th>
 
                                     </tr>
                                 </thead>
                                 <tbody className="text-center">
                                     {currentEntries.map((entry, index) => (
-                                        <tr key={entry.id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-                                            <td>
-                                                {/* Use anchor tag for navigation */}
-                                                <button onClick={() => handleVehicleClick(entry.salePassNo)}>{entry.vehicleNo}</button>
+                                        <tr key={entry.id} >
+                                            <td className="ant-table-cell" >
+
+                                                <button onClick={() => handleVehicleClick(entry.salePassNo)} style={{ background: "#88CCFA", minWidth: "70px", whiteSpace: "nowrap", }} >{entry.vehicleNo}</button>
                                             </td>
-                                            <td>{entry.purchaseOrderNo}</td>
-                                            <td>{entry.saleOrderNo}</td>
-                                            <td>{entry.salePassNo}</td>
-                                            <td>{entry.transporterName}</td>
-                                            <td>{entry.customerName}</td>
-                                            <td>{entry.customerAddress}</td>
-                                            <td>{entry.productName}</td>
-                                            <td>{entry.productType}</td>
-                                            <td>{entry.consignmentWeight}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.purchaseOrderNo}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.saleOrderNo}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.salePassNo}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.transporterName}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.customerName}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.customerAddress}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.productName}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.productType}</td>
+                                            <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.consignmentWeight}</td>
 
                                         </tr>
                                     ))}
