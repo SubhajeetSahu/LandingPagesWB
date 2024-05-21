@@ -137,20 +137,20 @@ function QualityCheck() {
         }}
       >
         <div className="container-fluid mt-0">
-        <div className="text-center" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-  <h2 style={{ fontFamily: "Arial", marginBottom: "0px" }}>
-    Quality Dashboard
-  </h2>
-  <input
-    type="date"
-    id="date"
-    name="date"
-    className="form-control form-control-sm"
-    style={{ width: "auto" }}
-    value={currentDate}
-    onChange={handleDateChange}
-  />
-</div>
+          <div className="text-center" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+            <h2 style={{ fontFamily: "Arial", marginBottom: "0px" }}>
+              Quality Dashboard
+            </h2>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              className="form-control form-control-sm"
+              style={{ width: "auto" }}
+              value={currentDate}
+              onChange={handleDateChange}
+            />
+          </div>
 
 
           <div className="table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
