@@ -62,7 +62,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         setVehicleEntryDetails(data.transactions);
         setTotalPage(data.totalPages);
         console.log("total Page " + data.totalPages);
-        // Set the current page to 1 to trigger the paginated fetch
+        // Set the current page to 0 to trigger the paginated fetch
         setCurrentPage(0);
       })
       .catch(error => {
