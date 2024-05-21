@@ -354,6 +354,10 @@ function Customer() {
                   <div className="col-md-6">
                     <label htmlFor="zip" className="form-label">
                       ZIP
+                      {" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"
