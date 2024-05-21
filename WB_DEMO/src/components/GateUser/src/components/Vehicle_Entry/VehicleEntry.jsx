@@ -63,7 +63,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         setTotalPage(data.totalPages);
         console.log("total Page " + data.totalPages);
         // Set the current page to 1 to trigger the paginated fetch
-        setCurrentPage(1);
+        setCurrentPage(0);
       })
       .catch(error => {
         console.error('Error fetching vehicle entry details:', error);
