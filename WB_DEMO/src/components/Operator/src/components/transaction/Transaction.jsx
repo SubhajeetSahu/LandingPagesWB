@@ -199,7 +199,7 @@ const OperatorTransaction = () => {
                           className="ant-table-cell"
                           style={{ whiteSpace: "nowrap", textAlign: "center" }}
                         >
-                          {weighment.supplierName}
+                          {weighment.supplierName || weighment.customerName}
                         </td>
                         <td
                           className="ant-table-cell"
@@ -247,7 +247,7 @@ const OperatorTransaction = () => {
           <ReactPaginate
             previousLabel={"<<"}
             previousLabel1={"<"}
-
+ 
             nextLabel1={">"}
             nextLabel={">>"}
             pageCount={pageCount}
@@ -258,11 +258,11 @@ const OperatorTransaction = () => {
             disabledClassName={"paginationDisabled"}
             activeClassName={"paginationActive"}
             pageLinkClassName={"paginationLink"}
-          /> 
-
-
-
-          
+          />
+ 
+ 
+ 
+         
         </div>
       </div>
     </SideBar5>
