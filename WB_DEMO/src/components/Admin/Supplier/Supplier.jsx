@@ -291,7 +291,10 @@ function Supplier() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="country" className="form-label">
-                      Country
+                      Country{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={countries}
@@ -311,7 +314,10 @@ function Supplier() {
                 <div className="row mb-2">
                   <div className="col-md-6">
                     <label htmlFor="state" className="form-label">
-                      State
+                      State{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={states}
@@ -330,7 +336,10 @@ function Supplier() {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="city" className="form-label">
-                      City
+                      City{" "}
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        *
+                      </span>
                     </label>
                     <Select
                       options={cities}
