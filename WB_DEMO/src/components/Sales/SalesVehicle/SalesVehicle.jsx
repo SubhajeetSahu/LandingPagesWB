@@ -117,7 +117,7 @@ function SalesVehicle() {
           <h2 className="text-center">Vehicle Registration</h2>
           <div className="vehicle-user-container">
             <div
-              className="card-body p-4 shadow-lg"
+              className="card-body p-4"
               
             >
               <form>

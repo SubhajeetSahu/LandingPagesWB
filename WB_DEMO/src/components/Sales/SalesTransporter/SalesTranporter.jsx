@@ -125,7 +125,7 @@ function SalesTransporter() {
           <h2 className="text-center">Transporter Registration</h2>
           <div className="create-user-container">
             <div
-              className="card-body p-4 shadow-lg"
+              className="card-body p-4"
               
             >
               <form>

@@ -227,8 +227,8 @@ function ProductManagement() {
       <div className="product-management">
         <div className="product-management-main-content container-fluid">
           <h2 className="text-center">Product Management</h2>
-          <div className="product-card-container">
-            <div className="card-body p-4 shadow-lg">
+          <div className="product-card-container card">
+            <div className="card-body p-4">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-6">

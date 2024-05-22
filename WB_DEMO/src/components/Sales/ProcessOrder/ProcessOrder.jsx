@@ -167,8 +167,8 @@ function ProcessOrder() {
       <div className="sales-process-management">
         <div className="sales-process-main-content">
           <h2 className="text-center">Sales Process Management</h2>
-          <div className="sales-process-card-container container-fluid">
-            <div className="card-body p-4 shadow-lg">
+          <div className="sales-process-card-container card container-fluid">
+            <div className="card-body p-4">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-4">

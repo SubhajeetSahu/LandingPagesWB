@@ -178,9 +178,9 @@ function SalesCustomer() {
       <div className="customer-management">
         <div className="customer-main-content container-fluid">
           <h2 className="text-center">Customer Management</h2>
-          <div className="customer-card-container">
+          <div className="customer-card-container card">
             <div
-              className="card-body p-4 shadow-lg"
+              className="card-body p-4"
               
             >
               <form>

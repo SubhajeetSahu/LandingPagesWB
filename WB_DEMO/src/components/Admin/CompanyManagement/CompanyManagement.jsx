@@ -115,10 +115,9 @@ function CompanyManagement() {
       <div className="company-management">
         <div className="company-main-content container-fluid">
           <h2 className="text-center">Company Management</h2>
-          <div className="company-card-container">
+          <div className="company-card-container card">
             <div
-              className="card-body p-4 shadow-lg"
-              
+              className="card-body p-4"
             >
               <form>
                 <div className="row mb-2">

@@ -146,8 +146,8 @@ function SalesOrder() {
       <div className="sales-order-management">
         <div className="sales-order-main-content">
           <h2 className="text-center">Sales Order Management</h2>
-          <div className="sales-order-card-container container-fluid">
-            <div className="card-body p-4 shadow-lg">
+          <div className="sales-order-card-container card container-fluid">
+            <div className="card-body p-4">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-4">

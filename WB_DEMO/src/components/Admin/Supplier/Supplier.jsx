@@ -174,9 +174,9 @@ function Supplier() {
       <div className="supplier-management">
         <div className="supplier-main-content container-fluid">
           <h2 className="text-center">Supplier Management</h2>
-          <div className="supplier-card-container">
+          <div className="supplier-card-container card">
             <div
-              className="card-body p-4 shadow-lg"
+              className="card-body p-4"
               
             >
               <form>

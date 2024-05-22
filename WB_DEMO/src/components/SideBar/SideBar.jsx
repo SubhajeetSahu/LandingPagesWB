@@ -22,7 +22,7 @@ import {
   DirectionsCar,
   Dashboard as DashboardIcon,
   Menu as MenuIcon,
-
+  Build,
   BusinessCenter,
   Store,
   Commute,
@@ -329,6 +329,31 @@ const SideBar = ({ children }) => {
               </ListItemButton>
             </List>
           </Collapse>
+
+          <ListItemButton
+            component={Link}
+            to="/role-management"
+            selected={selectedItem === "role"}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&:hover": {
+                backgroundColor: "#3e8ee6",
+                color: "white",
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: "#2c74d1", // Update the hover color for the selected state
+                color: "white",
+              },
+            }}
+          >
+            <ListItemIcon>
+              <Build />
+            </ListItemIcon>
+            <ListItemText primary="Role Management" />
+          </ListItemButton>
 
           <ListItemButton
             onClick={handleCompanyClick}
@@ -764,7 +789,7 @@ const SideBar = ({ children }) => {
             <ListItemIcon>
               <ProductionQuantityLimits />
             </ListItemIcon>
-            <ListItemText primary="Product Maintenance" />
+            <ListItemText primary="Product Management" />
           </ListItemButton>
 
           <ListItemButton
@@ -795,7 +820,6 @@ const SideBar = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          backgroundColor: "#F8F8F8",
           marginLeft: isSideBarOpen ? "240px" : "0px",
           padding: "16px",
           transition: "margin-left 0.3s",

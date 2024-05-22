@@ -302,8 +302,8 @@ function MaterialManagement() {
       <div className="material-management">
         <div className="material-management-main-content container-fluid">
           <h2 className="text-center">Material Management</h2>
-          <div className="material-card-container">
-            <div className="card-body p-4 shadow-lg">
+          <div className="material-card-container card">
+            <div className="card-body p-4">
               <form>
                 <div className="row mb-2">
                   <div className="col-md-6">

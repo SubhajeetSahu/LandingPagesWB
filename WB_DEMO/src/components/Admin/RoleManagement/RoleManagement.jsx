@@ -77,12 +77,14 @@ function RoleManagement() {
   return (
     <SideBar>
       <div className="role-management">
-        <div className="role-management-main-content container-fluid">
+        <div className="role-management-main-content container-fluid ">
+
           <h2 className="text-center">Role Management</h2>
           <div className="role-container d-flex justify-content-center">
+          <div className="role-card-container card" style={{ width: "600px" }}>
+
             <div
-              className="card-body p-4 shadow-lg"
-              style={{maxWidth: "600px" }}
+              className="card-body p-4"
             >
               <form>
                 <div className="row mb-3 justify-content-center">
@@ -138,9 +140,10 @@ function RoleManagement() {
                 </div>
               </form>
             </div>
+            </div>
           </div>
-        </div>
-      </div>
+          </div>
+          </div>
     </SideBar>
   );
 }

@@ -102,10 +102,11 @@ function SiteManagement() {
       <div className="site-management">
         <div className="site-management-main-content container-fluid">
           <h2 className="text-center">Site Management</h2>
-          <div className="site-card-container d-flex justify-content-center">
+          <div className="site-container d-flex justify-content-center">
+          <div className="site-card-container card d-flex justify-content-center" style={{ width: "40rem" }}>
             <div
-              className="card-body p-4 shadow-lg"
-              style={{ maxWidth: "600px" }}
+              className="card-body p-4"
+          
             >
               <form>
                 <div className="row mb-3 justify-content-center">
@@ -209,6 +210,7 @@ function SiteManagement() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </SideBar>
   );
