@@ -8,23 +8,47 @@ import { Chart, ArcElement } from "chart.js/auto";
 import SideBar2 from "../../../../SideBar/SideBar2";
 import "./VehicleEntry.css";
 import Swal from 'sweetalert2';
- 
+import { Table, Tag, Button, Input } from "antd";
+
+
+
 const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
+  const [currentDate, setCurrentDate] = useState();
   const [showPopup, setShowPopup] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
+  const [totalPage, setTotalPage] = useState(0);
   const [selectedDate, setSelectedDate] = useState('');
   const [systemOutTime, setSystemOutTime] = useState('');
   const [vehicleEntryDetails, setVehicleEntryDetails] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(5); // Number of entries per page
   const navigate = useNavigate();
- 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [startPageNumber, setStartPageNumber] = useState(1);
+  const itemsPerPage = 5;
+
+
+
+  // Code for Date:
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split("T")[0];
+    setCurrentDate(formattedDate);
+  }, []);
+
+
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
     setSelectedDate(today);
   }, []);
- 
+
+  const handleDateChange = (e) => {
+    setCurrentDate(e.target.value);
+  };
+
+  // API for Pagination:
+
   useEffect(() => {
+    // Initial fetch
     fetch("http://localhost:8080/api/v1/gate", {
       credentials: "include"
     })
@@ -35,20 +59,60 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         return response.json();
       })
       .then(data => {
-        setVehicleEntryDetails(data);
+        setVehicleEntryDetails(data.transactions);
+        setTotalPage(data.totalPages);
+        console.log("total Page " + data.totalPages);
+        // Set the current page to 0 to trigger the paginated fetch
+        setCurrentPage(0);
       })
       .catch(error => {
         console.error('Error fetching vehicle entry details:', error);
       });
   }, []);
- 
+
+
+
+  useEffect(() => {
+    if (currentPage !== null) {
+      fetchData(currentPage);
+    }
+  }, [currentPage]);
+
+  const fetchData = (pageNumber) => {
+    fetch(`http://localhost:8080/api/v1/gate?page=${pageNumber}`, {
+      credentials: "include"
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setVehicleEntryDetails(data.transactions);
+        setTotalPage(data.totalPages);
+        console.log("total Page " + data.totalPages);
+      })
+      .catch(error => {
+        console.error('Error fetching vehicle entry details:', error);
+      });
+  };
+
+
+  const pageCount = totalPage;
+  const handlePageChange = ({ selected }) => {
+    const newStartPage = Math.max(1, selected * 3 - 2);
+    setCurrentPage(selected);
+    setStartPageNumber(newStartPage);
+  };
+
   const chartRef = useRef(null);
   const chartRef2 = useRef(null);
   const homeMainContentRef = useRef(null);
- 
+
   useEffect(() => {
     Chart.register(ArcElement);
- 
+
     const resizeObserver = new ResizeObserver(() => {
       if (
         homeMainContentRef.current &&
@@ -59,32 +123,30 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         chartRef2.current.chartInstance.resize();
       }
     });
- 
+
     if (homeMainContentRef.current) {
       resizeObserver.observe(homeMainContentRef.current);
     }
- 
+
     return () => {
       resizeObserver.disconnect();
     };
   }, []);
- 
+
   const openPopup = () => {
     setShowPopup(true);
   };
- 
+
   const closePopup = () => {
     setShowPopup(false);
   };
- 
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
- 
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-  };
- 
+
+
+
   const handleConfirm = () => {
     const details = {
       ticketType: selectedOption,
@@ -92,37 +154,18 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       outTimeDate: selectedDate // Assuming both in and out time/date are same for now
     };
     onConfirmTicket(details);
- 
+
     if (selectedOption === 'inbound') {
       navigate('/VehicleEntryDetails');
     }
- 
+
     setSelectedOption('');
     setSelectedDate('');
     closePopup();
   };
- 
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = vehicleEntryDetails.slice(indexOfFirstEntry, indexOfLastEntry);
- 
-  const paginateBackwardDouble = () => {
-    setCurrentPage(1); // Set current page to 1 when "<<"" button is clicked
-  };
- 
-  const paginateBackward = () => {
-    setCurrentPage(currentPage - 1);
-  };
-  const paginateForward = () => {
-    setCurrentPage(currentPage + 1);
-  };
- 
-  const paginateForwardDouble = () => {
-    setCurrentPage(totalPages); // Set current page to the total number of pages when ">>"" button is clicked
-  };
- 
+
   // API for Vehicle Out
- 
+
   const handleVehicleExit = async (ticketNo) => {
     console.log(`handleVehicleExit called with ticketNo: ${ticketNo}`); // Log the ticket number to ensure the function is called
     try {
@@ -135,7 +178,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         // body: JSON.stringify({ someKey: someValue }),
         credentials: 'include'
       });
- 
+
       let data;
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
@@ -144,8 +187,8 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
         data = await response.text();
       }
       console.log("API response:", data);
- 
- 
+
+
       if (response.ok) {
         // Display the API response using SweetAlert
         Swal.fire({
@@ -165,7 +208,7 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       }
     } catch (error) {
       console.error("Fetch error:", error); // Log the error for debugging
- 
+
       // Display a generic error message if the API response is not available
       Swal.fire({
         icon: 'error',
@@ -175,110 +218,67 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
       });
     }
   };
- 
-  const entriesCount = vehicleEntryDetails.length;
-  const showingFrom = indexOfFirstEntry + 1;
-  const showingTo = Math.min(indexOfLastEntry, entriesCount);
- 
-  const totalPages = Math.ceil(vehicleEntryDetails.length / entriesPerPage);
- 
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    const totalPagesToShow = 3; // Number of page numbers to show
-    const startPage = Math.max(currentPage - 1, 1);
-    const endPage = Math.min(startPage + totalPagesToShow - 1, totalPages);
- 
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(
-        <span key={i} style={{ margin: '0 5px' }}>
-          <button
-            onClick={() => setCurrentPage(i)}
-            className={`page-number-button ${currentPage === i ? "active" : ""}`}
-            style={{ borderRadius: '5px', borderWidth: '1px' }}
-          >
-            {i}
-          </button>
-        </span>
-      );
-    }
- 
-    if (totalPages > totalPagesToShow && currentPage < totalPages - 1) {
-      pageNumbers.push(
-        <span key="ellipsis" style={{ margin: '0 5px' }}>
-          ...
-        </span>
-      );
- 
-      pageNumbers.push(
-        <span key={totalPages} style={{ margin: '0 5px' }}>
-          <button
-            onClick={() => setCurrentPage(totalPages)}
-            className={`page-number-button ${currentPage === totalPages ? "active" : ""}`}
-            style={{ borderRadius: '5px', borderWidth: '1px' }}
-          >
-            {totalPages}
-          </button>
-        </span>
-      );
-    }
- 
-    return pageNumbers;
-  };
- 
+
+
+
+
+
   return (
     <SideBar2>
-      <div className="vehicleEntry-main">
-        <div className="container-fluid">
-          <div className="container mx-auto px-4 py-8" style={{ marginTop: '20px', marginLeft: '20px' }}>
-            <h2 className="text-center mb-6"> Gate User Transaction Details </h2>
-          </div>
-          <div className="d-flex align-items-center mb-3">
+      <div style={{ fontFamily: "Arial", color: "#333", "--table-border-radius": "30px" }}>
+        <div className="container-fluid mt-0">
+          <div className="mb-3 text-center">
+            <h2 style={{ fontFamily: "Arial", marginBottom: "0px !important" }}>
+              Gate User Transaction Details
+            </h2>
             <input
-              type="text"
-              value={selectedDate}
-              readOnly // Make input read-only
-              className="form-control"
-              style={{ width: '110px', marginLeft: '20px' }}
+              type="date"
+              id="date"
+              name="date"
+              className="form-control form-control-sm"
+              style={{ width: "auto" }}
+              value={currentDate}
+              onChange={handleDateChange}
             />
           </div>
-          <div className="container-fluid vehicle-table-container mx-auto px-4 py-8">
-            <div className="vehicle-table table-responsive-xl table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xxl mt-3 VehicleEntrytable">
-              <table className="vehicle-table table-bordered table-striped" style={{ marginBottom: '10px', marginRight: '50px' }}>
-                <thead className="text-center">
-                  <tr>
-                    <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px ' }}>Ticket No.</th>
-                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Vehicle No.</th>
-                    <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>In Time/Date</th>
-                    <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Out Time/Date</th>
-                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Transporter</th>
-                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Supplier/Customer</th>
-                    <th scope="col" style={{ width: '10%', padding: '5px', margin: '5px' }}>Supplier's /Customer's Address</th>
-                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Material</th>
-                    <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>TP No.</th>
-                    <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>TP Net weight</th>
-                    <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>PO No.</th>
-                    <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>Challan No.</th>
-                    <th scope="col" style={{ width: '8%', padding: '5px', margin: '5px' }}>Transaction Type</th>
-                    <th scope="col" style={{ width: '5%', padding: '5px', margin: '5px' }}>OUT</th>
+          <div className=" table-responsive" style={{ overflowX: "auto", maxWidth: "100%", borderRadius: "10px" }}>
+            <div >
+              <table className=" ant-table table table-striped" style={{ width: "100%" }} >
+                <thead className="ant-table-thead" >
+                  <tr className="ant-table-row">
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Ticket No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Vehicle No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>In Time/Date</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Out Time/Date</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Transporter</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Supplier/Customer</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Supplier's /Customer's Address</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Material/Product</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>TP No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>TP Net weight</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>PO No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Challan No.</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>Transaction Type</th>
+                    <th className="ant-table-cell" style={{ whiteSpace: "nowrap", color: "white", backgroundColor: "#0077b6", borderRight: "1px solid white" }}>OUT</th>
                   </tr>
                 </thead>
                 <tbody className="text-center">
-                  {currentEntries.map((entry, index) => (
-                    <tr key={entry.id} className={index % 2 === 0 ? 'even-row' : 'odd-row'}>
-                      <td>{entry.ticketNo}</td>
-                      <td>{entry.vehicleNo}</td>
-                      <td>{entry.vehicleIn}</td>
-                      <td>{entry.vehicleOut}</td>
-                      <td>{entry.transporter}</td>
-                      <td>{entry.transactionType === 'Inbound' ? entry.supplier : entry.customer}</td>
-                      <td>{entry.transactionType === 'Inbound' ? entry.supplierAddress : entry.customerAddress}</td>
-                      <td>{entry.material}</td>
-                      <td>{entry.tpNo}</td>
-                      <td>{entry.tpNetWeight}</td>
-                      <td>{entry.poNo}</td>
-                      <td>{entry.challanNo}</td>
+                  {vehicleEntryDetails.map((entry, index) => (
+                    <tr key={entry.id}>
+                      <td className="ant-table-cell" style={{ textAlign: "center" }} >{entry.ticketNo}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.vehicleNo} </td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.vehicleIn} </td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.vehicleOut}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.transporter}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.transactionType === 'Inbound' ? entry.supplier : entry.customer}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.transactionType === 'Inbound' ? entry.supplierAddress : entry.customerAddress}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.material}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.tpNo}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.tpNetWeight}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.poNo}</td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}> {entry.challanNo}</td>
                       <td>{entry.transactionType}</td>
-                      <td>
+                      <td className="ant-table-cell" style={{ whiteSpace: "nowrap", textAlign: "center" }}>
                         <button className="image-button" onClick={() => handleVehicleExit(entry.ticketNo)}>
                           <div className="image-container" style={{ border: 'none' }}>
                             <img src={OutTime_truck} alt="Out" className="time-image" />
@@ -291,54 +291,115 @@ const VehicleEntry = ({ onConfirmTicket = () => { } }) => {
               </table>
             </div>
           </div>
-          <div style={{ marginTop: '10px', marginRight: '30px', marginLeft: '20px' }}>
-            <div className="row justify-content-between mb-2" style={{ margin: '0', padding: '0' }}>
-              <div className="col-auto" style={{ margin: '0', padding: '0' }}>
-                <p style={{ margin: '0', padding: '0' }}>
-                  Showing <span style={{ color: 'red' }}>{showingFrom}</span> to{' '}
-                  <span style={{ color: 'red' }}>{showingTo}</span> of{' '}
-                  <span style={{ color: 'blue' }}>{entriesCount}</span> entries
-                </p>
-              </div>
-              <div className="pagination-button" style={{ margin: '0', padding: '0' }}>
-                <div className="pagination" style={{ margin: '0', padding: '0' }}>
-                  <button
-                    className={`backword-double-button ${currentPage === 1 ? 'disabled' : ''}`}
-                    onClick={paginateBackwardDouble}
-                    disabled={currentPage === 1}
-                    style={{ borderRadius: '5px', borderWidth: '1px', margin: '0', padding: '5px' }}>{"<<"}
-                  </button>
-                  <span style={{ margin: '0 5px' }}></span>
-                  <button
-                    className={`backword-button ${currentPage === 1 ? 'disabled' : ''}`}
-                    onClick={paginateBackward}
-                    disabled={currentPage === 1}
-                    style={{ borderRadius: '5px', borderWidth: '1px', margin: '0', padding: '5px' }}>{"<"}
-                  </button>
-                  <span style={{ margin: '0 5px' }}></span>
-                  {renderPageNumbers()}
-                  <span style={{ margin: '0 5px' }}></span>
-                  <button
-                    className={`forward-button ${indexOfLastEntry >= vehicleEntryDetails.length ? 'disabled' : ''}`}
-                    onClick={paginateForward}
-                    disabled={indexOfLastEntry >= vehicleEntryDetails.length}
-                    style={{ borderRadius: '5px', borderWidth: '1px', margin: '0', padding: '5px' }}>{">"}
-                  </button>
-                  <span style={{ margin: '0 5px' }}></span>
-                  <button
-                    className={`forward-double-button ${indexOfLastEntry >= vehicleEntryDetails.length ? 'disabled' : ''}`}
-                    onClick={paginateForwardDouble}
-                    disabled={indexOfLastEntry >= vehicleEntryDetails.length}
-                    style={{ borderRadius: '5px', borderWidth: '1px', margin: '0', padding: '5px' }}>{">>"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+      </div>
+
+      {/* Code for Pagination: */}
+      <div className="d-flex justify-content-between align-items-center mt-3 ml-2">
+        <span>
+          Showing {currentPage * itemsPerPage + 1} to{" "}
+          {Math.min((currentPage + 1) * itemsPerPage, totalPage)} of{" "}
+          {totalPage} entries
+        </span>
+        <div className="ml-auto">
+          <button
+            className="btn btn-outline-primary btn-sm me-2"
+            style={{
+              color: "#0077B6",
+              borderColor: "#0077B6",
+              marginRight: "2px",
+            }}
+            onClick={() => setCurrentPage(Math.max(0, currentPage - 5))}
+            disabled={currentPage === 0}
+          >
+            &lt;&lt;
+          </button>
+          <button
+            className="btn btn-outline-primary btn-sm me-2"
+            style={{
+              color: "#0077B6",
+              borderColor: "#0077B6",
+              marginRight: "2px",
+            }}
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 0}
+          >
+            &lt;
+          </button>
+
+          {Array.from({ length: 3 }, (_, index) => {
+            const pageNumber = currentPage + index;
+            if (pageNumber >= pageCount) return null;
+            return (
+              <button
+                key={pageNumber}
+                className={`btn btn-outline-primary btn-sm me-2 ${currentPage === pageNumber ? "active" : ""
+                  }`}
+                style={{
+                  color: currentPage === pageNumber ? "#fff" : "#0077B6",
+                  backgroundColor:
+                    currentPage === pageNumber ? "#0077B6" : "transparent",
+                  borderColor: "#0077B6",
+                  marginRight: "2px",
+                }}
+                //onClick={() => setCurrentPage(pageNumber)}
+                onClick={() => setCurrentPage(pageNumber)}
+
+              >
+                {pageNumber + 1}
+              </button>
+            );
+          })}
+          {currentPage + 3 < pageCount && <span>...</span>}
+          {currentPage + 3 < pageCount && (
+            <button
+              className={`btn btn-outline-primary btn-sm me-2 ${currentPage === pageCount - 1 ? "active" : ""
+                }`}
+              style={{
+                color: currentPage === pageCount - 1 ? "#fff" : "#0077B6",
+                backgroundColor:
+                  currentPage === pageCount - 1 ? "#0077B6" : "transparent",
+                borderColor: "#0077B6",
+                marginRight: "2px",
+              }}
+              onClick={() => setCurrentPage(pageCount - 1)}
+            >
+
+
+
+              {pageCount}
+            </button>
+          )}
+          <button
+            className="btn btn-outline-primary btn-sm me-2"
+            style={{
+              color: "#0077B6",
+              borderColor: "#0077B6",
+              marginRight: "2px",
+            }}
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === pageCount - 1}
+          >
+            &gt;
+          </button>
+          <button
+            className="btn btn-outline-primary btn-sm"
+            style={{
+              color: "#0077B6",
+              borderColor: "#0077B6",
+              marginRight: "2px",
+            }}
+            onClick={() =>
+              setCurrentPage(Math.min(pageCount - 1, currentPage + 5))
+            }
+            disabled={currentPage === pageCount - 1}
+          >
+            &gt;&gt;
+          </button>
         </div>
       </div>
     </SideBar2>
   );
 };
- 
+
 export default VehicleEntry;
